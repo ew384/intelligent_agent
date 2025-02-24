@@ -1,21 +1,25 @@
-# tool-service/src/main.py
-from fastapi import FastAPI, APIRouter
-from .tools.browser import BrowserService
-from .tools.llm import LLMService
+from fastapi import FastAPI
+from .routes.api import router as api_router
+from .tools.browser.browser_service import BrowserService
 
 app = FastAPI(title="Tool Service")
-internal_router = APIRouter(prefix="/internal")  # 内部API路由
 
-@internal_router.post("/browser/navigate")
-async def navigate(request: Dict[str, Any]):
-    """浏览器导航"""
-    browser_service = BrowserService()
-    return await browser_service.navigate(request["url"])
+# 初始化全局服务
+browser_service = BrowserService(headless=False)
 
-@internal_router.post("/llm/chat")
-async def chat(request: Dict[str, Any]):
-    """LLM对话"""
-    llm_service = LLMService()
-    return await llm_service.chat(request["prompt"])
+# 注册路由
+app.include_router(api_router, prefix="/tools")
 
-app.include_router(internal_router)
+@app.on_event("startup")
+async def startup_event():
+    # 服务启动时的初始化
+    pass
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    # 服务关闭时的清理
+    await browser_service.cleanup()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8003, reload=True)

@@ -19,6 +19,15 @@ class Task(BaseModel):
     updated_at: datetime.datetime
     result: Optional[Dict] = None
 
+class TaskRequest(BaseModel):
+    scenario_type: str
+    parameters: Dict[str, Any]
+
+class TaskResponse(BaseModel):
+    task_id: str
+    status: TaskStatus
+    result: Optional[Dict[str, Any]] = None
+    
 class LLMProvider(Enum):
     OPENAI = "openai"
     ANTHROPIC = "anthropic"
