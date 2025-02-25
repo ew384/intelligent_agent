@@ -223,24 +223,13 @@ class PriceComparisonWorkflow(BaseWorkflow):
             return None
         
         # Find matching product in search results
-        if recommended_platform in search_results:
-            platform_results = search_results[recommended_platform]
+        platform_results = search_results.get(recommended_platform, [])
+        if not platform_results:
+            return None
             
-            # Try to find exact match
-            for product in platform_results:
-                if product.get("title") == recommended_title:
-                    return {
-                        "platform": recommended_platform,
-                        "title": product.get("title"),
-                        "price": product.get("price"),
-                        "url": product.get("url"),
-                        "seller": product.get("seller"),
-                        "rating": product.get("rating")
-                    }
-            
-            # If still no match, just return the first product as fallback
-            if platform_results:
-                product = platform_results[0]
+        # Try to find exact match
+        for product in platform_results:
+            if product.get("title") == recommended_title:
                 return {
                     "platform": recommended_platform,
                     "title": product.get("title"),
@@ -250,18 +239,29 @@ class PriceComparisonWorkflow(BaseWorkflow):
                     "rating": product.get("rating")
                 }
         
-        # If platform not found or no products, return None
-        return None
+        # Try fuzzy match
+        for product in platform_results:
+            title = product.get("title", "")
+            if title and (title in recommended_title or recommended_title in title):
+                return {
+                    "platform": recommended_platform,
+                    "title": product.get("title"),
+                    "price": product.get("price"),
+                    "url": product.get("url"),
+                    "seller": product.get("seller"),
+                    "rating": product.get("rating")
+                }
+        
+        # Return first product as fallback
+        if platform_results:
+            product = platform_results[0]
+            return {
+                "platform": recommended_platform,
+                "title": product.get("title"),
+                "price": product.get("price"),
+                "url": product.get("url"),
+                "seller": product.get("seller"),
+                "rating": product.get("rating")
+            }
             
-            # If no exact match, try fuzzy match
-            for product in platform_results:
-                title = product.get("title", "")
-                if title and (title in recommended_title or recommended_title in title):
-                    return {
-                        "platform": recommended_platform,
-                        "title": product.get("title"),
-                        "price": product.get("price"),
-                        "url": product.get("url"),
-                        "seller": product.get("seller"),
-                        "rating": product.get("rating")
-                    }
+        return None
