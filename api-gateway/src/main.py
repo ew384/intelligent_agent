@@ -3,13 +3,16 @@ import sys
 import os
 from pathlib import Path
 
-# 添加项目根目录到Python路径
-root_dir = Path(__file__).parent.parent.parent
-sys.path.append(str(root_dir))
-from common.models import TaskRequest, TaskResponse
+from ...common.models import TaskRequest, TaskResponse
 import httpx
-
+from .routes.task import router as task_router
+from .routes.chat import router as chat_router
 app = FastAPI()
+
+# 注册路由
+app.include_router(task_router)
+app.include_router(chat_router)
+
 
 @app.post("/tasks")
 async def create_task(request: TaskRequest) -> TaskResponse:
