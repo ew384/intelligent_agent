@@ -1,6 +1,11 @@
 from fastapi import APIRouter, HTTPException
 from typing import Dict
+# tool-service/src/internal/endpoints/llm.py
+from ....tools.llm.claude.service import ClaudeService
+from ...tools.browser.browser_service import BrowserService
 
+# 获取或创建browser_service实例
+browser_service = BrowserService(headless=False)
 router = APIRouter()
 
 @router.post("/chat/{provider}")

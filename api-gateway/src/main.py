@@ -13,17 +13,33 @@ app = FastAPI()
 app.include_router(task_router)
 app.include_router(chat_router)
 
-
 @app.post("/tasks")
 async def create_task(request: TaskRequest) -> TaskResponse:
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            "http://localhost:8001/tasks",
-            json=request.dict()
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "http://localhost:8001/tasks",
+                json=request.dict(),
+                timeout=30.0  # 设置合理的超时时间
+            )
+            response.raise_for_status()
+            return TaskResponse(**response.json())
+    except httpx.HTTPStatusError as e:
+        raise HTTPException(
+            status_code=e.response.status_code,
+            detail=f"服务调用失败: {e.response.text}"
         )
-        if response.status_code != 200:
-            raise HTTPException(status_code=500, detail="Task creation failed")
-        return TaskResponse(**response.json())
+    except httpx.RequestError as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"服务不可用: {str(e)}"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"内部服务错误: {str(e)}"
+        )
+
 
 if __name__ == "__main__":
     import uvicorn
