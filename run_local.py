@@ -6,11 +6,10 @@ import logging
 import os
 import uvicorn
 import subprocess
-from typing import List
-from pathlib import Path
-# 在run_local.py开头添加
 import signal
 import sys
+from typing import List
+from pathlib import Path
 
 # 存储所有启动的子进程
 child_processes = []
@@ -56,7 +55,7 @@ SERVICES = {
     "tool": {
         "port": 8003,
         "module": "tool_service.src.main:app",  # 使用下划线而不是连字符
-        "dependencies": ["playwright", "asyncio"]
+        "dependencies": ["selenium", "asyncio"]  # 修改为selenium依赖
     }
 }
 
@@ -66,10 +65,40 @@ async def install_dependencies():
         subprocess.check_call(["pip", "install", "-r", "requirements.txt"])
         logger.info("Installed common dependencies")
         
-        # Install Playwright and its browsers
-        subprocess.check_call(["pip", "install", "playwright"])
-        subprocess.check_call(["playwright", "install", "chromium"])
-        logger.info("Installed Playwright and browsers")
+        # 安装Selenium和Webdriver-manager，替代Playwright
+        subprocess.check_call(["pip", "install", "selenium", "webdriver-manager"])
+        logger.info("Installed Selenium and WebDriver Manager")
+        
+        # 检查Chrome是否安装
+        chrome_installed = False
+        chrome_paths = []
+        
+        if sys.platform == "win32":
+            chrome_paths = [
+                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+            ]
+        elif sys.platform == "darwin":
+            chrome_paths = [
+                "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                "/Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+            ]
+        else:
+            chrome_paths = [
+                "/usr/bin/google-chrome",
+                "/usr/bin/google-chrome-stable",
+                "/usr/bin/chromium",
+                "/usr/bin/chromium-browser",
+            ]
+            
+        for path in chrome_paths:
+            if os.path.exists(path):
+                chrome_installed = True
+                logger.info(f"Chrome found at: {path}")
+                break
+                
+        if not chrome_installed:
+            logger.warning("Chrome browser not found! Please install Google Chrome.")
         
     except subprocess.CalledProcessError as e:
         logger.error(f"Failed to install dependencies: {e}")
@@ -100,34 +129,48 @@ async def start_service(name: str, service_config: dict):
     return_code = await asyncio.to_thread(proc.wait)
     if return_code != 0:
         logger.error(f"Service {name} exited with code {return_code}")
-# 添加测试浏览器功能
-async def test_browser():
-    """测试浏览器功能"""
+
+# 添加测试ChromeDriver功能
+async def test_chromedriver():
+    """测试ChromeDriver功能"""
     try:
-        from playwright.async_api import async_playwright
+        from selenium import webdriver
+        from selenium.webdriver.chrome.service import Service
+        from selenium.webdriver.chrome.options import Options
+        from webdriver_manager.chrome import ChromeDriverManager
         
-        print("正在测试浏览器功能...")
-        async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=False)
-            page = await browser.new_page()
-            
-            print("正在访问测试页面...")
-            await page.goto("https://www.example.com")
-            
-            print("等待3秒钟...")
-            await asyncio.sleep(3)
-            
-            print("正在截图...")
-            screenshots_dir = Path("./browser_test")
-            screenshots_dir.mkdir(exist_ok=True)
-            await page.screenshot(path=str(screenshots_dir / "test.png"))
-            
-            print(f"截图已保存至 {str(screenshots_dir / 'test.png')}")
-            print("浏览器功能测试成功!")
-            
-            await browser.close()
+        print("正在测试ChromeDriver功能...")
+        
+        # 尝试使用webdriver_manager自动安装ChromeDriver
+        service = Service(ChromeDriverManager().install())
+        
+        # 创建选项
+        options = Options()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--window-size=1920,1080")
+        
+        # 启动Chrome
+        driver = webdriver.Chrome(service=service, options=options)
+        
+        print("正在访问测试页面...")
+        driver.get("https://www.example.com")
+        
+        print("等待3秒钟...")
+        import time
+        time.sleep(3)
+        
+        print("正在截图...")
+        screenshots_dir = Path("./browser_test")
+        screenshots_dir.mkdir(exist_ok=True)
+        driver.save_screenshot(str(screenshots_dir / "test.png"))
+        
+        print(f"截图已保存至 {str(screenshots_dir / 'test.png')}")
+        print("ChromeDriver功能测试成功!")
+        
+        driver.quit()
     except Exception as e:
-        print(f"浏览器功能测试失败: {e}")
+        print(f"ChromeDriver功能测试失败: {e}")
 
 async def main(selected_services: List[str] = None):
     """Main entry point for running services locally"""
@@ -168,15 +211,15 @@ if __name__ == "__main__":
         help="Services to run (default: all)"
     )
     parser.add_argument(
-        "--test-browser",
+        "--test-chrome",
         action="store_true",
-        help="Test browser functionality"
+        help="Test ChromeDriver functionality"
     )
     
     args = parser.parse_args()
     
-    if args.test_browser:
-        asyncio.run(test_browser())
+    if args.test_chrome:
+        asyncio.run(test_chromedriver())
     else:
         selected = None if "all" in args.services else args.services
         asyncio.run(main(selected))
