@@ -1,10 +1,8 @@
-# tool-service/src/tools/llm/claude/auth_handler.py
 from typing import Dict, Any, AsyncGenerator
 import logging
 import time
 import json
-from playwright.async_api import Page, TimeoutError
-from ...common.cookies_manager import CookiesManager
+import asyncio
 from .selectors import CLAUDE_SELECTORS
 
 logger = logging.getLogger(__name__)
@@ -12,15 +10,14 @@ logger = logging.getLogger(__name__)
 class ClaudeAuthHandler:
     """Handles authentication and interaction with Claude AI"""
     
-    def __init__(self, page: Page):
+    def __init__(self, session):
         """
         Initialize Claude auth handler
         
         Args:
-            page: Playwright page object
+            session: Browser session object
         """
-        self.page = page
-        self.cookies_manager = None  # Will be set by the service
+        self.session = session
         self.domain = "claude.ai"
         self.logged_in = False
         
@@ -32,73 +29,28 @@ class ClaudeAuthHandler:
             Dict with login status
         """
         try:
-            # First try to use cookies for login
-            if self.cookies_manager:
-                await self._restore_session()
-                
-                # Check if we're already logged in
-                is_logged_in = await self._check_logged_in()
-                if is_logged_in:
-                    self.logged_in = True
-                    logger.info("Successfully logged in to Claude with cookies")
-                    return {"status": "success", "message": "Logged in with cookies"}
+            # 检查是否已登录
+            is_logged_in = await self._check_logged_in()
+            if is_logged_in:
+                self.logged_in = True
+                logger.info("已通过cookie成功登录Claude")
+                return {"status": "success", "message": "已使用cookie登录"}
             
-            # If cookie login failed, we'd need to handle manual login
-            logger.info("Cookie login failed, waiting for manual login")
+            # 如果cookie登录失败，我们需要处理手动登录
+            logger.info("Cookie登录失败，等待手动登录")
             
-            # Wait for manual login (this is necessary because Claude uses OAuth)
+            # 等待手动登录
             is_logged_in = await self._wait_for_manual_login()
             if is_logged_in:
                 self.logged_in = True
-                
-                # Save cookies after successful login
-                if self.cookies_manager:
-                    await self._save_session()
-                    
-                return {"status": "success", "message": "Logged in manually"}
+                return {"status": "success", "message": "已手动登录"}
             else:
-                return {"status": "error", "message": "Login timeout"}
+                return {"status": "error", "message": "登录超时"}
                 
         except Exception as e:
-            logger.error(f"Claude login error: {str(e)}")
+            logger.error(f"Claude登录错误: {str(e)}")
             return {"status": "error", "message": str(e)}
             
-    async def _restore_session(self) -> bool:
-        """
-        Try to restore session using cookies
-        
-        Returns:
-            Boolean indicating success
-        """
-        if not self.cookies_manager:
-            return False
-            
-        # Load cookies for Claude domain
-        cookies = self.cookies_manager.load_cookies(self.domain)
-        if not cookies:
-            return False
-            
-        # Add cookies to the browser
-        await self.page.context.add_cookies(cookies)
-        
-        # Refresh the page to apply cookies
-        await self.page.goto("https://claude.ai")
-        
-        return True
-        
-    async def _save_session(self) -> bool:
-        """
-        Save current session cookies
-        
-        Returns:
-            Boolean indicating success
-        """
-        if not self.cookies_manager:
-            return False
-            
-        cookies = await self.page.context.cookies()
-        return self.cookies_manager.save_cookies(self.domain, cookies)
-        
     async def _check_logged_in(self) -> bool:
         """
         Check if we're currently logged in to Claude
@@ -107,13 +59,13 @@ class ClaudeAuthHandler:
             Boolean indicating logged in status
         """
         try:
-            # Wait for either the login button (not logged in) or chat button (logged in)
-            logged_in = await self.page.wait_for_selector(
+            # 等待登录按钮(未登录)或聊天按钮(已登录)
+            logged_in = await self.session.wait_for_selector(
                 CLAUDE_SELECTORS['logged_in_indicator'],
                 timeout=5000
             )
             return logged_in is not None
-        except TimeoutError:
+        except:
             return False
             
     async def _wait_for_manual_login(self, timeout: int = 300000) -> bool:
@@ -127,30 +79,32 @@ class ClaudeAuthHandler:
             Boolean indicating success
         """
         try:
-            # Display message on page to alert user
-            await self.page.evaluate("""() => {
+            # 显示消息告知用户
+            await self.session.execute_script("""() => {
                 const div = document.createElement('div');
                 div.id = 'login-message';
                 div.style = 'position: fixed; top: 0; left: 0; right: 0; background: red; color: white; padding: 10px; text-align: center; z-index: 9999;';
-                div.innerText = 'Please log in to Claude manually';
+                div.innerText = '请登录Claude';
                 document.body.appendChild(div);
             }""")
             
-            # Wait for logged in indicator
-            await self.page.wait_for_selector(
-                CLAUDE_SELECTORS['logged_in_indicator'],
-                timeout=timeout
-            )
+            # 提示用户手动登录
+            print("请在浏览器中登录Claude，然后按回车继续...")
+            await asyncio.get_event_loop().run_in_executor(None, input)
             
-            # Remove the message
-            await self.page.evaluate("""() => {
+            # 检查是否登录成功
+            is_logged_in = await self._check_logged_in()
+            
+            # 移除消息
+            await self.session.execute_script("""() => {
                 const div = document.getElementById('login-message');
                 if (div) div.remove();
             }""")
             
-            return True
+            return is_logged_in
             
-        except TimeoutError:
+        except Exception as e:
+            logger.error(f"等待手动登录出错: {str(e)}")
             return False
             
     async def handle_chat_stream(self, image_path: str = None, prompt: str = None) -> AsyncGenerator[Dict[str, Any], None]:
@@ -166,58 +120,62 @@ class ClaudeAuthHandler:
         """
         try:
             if not self.logged_in:
-                yield {"status": "error", "message": "Not logged in"}
+                yield {"status": "error", "message": "未登录"}
                 return
                 
-            # Start a new chat if needed
-            new_chat_button = await self.page.query_selector(CLAUDE_SELECTORS['new_chat_button'])
+            # 开始新聊天，如果需要
+            new_chat_button = await self.session.query_selector(CLAUDE_SELECTORS['new_chat_button'])
             if new_chat_button:
-                await new_chat_button.click()
+                await self.session.click(CLAUDE_SELECTORS['new_chat_button'])
                 
-            # Upload image if provided
+            # 上传图片，如果提供
             if image_path:
                 await self._upload_image(image_path)
                 
-            # Enter prompt text
+            # 输入提示文本
             if prompt:
-                await self.page.fill(CLAUDE_SELECTORS['prompt_textarea'], prompt)
+                await self.session.fill(CLAUDE_SELECTORS['prompt_textarea'], prompt)
                 
-                # Send the message
-                await self.page.click(CLAUDE_SELECTORS['send_button'])
+                # 发送消息
+                await self.session.click(CLAUDE_SELECTORS['send_button'])
                 
-                # Wait for response to start
-                await self.page.wait_for_selector(CLAUDE_SELECTORS['response_container'], timeout=60000)
+                # 等待响应开始
+                await self.session.wait_for_selector(CLAUDE_SELECTORS['response_container'], timeout=60000)
                 
-                # Monitor response until it's complete
+                # 监控响应直到完成
                 response_text = ""
                 is_complete = False
                 
                 while not is_complete:
-                    # Get current response text
-                    response_element = await self.page.query_selector(CLAUDE_SELECTORS['response_container'])
-                    new_text = await response_element.text_content()
-                    
-                    # If text has changed, yield the new part
-                    if new_text != response_text:
-                        # Yield only the new content
-                        new_content = new_text[len(response_text):]
-                        response_text = new_text
+                    # 获取当前响应文本
+                    response_element = await self.session.query_selector(CLAUDE_SELECTORS['response_container'])
+                    if response_element:
+                        new_text = await self.session.execute_script(
+                            "return arguments[0].textContent", 
+                            response_element
+                        )
                         
-                        yield {
-                            "status": "streaming",
-                            "content": new_content,
-                            "complete": False
-                        }
+                        # 如果文本已更改，产生新部分
+                        if new_text != response_text:
+                            # 仅产生新内容
+                            new_content = new_text[len(response_text):]
+                            response_text = new_text
+                            
+                            yield {
+                                "status": "streaming",
+                                "content": new_content,
+                                "complete": False
+                            }
                     
-                    # Check if response is complete
-                    thinking_indicator = await self.page.query_selector(CLAUDE_SELECTORS['thinking_indicator'])
+                    # 检查响应是否完成
+                    thinking_indicator = await self.session.query_selector(CLAUDE_SELECTORS['thinking_indicator'])
                     is_complete = thinking_indicator is None
                     
                     if not is_complete:
-                        # Wait briefly before checking again
-                        await self.page.wait_for_timeout(500)
+                        # 短暂等待再次检查
+                        await asyncio.sleep(0.5)
                 
-                # Final yield with complete flag
+                # 最终产生带有完成标志
                 yield {
                     "status": "success",
                     "content": response_text,
@@ -225,7 +183,7 @@ class ClaudeAuthHandler:
                 }
             
         except Exception as e:
-            logger.error(f"Chat error: {str(e)}")
+            logger.error(f"聊天错误: {str(e)}")
             yield {"status": "error", "message": str(e)}
     
     async def _upload_image(self, image_path: str) -> bool:
@@ -239,27 +197,47 @@ class ClaudeAuthHandler:
             Boolean indicating success
         """
         try:
-            # Click the upload button
-            upload_button = await self.page.query_selector(CLAUDE_SELECTORS['upload_button'])
+            # 点击上传按钮
+            upload_button = await self.session.query_selector(CLAUDE_SELECTORS['upload_button'])
             if not upload_button:
                 return False
+            
+            # 设置文件输入处理
+            file_input_selector = 'input[type="file"]'
+            file_input = await self.session.query_selector(file_input_selector)
+            
+            if not file_input:
+                # 如果没有文件输入，可能需要点击按钮触发它
+                await self.session.click(CLAUDE_SELECTORS['upload_button'])
+                file_input = await self.session.wait_for_selector(file_input_selector, timeout=5000)
+            
+            if file_input:
+                # 使用JavaScript设置文件
+                await self.session.execute_script(
+                    """
+                    const input = arguments[0];
+                    const filePath = arguments[1];
+                    
+                    // 创建一个自定义事件
+                    const dataTransfer = new DataTransfer();
+                    const file = new File([''], filePath.split('/').pop(), { type: 'image/png' });
+                    dataTransfer.items.add(file);
+                    input.files = dataTransfer.files;
+                    
+                    // 触发change事件
+                    const event = new Event('change', { bubbles: true });
+                    input.dispatchEvent(event);
+                    """,
+                    file_input, image_path
+                )
                 
-            # Set up file input handling
-            file_chooser = await Promise.create()
-            self.page.once('filechooser', lambda chooser: file_chooser.resolve(chooser))
-            
-            # Click the upload button
-            await upload_button.click()
-            
-            # Wait for file chooser and select file
-            chooser = await file_chooser
-            await chooser.set_files(image_path)
-            
-            # Wait for upload to complete
-            await self.page.wait_for_selector(CLAUDE_SELECTORS['image_preview'], timeout=30000)
-            
-            return True
-            
+                # 等待上传完成
+                await self.session.wait_for_selector(CLAUDE_SELECTORS['image_preview'], timeout=30000)
+                return True
+            else:
+                logger.error("找不到文件输入元素")
+                return False
+                
         except Exception as e:
-            logger.error(f"Image upload error: {str(e)}")
+            logger.error(f"图片上传错误: {str(e)}")
             return False

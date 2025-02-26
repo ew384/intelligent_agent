@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from typing import Dict
 import sys
 import os
+import logging
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -10,11 +11,12 @@ sys.path.append(str(current_path))
 
 # 修复导入路径
 from ...tools.llm.claude.service import ClaudeService
-from ...tools.browser.browser_service import BrowserService
+from ...tools.browser.browser_manager import BrowserManager
 
-# 获取或创建browser_service实例
-browser_service = BrowserService(headless=False)
+# 获取或创建browser_manager实例
+browser_manager = BrowserManager()
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 @router.post("/chat/{provider}")
 async def chat_with_llm(provider: str, request: Dict):
@@ -22,7 +24,7 @@ async def chat_with_llm(provider: str, request: Dict):
     try:
         # 根据provider选择相应的LLM服务
         if provider == "claude":
-            service = ClaudeService(browser_service)
+            service = ClaudeService(browser_manager)
             await service.initialize()
             
             responses = []
@@ -40,6 +42,9 @@ async def chat_with_llm(provider: str, request: Dict):
             )
             
     except Exception as e:
+        logger.error(f"LLM对话出错: {str(e)}")
+        import traceback
+        logger.error(f"详细错误: {traceback.format_exc()}")
         raise HTTPException(
             status_code=500,
             detail=str(e)

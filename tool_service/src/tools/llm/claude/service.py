@@ -1,23 +1,30 @@
 from typing import Dict, Any, AsyncGenerator
-from ...browser.browser_service import BrowserService
+from ...browser.browser_manager import BrowserManager
 from .auth_handler import ClaudeAuthHandler
 
 class ClaudeService:
     """Claude服务实现"""
-    def __init__(self, browser_service: BrowserService):
-        self.browser = browser_service
+    def __init__(self, browser_manager: BrowserManager):
+        self.browser_manager = browser_manager
         self.auth_handler = None
-        self.page = None
+        self.session = None
         
     async def initialize(self):
         """初始化Claude服务"""
         try:
-            self.page = await self.browser.new_page()
-            await self.page.goto("https://claude.ai")
+            # 获取浏览器服务
+            browser_service = await self.browser_manager.get_browser_service("claude")
+            
+            # 初始化会话
+            self.session = await browser_service.initialize()
+            if not self.session:
+                raise Exception("浏览器会话初始化失败")
+                
+            # 导航到Claude
+            await self.session.goto("https://claude.ai")
             
             # 初始化认证处理器
-            self.auth_handler = ClaudeAuthHandler(self.page)
-            self.auth_handler.cookies_manager = self.browser.cookies_manager
+            self.auth_handler = ClaudeAuthHandler(self.session)
             
             # 处理登录
             login_result = await self.auth_handler.handle_login()
@@ -28,7 +35,7 @@ class ClaudeService:
             await self.cleanup()
             raise
 
-    async def chat(self, prompt: str, image_path: str = None) -> AsyncGenerator[Dict[str, Any], None]:
+    async def chat(self, prompt: str, image_path: str = None) -> AsyncGenerator[str, None]:
         """与Claude对话"""
         if not self.auth_handler:
             raise Exception("Service not initialized")
@@ -38,6 +45,6 @@ class ClaudeService:
 
     async def cleanup(self):
         """清理资源"""
-        if self.page:
-            await self.page.close()
-            self.page = None
+        if self.session:
+            # 注意：我们不关闭会话，由浏览器管理器负责管理会话生命周期
+            self.session = None

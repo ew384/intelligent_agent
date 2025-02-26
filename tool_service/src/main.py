@@ -8,12 +8,12 @@ current_path = Path(__file__).parent.parent.parent
 sys.path.append(str(current_path))
 
 from .routes.api import router as api_router
-from .tools.browser.browser_service import BrowserService
+from .tools.browser.browser_manager import BrowserManager
 
 app = FastAPI(title="Tool Service")
 
 # 初始化全局服务
-browser_service = BrowserService(headless=False)
+browser_manager = BrowserManager()
 
 # 注册路由
 app.include_router(api_router, prefix="/tools")
@@ -21,12 +21,16 @@ app.include_router(api_router, prefix="/tools")
 @app.on_event("startup")
 async def startup_event():
     # 服务启动时的初始化
-    pass
+    # 下载匹配的ChromeDriver
+    try:
+        browser_manager.download_chromedriver()
+    except Exception as e:
+        print(f"警告: ChromeDriver下载失败: {str(e)}")
 
 @app.on_event("shutdown")
 async def shutdown_event():
     # 服务关闭时的清理
-    await browser_service.cleanup()
+    browser_manager.cleanup()
 
 if __name__ == "__main__":
     import uvicorn

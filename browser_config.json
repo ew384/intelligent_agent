@@ -1,0 +1,6 @@
+{
+  "headless": false,
+  "data_dir": "./browser_data",
+  "debug_port_start": 9222,
+  "max_instances": 3
+}

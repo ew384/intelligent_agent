@@ -1,4 +1,4 @@
-# 在 tool_service/src/tools/common/cookies_manager.py 中整合
+# tool_service/src/tools/common/cookies_manager.py
 import os
 import json
 import logging
@@ -9,46 +9,45 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 class CookiesManager:
-    """Manages browser cookies for different domains"""
+    """管理浏览器cookies的类"""
     
     def __init__(self, data_dir: Path):
         """
-        Initialize cookies manager
+        初始化cookies管理器
         
         Args:
-            data_dir: Directory to store cookie files
+            data_dir: 存储cookie文件的目录
         """
         self.data_dir = data_dir / 'cookies'
         self._ensure_data_dir()
         
     def _ensure_data_dir(self):
-        """Ensure the data directory exists"""
+        """确保数据目录存在"""
         os.makedirs(self.data_dir, exist_ok=True)
         
     def get_cookies_path(self, domain: str) -> Path:
         """
-        Get the file path for cookies of a specific domain
+        获取特定域的cookie文件路径
         
         Args:
-            domain: Domain for the cookies
+            domain: cookie的域名
             
         Returns:
-            Path to the cookie file
+            cookie文件的路径
         """
-        # Convert domain to a safe filename
+        # 将域名转换为安全的文件名
         safe_name = domain.replace(".", "_").replace("/", "_").replace(":", "_")
         return self.data_dir / f"{safe_name}_cookies.json"
         
-    def load_cookies(self, browser_context, domain: str) -> bool:
+    def load_cookies(self, domain: str) -> List[Dict[str, Any]]:
         """
-        Load cookies for a domain and add them to the browser context
+        加载域的cookie
         
         Args:
-            browser_context: The browser context to add cookies to
-            domain: Domain to load cookies for
+            domain: 加载cookie的域名
             
         Returns:
-            Boolean indicating success
+            cookie字典列表
         """
         cookies_path = self.get_cookies_path(domain)
         
@@ -57,7 +56,7 @@ class CookiesManager:
                 with open(cookies_path, 'r') as f:
                     cookies = json.load(f)
                     
-                # Check if cookies have expired
+                # 检查cookie是否已过期
                 current_time = datetime.now().timestamp()
                 valid_cookies = [
                     cookie for cookie in cookies
@@ -65,73 +64,144 @@ class CookiesManager:
                 ]
                 
                 if len(valid_cookies) < len(cookies):
-                    logger.info(f"Removed {len(cookies) - len(valid_cookies)} expired cookies for {domain}")
+                    logger.info(f"移除了 {len(cookies) - len(valid_cookies)} 个已过期的 {domain} cookie")
                 
                 if valid_cookies:
-                    browser_context.add_cookies(valid_cookies)
-                    logger.info(f"加载了 {len(valid_cookies)} 个 cookies 用于 {domain}")
-                    return True
+                    logger.info(f"加载了 {len(valid_cookies)} 个 {domain} cookie")
+                    return valid_cookies
                 else:
-                    logger.info(f"没有有效的 cookies 用于 {domain}")
-                    return False
+                    logger.info(f"{domain} 没有有效的cookie")
+                    return []
             else:
-                logger.info(f"没有找到保存的 cookies: {cookies_path}")
-                return False
+                logger.info(f"没有找到保存的cookie: {cookies_path}")
+                return []
         except Exception as e:
-            logger.error(f"Failed to load cookies for {domain}: {str(e)}")
-            return False
-            
-    async def save_cookies(self, browser_context, domain: str) -> bool:
+            logger.error(f"加载 {domain} cookie失败: {str(e)}")
+            return []
+    
+    def add_cookies_to_driver(self, driver, domain: str) -> bool:
         """
-        Save cookies from browser context for a domain
+        将cookies添加到Selenium WebDriver
         
         Args:
-            browser_context: The browser context to get cookies from
-            domain: Domain the cookies belong to
+            driver: Selenium WebDriver实例
+            domain: 域名
             
         Returns:
-            Boolean indicating success
+            是否成功添加
+        """
+        try:
+            cookies = self.load_cookies(domain)
+            if not cookies:
+                return False
+            
+            # 确保我们在正确的域上设置cookie
+            current_url = driver.current_url
+            domain_url = f"https://{domain}" if not domain.startswith(("http://", "https://")) else domain
+            
+            # 如果我们不在正确的域上，先导航到该域
+            if domain not in current_url:
+                driver.get(domain_url)
+            
+            # 添加每个cookie
+            for cookie in cookies:
+                # Selenium需要的格式与存储格式可能有所不同
+                cookie_dict = {
+                    'name': cookie.get('name'),
+                    'value': cookie.get('value'),
+                    'path': cookie.get('path', '/'),
+                    'domain': cookie.get('domain'),
+                    'secure': cookie.get('secure', False),
+                    'httpOnly': cookie.get('httpOnly', False)
+                }
+                
+                # 移除无效键
+                cookie_dict = {k: v for k, v in cookie_dict.items() if v is not None}
+                
+                try:
+                    driver.add_cookie(cookie_dict)
+                except Exception as cookie_error:
+                    logger.warning(f"添加单个cookie失败: {str(cookie_error)}")
+            
+            logger.info(f"已向WebDriver添加 {len(cookies)} 个cookie")
+            return True
+        except Exception as e:
+            logger.error(f"向WebDriver添加cookie失败: {str(e)}")
+            return False
+    
+    def save_cookies(self, driver, domain: str) -> bool:
+        """
+        从WebDriver保存cookie
+        
+        Args:
+            driver: Selenium WebDriver实例
+            domain: cookie所属的域名
+            
+        Returns:
+            是否成功保存
         """
         cookies_path = self.get_cookies_path(domain)
         
         try:
-            cookies = await browser_context.cookies()
+            cookies = driver.get_cookies()
             if not cookies:
-                logger.warning(f"No cookies found to save for {domain}")
+                logger.warning(f"没有找到要保存的 {domain} cookie")
                 return False
                 
             with open(cookies_path, 'w') as f:
                 json.dump(cookies, f, indent=2)
                 
-            logger.info(f"保存了 {len(cookies)} 个 cookies 到 {cookies_path}")
+            logger.info(f"已保存 {len(cookies)} 个 {domain} cookie到 {cookies_path}")
             return True
         except Exception as e:
-            logger.error(f"Failed to save cookies for {domain}: {str(e)}")
+            logger.error(f"保存 {domain} cookie失败: {str(e)}")
             return False
-            
+    
     def clear_cookies(self, domain: Optional[str] = None) -> bool:
         """
-        Clear cookies for a domain or all domains
+        清除域名的cookie或所有cookie
         
         Args:
-            domain: Domain to clear cookies for, or None for all domains
+            domain: 要清除cookie的域名，None表示所有域名
             
         Returns:
-            Boolean indicating success
+            是否成功清除
         """
         try:
             if domain:
                 cookie_path = self.get_cookies_path(domain)
                 if os.path.exists(cookie_path):
                     os.remove(cookie_path)
-                    logger.info(f"已删除 {domain} 的 cookies")
+                    logger.info(f"已删除 {domain} 的cookie")
             else:
-                # Clear all cookie files
+                # 清除所有cookie文件
                 for filename in os.listdir(self.data_dir):
                     if filename.endswith("_cookies.json"):
                         os.remove(os.path.join(self.data_dir, filename))
-                logger.info("已删除所有 cookies")
+                logger.info("已删除所有cookie")
             return True
         except Exception as e:
-            logger.error(f"Failed to clear cookies: {str(e)}")
+            logger.error(f"清除cookie失败: {str(e)}")
             return False
+    
+    def get_domain_from_url(self, url: str) -> str:
+        """
+        从URL提取域名
+        
+        Args:
+            url: 完整URL
+            
+        Returns:
+            域名部分
+        """
+        try:
+            from urllib.parse import urlparse
+            parsed = urlparse(url)
+            domain = parsed.netloc
+            # 移除端口号如果存在
+            if ":" in domain:
+                domain = domain.split(":")[0]
+            return domain
+        except Exception as e:
+            logger.error(f"从URL提取域名失败: {str(e)}")
+            return ""
