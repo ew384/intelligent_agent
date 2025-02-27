@@ -79,6 +79,33 @@ class CookiesManager:
             logger.error(f"加载 {domain} cookie失败: {str(e)}")
             return []
     
+    def save_cookies_data(self, domain: str, cookies: List[Dict[str, Any]]) -> bool:
+        """
+        保存cookies数据到文件
+        
+        Args:
+            domain: cookies所属的域名
+            cookies: cookies数据列表
+            
+        Returns:
+            是否成功保存
+        """
+        cookies_path = self.get_cookies_path(domain)
+        
+        try:
+            if not cookies:
+                logger.warning(f"没有要保存的cookies")
+                return False
+                
+            with open(cookies_path, 'w') as f:
+                json.dump(cookies, f, indent=2)
+                
+            logger.info(f"已保存 {len(cookies)} 个cookies到 {cookies_path}")
+            return True
+        except Exception as e:
+            logger.error(f"保存cookies失败: {str(e)}")
+            return False
+    
     def add_cookies_to_driver(self, driver, domain: str) -> bool:
         """
         将cookies添加到Selenium WebDriver

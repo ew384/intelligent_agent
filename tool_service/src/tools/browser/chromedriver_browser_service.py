@@ -647,9 +647,7 @@ class ChromeDriverBrowserService:
                     ]
                 else:
                     chrome_paths = [
-                        "/usr/bin/google-chrome",
-                        "/usr/bin/google-chrome-stable",
-                        "/usr/bin/chromium",
+                        "/usr/local/bin/chrome-for-testing",
                         "/usr/bin/chromium-browser",
                     ]
                 
@@ -662,20 +660,15 @@ class ChromeDriverBrowserService:
             if not chrome_binary:
                 raise Exception("找不到Chrome可执行文件")
             
-            # 启动Chrome并带有调试端口
+            # 启动Chrome并带有调试端口 - 使用简化命令参数，与成功示例保持一致
             cmd = [
                 chrome_binary,
                 f"--remote-debugging-port={port}",
                 f"--user-data-dir={user_data_dir}",
-                "--disable-blink-features=AutomationControlled",  # 禁用自动化标记
-                "--disable-extensions",                           # 禁用扩展以减少干扰
-                "--disable-infobars",                             # 禁用信息栏
-                "--disable-automation",                           # 禁用自动化
-                "--no-default-browser-check",                     # 禁用默认浏览器检查
-                "--no-first-run",                                 # 禁用首次运行流程
-                "--lang=zh-CN,zh,en-US,en"                        # 语言设置
+                "--window-size=1920,1080"  # 在启动时设置窗口大小
             ]
             
+            # 仅添加必要的参数
             if self.headless:
                 cmd.append("--headless=new")
             
@@ -697,6 +690,7 @@ class ChromeDriverBrowserService:
         except Exception as e:
             logger.error(f"启动Chrome调试实例失败: {str(e)}")
             raise
+
     
     async def _connect_to_chrome(self) -> tuple:
         """
@@ -708,55 +702,36 @@ class ChromeDriverBrowserService:
         try:
             port = self.config['debug_port']
             
-            # 创建ChromeOptions
+            # 使用与成功示例相同的方式创建ChromeOptions
             chrome_options = Options()
+            # 仅添加debuggerAddress选项，不添加其他可能导致问题的选项
             chrome_options.add_experimental_option("debuggerAddress", f"127.0.0.1:{port}")
-            
-            # 添加反检测选项
-            chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-            chrome_options.add_experimental_option('useAutomationExtension', False)
             
             # 创建Service对象
             driver_path = self._find_chromedriver()
             service = Service(driver_path)
             
-            # 创建WebDriver
+            logger.info(f"正在连接到Chrome debug端口: {port}, 使用driver: {driver_path}")
+            
+            # 创建WebDriver - 与成功示例保持一致的配置方式
             driver = webdriver.Chrome(service=service, options=chrome_options)
             
-            # 添加反检测脚本
-            driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
-                'source': '''
-                    Object.defineProperty(navigator, 'webdriver', {
-                        get: () => undefined
-                    });
-                    
-                    // 防止特征检测
-                    if (window.navigator.plugins) {
-                        Object.defineProperty(navigator, 'plugins', {
-                            get: function() {
-                                // 模拟一些插件
-                                var plugins = [];
-                                for (var i = 0; i < 5; i++) {
-                                    plugins.push({
-                                        name: `Plugin ${i}`,
-                                        description: `Description ${i}`,
-                                        filename: `plugin${i}.dll`
-                                    });
-                                }
-                                return plugins;
-                            }
+            # 成功连接后添加CDP命令进行反检测
+            try:
+                driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+                    'source': '''
+                        Object.defineProperty(navigator, 'webdriver', {
+                            get: () => undefined
                         });
-                    }
-                    
-                    // 防止检测 Automation Controller
-                    delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
-                    delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
-                    delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
-                '''
-            })
-            
-            # 设置窗口大小
-            driver.set_window_size(1920, 1080)
+                        
+                        // 防止检测 Automation Controller
+                        delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
+                        delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
+                        delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+                    '''
+                })
+            except Exception as script_error:
+                logger.warning(f"添加反检测脚本失败: {str(script_error)}")
             
             return driver, service
         
