@@ -85,10 +85,8 @@ async def install_dependencies():
             ]
         else:
             chrome_paths = [
-                "/usr/bin/google-chrome",
-                "/usr/bin/google-chrome-stable",
-                "/usr/bin/chromium",
-                "/usr/bin/chromium-browser",
+                "/usr/local/bin/chrome-for-testing",
+                "/usr/local/bin/chromium",
             ]
             
         for path in chrome_paths:
