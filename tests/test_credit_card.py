@@ -52,6 +52,7 @@ async def test_credit_card():
             logger.info(f"状态: {result.get('status')}")
             logger.info(f"任务ID: {result.get('task_id')}")
             
+            time.sleep(100)
             # 显示账单信息
             if result.get('status') == 'success':
                 bill_info = result.get('result', {}).get('bill_info', {})

@@ -59,50 +59,6 @@ SERVICES = {
     }
 }
 
-async def install_dependencies():
-    """Install required Python dependencies"""
-    try:
-        subprocess.check_call(["pip", "install", "-r", "requirements.txt"])
-        logger.info("Installed common dependencies")
-        
-        # 安装Selenium和Webdriver-manager，替代Playwright
-        subprocess.check_call(["pip", "install", "selenium", "webdriver-manager"])
-        logger.info("Installed Selenium and WebDriver Manager")
-        
-        # 检查Chrome是否安装
-        chrome_installed = False
-        chrome_paths = []
-        
-        if sys.platform == "win32":
-            chrome_paths = [
-                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-            ]
-        elif sys.platform == "darwin":
-            chrome_paths = [
-                "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-                "/Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
-            ]
-        else:
-            chrome_paths = [
-                "/usr/local/bin/chrome-for-testing",
-                "/usr/local/bin/chromium",
-            ]
-            
-        for path in chrome_paths:
-            if os.path.exists(path):
-                chrome_installed = True
-                logger.info(f"Chrome found at: {path}")
-                break
-                
-        if not chrome_installed:
-            logger.warning("Chrome browser not found! Please install Google Chrome.")
-        
-    except subprocess.CalledProcessError as e:
-        logger.error(f"Failed to install dependencies: {e}")
-        return False
-    
-    return True
 
 async def start_service(name: str, service_config: dict):
     """Start a service using uvicorn"""
@@ -128,53 +84,9 @@ async def start_service(name: str, service_config: dict):
     if return_code != 0:
         logger.error(f"Service {name} exited with code {return_code}")
 
-# 添加测试ChromeDriver功能
-async def test_chromedriver():
-    """测试ChromeDriver功能"""
-    try:
-        from selenium import webdriver
-        from selenium.webdriver.chrome.service import Service
-        from selenium.webdriver.chrome.options import Options
-        from webdriver_manager.chrome import ChromeDriverManager
-        
-        print("正在测试ChromeDriver功能...")
-        
-        # 尝试使用webdriver_manager自动安装ChromeDriver
-        service = Service(ChromeDriverManager().install())
-        
-        # 创建选项
-        options = Options()
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--window-size=1920,1080")
-        
-        # 启动Chrome
-        driver = webdriver.Chrome(service=service, options=options)
-        
-        print("正在访问测试页面...")
-        driver.get("https://www.example.com")
-        
-        print("等待3秒钟...")
-        import time
-        time.sleep(3)
-        
-        print("正在截图...")
-        screenshots_dir = Path("./browser_test")
-        screenshots_dir.mkdir(exist_ok=True)
-        driver.save_screenshot(str(screenshots_dir / "test.png"))
-        
-        print(f"截图已保存至 {str(screenshots_dir / 'test.png')}")
-        print("ChromeDriver功能测试成功!")
-        
-        driver.quit()
-    except Exception as e:
-        print(f"ChromeDriver功能测试失败: {e}")
 
 async def main(selected_services: List[str] = None):
     """Main entry point for running services locally"""
-    # Install dependencies
-    if not await install_dependencies():
-        return
     
     # Determine which services to run
     if not selected_services:

@@ -15,10 +15,18 @@ logger = logging.getLogger(__name__)
 # 创建浏览器管理器实例
 browser_manager = BrowserManager()
 
+@router.get("/test")
+async def test_endpoint():
+    logger.info("Test endpoint called")
+    return {"status": "success", "message": "Test endpoint working"}
+
 @router.post("/credit-card")
 async def handle_credit_card_query(parameters: Dict[str, Any]):
     """信用卡查询处理"""
     logger.info("开始处理信用卡账单查询...")
+    logger.info("✅ POST /credit-card 路由被触发")
+    logger.info(f"接收到的参数类型: {type(parameters)}")
+    logger.info(f"接收到的参数内容: {parameters}")
     session = None
     
     try:
@@ -39,6 +47,7 @@ async def handle_credit_card_query(parameters: Dict[str, Any]):
         logger.info(f"开始查询账单: {parameters}")
         
         # 执行查询
+        print(parameters)
         result = await handler.process_bill_query(parameters)
         logger.info(f"查询结果: {result}")
         return result

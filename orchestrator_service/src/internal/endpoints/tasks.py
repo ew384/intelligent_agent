@@ -4,11 +4,11 @@ from typing import Dict, Any
 import logging
 from ...core.orchestrator import TaskOrchestrator
 
-router = APIRouter(prefix="/tasks")  # 设置前缀
+router = APIRouter()  # 设置前缀
 logger = logging.getLogger(__name__)
 orchestrator = TaskOrchestrator()
 
-@router.post("/")
+@router.post("/tasks")
 async def handle_task(request: Request):
     """处理任务请求，支持多种格式"""
     try:

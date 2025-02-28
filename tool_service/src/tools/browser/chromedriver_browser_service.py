@@ -68,8 +68,7 @@ class BrowserSession:
                 await asyncio.sleep(0.5)
             
             # 模拟人类行为
-            await self._random_scroll()
-            
+            #await self._random_scroll()
             return True
         except Exception as e:
             logger.error(f"导航到 {url} 失败: {str(e)}")
@@ -140,7 +139,7 @@ class BrowserSession:
                 return False
             
             # 模拟人类点击行为
-            await self._humanlike_click(element)
+            #await self._humanlike_click(element)
             await asyncio.sleep(wait_time)
             return True
         except Exception as e:
@@ -171,35 +170,6 @@ class BrowserSession:
             logger.error(f"点击XPath {xpath} 失败: {str(e)}")
             return False
     
-    async def fill(self, selector: str, text: str, delay: float = 0.1) -> bool:
-        """
-        填充输入框
-        
-        Args:
-            selector: CSS选择器
-            text: 要输入的文本
-            delay: 输入延迟（秒）
-            
-        Returns:
-            是否成功填充
-        """
-        try:
-            element = await self.wait_for_selector(selector)
-            if not element:
-                return False
-            
-            # 先清空输入框
-            element.clear()
-            
-            # 模拟人类输入
-            for char in text:
-                element.send_keys(char)
-                await asyncio.sleep(random.uniform(delay * 0.5, delay * 1.5))
-            
-            return True
-        except Exception as e:
-            logger.error(f"填充选择器 {selector} 失败: {str(e)}")
-            return False
     
     async def fill_xpath(self, xpath: str, text: str, delay: float = 0.1) -> bool:
         """
@@ -463,47 +433,164 @@ class BrowserSession:
     
     async def _humanlike_click(self, element) -> None:
         """
-        模拟人类点击行为
+        模拟真实人类点击行为，使用生成的鼠标轨迹
         
         Args:
             element: 要点击的元素
         """
         try:
-            # 使用JavaScript执行点击，比较难被检测
-            self.driver.execute_script("arguments[0].click();", element)
-        except:
-            # 如果JavaScript点击失败，尝试常规点击
-            element.click()
-    
-    async def _random_scroll(self) -> None:
-        """随机滚动页面以模拟真实用户行为"""
-        try:
-            # 获取页面高度
-            height = self.driver.execute_script("return document.body.scrollHeight")
-            if height <= 100:  # 太小的页面不需要滚动
-                return
+            # 获取元素的位置和尺寸
+            rect = await self.driver.execute_script("""
+                const rect = arguments[0].getBoundingClientRect();
+                return {
+                    left: rect.left,
+                    top: rect.top,
+                    width: rect.width,
+                    height: rect.height
+                };
+            """, element)
             
-            # 随机选择1-3次滚动
-            scroll_times = random.randint(1, 3)
+            # 获取当前鼠标位置
+            current_mouse = await self.driver.execute_script("""
+                return {
+                    x: window.mouseX || 100,
+                    y: window.mouseY || 100
+                };
+            """)
             
-            for _ in range(scroll_times):
-                # 随机选择滚动位置
-                scroll_y = random.randint(100, min(height, 1000))
+            # 计算目标点 - 元素内的随机位置
+            target_x = rect['left'] + (0.1 + Math.random() * 0.8) * rect['width']
+            target_y = rect['top'] + (0.1 + Math.random() * 0.8) * rect['height']
+            
+            # 生成人类轨迹
+            path_script = f"""
+                const start = {{ x: {current_mouse['x']}, y: {current_mouse['y']} }};
+                const end = {{ x: {target_x}, y: {target_y} }};
+                const points = window._humanMouseTracker.generatePath(start, end, {30 + int(random.random() * 30)});
+                return points;
+            """
+            
+            mouse_path = await self.driver.execute_script(path_script)
+            
+            # 使用Actions API来模拟鼠标移动
+            actions = webdriver.ActionChains(self.driver)
+            
+            # 移动鼠标到起始位置
+            actions.move_by_offset(
+                mouse_path[0]['x'] - current_mouse['x'], 
+                mouse_path[0]['y'] - current_mouse['y']
+            )
+            
+            # 跟随生成的路径移动鼠标
+            last_x, last_y = mouse_path[0]['x'], mouse_path[0]['y']
+            for point in mouse_path[1:]:
+                actions.move_by_offset(point['x'] - last_x, point['y'] - last_y)
                 
-                # 平滑滚动
-                self.driver.execute_script(f"window.scrollTo({{top: {scroll_y}, behavior: 'smooth'}});")
+                # 在某些点添加停顿
+                if random.random() < 0.3:
+                    actions.pause(random.random() * 0.05)
+                    
+                last_x, last_y = point['x'], point['y']
                 
-                # 随机等待
-                await asyncio.sleep(random.uniform(0.5, 2.0))
-                
-                # 随机上下抖动（更像人类行为）
-                if random.random() > 0.7:
-                    jitter = random.randint(-100, 100)
-                    self.driver.execute_script(f"window.scrollBy(0, {jitter});")
-                    await asyncio.sleep(random.uniform(0.1, 0.5))
+                # 应用移动
+                await asyncio.sleep(point['delay'] / 1000)
+            
+            # 鼠标悬停很短时间
+            await asyncio.sleep(random.uniform(0.05, 0.2))
+            
+            # 执行点击
+            actions.click()
+            actions.perform()
+            
+            # 更新页面上的鼠标位置记录
+            await self.driver.execute_script(f"""
+                window.mouseX = {target_x};
+                window.mouseY = {target_y};
+            """)
+            
+            # 点击后短暂等待，更像人类操作
+            await asyncio.sleep(random.uniform(0.1, 0.3))
+            
         except Exception as e:
-            logger.warning(f"随机滚动失败: {str(e)}")
-
+            logger.warning(f"人类点击模拟失败，回退到基本点击: {str(e)}")
+            try:
+                # 如果高级点击失败，尝试JavaScript点击
+                self.driver.execute_script("arguments[0].click();", element)
+            except:
+                # 如果JavaScript点击失败，使用最基本的点击
+                element.click()
+    
+    
+    async def fill(self, selector: str, text: str, delay: float = 0.1) -> bool:
+        """
+        以更像人类的方式填充输入框
+        
+        Args:
+            selector: CSS选择器
+            text: 要输入的文本
+            delay: 输入延迟（秒）
+            
+        Returns:
+            是否成功填充
+        """
+        try:
+            element = await self.wait_for_selector(selector)
+            if not element:
+                return False
+            
+            # 先点击元素获取焦点（使用人类般的点击）
+            #await self._humanlike_click(element)
+            await asyncio.sleep(random.uniform(0.1, 0.3))
+            
+            # 先清空输入框 - 但不使用clear()方法（容易被检测）
+            current_value = await self.driver.execute_script("return arguments[0].value", element)
+            if current_value:
+                for _ in range(len(current_value)):
+                    element.send_keys(webdriver.Keys.BACKSPACE)
+                    # 有时会有短暂停顿，像人类思考或检查
+                    if random.random() < 0.2:
+                        await asyncio.sleep(random.uniform(0.05, 0.15))
+            
+            # 输入文本前可能短暂停顿
+            await asyncio.sleep(random.uniform(0.2, 0.7))
+            
+            # 模拟人类输入 - 有变速和错误修正
+            for i, char in enumerate(text):
+                # 随机输入错误并修正 (很小概率)
+                if random.random() < 0.02 and i < len(text) - 1:
+                    wrong_char = chr(ord(char) + random.randint(1, 5))
+                    element.send_keys(wrong_char)
+                    await asyncio.sleep(random.uniform(0.1, 0.3))
+                    element.send_keys(webdriver.Keys.BACKSPACE)
+                    await asyncio.sleep(random.uniform(0.1, 0.3))
+                
+                # 发送正确的字符
+                element.send_keys(char)
+                
+                # 输入速度变化，模拟人类打字
+                if i > 0 and char in ".,!? ":
+                    # 标点符号后通常会有更长的停顿
+                    await asyncio.sleep(random.uniform(delay * 1.5, delay * 3.0))
+                elif random.random() < 0.3:
+                    # 随机有些字符输入得更慢
+                    await asyncio.sleep(random.uniform(delay * 1.2, delay * 2.0))
+                else:
+                    # 正常延迟
+                    await asyncio.sleep(random.uniform(delay * 0.5, delay * 1.5))
+                
+                # 中途可能短暂停顿，像在思考
+                if random.random() < 0.05:
+                    await asyncio.sleep(random.uniform(0.3, 1.0))
+            
+            # 输入完成后，可能有些停顿
+            await asyncio.sleep(random.uniform(0.2, 0.5))
+            
+            return True
+        except Exception as e:
+            logger.error(f"填充选择器 {selector} 失败: {str(e)}")
+            return False
+    
+    
 
 class ChromeDriverBrowserService:
     """基于ChromeDriver的浏览器服务，替代Playwright"""
@@ -665,6 +752,8 @@ class ChromeDriverBrowserService:
                 chrome_binary,
                 f"--remote-debugging-port={port}",
                 f"--user-data-dir={user_data_dir}",
+                "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",  # 使用常见用户代理
+                "--disable-automation",  # 更通用的禁用自动化标志
                 "--window-size=1920,1080"  # 在启动时设置窗口大小
             ]
             
@@ -694,7 +783,7 @@ class ChromeDriverBrowserService:
     
     async def _connect_to_chrome(self) -> tuple:
         """
-        连接到正在运行的Chrome实例
+        连接到正在运行的Chrome实例，并增强反检测能力
         
         Returns:
             (driver, service)元组
@@ -702,9 +791,8 @@ class ChromeDriverBrowserService:
         try:
             port = self.config['debug_port']
             
-            # 使用与成功示例相同的方式创建ChromeOptions
+            # 创建ChromeOptions - 当连接到已运行的Chrome实例时只能使用debuggerAddress选项
             chrome_options = Options()
-            # 仅添加debuggerAddress选项，不添加其他可能导致问题的选项
             chrome_options.add_experimental_option("debuggerAddress", f"127.0.0.1:{port}")
             
             # 创建Service对象
@@ -713,33 +801,151 @@ class ChromeDriverBrowserService:
             
             logger.info(f"正在连接到Chrome debug端口: {port}, 使用driver: {driver_path}")
             
-            # 创建WebDriver - 与成功示例保持一致的配置方式
+            # 创建WebDriver
             driver = webdriver.Chrome(service=service, options=chrome_options)
             
             # 成功连接后添加CDP命令进行反检测
             try:
+                # 更全面的反检测脚本
                 driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
                     'source': '''
+                        // 隐藏 webdriver 属性
                         Object.defineProperty(navigator, 'webdriver', {
                             get: () => undefined
                         });
+                        
+                        // 修改 userAgent 中的 HeadlessChrome 字符串
+                        const userAgent = navigator.userAgent;
+                        if (userAgent.indexOf("HeadlessChrome") !== -1) {
+                            Object.defineProperty(navigator, 'userAgent', {
+                                get: () => userAgent.replace("HeadlessChrome", "Chrome")
+                            });
+                        }
+                        
+                        // 添加假的浏览器插件数据
+                        Object.defineProperty(navigator, 'plugins', {
+                            get: () => {
+                                // 这会创建一个看起来有几个插件的伪造插件列表
+                                const plugins = {
+                                    length: 5,
+                                    item: i => plugins[i],
+                                    0: {
+                                        name: 'Chrome PDF Plugin',
+                                        description: 'Portable Document Format',
+                                        filename: 'internal-pdf-viewer'
+                                    },
+                                    1: {
+                                        name: 'Chrome PDF Viewer',
+                                        description: 'Portable Document Format',
+                                        filename: 'mhjfbmdgcfjbbpaeojofohoefgiehjai'
+                                    },
+                                    2: {
+                                        name: 'Native Client',
+                                        description: '',
+                                        filename: 'internal-nacl-plugin'
+                                    },
+                                    3: {
+                                        name: 'Chrome Web Store',
+                                        description: 'Inline installation for Chrome',
+                                        filename: 'inlineinstall'
+                                    },
+                                    4: {
+                                        name: 'Widevine Content Decryption Module',
+                                        description: 'Enables Widevine licenses for playback',
+                                        filename: 'widevinecdmadapter.dll'
+                                    }
+                                };
+                                return plugins;
+                            }
+                        });
+                        
+                        // 修改语言为更自然的配置
+                        Object.defineProperty(navigator, 'languages', {
+                            get: () => ['zh-CN', 'zh', 'en-US', 'en']
+                        });
+                        
+                        // 阻止已知的检测方法
+                        if (window.navigator.permissions) {
+                            const originalQuery = window.navigator.permissions.query;
+                            window.navigator.permissions.query = (parameters) => {
+                                if (parameters.name === 'notifications') {
+                                    return Promise.resolve({state: Notification.permission});
+                                }
+                                // 对 Chrome 检测关键点返回已授予权限
+                                if (parameters.name === 'clipboard-read' || parameters.name === 'clipboard-write') {
+                                    return Promise.resolve({state: 'granted'});
+                                }
+                                return originalQuery(parameters);
+                            };
+                        }
                         
                         // 防止检测 Automation Controller
                         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
                         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
                         delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+                        
+                        // 添加假的WebGL配置
+                        if (window.WebGLRenderingContext) {
+                            const getParameter = WebGLRenderingContext.prototype.getParameter;
+                            WebGLRenderingContext.prototype.getParameter = function(parameter) {
+                                // 处理常见的用于指纹识别的WebGL参数
+                                if (parameter === 37445) {
+                                    return 'Intel Inc.';
+                                }
+                                if (parameter === 37446) {
+                                    return 'Intel(R) Iris(TM) Graphics 6100';
+                                }
+                                return getParameter.apply(this, arguments);
+                            };
+                        }
+                        
+                        // 篡改 console.debug
+                        const oldConsoleDebug = console.debug;
+                        console.debug = function() {
+                            // 过滤某些可能用于检测的调试消息
+                            const args = Array.from(arguments);
+                            if (args.some(arg => String(arg).includes('webdriver'))) {
+                                return;
+                            }
+                            return oldConsoleDebug.apply(console, arguments);
+                        };
                     '''
                 })
+                
+                # 模拟时区位置等信息
+                try:
+                    driver.execute_cdp_cmd('Emulation.setTimezoneOverride', {
+                        'timezoneId': 'Asia/Shanghai'
+                    })
+                except Exception as e:
+                    logger.warning(f"设置时区失败: {str(e)}")
+                
+                # 添加指纹伪装，隐藏自动化特征
+                try:
+                    driver.execute_cdp_cmd('Network.enable', {})
+                    driver.execute_cdp_cmd('Network.setUserAgentOverride', {
+                        'userAgent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                        'platform': 'Windows',
+                        'acceptLanguage': 'zh-CN,zh;q=0.9,en;q=0.8'
+                    })
+                except Exception as e:
+                    logger.warning(f"设置用户代理失败: {str(e)}")
+                
             except Exception as script_error:
                 logger.warning(f"添加反检测脚本失败: {str(script_error)}")
+            
+            # 添加真实鼠标轨迹库
+            #await self._add_mouse_tracking_helpers(driver)
             
             return driver, service
         
         except Exception as e:
             logger.error(f"连接到Chrome失败: {str(e)}")
+            import traceback
             traceback.print_exc()
             return None, None
     
+
     def _find_chromedriver(self) -> str:
         """
         查找chromedriver可执行文件

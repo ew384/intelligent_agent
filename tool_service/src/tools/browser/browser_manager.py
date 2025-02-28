@@ -270,7 +270,7 @@ class BrowserManager:
             else:
                 # Linux
                 if not chrome_binary:
-                    for path in ["/usr/bin/google-chrome", "/usr/bin/google-chrome-stable"]:
+                    for path in ["/usr/local/bin/chrome-for-testing"]:
                         if os.path.exists(path):
                             chrome_binary = path
                             break

@@ -5,6 +5,7 @@ import logging
 import asyncio
 import time
 import re
+import json
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -12,21 +13,19 @@ logger = logging.getLogger(__name__)
 
 class CreditCardHandler(BaseHandler):
     """中信银行信用卡账单处理器"""
-    
-    # 选择器
+    # 更新选择器，使用更精确的指示器
     LOGIN_SELECTORS = {
-        'bill_amount': '.bill-amount, .amount-text, .total-amount',  # 添加可能的其他选择器
-        'logged_in_indicator': '.account-info, .user-info, .welcome-text',  # 添加其他可能的登录指示器
+        'bill_amount': '.txt14',  # 金额选择器
+        'logged_in_indicator': '#userName, #nameRare, .ca_num, #cardList',  # 登录状态指示器
         'security_warning': 'body:contains("browser or app may not be secure")',
         'try_anyway_button': [
-            "text=Try anyway", 
+            "text=Try anyway",
             "text=Continue anyway",
             "[aria-label='Try anyway']",
             "button:has-text('Try')",
             "a:has-text('Try')"
         ]
     }
-
     async def process_query(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """实现基类的抽象方法"""
         return await self.process_bill_query(parameters)
@@ -34,10 +33,8 @@ class CreditCardHandler(BaseHandler):
     async def process_bill_query(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
         处理信用卡账单查询
-        
         Args:
             parameters: 查询参数
-            
         Returns:
             查询结果
         """
@@ -45,14 +42,11 @@ class CreditCardHandler(BaseHandler):
             # 保存截图目录
             screenshots_dir = Path("./browser_data/screenshots")
             screenshots_dir.mkdir(parents=True, exist_ok=True)
-            
             # 获取URL并解析域名（用于cookie管理）
             url = parameters['url']
             domain = self._extract_domain(url)
-            
             # 显示详细日志
             logger.info(f"访问URL: {url}")
-            
             # 尝试从cookies管理器加载cookies
             cookies_manager = getattr(self.session.browser_service, 'cookies_manager', None)
             if cookies_manager:
@@ -71,348 +65,241 @@ class CreditCardHandler(BaseHandler):
                         }
                         return success;
                     """, cookies_manager.load_cookies(domain))
-                    
                     logger.info(f"Cookies加载结果: {cookies_loaded}")
                 except Exception as e:
                     logger.warning(f"加载cookies时出错: {str(e)}")
-            
             # 使用更人性化的导航
             await self.session.goto(url, timeout=60000)
-            
             # 等待页面完全加载
             await self.session.wait_for_load_state('domcontentloaded')
             await self.session.wait_for_load_state('networkidle')
             
-            # 检查是否已经登录
+            # 给用户时间在浏览器中完成登录
+            logger.info("页面已加载，请在浏览器中完成登录...")
+            # 等待用户操作的时间，可以根据需要调整
+            login_wait_time = 300  # 等待3分钟
+            logger.info(f"等待 {login_wait_time} 秒以完成手动登录...")
+            
+            # 等待指定时间
+            for i in range(login_wait_time, 0, -30):
+                logger.info(f"剩余等待时间: {i} 秒...")
+                await asyncio.sleep(30)
+                if await self._check_already_logged_in():
+                    logger.info("检测到登录状态，继续处理...")
+                    break
+
+            # 检查是否已经登录 - 使用新的登录检测方法
             already_logged_in = await self._check_already_logged_in()
             if already_logged_in:
                 logger.info("检测到已经登录状态")
+                
+                # 提取账户信息
+                account_info = await self._extract_account_info()
+                logger.info(f"成功提取账户信息: {json.dumps(account_info, ensure_ascii=False)}")
+                
+                # 格式化显示账户信息到日志
+                await self._display_account_info(account_info)
+                
+                # 保存截图
+                timestamp = int(time.time())
+                screenshot_path = screenshots_dir / f"credit_card_{timestamp}.png"
+                await self.session.screenshot(path=str(screenshot_path))
+                logger.info(f"页面截图已保存到: {screenshot_path}")
+                
+                # 返回结果
+                return {
+                    "status": "success",
+                    "message": "已登录并提取账户信息",
+                    "account_info": account_info,
+                    "screenshot": str(screenshot_path)
+                }
             else:
                 logger.info("页面已加载，请在浏览器中完成登录...")
-                
-                # 检查是否有安全提示，如果有，尝试绕过
-                await self._bypass_security_warning()
-                
-                # 截取登录前的页面
-                login_screenshot = str(screenshots_dir / "credit_card_before_login.png")
-                await self.session.screenshot(login_screenshot)
-                logger.info(f"登录前截图已保存: {login_screenshot}")
-                
-                # 等待用户手动登录
-                logger.info("等待用户完成登录...")
-                if not await self._wait_for_login():
-                    logger.error("登录超时")
-                    # 截取登录失败的页面
-                    error_screenshot = str(screenshots_dir / "credit_card_login_timeout.png")
-                    await self.session.screenshot(error_screenshot)
-                    logger.info(f"登录超时截图已保存: {error_screenshot}")
-                    return {"status": "error", "message": "Login timeout"}
-                
-                # 保存登录成功后的cookies
-                if cookies_manager:
-                    logger.info(f"正在保存 {domain} 的cookies")
-                    try:
-                        cookies = await self.session.execute_script("return document.cookie")
-                        cookies_parsed = self._parse_cookies(cookies, domain)
-                        cookies_manager.save_cookies_data(domain, cookies_parsed)
-                        logger.info(f"已保存 {len(cookies_parsed)} 个cookies")
-                    except Exception as e:
-                        logger.warning(f"保存cookies时出错: {str(e)}")
-            
-            # 尝试提取账单信息
-            bill_info = await self._extract_bill_info()
-            
-            # 截图账单页面
-            bill_screenshot = str(screenshots_dir / "credit_card_bill.png")
-            await self.session.screenshot(bill_screenshot)
-            logger.info(f"账单页面截图已保存: {bill_screenshot}")
-            
-            return {
-                "status": "success", 
-                "message": "成功获取账单信息", 
-                "bill_info": bill_info,
-                "screenshot_path": bill_screenshot
-            }
+                return {
+                    "status": "pending",
+                    "message": "需要登录，请在浏览器中完成登录操作"
+                }
         except Exception as e:
-            logger.error(f"账单查询失败: {str(e)}")
-            return {"status": "error", "message": str(e)}
-    
+            logger.error(f"处理账单查询时出错: {str(e)}", exc_info=True)
+            return {
+                "status": "error",
+                "message": f"处理失败: {str(e)}"
+            }
+
+    async def _check_already_logged_in(self) -> bool:
+        """检查用户是否已登录 - 新的实现方法"""
+        try:
+            # 方法1: 检查元素是否存在
+            element_indicators = self.LOGIN_SELECTORS['logged_in_indicator'].split(', ')
+            for selector in element_indicators:
+                try:
+                    element = await self.session.query_selector(selector)
+                    if element:
+                        # 检查元素是否可见 - 修正方法调用
+                        is_visible = await self.session.execute_script("""
+                            function isVisible(el) {
+                                if (!el) return false;
+                                const style = window.getComputedStyle(el);
+                                return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetWidth > 0 && el.offsetHeight > 0;
+                            }
+                            return isVisible(arguments[0]);
+                        """, element)
+                        
+                        if is_visible:
+                            logger.info(f"元素检测: 找到登录指示器 {selector}")
+                            return True
+                except Exception as e:
+                    logger.debug(f"检查选择器 {selector} 时出错: {str(e)}")
+            
+            # 方法2: 检查文本内容
+            # 将 evaluate 替换为 execute_script
+            text_detection_result = await self.session.execute_script("""() => {
+                const textContent = document.body.innerText;
+                return {
+                    hasName: textContent.includes('欢迎您'),
+                    hasBill: textContent.includes('本期应还金额'),
+                    hasDate: textContent.includes('到期还款日')
+                };
+            }""")
+            
+            if text_detection_result and any(text_detection_result.values()):
+                logger.info(f"文本检测: 找到登录指示 {text_detection_result}")
+                return True
+            
+            return False
+        except Exception as e:
+            logger.error(f"检查登录状态时出错: {str(e)}")
+            return False
+
+    async def _extract_account_info(self) -> Dict[str, Any]:
+        """提取账户信息 - 新的实现方法"""
+        try:
+            # 使用JavaScript提取账户信息
+            # 将 evaluate 替换为 execute_script
+            account_data = await self.session.execute_script("""() => {
+                const result = {
+                    welcomeMessage: null,
+                    billAmount: null,
+                    dueDate: null,
+                    cardNumber: null,
+                    minPayment: null,
+                    userName: null
+                };
+                
+                // 获取用户名
+                const userNameElement = document.querySelector('#userName');
+                if (userNameElement && userNameElement.textContent) {
+                    result.userName = userNameElement.textContent.trim();
+                }
+                
+                // 获取卡号
+                const cardNumElement = document.querySelector('.ca_num');
+                if (cardNumElement && cardNumElement.textContent) {
+                    result.cardNumber = cardNumElement.textContent.trim();
+                }
+                
+                // 获取账单金额
+                const billElements = document.querySelectorAll('td');
+                for (let el of billElements) {
+                    if (el.textContent.includes('本期应还金额')) {
+                        const amountEl = el.querySelector('.txt14');
+                        if (amountEl) {
+                            result.billAmount = amountEl.textContent.trim();
+                        }
+                        break;
+                    }
+                }
+                
+                // 获取最低还款额
+                const minPayElements = document.querySelectorAll('td');
+                for (let el of minPayElements) {
+                    if (el.textContent.includes('最低还款金额')) {
+                        const amountEl = el.querySelector('.txt14');
+                        if (amountEl) {
+                            result.minPayment = amountEl.textContent.trim();
+                        }
+                        break;
+                    }
+                }
+                
+                // 获取还款日期
+                const dateElements = document.querySelectorAll('td');
+                for (let el of dateElements) {
+                    if (el.textContent.includes('到期还款日')) {
+                        const dateEl = el.querySelector('.txt14');
+                        if (dateEl) {
+                            result.dueDate = dateEl.textContent.trim();
+                        }
+                        break;
+                    }
+                }
+                
+                // 获取欢迎信息
+                const welcomeElements = Array.from(document.querySelectorAll('*'))
+                    .filter(el => el.textContent && (el.textContent.includes('欢迎您') || el.textContent.includes('您好')));
+                if (welcomeElements.length > 0) {
+                    result.welcomeMessage = welcomeElements[0].textContent.trim();
+                }
+                
+                return result;
+            }""")
+            
+            # 从欢迎信息中提取用户名（如果直接获取失败）
+            if not account_data.get('userName') and account_data.get('welcomeMessage'):
+                username_match = re.search(r'[欢迎您|您好]，([\w*]+)', account_data['welcomeMessage'])
+                if username_match:
+                    account_data['userName'] = username_match.group(1)
+            
+            # 格式化结果为更友好的结构
+            formatted_info = {
+                "用户信息": {
+                    "用户名": account_data.get('userName', '未获取到'),
+                    "卡号": account_data.get('cardNumber', '未获取到')
+                },
+                "账单信息": {
+                    "应还金额": account_data.get('billAmount', '未获取到'),
+                    "最低还款": account_data.get('minPayment', '未获取到'),
+                    "还款日期": account_data.get('dueDate', '未获取到')
+                },
+                "原始数据": account_data
+            }
+            
+            return formatted_info
+        except Exception as e:
+            logger.error(f"提取账户信息时出错: {str(e)}")
+            return {"错误": f"提取信息失败: {str(e)}"}
+
+    async def _display_account_info(self, account_info: Dict[str, Any]) -> None:
+        """格式化显示账户信息到日志"""
+        try:
+            # 提取用户数据
+            user_info = account_info.get("用户信息", {})
+            bill_info = account_info.get("账单信息", {})
+            
+            # 格式化显示
+            info_lines = []
+            info_lines.append("="*50)
+            info_lines.append("            中信银行信用卡账户信息摘要")
+            info_lines.append("="*50)
+            
+            info_lines.append("\n👤 用户信息:")
+            info_lines.append(f"   用户名: {user_info.get('用户名', '未获取到')}")
+            info_lines.append(f"   卡号: {user_info.get('卡号', '未获取到')}")
+            
+            info_lines.append("\n💰 账单信息:")
+            info_lines.append(f"   应还金额: ¥{bill_info.get('应还金额', '未获取到')}")
+            info_lines.append(f"   最低还款: ¥{bill_info.get('最低还款', '未获取到')}")
+            info_lines.append(f"   还款日期: {bill_info.get('还款日期', '未获取到')}")
+            
+            info_lines.append("\n" + "="*50)
+            
+            # 输出到日志
+            for line in info_lines:
+                logger.info(line)
+        except Exception as e:
+            logger.error(f"显示账户信息时出错: {str(e)}")
+
     def _extract_domain(self, url: str) -> str:
         """从URL中提取域名"""
-        try:
-            parsed = urlparse(url)
-            domain = parsed.netloc
-            return domain
-        except Exception as e:
-            logger.warning(f"无法从URL提取域名: {str(e)}")
-            return "default"
-    
-    def _parse_cookies(self, cookies_str: str, domain: str) -> list:
-        """解析cookie字符串为列表形式"""
-        cookies_list = []
-        if not cookies_str:
-            return cookies_list
-        
-        parts = cookies_str.split(';')
-        for part in parts:
-            if '=' in part:
-                name, value = part.strip().split('=', 1)
-                cookies_list.append({
-                    'name': name, 
-                    'value': value, 
-                    'domain': domain,
-                    'path': '/'
-                })
-        
-        return cookies_list
-    
-    async def _check_already_logged_in(self) -> bool:
-        """检查是否已经登录"""
-        try:
-            logged_in_selectors = self.LOGIN_SELECTORS['logged_in_indicator'].split(', ')
-            
-            for selector in logged_in_selectors:
-                is_visible = await self.is_element_visible(selector)
-                if is_visible:
-                    return True
-            
-            return False
-        except Exception as e:
-            logger.warning(f"检查登录状态时出错: {str(e)}")
-            return False
-    
-    async def _bypass_security_warning(self) -> bool:
-        """
-        尝试绕过'This browser or app may not be secure'警告
-        
-        Returns:
-            是否成功绕过
-        """
-        try:
-            # 检查是否存在安全警告
-            warning_text = "This browser or app may not be secure"
-            warning_exists = await self.session.execute_script(f"""
-                return document.body.innerText.includes("{warning_text}");
-            """)
-            
-            if warning_exists:
-                logger.info("检测到安全警告，尝试绕过...")
-                
-                # 方法1: 尝试点击"Try anyway"按钮（如果存在）
-                for selector in self.LOGIN_SELECTORS['try_anyway_button']:
-                    try:
-                        element = await self.session.query_selector(selector)
-                        if element:
-                            await self.session.click(selector)
-                            logger.info(f"点击了'{selector}'按钮")
-                            await asyncio.sleep(2)
-                            return True
-                    except:
-                        continue
-                
-                # 方法2: 如果没有按钮，尝试直接跳过这个警告页面
-                current_url = await self.session.execute_script("return window.location.href;")
-                if "signinchallenge" in current_url:
-                    # 直接导航到原始目标网址
-                    await self.session.goto("https://e.creditcard.ecitic.com/citiccard/ebank-ocp/ebankpc/myaccount.html")
-                    logger.info("已尝试直接跳转到目标页面")
-                
-                logger.warning("无法绕过安全警告，请手动处理...")
-                return False
-            
-            # 没有检测到安全警告
-            return True
-            
-        except Exception as e:
-            logger.error(f"尝试绕过安全警告时出错: {str(e)}")
-            return False
-    
-    async def _wait_for_login(self) -> bool:
-        """
-        等待用户登录
-        
-        Returns:
-            是否成功登录
-        """
-        try:
-            # 添加页面截图功能
-            screenshots_dir = Path("./browser_data/screenshots")
-            await self.session.screenshot(str(screenshots_dir / "waiting_for_login.png"))
-            logger.info("等待用户登录,请在浏览器窗口中完成登录...")
-            
-            # 等待用户交互
-            await self.wait_for_user_interaction("请在浏览器中完成登录，然后按回车继续...")
-            
-            # 检查是否已登录
-            logged_in_selectors = self.LOGIN_SELECTORS['logged_in_indicator'].split(', ')
-            
-            for selector in logged_in_selectors:
-                is_visible = await self.is_element_visible(selector)
-                if is_visible:
-                    # 登录成功后再截图
-                    await self.session.screenshot(str(screenshots_dir / "login_successful.png"))
-                    logger.info("登录成功!")
-                    return True
-            
-            logger.error("未检测到登录成功指示器")
-            return False
-            
-        except Exception as e:
-            logger.error(f"登录等待出错: {str(e)}")
-            # 出错时也保存截图
-            await self.session.screenshot(str(screenshots_dir / "login_error.png"))
-            logger.info("登录失败截图已保存")
-            return False
-    
-    async def _extract_bill_info(self) -> Dict[str, Any]:
-        """
-        提取账单信息
-        
-        Returns:
-            账单信息字典
-        """
-        bill_info = {}
-        
-        try:
-            # 等待页面加载完成
-            await self.session.wait_for_load_state('networkidle')
-            
-            # 尝试提取账单金额
-            bill_selectors = self.LOGIN_SELECTORS['bill_amount'].split(', ')
-            
-            # 创建更广泛的账单金额选择器
-            additional_selectors = [
-                '.bill-amount', '.amount-text', '.total-amount',
-                '.bill-wrap .amount', '.bill-detail .amount',
-                'span:contains("账单金额")', 'div:contains("账单金额")',
-                '.bill-info .money', '.statement-amount', '.due-amount'
-            ]
-            all_selectors = bill_selectors + additional_selectors
-            
-            for selector in all_selectors:
-                try:
-                    text = await self.extract_text(selector)
-                    if text:
-                        # 尝试从文本中提取数字（处理可能的格式）
-                        amount_match = re.search(r'(\d+,?\d*\.?\d*)', text)
-                        if amount_match:
-                            amount = amount_match.group(1).replace(',', '')
-                            bill_info['amount'] = amount
-                            logger.info(f"提取到账单金额: {amount} (从选择器 {selector})")
-                            break
-                        else:
-                            bill_info['amount'] = text.strip()
-                            logger.info(f"提取到账单金额文本: {text} (从选择器 {selector})")
-                            break
-                except Exception as e:
-                    logger.warning(f"提取账单金额 {selector} 失败: {str(e)}")
-            
-            # 如果没有找到账单金额，尝试使用XPath
-            if 'amount' not in bill_info:
-                try:
-                    xpath_expressions = [
-                        "//span[contains(text(),'账单金额')]/following-sibling::span",
-                        "//div[contains(text(),'账单金额')]/following-sibling::div",
-                        "//div[contains(text(),'账单金额')]/../following-sibling::div",
-                        "//div[contains(text(),'账单金额')]/parent::*/following-sibling::*",
-                        "//div[contains(@class,'bill-amount')]",
-                        "//span[contains(@class,'amount')]",
-                        "//div[contains(@class,'amount')]"
-                    ]
-                    
-                    for xpath in xpath_expressions:
-                        text = await self.extract_text_xpath(xpath)
-                        if text:
-                            # 尝试从文本中提取数字
-                            amount_match = re.search(r'(\d+,?\d*\.?\d*)', text)
-                            if amount_match:
-                                amount = amount_match.group(1).replace(',', '')
-                                bill_info['amount'] = amount
-                                logger.info(f"通过XPath提取到账单金额: {amount} (从XPath {xpath})")
-                                break
-                            else:
-                                bill_info['amount'] = text.strip()
-                                logger.info(f"通过XPath提取到账单金额文本: {text} (从XPath {xpath})")
-                                break
-                except Exception as e:
-                    logger.warning(f"通过XPath提取账单金额失败: {str(e)}")
-            
-            # 尝试使用JavaScript提取页面中的所有数字并找出可能的账单金额
-            if 'amount' not in bill_info:
-                try:
-                    amounts = await self.session.execute_script("""
-                        const textNodes = [];
-                        const walker = document.createTreeWalker(
-                            document.body, 
-                            NodeFilter.SHOW_TEXT, 
-                            null, 
-                            false
-                        );
-                        
-                        let node;
-                        while(node = walker.nextNode()) {
-                            if (node.textContent.trim()) {
-                                textNodes.push(node.textContent.trim());
-                            }
-                        }
-                        
-                        // 查找包含数字的文本节点
-                        const amountRegex = /([¥￥]?\\s*\\d+[,，]?\\d*\\.?\\d*)/;
-                        const possibleAmounts = [];
-                        
-                        for (const text of textNodes) {
-                            const match = text.match(amountRegex);
-                            if (match) {
-                                possibleAmounts.push({
-                                    text: text,
-                                    amount: match[1].replace(/[¥￥,，]/g, '')
-                                });
-                            }
-                        }
-                        
-                        return possibleAmounts;
-                    """)
-                    
-                    if amounts and len(amounts) > 0:
-                        # 查找看起来最像账单金额的数字
-                        for amount_obj in amounts:
-                            amount_text = amount_obj.get('text', '')
-                            if '账单' in amount_text or '金额' in amount_text or '应还' in amount_text:
-                                bill_info['amount'] = amount_obj.get('amount', '')
-                                logger.info(f"通过JavaScript提取到账单金额: {bill_info['amount']}")
-                                break
-                        
-                        # 如果找不到明确的账单金额，使用第一个找到的数字
-                        if 'amount' not in bill_info and amounts:
-                            bill_info['amount'] = amounts[0].get('amount', '')
-                            logger.info(f"使用第一个可能的金额: {bill_info['amount']}")
-                except Exception as e:
-                    logger.warning(f"通过JavaScript提取账单金额失败: {str(e)}")
-            
-            # 尝试提取更多账单信息，如账单日期、到期还款日等
-            try:
-                bill_date_xpath = "//span[contains(text(),'账单日期')]/following-sibling::span"
-                due_date_xpath = "//span[contains(text(),'到期还款日')]/following-sibling::span"
-                
-                bill_date = await self.extract_text_xpath(bill_date_xpath)
-                due_date = await self.extract_text_xpath(due_date_xpath)
-                
-                if bill_date:
-                    bill_info['bill_date'] = bill_date.strip()
-                if due_date:
-                    bill_info['due_date'] = due_date.strip()
-                
-            except Exception as e:
-                logger.warning(f"提取额外账单信息失败: {str(e)}")
-            
-            # 打印找到的账单信息
-            if bill_info:
-                logger.info(f"成功提取账单信息: {bill_info}")
-            else:
-                logger.warning("未能提取到任何账单信息")
-            
-            return bill_info
-            
-        except Exception as e:
-            logger.error(f"提取账单信息失败: {str(e)}")
-            return bill_info
+        parsed_url = urlparse(url)
+        return parsed_url.netloc

@@ -19,7 +19,7 @@ async def main():
     services = [
         ("API网关 (任务)", "http://localhost:8000/tasks", 405),  # POST需要请求体，所以GET会返回405
         ("API网关 (聊天)", "http://localhost:8000/chat", 405),   # 同上
-        ("Orchestrator", "http://localhost:8001/", 200),
+        ("Orchestrator", "http://localhost:8001/tasks", 405),
         ("Scenario", "http://localhost:8002/", 404),
         ("Tool", "http://localhost:8003/", 404)
     ]

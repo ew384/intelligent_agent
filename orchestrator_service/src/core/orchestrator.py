@@ -2,6 +2,9 @@
 from typing import Dict, Optional, Type
 from ..workflows.base import BaseWorkflow
 from ..workflows.credit_card import CreditCardWorkflow
+from ..workflows.hr_recruitment import HRRecruitmentWorkflow
+from ..workflows.ecommerce import ECommerceWorkflow
+from ..workflows.price_comparison import PriceComparisonWorkflow
 
 class TaskOrchestrator:
     """Orchestrates tasks by selecting appropriate workflows"""
@@ -14,12 +17,6 @@ class TaskOrchestrator:
         """Register all available workflows"""
         # Register the existing credit card workflow
         self.register("credit_card", CreditCardWorkflow)
-        
-        # Register other workflows we've implemented
-        from ..workflows.hr_recruitment import HRRecruitmentWorkflow
-        from ..workflows.ecommerce import ECommerceWorkflow
-        from ..workflows.price_comparison import PriceComparisonWorkflow
-        
         self.register("hr_recruitment", HRRecruitmentWorkflow)
         self.register("ecommerce", ECommerceWorkflow)
         self.register("price_comparison", PriceComparisonWorkflow)
