@@ -8,11 +8,10 @@ class CreditCardWorkflow(BaseWorkflow):
         try:
             # 调用工具服务执行信用卡查询
             async with httpx.AsyncClient() as client:
-                print(parameters)
                 response = await client.post(
                     "http://localhost:8003/tools/browser/credit-card",
                     json=parameters
                 )
-                return response.json()
+                return response
         except Exception as e:
             return {"status": "error", "message": str(e)}

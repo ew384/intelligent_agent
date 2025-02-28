@@ -47,9 +47,8 @@ async def handle_credit_card_query(parameters: Dict[str, Any]):
         logger.info(f"开始查询账单: {parameters}")
         
         # 执行查询
-        print(parameters)
         result = await handler.process_bill_query(parameters)
-        logger.info(f"查询结果: {result}")
+        logger.info(f"查询结果: {result.json()}")
         return result
     except Exception as e:
         logger.error(f"信用卡查询出错: {str(e)}")

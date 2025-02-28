@@ -754,6 +754,8 @@ class ChromeDriverBrowserService:
                 f"--user-data-dir={user_data_dir}",
                 "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",  # 使用常见用户代理
                 "--disable-automation",  # 更通用的禁用自动化标志
+                "--disable-logging",
+                "--log-level=3",
                 "--window-size=1920,1080"  # 在启动时设置窗口大小
             ]
             
@@ -764,17 +766,18 @@ class ChromeDriverBrowserService:
             logger.info(f"启动Chrome调试实例: {' '.join(cmd)}")
             
             # 以非阻塞方式启动Chrome
-            self.debug_process = subprocess.Popen(cmd)
+            if not self._is_debug_port_in_use():
+                logger.info(f"Chrome调试端口 {port} 已就绪")
+                self.debug_process = subprocess.Popen(cmd)
             
             # 等待Chrome启动并监听端口
-            max_wait = 30  # 最多等待30秒
-            for _ in range(max_wait):
-                if self._is_debug_port_in_use():
-                    logger.info(f"Chrome调试端口 {port} 已就绪")
-                    return
-                await asyncio.sleep(1)
+            #for _ in range(30):
+            #    if self._is_debug_port_in_use():
+            #        logger.info(f"Chrome调试端口 {port} 已就绪")
+            #        return
+            #    await asyncio.sleep(1)
             
-            raise Exception(f"等待Chrome调试端口 {port} 超时")
+            #raise Exception(f"等待Chrome调试端口 {port} 超时")
         
         except Exception as e:
             logger.error(f"启动Chrome调试实例失败: {str(e)}")

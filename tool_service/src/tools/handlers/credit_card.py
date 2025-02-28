@@ -176,95 +176,65 @@ class CreditCardHandler(BaseHandler):
         try:
             # 使用JavaScript提取账户信息
             # 将 evaluate 替换为 execute_script
-            account_data = await self.session.execute_script("""() => {
-                const result = {
-                    welcomeMessage: null,
-                    billAmount: null,
-                    dueDate: null,
-                    cardNumber: null,
-                    minPayment: null,
-                    userName: null
-                };
-                
-                // 获取用户名
-                const userNameElement = document.querySelector('#userName');
-                if (userNameElement && userNameElement.textContent) {
-                    result.userName = userNameElement.textContent.trim();
-                }
-                
-                // 获取卡号
-                const cardNumElement = document.querySelector('.ca_num');
-                if (cardNumElement && cardNumElement.textContent) {
-                    result.cardNumber = cardNumElement.textContent.trim();
-                }
-                
-                // 获取账单金额
-                const billElements = document.querySelectorAll('td');
-                for (let el of billElements) {
-                    if (el.textContent.includes('本期应还金额')) {
-                        const amountEl = el.querySelector('.txt14');
-                        if (amountEl) {
-                            result.billAmount = amountEl.textContent.trim();
-                        }
-                        break;
-                    }
-                }
-                
-                // 获取最低还款额
-                const minPayElements = document.querySelectorAll('td');
-                for (let el of minPayElements) {
-                    if (el.textContent.includes('最低还款金额')) {
-                        const amountEl = el.querySelector('.txt14');
-                        if (amountEl) {
-                            result.minPayment = amountEl.textContent.trim();
-                        }
-                        break;
-                    }
-                }
-                
-                // 获取还款日期
-                const dateElements = document.querySelectorAll('td');
-                for (let el of dateElements) {
-                    if (el.textContent.includes('到期还款日')) {
-                        const dateEl = el.querySelector('.txt14');
-                        if (dateEl) {
-                            result.dueDate = dateEl.textContent.trim();
-                        }
-                        break;
-                    }
-                }
-                
-                // 获取欢迎信息
-                const welcomeElements = Array.from(document.querySelectorAll('*'))
-                    .filter(el => el.textContent && (el.textContent.includes('欢迎您') || el.textContent.includes('您好')));
-                if (welcomeElements.length > 0) {
-                    result.welcomeMessage = welcomeElements[0].textContent.trim();
-                }
-                
-                return result;
-            }""")
+            js_script = """
+            const result = {
+                welcomeMessage: null,
+                billAmount: null,
+                dueDate: null,
+                cardNumber: null,
+                minPayment: null
+            };
             
-            # 从欢迎信息中提取用户名（如果直接获取失败）
-            if not account_data.get('userName') and account_data.get('welcomeMessage'):
-                username_match = re.search(r'[欢迎您|您好]，([\w*]+)', account_data['welcomeMessage'])
-                if username_match:
-                    account_data['userName'] = username_match.group(1)
-            
-            # 格式化结果为更友好的结构
-            formatted_info = {
-                "用户信息": {
-                    "用户名": account_data.get('userName', '未获取到'),
-                    "卡号": account_data.get('cardNumber', '未获取到')
-                },
-                "账单信息": {
-                    "应还金额": account_data.get('billAmount', '未获取到'),
-                    "最低还款": account_data.get('minPayment', '未获取到'),
-                    "还款日期": account_data.get('dueDate', '未获取到')
-                },
-                "原始数据": account_data
+            // 查找欢迎信息
+            const welcomeElements = Array.from(document.querySelectorAll('*')).filter(el => 
+                el.textContent && el.textContent.includes('欢迎您'));
+            if (welcomeElements.length > 0) {
+                result.welcomeMessage = welcomeElements[0].textContent.trim();
             }
             
-            return formatted_info
+            // 查找卡号
+            const cardElements = document.querySelectorAll('.ca_num');
+            if (cardElements.length > 0) {
+                result.cardNumber = cardElements[0].textContent.trim();
+            }
+            
+            // 查找账单金额
+            const billElements = document.querySelectorAll('td:nth-child(1) > span.txt14');
+            if (billElements.length > 0) {
+                for (let el of billElements) {
+                    if (el.parentElement && el.parentElement.textContent.includes('本期应还金额')) {
+                        result.billAmount = el.textContent.trim();
+                        break;
+                    }
+                }
+            }
+            
+            // 查找最低还款金额
+            const minPayElements = document.querySelectorAll('td:nth-child(2) > span.txt14');
+            if (minPayElements.length > 0) {
+                for (let el of minPayElements) {
+                    if (el.parentElement && el.parentElement.textContent.includes('最低还款金额')) {
+                        result.minPayment = el.textContent.trim();
+                        break;
+                    }
+                }
+            }
+            
+            // 查找到期还款日
+            const dateElements = document.querySelectorAll('td:nth-child(2) > span.txt14');
+            if (dateElements.length > 0) {
+                for (let el of dateElements) {
+                    if (el.parentElement && el.parentElement.textContent.includes('到期还款日')) {
+                        result.dueDate = el.textContent.trim();
+                        break;
+                    }
+                }
+            }
+            
+            return result;
+            """
+            account_info = await self.session.execute_script(js_script)
+            return account_info
         except Exception as e:
             logger.error(f"提取账户信息时出错: {str(e)}")
             return {"错误": f"提取信息失败: {str(e)}"}
@@ -273,9 +243,10 @@ class CreditCardHandler(BaseHandler):
         """格式化显示账户信息到日志"""
         try:
             # 提取用户数据
-            user_info = account_info.get("用户信息", {})
-            bill_info = account_info.get("账单信息", {})
             
+            match = re.search(r'[欢迎您|您好]，([\w*]+)', account_info.get('welcomeMessage', ''))
+            username=match.group(1) if match else "未知用户"
+            card_number = account_info.get('cardNumber', '未获取到卡号')
             # 格式化显示
             info_lines = []
             info_lines.append("="*50)
@@ -283,13 +254,13 @@ class CreditCardHandler(BaseHandler):
             info_lines.append("="*50)
             
             info_lines.append("\n👤 用户信息:")
-            info_lines.append(f"   用户名: {user_info.get('用户名', '未获取到')}")
-            info_lines.append(f"   卡号: {user_info.get('卡号', '未获取到')}")
+            info_lines.append(f"   用户名: {username}")
+            info_lines.append(f"   卡号: {card_number}")
             
             info_lines.append("\n💰 账单信息:")
-            info_lines.append(f"   应还金额: ¥{bill_info.get('应还金额', '未获取到')}")
-            info_lines.append(f"   最低还款: ¥{bill_info.get('最低还款', '未获取到')}")
-            info_lines.append(f"   还款日期: {bill_info.get('还款日期', '未获取到')}")
+            info_lines.append(f"   应还金额: ¥{account_info.get('billAmount', '未获取到')}")
+            info_lines.append(f"   最低还款: ¥{account_info.get('minPayment', '未获取到')}")
+            info_lines.append(f"   还款日期: {account_info.get('dueDate', '未获取到')}")
             
             info_lines.append("\n" + "="*50)
             
