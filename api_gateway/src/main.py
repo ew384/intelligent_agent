@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 import sys
 import os
 from pathlib import Path
-
+#import pdb; pdb.set_trace()
 # 添加项目根目录到Python路径
 current_path = Path(__file__).parent.parent.parent
 sys.path.append(str(current_path))
@@ -21,6 +21,8 @@ app.include_router(chat_router)
 @app.post("/tasks")
 async def create_task(request: TaskRequest) -> TaskResponse:
     try:
+        
+        print(f"Request data: {request.dict()}")
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 "http://localhost:8001/tasks",

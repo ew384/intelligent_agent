@@ -47,21 +47,18 @@ async def test_credit_card():
                 return
             
             result = response.json()
-            
+            time.sleep(100)
             logger.info("从API网关收到响应")
             logger.info(f"状态: {result.get('status')}")
             logger.info(f"任务ID: {result.get('task_id')}")
             
-            time.sleep(100)
+
             # 显示账单信息
             if result.get('status') == 'success':
                 bill_info = result.get('result', {}).get('bill_info', {})
                 if bill_info:
-                    logger.info("\n----- 账单信息 -----")
-                    logger.info(f"账单金额: {bill_info.get('amount', '未找到')}")
-                    logger.info(f"账单日期: {bill_info.get('bill_date', '未找到')}")
-                    logger.info(f"到期还款日: {bill_info.get('due_date', '未找到')}")
-                    
+                    pass
+                    '''
                     # 保存账单信息到文件
                     with open(screenshots_dir / "bill_info.json", "w", encoding="utf-8") as f:
                         json.dump(bill_info, f, ensure_ascii=False, indent=2)
@@ -74,6 +71,7 @@ async def test_credit_card():
                         dest_path = screenshots_dir / "bill_screenshot.png"
                         shutil.copy(screenshot_path, dest_path)
                         logger.info(f"已保存账单截图到: {dest_path}")
+                    '''
                 else:
                     logger.warning("没有找到账单信息")
             else:

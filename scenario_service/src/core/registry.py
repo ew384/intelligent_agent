@@ -2,7 +2,9 @@
 from typing import Dict, Optional, Type
 from ..scenarios.base import BaseScenario
 from ..scenarios.credit_card import CreditCardScenario
-
+from ..scenarios.hr_recruitment import HRRecruitmentScenario
+from ..scenarios.ecommerce import ECommerceScenario
+from ..scenarios.price_comparison import PriceComparisonScenario
 class ScenarioRegistry:
     """Registry for all available scenarios"""
     
@@ -14,12 +16,6 @@ class ScenarioRegistry:
         """Register all available scenarios"""
         # Register the existing credit card scenario
         self.register("credit_card", CreditCardScenario)
-        
-        # Register other scenarios we've implemented
-        from ..scenarios.hr_recruitment import HRRecruitmentScenario
-        from ..scenarios.ecommerce import ECommerceScenario
-        from ..scenarios.price_comparison import PriceComparisonScenario
-        
         self.register("hr_recruitment", HRRecruitmentScenario)
         self.register("ecommerce", ECommerceScenario)
         self.register("price_comparison", PriceComparisonScenario)
