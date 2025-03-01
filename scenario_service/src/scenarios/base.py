@@ -1,7 +1,7 @@
 # scenario-service/src/scenarios/base.py
 from abc import ABC, abstractmethod
 from typing import Dict, Any
-
+#**Purpose**: Define workflow templates/blueprints
 class BaseScenario(ABC):
     """Base class for all scenarios"""
     

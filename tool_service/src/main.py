@@ -1,42 +1,59 @@
 # tool_service/src/main.py
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 import sys
 import os
 from pathlib import Path
-# 添加项目根目录到Python路径
-current_path = Path(__file__).parent.parent.parent
-sys.path.append(str(current_path))
-from .routes.api import router as api_router
-from .tools.browser.browser_manager import BrowserManager
+import logging
 
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger("tool_service")
+
+# 创建FastAPI应用
 app = FastAPI(title="Tool Service")
 
-# 初始化全局服务
-browser_manager = BrowserManager()
+# 导入主路由
+from .routes.api import router as api_router
 
-# 注册路由
+# 注册主路由 - 所有子路由都通过api_router注册
 app.include_router(api_router, prefix="/tools")
 
-@app.on_event("startup")
-async def startup_event():
-    # 服务启动时的初始化
-    # 检查ChromeDriver是否已存在
-    chromedriver_path = "/usr/local/bin/chromedriver"
-    if os.path.exists(chromedriver_path) and os.access(chromedriver_path, os.X_OK):
-        print(f"ChromeDriver已存在于{chromedriver_path}，跳过下载")
-    else:
-        # 下载匹配的ChromeDriver
-        try:
-            browser_manager.download_chromedriver()
-        except Exception as e:
-            print(f"警告: ChromeDriver下载失败: {str(e)}")
+@app.get("/")
+async def root():
+    """服务根路径"""
+    return {
+        "service": "Tool Service",
+        "status": "running",
+        "endpoints": [
+            "/tools/browser/{action}",
+            "/tools/browser/credit-card",
+            "/tools/llm/generate"
+        ]
+    }
 
-@app.on_event("shutdown")
-async def shutdown_event():
-    # 服务关闭时的清理
-    browser_manager.cleanup()
+@app.get("/health")
+async def health_check():
+    """健康检查端点"""
+    return {"status": "healthy"}
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    """请求日志中间件"""
+    path = request.url.path
+    method = request.method
+    logger.info(f"收到请求: {method} {path}")
+    
+    response = await call_next(request)
+    
+    status_code = response.status_code
+    logger.info(f"响应: {method} {path} - {status_code}")
+    
+    return response
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8003, reload=True)
-
+    # 确保运行在正确的包路径下
+    uvicorn.run("tool_service.src.main:app", host="0.0.0.0", port=8003, reload=True)

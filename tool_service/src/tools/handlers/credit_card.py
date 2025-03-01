@@ -1,5 +1,6 @@
 # tool_service/src/tools/handlers/credit_card.py
 from .base import BaseHandler
+from .browser_operations import BrowserOperations
 from typing import Dict, Any
 import logging
 import asyncio
@@ -12,170 +13,71 @@ from urllib.parse import urlparse
 logger = logging.getLogger(__name__)
 
 class CreditCardHandler(BaseHandler):
-    """中信银行信用卡账单处理器"""
-    # 更新选择器，使用更精确的指示器
-    LOGIN_SELECTORS = {
-        'bill_amount': '.txt14',  # 金额选择器
-        'logged_in_indicator': '#userName, #nameRare, .ca_num, #cardList',  # 登录状态指示器
-        'security_warning': 'body:contains("browser or app may not be secure")',
-        'try_anyway_button': [
-            "text=Try anyway",
-            "text=Continue anyway",
-            "[aria-label='Try anyway']",
-            "button:has-text('Try')",
-            "a:has-text('Try')"
-        ]
+    """
+    中信银行信用卡账单处理器
+    专注于处理中信银行信用卡业务特定的逻辑和数据提取
+    """
+    
+    # 登录和元素选择器配置
+    SELECTORS = {
+        'bill_amount': 'td:nth-child(1) > span.txt14',  # 金额选择器
+        'min_payment': 'td:nth-child(2) > span.txt14',  # 最低还款金额选择器
+        'due_date': 'td:nth-child(2) > span.txt14',     # 到期还款日选择器
+        'card_number': '.ca_num',                       # 卡号选择器
+        'logged_in_indicators': [
+            '#userName', '#nameRare', '.ca_num', '#cardList',
+        ],                                              # 登录状态指示器
+        'text_indicators': [
+            '欢迎您', '本期应还金额', '到期还款日'
+        ]                                               # 文本指示器
     }
+    
     async def process_query(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """实现基类的抽象方法"""
-        return await self.process_bill_query(parameters)
-
-    async def process_bill_query(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
-        处理信用卡账单查询
+        处理信用卡账单查询 - 高级业务流程
+        
         Args:
-            parameters: 查询参数
+            parameters: 查询参数，必须包含url
+        
         Returns:
             查询结果
         """
         try:
-            # 保存截图目录
-            screenshots_dir = Path("./browser_data/screenshots")
-            screenshots_dir.mkdir(parents=True, exist_ok=True)
-            # 获取URL并解析域名（用于cookie管理）
-            url = parameters['url']
-            domain = self._extract_domain(url)
-            # 显示详细日志
-            logger.info(f"访问URL: {url}")
-            # 尝试从cookies管理器加载cookies
-            cookies_manager = getattr(self.session.browser_service, 'cookies_manager', None)
-            if cookies_manager:
-                logger.info(f"尝试加载 {domain} 的cookies")
-                try:
-                    cookies_loaded = await self.session.execute_script("""
-                        const cookies = arguments[0];
-                        let success = true;
-                        for (const cookie of cookies) {
-                            try {
-                                document.cookie = `${cookie.name}=${cookie.value}; path=${cookie.path || '/'}; domain=${cookie.domain || document.domain}`;
-                            } catch (e) {
-                                success = false;
-                                console.error('设置cookie失败:', e);
-                            }
-                        }
-                        return success;
-                    """, cookies_manager.load_cookies(domain))
-                    logger.info(f"Cookies加载结果: {cookies_loaded}")
-                except Exception as e:
-                    logger.warning(f"加载cookies时出错: {str(e)}")
-            # 使用更人性化的导航
-            await self.session.goto(url, timeout=60000)
-            # 等待页面完全加载
-            await self.session.wait_for_load_state('domcontentloaded')
-            await self.session.wait_for_load_state('networkidle')
+            action = parameters.get('action')
+            if not action:
+                action = "extract_account_info"
+            if action == 'extract_account_info':
+                # 仅执行提取账户信息的操作
+                return await self._extract_account_info()
+  
             
-            # 给用户时间在浏览器中完成登录
-            logger.info("页面已加载，请在浏览器中完成登录...")
-            # 等待用户操作的时间，可以根据需要调整
-            login_wait_time = 300  # 等待3分钟
-            logger.info(f"等待 {login_wait_time} 秒以完成手动登录...")
+            # 3. 提取账户信息 - 这是信用卡特定的逻辑
+            logger.info("登录成功，提取账户信息")
+            account_info = await self._extract_account_info()
             
-            # 等待指定时间
-            for i in range(login_wait_time, 0, -30):
-                logger.info(f"剩余等待时间: {i} 秒...")
-                await asyncio.sleep(30)
-                if await self._check_already_logged_in():
-                    logger.info("检测到登录状态，继续处理...")
-                    break
-
-            # 检查是否已经登录 - 使用新的登录检测方法
-            already_logged_in = await self._check_already_logged_in()
-            if already_logged_in:
-                logger.info("检测到已经登录状态")
-                
-                # 提取账户信息
-                account_info = await self._extract_account_info()
-                logger.info(f"成功提取账户信息: {json.dumps(account_info, ensure_ascii=False)}")
-                
-                # 格式化显示账户信息到日志
-                await self._display_account_info(account_info)
-                
-                # 保存截图
-                timestamp = int(time.time())
-                screenshot_path = screenshots_dir / f"credit_card_{timestamp}.png"
-                await self.session.screenshot(path=str(screenshot_path))
-                logger.info(f"页面截图已保存到: {screenshot_path}")
-                
-                # 返回结果
-                return {
-                    "status": "success",
-                    "message": "已登录并提取账户信息",
-                    "account_info": account_info,
-                    "screenshot": str(screenshot_path)
-                }
-            else:
-                logger.info("页面已加载，请在浏览器中完成登录...")
-                return {
-                    "status": "pending",
-                    "message": "需要登录，请在浏览器中完成登录操作"
-                }
+            # 5. 整合和返回结果
+            return {
+                "status": "success",
+                "message": "成功提取信用卡信息",
+                "account_info": account_info
+            }
+            
         except Exception as e:
-            logger.error(f"处理账单查询时出错: {str(e)}", exc_info=True)
+            logger.error(f"处理信用卡账单查询时出错: {str(e)}", exc_info=True)
             return {
                 "status": "error",
                 "message": f"处理失败: {str(e)}"
             }
-
-    async def _check_already_logged_in(self) -> bool:
-        """检查用户是否已登录 - 新的实现方法"""
-        try:
-            # 方法1: 检查元素是否存在
-            element_indicators = self.LOGIN_SELECTORS['logged_in_indicator'].split(', ')
-            for selector in element_indicators:
-                try:
-                    element = await self.session.query_selector(selector)
-                    if element:
-                        # 检查元素是否可见 - 修正方法调用
-                        is_visible = await self.session.execute_script("""
-                            function isVisible(el) {
-                                if (!el) return false;
-                                const style = window.getComputedStyle(el);
-                                return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetWidth > 0 && el.offsetHeight > 0;
-                            }
-                            return isVisible(arguments[0]);
-                        """, element)
-                        
-                        if is_visible:
-                            logger.info(f"元素检测: 找到登录指示器 {selector}")
-                            return True
-                except Exception as e:
-                    logger.debug(f"检查选择器 {selector} 时出错: {str(e)}")
-            
-            # 方法2: 检查文本内容
-            # 将 evaluate 替换为 execute_script
-            text_detection_result = await self.session.execute_script("""() => {
-                const textContent = document.body.innerText;
-                return {
-                    hasName: textContent.includes('欢迎您'),
-                    hasBill: textContent.includes('本期应还金额'),
-                    hasDate: textContent.includes('到期还款日')
-                };
-            }""")
-            
-            if text_detection_result and any(text_detection_result.values()):
-                logger.info(f"文本检测: 找到登录指示 {text_detection_result}")
-                return True
-            
-            return False
-        except Exception as e:
-            logger.error(f"检查登录状态时出错: {str(e)}")
-            return False
-
+    
     async def _extract_account_info(self) -> Dict[str, Any]:
-        """提取账户信息 - 新的实现方法"""
+        """
+        提取信用卡账户信息 - 完全特定于中信银行的业务逻辑
+        
+        Returns:
+            账户信息字典
+        """
         try:
-            # 使用JavaScript提取账户信息
-            # 将 evaluate 替换为 execute_script
+            # 使用JavaScript提取账户信息，专注于中信银行网站的特定结构
             js_script = """
             const result = {
                 welcomeMessage: null,
@@ -233,20 +135,30 @@ class CreditCardHandler(BaseHandler):
             
             return result;
             """
+            
             account_info = await self.session.execute_script(js_script)
+            
+            # 格式化并美化提取的数据
+            await self._format_account_info(account_info)
+            
             return account_info
         except Exception as e:
             logger.error(f"提取账户信息时出错: {str(e)}")
-            return {"错误": f"提取信息失败: {str(e)}"}
-
-    async def _display_account_info(self, account_info: Dict[str, Any]) -> None:
-        """格式化显示账户信息到日志"""
+            return {}
+    
+    async def _format_account_info(self, account_info: Dict[str, Any]) -> None:
+        """
+        格式化显示账户信息到日志 - 仅用于日志输出，不影响返回值
+        
+        Args:
+            account_info: 账户信息字典
+        """
         try:
             # 提取用户数据
-            
             match = re.search(r'[欢迎您|您好]，([\w*]+)', account_info.get('welcomeMessage', ''))
-            username=match.group(1) if match else "未知用户"
+            username = match.group(1) if match else "未知用户"
             card_number = account_info.get('cardNumber', '未获取到卡号')
+            
             # 格式化显示
             info_lines = []
             info_lines.append("="*50)
@@ -268,7 +180,7 @@ class CreditCardHandler(BaseHandler):
             for line in info_lines:
                 logger.info(line)
         except Exception as e:
-            logger.error(f"显示账户信息时出错: {str(e)}")
+            logger.error(f"格式化账户信息时出错: {str(e)}")
 
     def _extract_domain(self, url: str) -> str:
         """从URL中提取域名"""

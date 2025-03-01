@@ -1,7 +1,7 @@
 # orchestrator-service/src/workflows/base.py
 from abc import ABC, abstractmethod
 from typing import Dict, Any
-
+#**Purpose**: Coordinate workflow execution
 class BaseWorkflow(ABC):
     """Base class for all workflows"""
     

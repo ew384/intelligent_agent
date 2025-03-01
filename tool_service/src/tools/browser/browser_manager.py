@@ -1,20 +1,29 @@
 # tool_service/src/tools/browser/browser_manager.py
 import os
 import logging
-import subprocess
 import atexit
 import tempfile
 import shutil
 import sys
 import platform
 from pathlib import Path
-from typing import Dict, Any, Optional, List, Union
-from .chromedriver_browser_service import ChromeDriverBrowserService
+from typing import Dict, Any, Optional
+import urllib.request
+import zipfile
+import socket
+import asyncio
 
 logger = logging.getLogger(__name__)
 
 class BrowserManager:
-    """浏览器管理类，负责浏览器服务的创建和管理"""
+    """
+    浏览器管理器：负责管理浏览器实例和驱动程序
+    职责:
+    1. 管理浏览器服务实例
+    2. 下载和管理驱动程序
+    3. 处理资源清理
+    4. 分配端口号
+    """
     
     _instance = None
     
@@ -26,12 +35,7 @@ class BrowserManager:
         return cls._instance
     
     def __init__(self, config: Dict[str, Any] = None):
-        """
-        初始化浏览器管理器
-        
-        Args:
-            config: 配置选项
-        """
+        """初始化浏览器管理器"""
         if self._initialized:
             return
             
@@ -62,7 +66,7 @@ class BrowserManager:
         
         self._initialized = True
     
-    async def get_browser_service(self, service_id: str = "default") -> ChromeDriverBrowserService:
+    async def get_browser_service(self, service_id: str = "default"):
         """
         获取或创建浏览器服务
         
@@ -72,6 +76,9 @@ class BrowserManager:
         Returns:
             浏览器服务实例
         """
+        # 导入放在这里避免循环导入
+        from .chromedriver_browser_service import ChromeDriverBrowserService
+        
         # 如果服务已存在，直接返回
         if service_id in self.browser_services:
             return self.browser_services[service_id]
@@ -106,8 +113,6 @@ class BrowserManager:
         Returns:
             可用的端口号
         """
-        import socket
-        
         # 从配置的起始端口开始查找
         start_port = self.config['debug_port_start']
         
@@ -120,107 +125,7 @@ class BrowserManager:
         raise Exception("无法找到可用端口")
     
     def download_chromedriver(self, force: bool = False) -> str:
-        """
-        下载与当前Chrome版本匹配的ChromeDriver
-        
-        Args:
-            force: 是否强制下载，即使已存在
-            
-        Returns:
-            ChromeDriver路径
-        """
-        try:
-            # 确定Chrome版本
-            chrome_version = self._get_chrome_version()
-            if not chrome_version:
-                raise Exception("无法确定Chrome版本")
-            
-            # 确定主版本，用于下载正确的驱动
-            major_version = chrome_version.split('.')[0]
-            
-            # 确定下载目标路径
-            driver_dir = self.data_dir / "chromedriver"
-            driver_dir.mkdir(parents=True, exist_ok=True)
-            
-            # 确定平台相关的可执行文件名
-            system = platform.system()
-            if system == "Windows":
-                driver_filename = "chromedriver.exe"
-            else:
-                driver_filename = "chromedriver"
-            
-            driver_path = driver_dir / driver_filename
-            
-            # 如果已经存在并且不是强制下载，则直接返回
-            if not force and driver_path.exists():
-                return str(driver_path)
-            
-            # 下载URL基础
-            base_url = f"https://chromedriver.storage.googleapis.com"
-            
-            # 找到与Chrome版本匹配的ChromeDriver版本
-            version_url = f"{base_url}/LATEST_RELEASE_{major_version}"
-            
-            import urllib.request
-            try:
-                with urllib.request.urlopen(version_url) as response:
-                    driver_version = response.read().decode('utf-8').strip()
-            except Exception as e:
-                logger.error(f"获取ChromeDriver版本失败: {str(e)}")
-                raise
-            
-            # 确定平台
-            if system == "Windows":
-                platform_name = "win32"
-            elif system == "Darwin":
-                if platform.machine() == "arm64":
-                    platform_name = "mac_arm64"
-                else:
-                    platform_name = "mac64"
-            else:
-                platform_name = "linux64"
-            
-            # 下载URL
-            download_url = f"{base_url}/{driver_version}/chromedriver_{platform_name}.zip"
-            
-            # 下载压缩文件
-            import urllib.request
-            import zipfile
-            
-            try:
-                # 创建临时目录
-                temp_dir = tempfile.mkdtemp()
-                zip_path = os.path.join(temp_dir, "chromedriver.zip")
-                
-                # 下载文件
-                logger.info(f"正在下载ChromeDriver {driver_version}...")
-                urllib.request.urlretrieve(download_url, zip_path)
-                
-                # 解压文件
-                with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-                    zip_ref.extractall(temp_dir)
-                
-                # 移动到目标位置
-                extracted_driver = os.path.join(temp_dir, driver_filename)
-                shutil.copy(extracted_driver, str(driver_path))
-                
-                # 设置可执行权限
-                os.chmod(str(driver_path), 0o755)
-                
-                logger.info(f"ChromeDriver {driver_version} 已下载到 {driver_path}")
-                
-                # 清理临时目录
-                shutil.rmtree(temp_dir)
-                
-                return str(driver_path)
-                
-            except Exception as e:
-                logger.error(f"下载ChromeDriver失败: {str(e)}")
-                raise
-        
-        except Exception as e:
-            logger.error(f"下载ChromeDriver过程中出错: {str(e)}")
-            raise
+        pass
     
     def _get_chrome_version(self) -> Optional[str]:
         """
@@ -261,6 +166,7 @@ class BrowserManager:
                     return None
                 
                 # 获取版本信息
+                import subprocess
                 cmd = [chrome_binary, "--version"]
                 proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
                 out, _ = proc.communicate()
@@ -270,7 +176,7 @@ class BrowserManager:
             else:
                 # Linux
                 if not chrome_binary:
-                    for path in ["/usr/local/bin/chrome-for-testing"]:
+                    for path in ["/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/usr/local/bin/chrome-for-testing"]:
                         if os.path.exists(path):
                             chrome_binary = path
                             break
@@ -279,6 +185,7 @@ class BrowserManager:
                     return None
                 
                 # 获取版本信息
+                import subprocess
                 cmd = [chrome_binary, "--version"]
                 proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
                 out, _ = proc.communicate()
@@ -289,13 +196,8 @@ class BrowserManager:
             logger.error(f"获取Chrome版本失败: {str(e)}")
             return None
     
-    def list_browser_services(self) -> List[str]:
-        """
-        列出所有运行中的浏览器服务
-        
-        Returns:
-            服务ID列表
-        """
+    def list_browser_services(self):
+        """列出所有运行中的浏览器服务"""
         return list(self.browser_services.keys())
     
     async def close_browser_service(self, service_id: str) -> bool:
@@ -325,9 +227,6 @@ class BrowserManager:
         logger.info("清理浏览器资源...")
         
         # 关闭所有浏览器服务
-        import asyncio
-        
-        # 获取或创建事件循环
         try:
             loop = asyncio.get_event_loop()
         except RuntimeError:
