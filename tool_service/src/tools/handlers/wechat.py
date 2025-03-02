@@ -39,19 +39,33 @@ class WeChatHandler(BaseHandler):
             return {"status": "error", "message": f"未知的微信操作: {action}"}
         
         return await handler(parameters)
-    
+
     async def check_wechat_login(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
-        检查微信是否已登录
+        检查微信是否已登录，并管理 cookies
         
         Args:
             parameters: 操作参数
-            
+                
         Returns:
             检查结果
         """
         try:
+            service_id = parameters.get('service_id', 'wechat')
+            if not isinstance(service_id, str):
+                service_id = str(service_id)
             logger.info("检查微信登录状态")
+            
+            # 尝试加载之前保存的 cookies
+            has_cookies = await self.session.load_cookies(service_id, domain="web.wechat.com")
+            
+            # 如果有 cookies，刷新页面应用 cookies
+            if has_cookies:
+                logger.info("找到已保存的 cookies，刷新页面应用...")
+                await self.session.refresh_page()
+                
+                # 等待页面加载完成
+                await asyncio.sleep(3)
             
             # 检查是否已登录的选择器
             login_indicators = [
@@ -69,31 +83,75 @@ class WeChatHandler(BaseHandler):
             ]
             
             # 检查是否已登录
+            is_logged_in = False
+            
+            # 检查选择器
             for selector in login_indicators:
                 element = await self.session.query_selector(selector)
                 if element:
                     logger.info(f"检测到微信已登录，指示器: {selector}")
-                    return {
-                        "status": "success",
-                        "message": "微信已登录",
-                        "logged_in": True
-                    }
+                    is_logged_in = True
+                    break
             
             # 检查页面文本
-            page_text = await self.session.execute_script("return document.body.innerText;")
-            for text in text_indicators:
-                if text in page_text:
-                    logger.info(f"检测到微信已登录，文本指示: {text}")
-                    return {
-                        "status": "success",
-                        "message": "微信已登录",
-                        "logged_in": True
-                    }
+            if not is_logged_in:
+                page_text = await self.session.execute_script("return document.body.innerText;")
+                for text in text_indicators:
+                    if text in page_text:
+                        logger.info(f"检测到微信已登录，文本指示: {text}")
+                        is_logged_in = True
+                        break
+            
+            # 如果已登录，保存 cookies
+            if is_logged_in:
+                logger.info("微信已登录，保存 cookies...")
+                await self.session.save_cookies(service_id)
+                
+                return {
+                    "status": "success",
+                    "message": "微信已登录",
+                    "logged_in": True
+                }
             
             # 检查是否显示了二维码，表示需要登录
             qr_code = await self.session.query_selector(".qrcode")
             if qr_code:
                 logger.info("检测到微信登录二维码，等待用户扫码登录")
+                
+                # 开始检测登录状态变化
+                if parameters.get('wait_for_login', False):
+                    logger.info("等待用户扫码登录...")
+                    
+                    # 最大等待时间（默认5分钟）
+                    max_wait_time = parameters.get('login_timeout', 300)
+                    start_time = time.time()
+                    
+                    while time.time() - start_time < max_wait_time:
+                        # 循环检查登录状态
+                        for selector in login_indicators:
+                            element = await self.session.query_selector(selector)
+                            if element:
+                                logger.info(f"检测到微信已登录，指示器: {selector}")
+                                
+                                # 保存 cookies
+                                await self.session.save_cookies(service_id)
+                                
+                                return {
+                                    "status": "success",
+                                    "message": "微信已登录",
+                                    "logged_in": True
+                                }
+                        
+                        # 等待一段时间再检查
+                        await asyncio.sleep(3)
+                    
+                    # 超时
+                    return {
+                        "status": "pending",
+                        "message": "等待登录超时，请再次扫码",
+                        "logged_in": False
+                    }
+                
                 return {
                     "status": "pending",
                     "message": "请使用微信扫描二维码登录",

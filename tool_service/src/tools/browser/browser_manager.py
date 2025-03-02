@@ -60,12 +60,61 @@ class BrowserManager:
         # 确保数据目录存在
         self.data_dir = Path(self.config['data_dir'])
         self.data_dir.mkdir(parents=True, exist_ok=True)
-        
+        # 记录标签页到服务的映射关系
+        self.tab_services = {}  # 格式：{tab_handle: service_name}
         # 注册退出时的清理函数
         atexit.register(self.cleanup)
         
         self._initialized = True
-    
+
+    async def get_or_create_service_tab(self, service_id: str, url: str = None):
+        """
+        获取服务对应的标签页，如果不存在则创建
+        
+        Args:
+            service_id: 服务ID
+            url: 如果创建新标签页，要导航到的URL
+            
+        Returns:
+            元组: (browser_service, session, tab_handle)
+        """
+        # 获取浏览器服务
+        browser_service = await self.get_browser_service(service_id)
+        
+        # 获取会话
+        session = await browser_service.initialize()
+        
+        # 查找已有的服务标签页
+        existing_tab = None
+        for tab, tab_service in self.tab_services.items():
+            if tab_service == service_id:
+                # 切换到已存在的标签页
+                existing_tab = tab
+                break
+        
+        if existing_tab:
+            # 切换到已有标签页
+            success = await session.switch_to_tab(existing_tab)
+            if not success:
+                # 如果切换失败，可能是标签页已关闭，需要创建新标签页
+                existing_tab = None
+        
+        # 如果没有现有标签页或切换失败，创建新标签页
+        if not existing_tab:
+            # 创建新标签页
+            tab_handle = await session.create_new_tab()
+            
+            # 记录标签页服务映射
+            self.tab_services[tab_handle] = service_id
+            
+            # 如果提供了URL，导航到该URL
+            if url:
+                await session.goto(url)
+            
+            return browser_service, session, tab_handle
+        
+        # 返回现有标签页
+        return browser_service, session, existing_tab
     async def get_browser_service(self, service_id: str = "default"):
         """
         获取或创建浏览器服务

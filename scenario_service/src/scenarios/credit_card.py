@@ -6,9 +6,11 @@ class CreditCardScenario(BaseScenario):
     def get_config(self) -> Dict[str, Any]:
         return {
             "type": "credit_card",
-            "description": "Credit card bill retrieval scenario",
+            "description": "Credit card bill retrieval scenario with WeChat notification",
             "parameters": {
-                "url": {"type": "string", "required": True, "description": "Bank URL"}
+                "url": {"type": "string", "required": True, "description": "Bank URL"},
+                "notify_wechat": {"type": "boolean", "required": False, "description": "Whether to send notification via WeChat", "default": False},
+                "wechat_contact": {"type": "string", "required": False, "description": "WeChat contact name to notify"}
             },
             "workflow": {
                 "steps": [
@@ -38,6 +40,16 @@ class CreditCardScenario(BaseScenario):
                                 "dueDate": "td:nth-child(2) > span.txt14"
                             }
                         }
+                    },
+                    {
+                        "id": "wechat_notification",
+                        "type": "wechat_action",
+                        "action": "search_and_send",
+                        "parameters": {
+                            "contact_name": "{wechat_contact}",
+                            "message": "信用卡账单通知：\n账单金额: {extract_data.account_info.billAmount}\n还款日期: {extract_data.account_info.dueDate}\n卡号: {extract_data.account_info.cardNumber}"
+                        },
+                        "condition": "{notify_wechat} == True"
                     }
                 ]
             }

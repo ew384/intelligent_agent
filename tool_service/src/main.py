@@ -30,7 +30,9 @@ async def root():
         "endpoints": [
             "/tools/browser/{action}",
             "/tools/browser/credit-card",
-            "/tools/llm/generate"
+            "/tools/llm/generate",
+            "/tools/wechat/{action}",
+            "/tools/wechat/login/check"
         ]
     }
 

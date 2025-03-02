@@ -8,7 +8,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 class CreditCardWorkflow(BaseWorkflow):
-# orchestrator-service/src/workflows/credit_card.py
     async def execute(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         try:
             # 1. 从场景服务获取工作流配置
@@ -33,6 +32,15 @@ class CreditCardWorkflow(BaseWorkflow):
                     step_type = step.get("type")
                     action = step.get("action")
                     step_params = step.get("parameters", {})
+                    condition = step.get("condition")
+                    
+                    # 检查条件表达式，决定是否执行该步骤
+                    if condition:
+                        should_execute = self._evaluate_condition(condition, parameters, results)
+                        if not should_execute:
+                            logger.info(f"步骤 {step_id} 条件不满足，跳过执行")
+                            i += 1
+                            continue
                     
                     # 替换参数中的变量
                     processed_params = self._process_parameters(step_params, parameters, results)
@@ -48,6 +56,7 @@ class CreditCardWorkflow(BaseWorkflow):
                         tool_response.raise_for_status()
                         step_result = tool_response.json()
                         results[step_id] = step_result
+                    
                     elif step_type == "credit_card_action":
                         logger.info(f"执行信用卡特定操作: {action}")
                         tool_response = await client.post(
@@ -57,6 +66,18 @@ class CreditCardWorkflow(BaseWorkflow):
                         tool_response.raise_for_status()
                         step_result = tool_response.json()
                         results[step_id] = step_result
+                    
+                    elif step_type == "wechat_action":
+                        logger.info(f"执行微信操作: {action}")
+                        tool_response = await client.post(
+                            f"http://localhost:8003/tools/wechat/{action}",
+                            json=processed_params,
+                            timeout=300.0
+                        )
+                        tool_response.raise_for_status()
+                        step_result = tool_response.json()
+                        results[step_id] = step_result
+                    
                     else:
                         # 处理未知的步骤类型
                         logger.warning(f"未知的步骤类型: {step_type}")
@@ -124,25 +145,101 @@ class CreditCardWorkflow(BaseWorkflow):
         processed_params = {}
         
         for key, value in step_params.items():
-            if isinstance(value, str) and value.startswith("{") and value.endswith("}"):
-                param_name = value[1:-1]
-                # 检查是否是来自输入参数
-                if param_name in input_params:
-                    processed_params[key] = input_params[param_name]
+            if isinstance(value, str) and "{" in value and "}" in value:
+                # 处理复合字符串，可能包含多个变量引用
+                processed_value = value
+                
+                # 查找所有变量引用并替换
+                import re
+                pattern = r"\{([^{}]+)\}"
+                matches = re.findall(pattern, value)
+                
+                for match in matches:
+                    placeholder = "{" + match + "}"
+                    
+                    # 检查是否是输入参数
+                    if match in input_params:
+                        replacement = str(input_params[match])
+                        processed_value = processed_value.replace(placeholder, replacement)
+                    
+                    # 检查是否是来自之前步骤的结果
+                    elif "." in match:
+                        parts = match.split(".")
+                        step_id = parts[0]
+                        
+                        if step_id in previous_results:
+                            # 获取嵌套属性
+                            current = previous_results[step_id]
+                            for part in parts[1:]:
+                                if isinstance(current, dict) and part in current:
+                                    current = current[part]
+                                else:
+                                    current = None
+                                    break
+                            
+                            if current is not None:
+                                replacement = str(current)
+                                processed_value = processed_value.replace(placeholder, replacement)
+                
+                processed_params[key] = processed_value
+            else:
+                processed_params[key] = value
+                
+        return processed_params
+        
+    def _evaluate_condition(self, condition: str, input_params: Dict[str, Any], previous_results: Dict[str, Any]) -> bool:
+        """
+        评估条件表达式
+        
+        Args:
+            condition: 条件表达式字符串
+            input_params: 输入参数
+            previous_results: 之前步骤的结果
+            
+        Returns:
+            条件是否满足
+        """
+        try:
+            # 替换条件中的变量引用
+            import re
+            pattern = r"\{([^{}]+)\}"
+            matches = re.findall(pattern, condition)
+            
+            # 准备本地命名空间
+            local_vars = {}
+            
+            for match in matches:
+                placeholder = "{" + match + "}"
+                
+                # 检查是否是输入参数
+                if match in input_params:
+                    value = input_params[match]
+                    local_vars[match] = value
+                    condition = condition.replace(placeholder, match)
+                
                 # 检查是否是来自之前步骤的结果
-                elif "." in param_name:
-                    step_id, result_path = param_name.split(".", 1)
+                elif "." in match:
+                    parts = match.split(".")
+                    step_id = parts[0]
+                    
                     if step_id in previous_results:
-                        # 处理嵌套路径
+                        # 获取嵌套属性
                         current = previous_results[step_id]
-                        for part in result_path.split("."):
+                        for part in parts[1:]:
                             if isinstance(current, dict) and part in current:
                                 current = current[part]
                             else:
                                 current = None
                                 break
-                        processed_params[key] = current
-            else:
-                processed_params[key] = value
-                
-        return processed_params
+                        
+                        # 创建安全的变量名
+                        var_name = match.replace(".", "_")
+                        local_vars[var_name] = current
+                        condition = condition.replace(placeholder, var_name)
+            
+            # 评估条件
+            return eval(condition, {"__builtins__": {}}, local_vars)
+            
+        except Exception as e:
+            logger.error(f"评估条件表达式失败: {condition}, 错误: {str(e)}")
+            return False

@@ -10,7 +10,7 @@ import time
 import platform
 from pathlib import Path
 from typing import Dict, Any, Optional, List
-
+from ..common.cookies_manager import CookiesManager
 logger = logging.getLogger(__name__)
 
 class ChromeDriverBrowserService:
@@ -40,7 +40,7 @@ class ChromeDriverBrowserService:
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'
             ),
             'chrome_binary': os.environ.get('CHROME_BINARY', None),
-            'debug_port': int(os.environ.get('CHROME_DEBUG_PORT', 9222))
+            'debug_port': int(9222)
         }
         
         # 创建数据目录
@@ -51,7 +51,7 @@ class ChromeDriverBrowserService:
         self._ensure_directories()
         
         # 导入cookie管理器
-        from ..common.cookies_manager import CookiesManager
+  
         self.cookies_manager = CookiesManager(self.data_dir)
         
         # 状态变量
@@ -77,7 +77,7 @@ class ChromeDriverBrowserService:
             
             # 检查是否有已运行的Chrome调试实例
             has_running_chrome = self._is_debug_port_in_use()
-            
+            logger.info(f"has_running_chrome: {str(has_running_chrome)} ")
             if not has_running_chrome:
                 # 启动Chrome调试实例
                 await self._start_chrome_debug()
@@ -134,7 +134,7 @@ class ChromeDriverBrowserService:
         Returns:
             端口是否被使用
         """
-        port = self.config['debug_port']
+        port = 9222#self.config['debug_port']
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             return s.connect_ex(('localhost', port)) == 0
     
@@ -174,16 +174,19 @@ class ChromeDriverBrowserService:
             if not chrome_binary:
                 raise Exception("找不到Chrome可执行文件")
             
-            # 启动Chrome并带有调试端口 - 使用简化命令参数
+            # 启动Chrome并带有调试端口 - 确保启用cookies
             cmd = [
                 chrome_binary,
                 f"--remote-debugging-port={port}",
                 f"--user-data-dir={user_data_dir}",
-                "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",  # 使用常见用户代理
+                "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
                 "--disable-automation",  # 禁用自动化标志
                 "--disable-logging",
                 "--log-level=3",
-                "--window-size=1920,1080"  # 在启动时设置窗口大小
+                "--window-size=1920,1080",
+                "--enable-features=NetworkService,NetworkServiceInProcess",
+                "--disable-features=IsolateOrigins,site-per-process",  # 禁用站点隔离，可能有助于cookies跨域
+                "--allow-running-insecure-content",  # 允许运行不安全内容
             ]
             
             # 仅在需要时添加无头模式
@@ -219,7 +222,7 @@ class ChromeDriverBrowserService:
             (driver, service)元组
         """
         try:
-            port = self.config['debug_port']
+            port = 9222 #self.config['debug_port']
             
             # 创建ChromeOptions - 当连接到已运行的Chrome实例时只能使用debuggerAddress选项
             chrome_options = Options()
@@ -227,7 +230,7 @@ class ChromeDriverBrowserService:
             
             # 创建Service对象
             from .browser_manager import BrowserManager
-            driver_path = BrowserManager().download_chromedriver()
+            driver_path = "/usr/local/bin/chromedriver"#BrowserManager().download_chromedriver()
             service = Service(driver_path)
             
             logger.info(f"正在连接到Chrome debug端口: {port}, 使用driver: {driver_path}")
@@ -236,7 +239,7 @@ class ChromeDriverBrowserService:
             driver = webdriver.Chrome(service=service, options=chrome_options)
             
             # 添加反检测脚本
-            self._apply_anti_detection(driver)
+            #self._apply_anti_detection(driver)
             
             return driver, service
         

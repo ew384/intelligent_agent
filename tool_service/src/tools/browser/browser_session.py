@@ -28,7 +28,216 @@ class BrowserSession:
         self.browser_service = browser_service
         self.wait = WebDriverWait(self.driver, 30)
         self.screenshots_dir = self.browser_service.screenshots_dir
-    
+
+    async def save_cookies(self, service_id: str = "default") -> bool:
+        """
+        保存当前会话的 cookies
+        
+        Args:
+            service_id: 服务ID，用于存储 cookies
+            
+        Returns:
+            是否成功保存
+        """
+        try:
+            # 获取当前所有 cookies
+            cookies = self.driver.get_cookies()
+            if not isinstance(service_id, str):
+                service_id = str(service_id)
+            
+            # 使用 cookies 管理器保存
+            result = self.browser_service.cookies_manager.save_cookies(service_id, cookies)
+            
+            if result:
+                logger.info(f"成功保存 {len(cookies)} 个 cookies 给服务 {service_id}")
+            else:
+                logger.warning(f"保存 cookies 失败")
+                
+            return result
+        except Exception as e:
+            logger.error(f"保存 cookies 时出错: {str(e)}")
+            return False
+
+    async def load_cookies(self, service_id: str = "default", domain: str = None) -> bool:
+        """
+        加载并应用 cookies 到当前会话
+        
+        Args:
+            service_id: 服务ID，用于加载对应的 cookies
+            domain: 可选的域名过滤器
+            
+        Returns:
+            是否成功加载并应用
+        """
+        try:
+            # 从 cookies 管理器加载
+            cookies = self.browser_service.cookies_manager.load_cookies(service_id)
+            
+            if not cookies:
+                logger.info(f"未找到服务 {service_id} 的 cookies")
+                return False
+            
+            # 先清除现有 cookies
+            self.driver.delete_all_cookies()
+            
+            # 添加每个 cookie
+            added_count = 0
+            for cookie in cookies:
+                # 如果指定了域名过滤器，则只添加匹配的 cookies
+                if domain and "domain" in cookie and not cookie["domain"].endswith(domain):
+                    continue
+                    
+                try:
+                    # 某些 cookie 可能包含 Selenium 不支持的字段，需要过滤
+                    if "expiry" in cookie and isinstance(cookie["expiry"], float):
+                        cookie["expiry"] = int(cookie["expiry"])
+                    
+                    # 删除 Selenium 不支持的字段
+                    for key in ["sameSite", "storeId", "id"]:
+                        if key in cookie:
+                            del cookie[key]
+                    
+                    # 添加 cookie
+                    self.driver.add_cookie(cookie)
+                    added_count += 1
+                except Exception as cookie_error:
+                    logger.warning(f"添加 cookie 失败: {str(cookie_error)}")
+            
+            logger.info(f"成功添加 {added_count} 个 cookies")
+            return added_count > 0
+        except Exception as e:
+            logger.error(f"加载并应用 cookies 时出错: {str(e)}")
+            return False
+
+    async def refresh_page(self) -> bool:
+        """
+        刷新当前页面
+        
+        Returns:
+            是否成功刷新
+        """
+        try:
+            self.driver.refresh()
+            
+            # 等待页面加载完成
+            await self.wait_for_load_state("domcontentloaded")
+            await self.wait_for_load_state("networkidle")
+            
+            return True
+        except Exception as e:
+            logger.error(f"刷新页面时出错: {str(e)}")
+            return False
+    async def create_new_tab(self) -> str:
+        """
+        创建一个新的标签页
+        
+        Returns:
+            str: 新标签页的句柄 (window handle)
+        """
+        try:
+            logger.info("创建新标签页")
+            
+            # 保存当前标签页句柄
+            current_handle = self.driver.current_window_handle
+            
+            # 执行 JavaScript 打开新标签页
+            self.driver.execute_script("window.open('about:blank', '_blank');")
+            
+            # 等待新标签页加载
+            await asyncio.sleep(1)
+            
+            # 获取所有标签页句柄
+            handles = self.driver.window_handles
+            
+            # 找到新打开的标签页句柄
+            new_handle = [h for h in handles if h != current_handle][-1]
+            
+            # 切换到新标签页
+            self.driver.switch_to.window(new_handle)
+            
+            logger.info(f"已创建并切换到新标签页: {new_handle}")
+            return new_handle
+        except Exception as e:
+            logger.error(f"创建新标签页失败: {str(e)}")
+            return None
+
+    async def switch_to_tab(self, handle: str) -> bool:
+        """
+        切换到指定的标签页
+        
+        Args:
+            handle: 标签页句柄
+            
+        Returns:
+            bool: 切换是否成功
+        """
+        try:
+            logger.info(f"切换到标签页: {handle}")
+            
+            # 切换到指定标签页
+            self.driver.switch_to.window(handle)
+            
+            # 等待切换完成
+            await asyncio.sleep(0.5)
+            
+            return True
+        except Exception as e:
+            logger.error(f"切换到标签页 {handle} 失败: {str(e)}")
+            return False
+
+    async def get_current_tab(self) -> str:
+        """
+        获取当前标签页句柄
+        
+        Returns:
+            str: 当前标签页句柄
+        """
+        try:
+            return self.driver.current_window_handle
+        except Exception as e:
+            logger.error(f"获取当前标签页句柄失败: {str(e)}")
+            return None
+
+    async def close_tab(self, handle: str = None) -> bool:
+        """
+        关闭指定标签页，如果未指定则关闭当前标签页
+        
+        Args:
+            handle: 要关闭的标签页句柄，None表示当前标签页
+            
+        Returns:
+            bool: 关闭是否成功
+        """
+        try:
+            if handle:
+                # 先切换到指定标签页
+                await self.switch_to_tab(handle)
+            
+            # 关闭当前标签页
+            self.driver.close()
+            
+            # 切换到第一个可用标签页
+            handles = self.driver.window_handles
+            if handles:
+                self.driver.switch_to.window(handles[0])
+            
+            return True
+        except Exception as e:
+            logger.error(f"关闭标签页失败: {str(e)}")
+            return False
+
+    async def get_all_tabs(self) -> list:
+        """
+        获取所有标签页句柄
+        
+        Returns:
+            list: 标签页句柄列表
+        """
+        try:
+            return self.driver.window_handles
+        except Exception as e:
+            logger.error(f"获取所有标签页句柄失败: {str(e)}")
+            return []
     async def goto(self, url: str, timeout: int = 60000) -> bool:
         """
         导航到指定URL
