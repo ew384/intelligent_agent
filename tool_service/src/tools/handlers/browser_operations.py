@@ -64,13 +64,10 @@ class BrowserOperations(BaseHandler):  # 注意类名也改了
         
         try:
             logger.info("处理信用卡操作")
-            
             # 创建信用卡处理器
             handler = CreditCardHandler(self.session)
-            
             # 转发请求
-            result = await handler.process_query(parameters)
-            
+            result = await handler.process_query(parameters)  
             return result
         except Exception as e:
             logger.error(f"处理信用卡操作时出错: {str(e)}")
@@ -93,7 +90,7 @@ class BrowserOperations(BaseHandler):  # 注意类名也改了
         if not url:
             return {"status": "error", "message": "缺少URL参数"}
         
-        timeout = parameters.get('timeout', 60000)  # 默认60秒超时
+        timeout = parameters.get('timeout', 300)  # 默认60秒超时
         
         try:
             logger.info(f"导航到URL: {url}")

@@ -42,7 +42,8 @@ class CreditCardWorkflow(BaseWorkflow):
                         logger.info(f"执行浏览器操作: {action}")
                         tool_response = await client.post(
                             f"http://localhost:8003/tools/browser/{action}",
-                            json=processed_params
+                            json=processed_params,
+                            timeout=300.0
                         )
                         tool_response.raise_for_status()
                         step_result = tool_response.json()
@@ -51,7 +52,7 @@ class CreditCardWorkflow(BaseWorkflow):
                         logger.info(f"执行信用卡特定操作: {action}")
                         tool_response = await client.post(
                             f"http://localhost:8003/tools/browser/credit-card",
-                            json=processed_params
+                            json={**processed_params, "action": action}
                         )
                         tool_response.raise_for_status()
                         step_result = tool_response.json()

@@ -19,6 +19,7 @@ class CreditCardHandler(BaseHandler):
     """
     
     # 登录和元素选择器配置
+    """
     SELECTORS = {
         'bill_amount': 'td:nth-child(1) > span.txt14',  # 金额选择器
         'min_payment': 'td:nth-child(2) > span.txt14',  # 最低还款金额选择器
@@ -31,7 +32,7 @@ class CreditCardHandler(BaseHandler):
             '欢迎您', '本期应还金额', '到期还款日'
         ]                                               # 文本指示器
     }
-    
+    """
     async def process_query(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
         处理信用卡账单查询 - 高级业务流程
@@ -43,19 +44,8 @@ class CreditCardHandler(BaseHandler):
             查询结果
         """
         try:
-            action = parameters.get('action')
-            if not action:
-                action = "extract_account_info"
-            if action == 'extract_account_info':
-                # 仅执行提取账户信息的操作
-                return await self._extract_account_info()
-  
-            
-            # 3. 提取账户信息 - 这是信用卡特定的逻辑
-            logger.info("登录成功，提取账户信息")
+            action = parameters.get('action')    
             account_info = await self._extract_account_info()
-            
-            # 5. 整合和返回结果
             return {
                 "status": "success",
                 "message": "成功提取信用卡信息",
@@ -140,7 +130,6 @@ class CreditCardHandler(BaseHandler):
             
             # 格式化并美化提取的数据
             await self._format_account_info(account_info)
-            
             return account_info
         except Exception as e:
             logger.error(f"提取账户信息时出错: {str(e)}")
