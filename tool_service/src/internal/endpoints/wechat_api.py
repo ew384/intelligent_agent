@@ -29,7 +29,7 @@ async def handle_wechat_action(action: str, request: Request):
         
         # 2. 会话管理 - 使用标签页管理
         service_id = parameters.get('service_id', 'wechat')
-        wechat_url = "https://web.wechat.com/"
+        wechat_url = "https://wx2.qq.com/"
         
         # 获取专用标签页
         browser_service, session, tab_handle = await browser_manager.get_or_create_service_tab(
@@ -84,7 +84,7 @@ async def wechat_login(request: Request):
         # 获取或创建浏览器标签页
         browser_service, session, tab_handle = await browser_manager.get_or_create_service_tab(
             service_id, 
-            url="https://web.wechat.com"
+            url="https://wx2.qq.com"
         )
         
         # 创建处理器

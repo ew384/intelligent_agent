@@ -26,7 +26,9 @@ async def test_credit_card():
     request_data = {
         "scenario_type": "credit_card",
         "parameters": {
-            "url": "https://e.creditcard.ecitic.com/citiccard/ebank-ocp/ebankpc/myaccount.html"
+            "url": "https://e.creditcard.ecitic.com/citiccard/ebank-ocp/ebankpc/myaccount.html",
+            "notify_wechat": True,
+            "wechat_contact":"曾曾"
         }
     }
     

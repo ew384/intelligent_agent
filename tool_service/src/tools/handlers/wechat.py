@@ -302,14 +302,43 @@ class WeChatHandler(BaseHandler):
                 # 这里可以添加切换聊天窗口的逻辑
             
             logger.info(f"发送消息: {message}")
+            # 使用JavaScript模拟复制粘贴行为
+            paste_script = """
+            function setMessageByPaste(message) {
+                // 获取编辑区域
+                const editArea = document.getElementById('editArea');
+                if (!editArea) return false;
+                
+                // 聚焦编辑区域
+                editArea.focus();
+                
+                // 清空现有内容
+                editArea.innerHTML = '';
+                
+                // 使用 execCommand 模拟粘贴操作
+                // 这需要先把消息放入剪贴板，但浏览器安全策略限制了这点
+                // 所以我们直接设置innerHTML，并触发input事件
+                editArea.innerHTML = message.replace(/\\n/g, '<br>');
+                
+                // 触发input事件让微信知道内容已改变
+                const event = new Event('input', { bubbles: true });
+                editArea.dispatchEvent(event);
+                
+                return true;
+            }
+            return setMessageByPaste(arguments[0]);
+            """
+            
+            # 执行脚本
+            success = await self.session.execute_script(paste_script, message)
             
             # 找到消息输入区域并发送消息
-            edit_area = await self.session.wait_for_selector("#editArea")
-            if not edit_area:
+           # edit_area = await self.session.wait_for_selector("#editArea")
+            if not success:
                 return {"status": "error", "message": "找不到消息输入区域"}
             
             # 清除现有文本并输入消息
-            await self.session.fill("#editArea", message)
+           # await self.session.fill("#editArea", message)
             
             # 点击发送按钮
             send_button = await self.session.wait_for_selector(".btn_send")

@@ -161,8 +161,9 @@ class ChromeDriverBrowserService:
                     ]
                 else:
                     chrome_paths = [
-                        "/usr/local/bin/chrome-for-testing",
-                        "/usr/bin/chromium-browser",
+                        #"/usr/local/bin/chrome-for-testing",
+                        #"/usr/bin/chromium-browser",
+                        "/usr/bin/google-chrome",
                     ]
                 
                 # 查找第一个存在的路径
