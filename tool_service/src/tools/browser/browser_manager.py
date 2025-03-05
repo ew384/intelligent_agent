@@ -67,6 +67,7 @@ class BrowserManager:
         
         self._initialized = True
 
+    
     async def get_or_create_service_tab(self, service_id: str, url: str = None):
         """
         获取服务对应的标签页，如果不存在则创建
@@ -84,37 +85,109 @@ class BrowserManager:
         # 获取会话
         session = await browser_service.initialize()
         
-        # 查找已有的服务标签页
+        # 获取所有当前标签页
+        all_tabs = await session.get_all_tabs()
+        logger.info(f"发现 {len(all_tabs)} 个标签页")
+        
+        # 基于URL查找匹配的标签页
+        found_tab = None
+        if url:
+            from urllib.parse import urlparse
+            target_domain = urlparse(url).netloc
+            
+            # 遍历所有标签页寻找匹配的URL
+            for tab in all_tabs:
+                try:
+                    # 尝试切换到这个标签页
+                    success = await session.switch_to_tab(tab)
+                    if not success:
+                        continue
+                        
+                    # 获取当前URL
+                    current_url = await session.execute_script("return window.location.href")
+                    current_domain = urlparse(current_url).netloc
+                    
+                    logger.info(f"检查标签页 {tab}: URL={current_url}, 域名={current_domain}")
+                    
+                    # 检查是否为匹配的域名
+                    if current_domain and (target_domain in current_domain or current_domain in target_domain):
+                        logger.info(f"找到匹配域名的标签页: {tab}, 域名: {current_domain}")
+                        # 记录标签页服务映射
+                        self.tab_services[tab] = service_id
+                        found_tab = tab
+                        break
+                except Exception as e:
+                    logger.warning(f"检查标签页 {tab} 时出错: {str(e)}")
+                    continue
+        
+        # 如果找到匹配的标签页，直接返回
+        if found_tab:
+            return browser_service, session, found_tab
+        
+        # 查找已有的服务标签页（根据服务ID映射）
         existing_tab = None
         for tab, tab_service in self.tab_services.items():
             if tab_service == service_id:
-                # 切换到已存在的标签页
-                existing_tab = tab
-                break
-        
-        if existing_tab:
-            # 切换到已有标签页
-            success = await session.switch_to_tab(existing_tab)
-            if not success:
-                # 如果切换失败，可能是标签页已关闭，需要创建新标签页
-                existing_tab = None
+                try:
+                    # 切换到已存在的标签页
+                    success = await session.switch_to_tab(tab)
+                    if success:
+                        existing_tab = tab
+                        logger.info(f"找到服务 {service_id} 对应的标签页: {tab}")
+                        break
+                    else:
+                        # 清理无效的标签页引用
+                        logger.warning(f"标签页 {tab} 切换失败，将从映射中移除")
+                        if tab in self.tab_services:
+                            del self.tab_services[tab]
+                except Exception as e:
+                    logger.warning(f"切换到标签页 {tab} 失败: {str(e)}")
+                    # 清理无效的标签页引用
+                    if tab in self.tab_services:
+                        del self.tab_services[tab]
         
         # 如果没有现有标签页或切换失败，创建新标签页
         if not existing_tab:
-            # 创建新标签页
-            tab_handle = await session.create_new_tab()
-            
-            # 记录标签页服务映射
-            self.tab_services[tab_handle] = service_id
-            
-            # 如果提供了URL，导航到该URL
-            if url:
-                await session.goto(url)
-            
-            return browser_service, session, tab_handle
+            try:
+                # 创建新标签页
+                tab_handle = await session.create_new_tab()
+                
+                if not tab_handle:
+                    # 如果创建失败，尝试使用当前标签页
+                    tab_handle = await session.get_current_tab()
+                    logger.info(f"无法创建新标签页，使用当前标签页: {tab_handle}")
+                
+                # 记录标签页服务映射
+                if tab_handle:
+                    self.tab_services[tab_handle] = service_id
+                    
+                    # 如果提供了URL，导航到该URL
+                    if url:
+                        await session.goto(url)
+                    
+                    return browser_service, session, tab_handle
+                else:
+                    logger.error("无法获取有效的标签页句柄")
+                    return browser_service, session, None
+            except Exception as e:
+                logger.error(f"创建新标签页失败: {str(e)}")
+                # 尝试使用当前标签页作为后备
+                try:
+                    tab_handle = await session.get_current_tab()
+                    if tab_handle:
+                        self.tab_services[tab_handle] = service_id
+                        if url:
+                            await session.goto(url)
+                        return browser_service, session, tab_handle
+                except Exception as backup_error:
+                    logger.error(f"使用当前标签页作为后备失败: {str(backup_error)}")
+                
+                return browser_service, session, None
         
         # 返回现有标签页
         return browser_service, session, existing_tab
+
+
     async def get_browser_service(self, service_id: str = "default"):
         """
         获取或创建浏览器服务

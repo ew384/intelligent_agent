@@ -56,10 +56,28 @@ async def wechat_send(name: str, message: str) -> str:
         )
     return tool_response.json()
 
+async def send_bill_via_wechat_message(name: str) ->str:
+    request_data = {
+            "scenario_type": "credit_card",
+            "parameters": {
+                "url": "https://e.creditcard.ecitic.com/citiccard/ebank-ocp/ebankpc/myaccount.html",
+                "notify_wechat": True,
+                "wechat_contact": name 
+            }
+        }
+    async with httpx.AsyncClient() as client:
+    
+        response = await client.post(
+            "http://localhost:8000/tasks",
+            json=request_data,
+            timeout=300  # 5分钟超时，因为登录可能需要时间
+        )
+    return response.json()
+
 # Create an agent with the tools
 def create_agent():
     model_client = OpenAIChatCompletionClient(
-        model="qwen2.5-coder:7b-instruct-fp16",
+        model="qwen2.5:14b-instruct-q8_0",
         base_url="http://localhost:11434/v1",
         api_key="placeholder",
         model_info={

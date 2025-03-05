@@ -28,7 +28,7 @@ async def test_credit_card():
         "parameters": {
             "url": "https://e.creditcard.ecitic.com/citiccard/ebank-ocp/ebankpc/myaccount.html",
             "notify_wechat": True,
-            "wechat_contact":"曾曾"
+            "wechat_contact":"陈浩"
         }
     }
     

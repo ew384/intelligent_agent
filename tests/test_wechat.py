@@ -23,7 +23,7 @@ async def send_wechat_message():
     return tool_response.json()
 
 #sent bill to person via wechat
-async def send_bill_via_wechat():
+async def send_bill_via_wechat_message():
     request_data = {
             "scenario_type": "credit_card",
             "parameters": {
@@ -33,7 +33,6 @@ async def send_bill_via_wechat():
             }
         }
     async with httpx.AsyncClient() as client:
-        logger.info("发送请求到API网关")
     
         response = await client.post(
             "http://localhost:8000/tasks",
@@ -44,5 +43,6 @@ async def send_bill_via_wechat():
 
 # Run the async function
 if __name__ == "__main__":
-    result = asyncio.run(send_wechat_message())
+    #result = asyncio.run(send_wechat_message())
+    result = asyncio.run(send_bill_via_wechat_message())
     print(result)
