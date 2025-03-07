@@ -1,0 +1,3849 @@
+[
+  {
+    "tag": "a",
+    "text": "Skip to content",
+    "directText": "Skip to content",
+    "selector": ".px-2.py-4.color-bg-accent-emphasis.color-fg-on-emphasis.show-on-focus.js-skip-to-content",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Product",
+    "directText": "Product",
+    "selector": ".HeaderMenu-link.border-0.width-full.width-lg-auto.px-0.px-lg-2.py-lg-2.no-wrap.d-flex.flex-items-center.flex-justify-between.js-details-target",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Solutions",
+    "directText": "Solutions",
+    "selector": ".HeaderMenu-link.border-0.width-full.width-lg-auto.px-0.px-lg-2.py-lg-2.no-wrap.d-flex.flex-items-center.flex-justify-between.js-details-target",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Resources",
+    "directText": "Resources",
+    "selector": ".HeaderMenu-link.border-0.width-full.width-lg-auto.px-0.px-lg-2.py-lg-2.no-wrap.d-flex.flex-items-center.flex-justify-between.js-details-target",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Open Source",
+    "directText": "Open Source",
+    "selector": ".HeaderMenu-link.border-0.width-full.width-lg-auto.px-0.px-lg-2.py-lg-2.no-wrap.d-flex.flex-items-center.flex-justify-between.js-details-target",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Enterprise",
+    "directText": "Enterprise",
+    "selector": ".HeaderMenu-link.border-0.width-full.width-lg-auto.px-0.px-lg-2.py-lg-2.no-wrap.d-flex.flex-items-center.flex-justify-between.js-details-target",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Pricing",
+    "directText": "Pricing",
+    "selector": ".HeaderMenu-link.no-underline.px-0.px-lg-2.py-3.py-lg-2.d-block.d-lg-inline-block",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".mr-lg-3.color-fg-inherit.flex-order-2.js-prevent-focus-on-mobile-nav",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Sign in",
+    "directText": "Sign in",
+    "selector": ".HeaderMenu-link.HeaderMenu-link--sign-in.HeaderMenu-button.flex-shrink-0.no-underline.d-none.d-lg-inline-flex.border.border-lg-0.rounded.rounded-lg-0.px-2.py-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Sign up",
+    "directText": "Sign up",
+    "selector": ".HeaderMenu-link.HeaderMenu-link--sign-up.HeaderMenu-button.flex-shrink-0.d-flex.d-lg-inline-flex.no-underline.border.color-border-default.rounded.px-2.py-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Search or jump to...",
+    "directText": "",
+    "selector": ".header-search-button.placeholder.input-button.form-control.d-flex.flex-1.flex-self-stretch.flex-items-center.no-wrap.width-full.py-0.pl-2.pr-0.text-left.border-0.box-shadow-none",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "placeholder": "Search or jump to...",
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Search or jump to...",
+    "directText": "Search or jump to...",
+    "selector": ".flex-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".d-flex",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".mr-2.color-fg-muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Notifications",
+    "directText": "Notifications",
+    "selector": "#repository-details-watch-button",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "repository-details-watch-button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Fork\n    0",
+    "directText": "Fork",
+    "selector": "#fork-button",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "fork-button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Star\n          0",
+    "directText": "",
+    "selector": ".tooltipped.tooltipped-sw.btn-sm.btn",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "ew384",
+    "directText": "ew384",
+    "selector": ".url.fn",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "MDScript",
+    "directText": "MDScript",
+    "selector": "strong > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "0",
+    "directText": "0",
+    "selector": "#repo-network-counter",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "repo-network-counter",
+      "title": "0"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "0",
+    "directText": "0",
+    "selector": "#repo-stars-counter-star",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "repo-stars-counter-star",
+      "title": "0"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Star",
+    "directText": "Star",
+    "selector": ".d-inline",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Code",
+    "directText": "",
+    "selector": "#code-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "code-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Code",
+    "directText": "Code",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Issues\n          0",
+    "directText": "",
+    "selector": "#issues-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "issues-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Issues",
+    "directText": "Issues",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Pull requests\n          0",
+    "directText": "",
+    "selector": "#pull-requests-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "pull-requests-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Pull requests",
+    "directText": "Pull requests",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Actions",
+    "directText": "",
+    "selector": "#actions-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "actions-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Actions",
+    "directText": "Actions",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Projects\n          0",
+    "directText": "",
+    "selector": "#projects-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "projects-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Projects",
+    "directText": "Projects",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Wiki",
+    "directText": "",
+    "selector": "#wiki-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "wiki-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Wiki",
+    "directText": "Wiki",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Security",
+    "directText": "",
+    "selector": "#security-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "security-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Security",
+    "directText": "Security",
+    "selector": "a > span",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Insights",
+    "directText": "",
+    "selector": "#insights-tab",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "id": "insights-tab"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Insights",
+    "directText": "Insights",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "master",
+    "directText": "",
+    "selector": "#branch-picker-repos-header-ref-selector",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "id": "branch-picker-repos-header-ref-selector",
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "1 Branch",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.lmSMZJ.prc-Button-ButtonBase-c50BI",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "0 Tags",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.lmSMZJ.prc-Button-ButtonBase-c50BI",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Code",
+    "directText": "",
+    "selector": "#:R55ab:",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "id": ":R55ab:",
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "input",
+    "text": "",
+    "directText": "",
+    "selector": ".UnstyledTextInput__ToggledUnstyledTextInput-sc-14ypya-0.jkNcAv",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "placeholder": "Go to file",
+      "type": "text"
+    },
+    "cursor": "text"
+  },
+  {
+    "tag": "span",
+    "text": "master",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.gUkoLg.prc-Button-ButtonContent-HKbr-",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "master",
+    "directText": "",
+    "selector": ".prc-Button-Label-pTQ3x",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "master",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.bZBlpz",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.lhTYNA",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "master",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.ffLUq.ref-selector-button-text-container",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "1 Branch",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.gUkoLg.prc-Button-ButtonContent-HKbr-",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "1 Branch",
+    "directText": "",
+    "selector": ".prc-Button-Label-pTQ3x",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "0 Tags",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.gUkoLg.prc-Button-ButtonContent-HKbr-",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "0 Tags",
+    "directText": "",
+    "selector": ".prc-Button-Label-pTQ3x",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Code",
+    "directText": "",
+    "selector": ".prc-Button-ButtonContent-HKbr-",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Code",
+    "directText": "Code",
+    "selector": ".prc-Button-Label-pTQ3x",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "master",
+    "directText": "master",
+    "selector": ".Text__StyledText-sc-17v1xeu-0.eMMFM",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": ".prc-Button-Visual-2epfX.prc-Button-VisualWrap-Db-eB",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": ".prc-Button-Visual-2epfX.prc-Button-VisualWrap-Db-eB",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "1 Branch",
+    "directText": "Branch",
+    "selector": "span > span",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "strong",
+    "text": "1",
+    "directText": "1",
+    "selector": ".color-fg-default",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": ".prc-Button-Visual-2epfX.prc-Button-VisualWrap-Db-eB",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "0 Tags",
+    "directText": "Tags",
+    "selector": "span > span",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "strong",
+    "text": "0",
+    "directText": "0",
+    "selector": ".color-fg-default",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": ".prc-Button-Visual-2epfX.prc-Button-VisualWrap-Db-eB",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": ".prc-Button-Visual-2epfX.prc-Button-VisualWrap-Db-eB",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "19 Commits",
+    "directText": "",
+    "selector": ".prc-Button-ButtonBase-c50BI.d-none.d-lg-flex.LinkButton-module__code-view-link-button--xvCGA.flex-items-center.fgColor-default",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".prc-Link-Link-85e08",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.cvdqJW.prc-Avatar-Avatar-ZRS-m",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "endian",
+    "directText": "endian",
+    "selector": ".Box-sc-g0xbh4-0.dkaFxu.prc-Link-Link-85e08",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "19 Commits",
+    "directText": "",
+    "selector": ".prc-Button-ButtonContent-HKbr-",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "19 Commits",
+    "directText": "",
+    "selector": ".prc-Button-Label-pTQ3x",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "c83a5d1",
+    "directText": "c83a5d1",
+    "selector": ".Link--secondary.prc-Link-Link-85e08",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "add snapshot",
+    "directText": "add snapshot",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": ".prc-Button-Visual-2epfX.prc-Button-VisualWrap-Db-eB",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "19 Commits",
+    "directText": "19 Commits",
+    "selector": ".fgColor-default",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Readme",
+    "directText": "Readme",
+    "selector": ".Link--muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Diamond_Polyethylene",
+    "directText": "Diamond_Polyethylene",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "Diamond_Polyethylene"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "add snapshot",
+    "directText": "add snapshot",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "add snapshot"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Activity",
+    "directText": "",
+    "selector": ".Link.Link--muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Activity",
+    "directText": "Activity",
+    "selector": ".color-fg-muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "LAMMPS_Hacking_Code",
+    "directText": "LAMMPS_Hacking_Code",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "LAMMPS_Hacking_Code"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "modified lammps hacking code",
+    "directText": "modified lammps hacking code",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "modified lammps hacking code"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "0\n      stars",
+    "directText": "stars",
+    "selector": ".Link.Link--muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "strong",
+    "text": "0",
+    "directText": "0",
+    "selector": "a > strong",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "PEO-Chains",
+    "directText": "PEO-Chains",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "PEO-Chains"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "add snapshot",
+    "directText": "add snapshot",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "add snapshot"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "0\n      watching",
+    "directText": "watching",
+    "selector": ".Link.Link--muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "strong",
+    "text": "0",
+    "directText": "0",
+    "selector": "a > strong",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "0\n      forks",
+    "directText": "forks",
+    "selector": ".Link.Link--muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "strong",
+    "text": "0",
+    "directText": "0",
+    "selector": "a > strong",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Tetra-PEG",
+    "directText": "Tetra-PEG",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "Tetra-PEG"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "add snapshot",
+    "directText": "add snapshot",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "add snapshot"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Report repository",
+    "directText": "Report repository",
+    "selector": ".Link--muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "TrajectoryDataProcesssing",
+    "directText": "TrajectoryDataProcesssing",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "TrajectoryDataProcesssing"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "add snapshot",
+    "directText": "add snapshot",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "add snapshot"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Releases",
+    "directText": "Releases",
+    "selector": ".Link--primary.no-underline.Link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": ".gitignore",
+    "directText": ".gitignore",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": ".gitignore"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Initial commit",
+    "directText": "Initial commit",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "Initial commit"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "README.md",
+    "directText": "README.md",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "README.md"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "change README.md",
+    "directText": "change README.md",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "change README.md"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Packages\n      0",
+    "directText": "Packages",
+    "selector": ".Link--primary.no-underline.Link.d-flex.flex-items-center",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "pic.tiff",
+    "directText": "pic.tiff",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "pic.tiff"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "add snapshot",
+    "directText": "add snapshot",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "add snapshot"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "strain_2_n5.tiff",
+    "directText": "strain_2_n5.tiff",
+    "selector": ".Link--primary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "strain_2_n5.tiff"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "add snapshot",
+    "directText": "add snapshot",
+    "selector": ".Link--secondary",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "add snapshot"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Contributors\n      2",
+    "directText": "Contributors",
+    "selector": ".Link--primary.no-underline.Link.d-flex.flex-items-center",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "2",
+    "directText": "2",
+    "selector": ".Counter.ml-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "2"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "README",
+    "directText": "",
+    "selector": ".UnderlineTabbedInterface__StyledUnderlineItem-sc-4ilrg0-2.beOdPj",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "README",
+    "directText": "README",
+    "selector": "a > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": "a > span:nth-child(1)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".mr-2",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": ".avatar.circle",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "ew384\n          ew384",
+    "directText": "",
+    "selector": ".Link--primary.no-underline.flex-self-center",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "strong",
+    "text": "ew384",
+    "directText": "ew384",
+    "selector": "a > strong",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "ew384",
+    "directText": "ew384",
+    "selector": ".color-fg-muted",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "h1",
+    "text": "Molecular Dynamics Simulation of Tetra-PEG",
+    "directText": "Molecular Dynamics Simulation of Tetra-PEG",
+    "selector": ".heading-element",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "auto"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".mr-2",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": ".avatar.circle",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "endian",
+    "directText": "",
+    "selector": ".Link--primary.no-underline.flex-self-center",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "strong",
+    "text": "endian",
+    "directText": "endian",
+    "selector": "a > strong",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Python\n          52.8%",
+    "directText": "",
+    "selector": ".d-inline-flex.flex-items-center.flex-nowrap.Link--secondary.no-underline.text-small.mr-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Python",
+    "directText": "Python",
+    "selector": ".color-fg-default.text-bold.mr-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "52.8%",
+    "directText": "52.8%",
+    "selector": "a > span:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "C++\n          47.2%",
+    "directText": "",
+    "selector": ".d-inline-flex.flex-items-center.flex-nowrap.Link--secondary.no-underline.text-small.mr-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "C++",
+    "directText": "C++",
+    "selector": ".color-fg-default.text-bold.mr-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "47.2%",
+    "directText": "47.2%",
+    "selector": "a > span:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".footer-octicon.mr-2",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {
+      "title": "GitHub"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Manage cookies",
+    "directText": "Manage cookies",
+    "selector": ".Link--secondary.underline-on-hover.border-0.p-0.color-bg-transparent",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Do not share my personal information",
+    "directText": "Do not share my personal information",
+    "selector": ".Link--secondary.underline-on-hover.border-0.p-0.color-bg-transparent",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Terms",
+    "directText": "Terms",
+    "selector": ".Link--secondary.Link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Privacy",
+    "directText": "Privacy",
+    "selector": ".Link--secondary.Link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Security",
+    "directText": "Security",
+    "selector": ".Link--secondary.Link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Status",
+    "directText": "Status",
+    "selector": ".Link--secondary.Link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Docs",
+    "directText": "Docs",
+    "selector": ".Link--secondary.Link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Contact",
+    "directText": "Contact",
+    "selector": ".Link--secondary.Link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "html",
+    "text": ".turbo-progress-bar {\n  position: fixed;\n  display: block;\n  top: 0;\n  left: 0;\n  height: 3px;\n  bac",
+    "directText": "",
+    "selector": "html",
+    "selectorType": "tag",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "body",
+    "text": "Skip to content\n\n      \n    \n      \n      \n      \n\n\n\n\n  \n  {\"props\":{\"docsUrl\":\"https://docs.github.",
+    "directText": "",
+    "selector": ".logged-out.env-production.page-responsive",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Skip to content\n\n      \n    \n      \n      \n      \n\n\n\n\n  \n  {\"props\":{\"docsUrl\":\"https://docs.github.",
+    "directText": "",
+    "selector": ".logged-out.env-production.page-responsive",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Skip to content\n\n      \n    \n      \n      \n      \n\n\n\n\n  \n  {\"props\":{\"docsUrl\":\"https://docs.github.",
+    "directText": "",
+    "selector": ".position-relative.header-wrapper.js-header-wrapper",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "header",
+    "text": "Navigation Menu\n\n  \n    Toggle navigation",
+    "directText": "",
+    "selector": ".HeaderMktg.header-logged-out.js-details-container.js-header.Details.f4.py-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Navigation Menu",
+    "directText": "Navigation Menu",
+    "selector": ".sr-only",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Sign in",
+    "directText": "",
+    "selector": ".d-flex.flex-column.flex-lg-row.flex-items-center.px-3.px-md-4.px-lg-5.height-full.position-relative.z-1",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Product",
+    "directText": "",
+    "selector": ".HeaderMenu.js-header-menu.height-fit.position-lg-relative.d-lg-flex.flex-column.flex-auto.top-0",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Product",
+    "directText": "",
+    "selector": ".HeaderMenu-wrapper.d-flex.flex-column.flex-self-start.flex-lg-row.flex-auto.rounded.rounded-lg-0",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "nav",
+    "text": "Product",
+    "directText": "",
+    "selector": ".HeaderMenu-nav",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "Product",
+    "directText": "",
+    "selector": ".d-lg-flex.list-style-none",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Product",
+    "directText": "",
+    "selector": ".HeaderMenu-item.position-relative.flex-wrap.flex-justify-between.flex-items-center.d-block.d-lg-flex.flex-lg-nowrap.flex-lg-items-center.js-details-container.js-header-menu-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Solutions\n        \n    \n\n      \n      \n          \n              \n                    By company size",
+    "directText": "",
+    "selector": ".HeaderMenu-item.position-relative.flex-wrap.flex-justify-between.flex-items-center.d-block.d-lg-flex.flex-lg-nowrap.flex-lg-items-center.js-details-container.js-header-menu-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Resources\n        \n    \n\n      \n      \n          \n              \n                    Topics",
+    "directText": "",
+    "selector": ".HeaderMenu-item.position-relative.flex-wrap.flex-justify-between.flex-items-center.d-block.d-lg-flex.flex-lg-nowrap.flex-lg-items-center.js-details-container.js-header-menu-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Open Source",
+    "directText": "",
+    "selector": ".HeaderMenu-item.position-relative.flex-wrap.flex-justify-between.flex-items-center.d-block.d-lg-flex.flex-lg-nowrap.flex-lg-items-center.js-details-container.js-header-menu-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Enterprise",
+    "directText": "",
+    "selector": ".HeaderMenu-item.position-relative.flex-wrap.flex-justify-between.flex-items-center.d-block.d-lg-flex.flex-lg-nowrap.flex-lg-items-center.js-details-container.js-header-menu-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Pricing",
+    "directText": "",
+    "selector": ".HeaderMenu-item.position-relative.flex-wrap.flex-justify-between.flex-items-center.d-block.d-lg-flex.flex-lg-nowrap.flex-lg-items-center.js-details-container.js-header-menu-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Search or jump to...\n          \n            \n\n          \n      \n\n    \n\n    \n\n  \n      Search code, r",
+    "directText": "",
+    "selector": ".d-flex.flex-column.flex-lg-row.width-full.flex-justify-end.flex-lg-items-center.text-center.mt-3.mt-lg-0.text-lg-left.ml-lg-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Sign in",
+    "directText": "",
+    "selector": ".d-flex.flex-justify-between.flex-items-center.width-full.width-lg-auto",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "qbsearch-input",
+    "text": "Search or jump to...\n          \n            \n\n          \n      \n\n    \n\n    \n\n  \n      Search code, r",
+    "directText": "",
+    "selector": ".search-input",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Search or jump to...\n          \n            \n\n          \n      \n\n    \n\n    \n\n  \n      Search code, r",
+    "directText": "",
+    "selector": ".search-input-container.search-with-dialog.position-relative.d-flex.flex-row.flex-items-center.mr-4.rounded",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Sign in",
+    "directText": "",
+    "selector": ".position-relative.HeaderMenu-link-wrap.d-lg-inline-block",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "ew384\n    \n    /\n    \n      MDScript\n    \n\n    Public",
+    "directText": "",
+    "selector": ".application-main",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "ew384\n    \n    /\n    \n      MDScript\n    \n\n    Public",
+    "directText": "",
+    "selector": "div > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "main",
+    "text": "ew384\n    \n    /\n    \n      MDScript\n    \n\n    Public",
+    "directText": "",
+    "selector": "#js-repo-pjax-container",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "ew384\n    \n    /\n    \n      MDScript\n    \n\n    Public",
+    "directText": "",
+    "selector": "#repository-container-header",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "ew384\n    \n    /\n    \n      MDScript\n    \n\n    Public",
+    "directText": "",
+    "selector": ".d-flex.flex-nowrap.flex-justify-end.mb-3.px-3.px-lg-5",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "ew384\n    \n    /\n    \n      MDScript\n    \n\n    Public",
+    "directText": "",
+    "selector": ".flex-auto.min-width-0.width-fit",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "ew384\n    \n    /\n    \n      MDScript\n    \n\n    Public",
+    "directText": "",
+    "selector": ".d-flex.flex-wrap.flex-items-center.wb-break-word.f3.text-normal",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "strong",
+    "text": "MDScript",
+    "directText": "",
+    "selector": ".mr-2.flex-self-stretch",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Notifications\n    You must be signed in to change notification settings",
+    "directText": "",
+    "selector": "#repository-details-container",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Notifications\n    You must be signed in to change notification settings",
+    "directText": "",
+    "selector": "ul > li:nth-child(1)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Fork\n    0",
+    "directText": "",
+    "selector": "ul > li:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Star\n          0",
+    "directText": "",
+    "selector": "ul > li:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Star\n          0",
+    "directText": "",
+    "selector": ".BtnGroup.d-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "Public",
+    "directText": "Public",
+    "selector": ".Label.Label--secondary.v-align-middle.mr-1",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "nav",
+    "text": "Code\n          \n\n\n    \n\n      \n  \n    \n              \n    \n\n        Issues\n          0",
+    "directText": "",
+    "selector": ".js-repo-nav.js-sidenav-container-pjax.js-responsive-underlinenav.overflow-hidden.UnderlineNav.px-3.px-md-4.px-lg-5",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "Code\n          \n\n\n    \n\n      \n  \n    \n              \n    \n\n        Issues\n          0",
+    "directText": "",
+    "selector": ".UnderlineNav-body.list-style-none",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Issues\n          0",
+    "directText": "",
+    "selector": ".d-inline-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Pull requests\n          0",
+    "directText": "",
+    "selector": ".d-inline-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Actions",
+    "directText": "",
+    "selector": ".d-inline-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Projects\n          0",
+    "directText": "",
+    "selector": ".d-inline-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Security",
+    "directText": "",
+    "selector": ".d-inline-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Insights",
+    "directText": "",
+    "selector": ".d-inline-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "turbo-frame",
+    "text": "ew384/MDScript\n  \n    \n\n  \n        \n\n\n\n\n\n\n\n\n\n\n\n\n  \n  {\"props\":{\"initialPayload\":{\"allShortcutsEnable",
+    "directText": "",
+    "selector": "#repo-content-turbo-frame",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "ew384/MDScript\n  \n    \n\n  \n        \n\n\n\n\n\n\n\n\n\n\n\n\n  \n  {\"props\":{\"initialPayload\":{\"allShortcutsEnable",
+    "directText": "",
+    "selector": "#repo-content-pjax-container",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h1",
+    "text": "ew384/MDScript",
+    "directText": "ew384/MDScript",
+    "selector": ".sr-only",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "{\"props\":{\"initialPayload\":{\"allShortcutsEnabled\":false,\"path\":\"/\",\"repo\":{\"id\":20680082,\"defaultBra",
+    "directText": "",
+    "selector": ".clearfix.container-xl.px-md-4.px-lg-5.px-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "{\"props\":{\"initialPayload\":{\"allShortcutsEnabled\":false,\"path\":\"/\",\"repo\":{\"id\":20680082,\"defaultBra",
+    "directText": "",
+    "selector": "div > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "{\"props\":{\"initialPayload\":{\"allShortcutsEnabled\":false,\"path\":\"/\",\"repo\":{\"id\":20680082,\"defaultBra",
+    "directText": "",
+    "selector": ".Layout.Layout--flowRow-until-md.react-repos-overview-margin.Layout--sidebarPosition-end.Layout--sidebarPosition-flowRow-end",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "{\"props\":{\"initialPayload\":{\"allShortcutsEnabled\":false,\"path\":\"/\",\"repo\":{\"id\":20680082,\"defaultBra",
+    "directText": "",
+    "selector": ".Layout-main",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "About\n\n      \n        Code for Molecular Dynamics Simulation of Tetra-PEG\n      \n\n\n    Resources",
+    "directText": "",
+    "selector": ".Layout-sidebar",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "About\n\n      \n        Code for Molecular Dynamics Simulation of Tetra-PEG\n      \n\n\n    Resources",
+    "directText": "",
+    "selector": ".BorderGrid.about-margin",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "About\n\n      \n        Code for Molecular Dynamics Simulation of Tetra-PEG\n      \n\n\n    Resources",
+    "directText": "",
+    "selector": ".BorderGrid-row",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "About\n\n      \n        Code for Molecular Dynamics Simulation of Tetra-PEG\n      \n\n\n    Resources",
+    "directText": "",
+    "selector": ".BorderGrid-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "react-partial",
+    "text": "{\"props\":{\"initialPayload\":{\"allShortcutsEnabled\":false,\"path\":\"/\",\"repo\":{\"id\":20680082,\"defaultBra",
+    "directText": "",
+    "selector": ".loaded",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "master1 Branch0 TagsGo to fileCodeFolders and filesNameNameLast commit messageLast commit dateLatest",
+    "directText": "",
+    "selector": "react-partial > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "master1 Branch0 TagsGo to fileCodeFolders and filesNameNameLast commit messageLast commit dateLatest",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.iVEunk",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "master1 Branch0 TagsGo to fileCode",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.iNSVHo",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "master1 Branch0 Tags",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.bVgnfw",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "master",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.CEgMp",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "1 Branch0 Tags",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.fLXEGX",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Go to fileCode",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.jxTzTd",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Go to file",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.gqqBXN",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "About\n\n      \n        Code for Molecular Dynamics Simulation of Tetra-PEG\n      \n\n\n    Resources",
+    "directText": "",
+    "selector": ".hide-sm.hide-md",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "Code for Molecular Dynamics Simulation of Tetra-PEG",
+    "directText": "Code for Molecular Dynamics Simulation of Tetra-PEG",
+    "selector": ".f4.my-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Folders and filesNameNameLast commit messageLast commit dateLatest commitendianadd snapshotJan 9, 20",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.vIPPs",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Folders and filesNameNameLast commit messageLast commit dateLatest commitendianadd snapshotJan 9, 20",
+    "directText": "",
+    "selector": "div > div:nth-child(1)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Folders and files",
+    "directText": "Folders and files",
+    "selector": "#folders-and-files",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "table",
+    "text": "NameNameLast commit messageLast commit dateLatest commitendianadd snapshotJan 9, 2015c83a5d1 · Jan 9",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.fdROMU",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tbody",
+    "text": "Latest commitendianadd snapshotJan 9, 2015c83a5d1 · Jan 9, 2015History19 CommitsDiamond_Polyethylene",
+    "directText": "",
+    "selector": "table > tbody",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "Latest commitendianadd snapshotJan 9, 2015c83a5d1 · Jan 9, 2015History19 Commits",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.gpqjiB",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Latest commitendianadd snapshotJan 9, 2015c83a5d1 · Jan 9, 2015History19 Commits",
+    "directText": "",
+    "selector": ".bgColor-muted.p-1.rounded-top-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Latest commitendianadd snapshotJan 9, 2015c83a5d1 · Jan 9, 2015History19 Commits",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.dzCJzi",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "c83a5d1 · Jan 9, 2015History19 Commits",
+    "directText": "",
+    "selector": ".d-flex.flex-shrink-0.gap-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "c83a5d1 · Jan 9, 2015",
+    "directText": "",
+    "selector": ".d-none.d-sm-flex.flex-items-center",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "History19 Commits",
+    "directText": "",
+    "selector": ".d-flex.gap-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "History",
+    "directText": "History",
+    "selector": ".sr-only.ScreenReaderHeading-module__userSelectNone--vW4Cq.prc-Heading-Heading-6CmGO",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "endianadd snapshotJan 9, 2015",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.ePWWCk",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "endian",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.dpBUfI",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "endian",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.hKWjvQ",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.erEOeb.d-none.d-sm-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".Truncate.flex-items-center.f5",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".Text__StyledText-sc-17v1xeu-0.hWqAbU.Truncate-text",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "c83a5d1 · Jan 9, 2015",
+    "directText": "·",
+    "selector": ".d-flex.flex-nowrap.fgColor-muted.f6",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Latest commit",
+    "directText": "Latest commit",
+    "selector": ".sr-only.ScreenReaderHeading-module__userSelectNone--vW4Cq.prc-Heading-Heading-6CmGO",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "Diamond_PolyethyleneDiamond_Polyethyleneadd snapshotJan 9, 2015",
+    "directText": "",
+    "selector": "#folder-row-0",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Diamond_Polyethylene",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Diamond_Polyethylene",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h3",
+    "text": "Resources",
+    "directText": "Resources",
+    "selector": ".sr-only",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Readme",
+    "directText": "",
+    "selector": ".mt-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Diamond_Polyethylene",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Diamond_Polyethylene",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Diamond_Polyethylene",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Activity",
+    "directText": "",
+    "selector": ".mt-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "LAMMPS_Hacking_CodeLAMMPS_Hacking_Codemodified lammps hacking codeDec 24, 2014",
+    "directText": "",
+    "selector": "#folder-row-1",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "LAMMPS_Hacking_Code",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "modified lammps hacking code",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Dec 24, 2014",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "LAMMPS_Hacking_Code",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "LAMMPS_Hacking_Code",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "LAMMPS_Hacking_Code",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "LAMMPS_Hacking_Code",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "modified lammps hacking code",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "modified lammps hacking code",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Dec 24, 2014",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Dec 24, 2014",
+    "directText": "Dec 24, 2014",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "0\n      stars",
+    "directText": "",
+    "selector": ".mt-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "PEO-ChainsPEO-Chainsadd snapshotJan 9, 2015",
+    "directText": "",
+    "selector": "#folder-row-2",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "PEO-Chains",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "PEO-Chains",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h3",
+    "text": "Watchers",
+    "directText": "Watchers",
+    "selector": ".sr-only",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "PEO-Chains",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "PEO-Chains",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "PEO-Chains",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "0\n      watching",
+    "directText": "",
+    "selector": ".mt-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "Tetra-PEGTetra-PEGadd snapshotJan 9, 2015",
+    "directText": "",
+    "selector": "#folder-row-3",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Tetra-PEG",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "0\n      forks",
+    "directText": "",
+    "selector": ".mt-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Tetra-PEG",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Tetra-PEG",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Tetra-PEG",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Tetra-PEG",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Report repository",
+    "directText": "",
+    "selector": ".mt-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "TrajectoryDataProcesssingTrajectoryDataProcesssingadd snapshotJan 9, 2015",
+    "directText": "",
+    "selector": "#folder-row-4",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "TrajectoryDataProcesssing",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "TrajectoryDataProcesssing",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "TrajectoryDataProcesssing",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "TrajectoryDataProcesssing",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "TrajectoryDataProcesssing",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Releases\n\n    No releases published",
+    "directText": "",
+    "selector": ".BorderGrid-row",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Releases\n\n    No releases published",
+    "directText": "",
+    "selector": ".BorderGrid-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": ".gitignore.gitignoreInitial commitJun 10, 2014",
+    "directText": "",
+    "selector": "#folder-row-5",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": ".gitignore",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Initial commit",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jun 10, 2014",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": ".gitignore",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Releases",
+    "directText": "",
+    "selector": ".h4.mb-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": ".gitignore",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": ".gitignore",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": ".gitignore",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Initial commit",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Initial commit",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jun 10, 2014",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jun 10, 2014",
+    "directText": "Jun 10, 2014",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "README.mdREADME.mdchange README.mdJan 9, 2015",
+    "directText": "",
+    "selector": "#folder-row-6",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "README.md",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "change README.md",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "No releases published",
+    "directText": "No releases published",
+    "selector": ".text-small.color-fg-muted",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "README.md",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "README.md",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "README.md",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "README.md",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "change README.md",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "change README.md",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Packages\n      0\n\n\n      \n        No packages published",
+    "directText": "",
+    "selector": ".BorderGrid-row",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Packages\n      0\n\n\n      \n        No packages published",
+    "directText": "",
+    "selector": ".BorderGrid-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "pic.tiffpic.tiffadd snapshotJan 9, 2015",
+    "directText": "",
+    "selector": "#folder-row-7",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "pic.tiff",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "pic.tiff",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Packages\n      0",
+    "directText": "",
+    "selector": ".h4.mb-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "pic.tiff",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "pic.tiff",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "pic.tiff",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "tr",
+    "text": "strain_2_n5.tiffstrain_2_n5.tiffadd snapshotJan 9, 2015",
+    "directText": "",
+    "selector": "#folder-row-8",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "strain_2_n5.tiff",
+    "directText": "",
+    "selector": ".react-directory-row-name-cell-large-screen",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-row-commit-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "td",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": "tr > td:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "strain_2_n5.tiff",
+    "directText": "",
+    "selector": ".react-directory-filename-column",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "No packages published",
+    "directText": "No packages published",
+    "selector": ".text-small.color-fg-muted",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "strain_2_n5.tiff",
+    "directText": "",
+    "selector": ".overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "strain_2_n5.tiff",
+    "directText": "",
+    "selector": ".react-directory-filename-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "strain_2_n5.tiff",
+    "directText": "",
+    "selector": ".react-directory-truncate",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": "td > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "add snapshot",
+    "directText": "",
+    "selector": ".react-directory-commit-message",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Jan 9, 2015",
+    "directText": "",
+    "selector": ".react-directory-commit-age",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "relative-time",
+    "text": "Jan 9, 2015",
+    "directText": "Jan 9, 2015",
+    "selector": ".sc-aXZVg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Contributors\n      2\n\n\n    \n  \n    \n      \n        \n      \n      \n        \n          ew384",
+    "directText": "",
+    "selector": ".BorderGrid-row",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Contributors\n      2\n\n\n    \n  \n    \n      \n        \n      \n      \n        \n          ew384",
+    "directText": "",
+    "selector": ".BorderGrid-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Repository files navigationREADMEMolecular Dynamics Simulation of Tetra-PEG\nA new class of high-stre",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.csrIcr",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Repository files navigationREADMEMolecular Dynamics Simulation of Tetra-PEG\nA new class of high-stre",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.bUQNHB",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Repository files navigationREADME",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.jPdcfu",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "nav",
+    "text": "README",
+    "directText": "",
+    "selector": ".UnderlineTabbedInterface__StyledComponentUnderlineWrapper-sc-4ilrg0-0.eBevHz",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Contributors\n      2",
+    "directText": "",
+    "selector": ".h4.mb-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "README",
+    "directText": "",
+    "selector": ".UnderlineTabbedInterface__StyledComponentUnderlineItemList-sc-4ilrg0-1.ehEdWC",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "README",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.hUCRAk",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Repository files navigation",
+    "directText": "Repository files navigation",
+    "selector": "._VisuallyHidden__VisuallyHidden-sc-11jhm7a-0.brGdpi",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "ew384\n          ew384\n        \n    \n    \n      \n        \n      \n      \n        \n          endian",
+    "directText": "",
+    "selector": ".list-style-none",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "ew384\n          ew384",
+    "directText": "",
+    "selector": ".mb-2.d-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "ew384\n          ew384",
+    "directText": "",
+    "selector": ".flex-self-center.min-width-0.css-truncate.css-truncate-overflow.width-fit.flex-auto",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Molecular Dynamics Simulation of Tetra-PEG\nA new class of high-strength hydrogels has been developed",
+    "directText": "",
+    "selector": ".Box-sc-g0xbh4-0.QkQOb.js-snippet-clipboard-copy-unpositioned.undefined",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "article",
+    "text": "Molecular Dynamics Simulation of Tetra-PEG\nA new class of high-strength hydrogels has been developed",
+    "directText": "",
+    "selector": ".markdown-body.entry-content.container-lg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Molecular Dynamics Simulation of Tetra-PEG",
+    "directText": "",
+    "selector": ".markdown-heading",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "endian",
+    "directText": "",
+    "selector": ".mb-2.d-flex",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "endian",
+    "directText": "",
+    "selector": ".flex-self-center.min-width-0.css-truncate.css-truncate-overflow.width-fit.flex-auto",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Languages\n\n  \n    \n    \n\n\n    \n        \n          \n    \n\n          Python\n          52.8%",
+    "directText": "",
+    "selector": ".BorderGrid-row",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Languages\n\n  \n    \n    \n\n\n    \n        \n          \n    \n\n          Python\n          52.8%",
+    "directText": "",
+    "selector": ".BorderGrid-cell",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "A new class of high-strength hydrogels has been developed and fabricated using two same-sized, symme",
+    "directText": "A new class of high-strength hydrogels has been developed and fabricated using two same-sized, symme",
+    "selector": "article > p:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Languages",
+    "directText": "Languages",
+    "selector": ".h4.mb-3",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "Python\n          52.8%\n        \n    \n    \n        \n          \n    \n\n          C++\n          47.2%",
+    "directText": "",
+    "selector": ".list-style-none",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Python\n          52.8%",
+    "directText": "",
+    "selector": ".d-inline",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "C++\n          47.2%",
+    "directText": "",
+    "selector": ".d-inline",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "Reference:\n[1]:Sakai, T.; Matsunaga, T.; Yamamoto, Y.; Ito, C.; Yoshida, R.; Suzuki, S.; Sasaki, N.;",
+    "directText": "Reference:\n[1]:Sakai, T.; Matsunaga, T.; Yamamoto, Y.; Ito, C.; Yoshida, R.; Suzuki, S.; Sasaki, N.;",
+    "selector": "article > p:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "footer",
+    "text": "Footer\n\n  \n\n\n  \n    \n      \n        \n    \n\n\n      \n        © 2025 GitHub, Inc.",
+    "directText": "",
+    "selector": ".footer.pt-8.pb-6.f6.color-fg-muted.p-responsive",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Footer",
+    "directText": "Footer",
+    "selector": ".sr-only",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "© 2025 GitHub, Inc.\n      \n    \n\n    \n      Footer navigation\n\n      \n\n          \n            Terms",
+    "directText": "",
+    "selector": ".d-flex.flex-justify-center.flex-items-center.flex-column-reverse.flex-lg-row.flex-wrap.flex-lg-nowrap",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "© 2025 GitHub, Inc.",
+    "directText": "",
+    "selector": ".d-flex.flex-items-center.flex-shrink-0.mx-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "© 2025 GitHub, Inc.",
+    "directText": "© 2025 GitHub, Inc.",
+    "selector": "div > span",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "nav",
+    "text": "Footer navigation\n\n      \n\n          \n            Terms\n          \n\n          \n            Privacy",
+    "directText": "",
+    "selector": "[aria-label=\"Footer\"]",
+    "selectorType": "attribute",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h3",
+    "text": "Footer navigation",
+    "directText": "Footer navigation",
+    "selector": "#sr-footer-heading",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "Terms\n          \n\n          \n            Privacy\n          \n\n          \n            Security",
+    "directText": "",
+    "selector": ".list-style-none.d-flex.flex-justify-center.flex-wrap.mb-2.mb-lg-0",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Privacy",
+    "directText": "",
+    "selector": ".mx-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Security",
+    "directText": "",
+    "selector": ".mx-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Status",
+    "directText": "",
+    "selector": ".mx-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Contact",
+    "directText": "",
+    "selector": ".mx-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Manage cookies",
+    "directText": "",
+    "selector": ".mx-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "cookie-consent-link",
+    "text": "Manage cookies",
+    "directText": "",
+    "selector": "li > cookie-consent-link",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Do not share my personal information",
+    "directText": "",
+    "selector": ".mx-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "cookie-consent-link",
+    "text": "Do not share my personal information",
+    "directText": "",
+    "selector": "li > cookie-consent-link",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  }
+]
