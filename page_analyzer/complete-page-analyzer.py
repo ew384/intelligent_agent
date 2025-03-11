@@ -8,7 +8,1283 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
-
+from bs4 import BeautifulSoup
+def extract_spa_content(driver, output_dir):
+    """
+    提取单页应用中的内容，包括处理内部标签页
+    按照标签页名称组织内容到单独的子目录
+    """
+    import os
+    import time
+    import json
+    import re
+    from selenium.webdriver.common.by import By
+    
+    # 创建一个目录来存储所有标签页内容
+    tabs_dir = os.path.join(output_dir, "tabs_content")
+    if not os.path.exists(tabs_dir):
+        os.makedirs(tabs_dir)
+    
+    # 创建索引文件来总结所有标签页
+    tabs_index = []
+    
+    # 记录初始状态
+    print("提取主页面内容...")
+    content_file = os.path.join(output_dir, "main_content.txt")
+    extract_page_content(driver, content_file)
+    
+    # 保存当前URL和页面标题
+    current_url = driver.current_url
+    page_title = driver.title
+    
+    # 创建一个主信息JSON文件
+    main_info = {
+        "url": current_url,
+        "title": page_title,
+        "tabs": []
+    }
+    
+    # 尝试找出所有可能的标签页/导航元素
+    print("查找可能的标签页或导航元素...")
+    potential_tabs = []
+    
+    # 标签页元素的常见模式
+    tab_patterns = [
+        # 标准标签导航
+        "//ul[contains(@class, 'nav') or contains(@class, 'tab')]//li",
+        "//div[contains(@class, 'tab') or contains(@class, 'tabs')]//a",
+        "//div[contains(@class, 'tab') or contains(@class, 'tabs')]//button",
+        "//div[contains(@role, 'tablist')]//button",
+        "//div[contains(@role, 'tablist')]//div[contains(@role, 'tab')]",
+        
+        # Material UI 和其他UI框架
+        "//div[contains(@class, 'MuiTabs')]//button",
+        "//div[contains(@class, 'ant-tabs')]//div[contains(@class, 'ant-tabs-tab')]",
+        
+        # 常规导航元素
+        "//nav//a[not(contains(@href, 'http'))]",  # 非外部链接
+        "//div[contains(@class, 'menu') or contains(@class, 'navigation')]//a[not(contains(@href, 'http'))]",
+        
+        # 基于ARIA角色的元素
+        "//*[@role='tab']",
+        "//*[@role='menuitem']"
+    ]
+    
+    # 提取可能的标签页元素
+    for pattern in tab_patterns:
+        try:
+            elements = driver.find_elements(By.XPATH, pattern)
+            for element in elements:
+                # 只考虑可见且有文本内容的元素
+                if element.is_displayed() and element.text.strip():
+                    # 检查此元素是否已添加（基于文本）
+                    text = element.text.strip()
+                    if not any(tab["text"] == text for tab in potential_tabs):
+                        potential_tabs.append({
+                            "element": element,
+                            "text": text,
+                            "tag": element.tag_name,
+                            "is_active": "active" in element.get_attribute("class") if element.get_attribute("class") else False,
+                            "href": element.get_attribute("href") if element.tag_name == "a" else None
+                        })
+        except Exception as e:
+            print(f"查找模式 {pattern} 时出错: {str(e)}")
+            continue
+    
+    print(f"找到 {len(potential_tabs)} 个可能的标签页/导航元素")
+    
+    # 创建一个函数来清理文件名
+    def clean_filename(name):
+        """将文本转换为有效的文件名"""
+        # 移除非法字符
+        name = re.sub(r'[\\/*?:"<>|]', "", name)
+        # 替换空格
+        name = name.replace(" ", "_")
+        # 限制长度
+        if len(name) > 50:
+            name = name[:50]
+        return name
+    
+    # 遍历点击每个潜在的标签页元素
+    for i, tab in enumerate(potential_tabs):
+        tab_clean_name = clean_filename(tab["text"])
+        
+        # 为每个标签页创建单独的目录
+        tab_dir = os.path.join(tabs_dir, f"{i+1}_{tab_clean_name}")
+        if not os.path.exists(tab_dir):
+            os.makedirs(tab_dir)
+        
+        # 标签页信息
+        tab_info = {
+            "index": i + 1,
+            "name": tab["text"],
+            "tag": tab["tag"],
+            "was_active": tab["is_active"],
+            "content_extracted": False,
+            "files": []
+        }
+        
+        try:
+            print(f"\n[{i+1}/{len(potential_tabs)}] 尝试点击: {tab['text']} ({tab['tag']})")
+            
+            # 保存点击前的截图
+            pre_screenshot = os.path.join(tab_dir, "before_click.png")
+            driver.save_screenshot(pre_screenshot)
+            tab_info["files"].append({"type": "screenshot", "name": "before_click.png", "description": "点击前状态"})
+            
+            # 滚动到元素位置
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", tab["element"])
+            time.sleep(1)  # 等待滚动完成
+            
+            # 记录点击前的DOM状态和URL
+            pre_click_html = driver.page_source
+            pre_click_url = driver.current_url
+            
+            # 点击元素
+            tab["element"].click()
+            
+            # 等待内容变化 - 对于复杂应用可能需要更长时间
+            time.sleep(3)
+            
+            # 保存点击后的截图
+            post_screenshot = os.path.join(tab_dir, "after_click.png")
+            driver.save_screenshot(post_screenshot)
+            tab_info["files"].append({"type": "screenshot", "name": "after_click.png", "description": "点击后状态"})
+            
+            # 检查DOM是否有变化或URL是否改变
+            post_click_html = driver.page_source
+            post_click_url = driver.current_url
+            content_changed = post_click_html != pre_click_html
+            url_changed = post_click_url != pre_click_url
+            
+            if content_changed or url_changed:
+                print(f"检测到变化:" + 
+                      f" {'DOM已更新' if content_changed else ''}" +
+                      f" {'URL已改变' if url_changed else ''}")
+                
+                # 标记内容已提取
+                tab_info["content_extracted"] = True
+                
+                # 如果URL改变了，记录新URL
+                if url_changed:
+                    tab_info["new_url"] = post_click_url
+                
+                # 获取当前标签页标题
+                current_tab_title = driver.title
+                tab_info["title"] = current_tab_title
+                
+                # 提取标签页内容
+                content_file = os.path.join(tab_dir, "content.txt")
+                with open(content_file, "w", encoding="utf-8") as f:
+                    f.write(f"标签页: {tab['text']}\n")
+                    f.write(f"标题: {current_tab_title}\n")
+                    if url_changed:
+                        f.write(f"URL: {post_click_url}\n")
+                    f.write("\n" + "="*80 + "\n\n")
+                    
+                    # 获取页面中所有可见文本
+                    js_get_text = """
+                    function getAllVisibleText() {
+                        const result = {
+                            headings: [],
+                            paragraphs: [],
+                            listItems: [],
+                            otherText: []
+                        };
+                        
+                        // 获取标题
+                        document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(el => {
+                            if (isVisible(el) && el.textContent.trim()) {
+                                result.headings.push({
+                                    level: parseInt(el.tagName.substring(1)),
+                                    text: el.textContent.trim()
+                                });
+                            }
+                        });
+                        
+                        // 获取段落
+                        document.querySelectorAll('p').forEach(el => {
+                            if (isVisible(el) && el.textContent.trim()) {
+                                result.paragraphs.push(el.textContent.trim());
+                            }
+                        });
+                        
+                        // 获取列表项
+                        document.querySelectorAll('li').forEach(el => {
+                            if (isVisible(el) && el.textContent.trim()) {
+                                result.listItems.push(el.textContent.trim());
+                            }
+                        });
+                        
+                        // 获取其他可见文本块
+                        const textBlocks = [];
+                        const walker = document.createTreeWalker(
+                            document.body, 
+                            NodeFilter.SHOW_TEXT,
+                            { acceptNode: function(node) {
+                                if (!node.textContent.trim()) return NodeFilter.FILTER_REJECT;
+                                if (!isVisible(node.parentElement)) return NodeFilter.FILTER_REJECT;
+                                return NodeFilter.FILTER_ACCEPT;
+                            }}
+                        );
+                        
+                        let node;
+                        while (node = walker.nextNode()) {
+                            const text = node.textContent.trim();
+                            if (text && !isInCollection(text, result)) {
+                                result.otherText.push(text);
+                            }
+                        }
+                        
+                        // 检查元素是否可见
+                        function isVisible(el) {
+                            if (!el) return false;
+                            
+                            const style = window.getComputedStyle(el);
+                            return style.display !== 'none' && 
+                                   style.visibility !== 'hidden' && 
+                                   parseFloat(style.opacity) > 0 &&
+                                   el.offsetWidth > 0 && 
+                                   el.offsetHeight > 0;
+                        }
+                        
+                        // 检查文本是否已经在集合中
+                        function isInCollection(text, collection) {
+                            return collection.headings.some(h => h.text.includes(text)) ||
+                                   collection.paragraphs.some(p => p.includes(text)) ||
+                                   collection.listItems.some(li => li.includes(text));
+                        }
+                        
+                        return result;
+                    }
+                    return getAllVisibleText();
+                    """
+                    
+                    text_content = driver.execute_script(js_get_text)
+                    
+                    # 写入标题
+                    if text_content["headings"]:
+                        f.write("标题:\n")
+                        for heading in sorted(text_content["headings"], key=lambda h: h["level"]):
+                            f.write("  " * (heading["level"]-1) + heading["text"] + "\n")
+                        f.write("\n")
+                    
+                    # 写入段落
+                    if text_content["paragraphs"]:
+                        f.write("段落:\n")
+                        for para in text_content["paragraphs"]:
+                            f.write(para + "\n\n")
+                    
+                    # 写入列表项
+                    if text_content["listItems"]:
+                        f.write("列表项:\n")
+                        for item in text_content["listItems"]:
+                            f.write("- " + item + "\n")
+                        f.write("\n")
+                    
+                    # 写入其他文本
+                    if text_content["otherText"]:
+                        f.write("其他文本:\n")
+                        for text in text_content["otherText"]:
+                            f.write(text + "\n")
+                
+                tab_info["files"].append({"type": "text", "name": "content.txt", "description": "文本内容"})
+                
+                # 提取HTML内容
+                html_file = os.path.join(tab_dir, "content.html")
+                with open(html_file, "w", encoding="utf-8") as f:
+                    f.write(post_click_html)
+                tab_info["files"].append({"type": "html", "name": "content.html", "description": "HTML内容"})
+                
+                # 使用BeautifulSoup来提取更详细的结构化内容
+                try:
+                    from bs4 import BeautifulSoup
+                    soup = BeautifulSoup(post_click_html, 'html.parser')
+                    
+                    # 提取并保存为JSON
+                    structured_data = {
+                        "title": current_tab_title,
+                        "headings": [],
+                        "paragraphs": [],
+                        "lists": [],
+                        "tables": [],
+                        "forms": [],
+                        "links": [],
+                    }
+                    
+                    # 提取标题
+                    for i in range(1, 7):
+                        for heading in soup.find_all(f'h{i}'):
+                            if heading.text.strip():
+                                structured_data["headings"].append({
+                                    "level": i,
+                                    "text": heading.text.strip()
+                                })
+                    
+                    # 提取段落
+                    for p in soup.find_all('p'):
+                        if p.text.strip():
+                            structured_data["paragraphs"].append(p.text.strip())
+                    
+                    # 提取列表
+                    for ul in soup.find_all(['ul', 'ol']):
+                        list_items = []
+                        for li in ul.find_all('li'):
+                            if li.text.strip():
+                                list_items.append(li.text.strip())
+                        
+                        if list_items:
+                            structured_data["lists"].append({
+                                "type": ul.name,
+                                "items": list_items
+                            })
+                    
+                    # 提取表格
+                    for table in soup.find_all('table'):
+                        table_data = []
+                        rows = table.find_all('tr')
+                        
+                        for row in rows:
+                            cells = row.find_all(['th', 'td'])
+                            if cells:
+                                row_data = [cell.text.strip() for cell in cells]
+                                table_data.append(row_data)
+                        
+                        if table_data:
+                            structured_data["tables"].append(table_data)
+                    
+                    # 提取表单
+                    for form in soup.find_all('form'):
+                        form_data = {
+                            "action": form.get('action', ''),
+                            "method": form.get('method', 'get'),
+                            "inputs": []
+                        }
+                        
+                        for input_tag in form.find_all(['input', 'textarea', 'select']):
+                            input_data = {
+                                "type": input_tag.name if input_tag.name != 'input' else input_tag.get('type', 'text'),
+                                "name": input_tag.get('name', ''),
+                                "id": input_tag.get('id', ''),
+                                "placeholder": input_tag.get('placeholder', '')
+                            }
+                            form_data["inputs"].append(input_data)
+                        
+                        structured_data["forms"].append(form_data)
+                    
+                    # 提取链接
+                    for a in soup.find_all('a', href=True):
+                        if a.text.strip():
+                            structured_data["links"].append({
+                                "text": a.text.strip(),
+                                "href": a.get('href', '')
+                            })
+                    
+                    # 保存结构化数据
+                    json_file = os.path.join(tab_dir, "structured_data.json")
+                    with open(json_file, 'w', encoding='utf-8') as f:
+                        json.dump(structured_data, f, ensure_ascii=False, indent=2)
+                    
+                    tab_info["files"].append({"type": "json", "name": "structured_data.json", "description": "结构化数据"})
+                    
+                except ImportError:
+                    print("未安装BeautifulSoup，跳过结构化内容提取")
+                except Exception as e:
+                    print(f"提取结构化内容时出错: {str(e)}")
+                
+                # 检查并提取iframe内容
+                try:
+                    iframes = driver.find_elements(By.TAG_NAME, "iframe")
+                    if iframes:
+                        print(f"  发现 {len(iframes)} 个iframe")
+                        iframe_dir = os.path.join(tab_dir, "iframes")
+                        if not os.path.exists(iframe_dir):
+                            os.makedirs(iframe_dir)
+                        
+                        tab_info["iframes"] = []
+                        
+                        for iframe_index, iframe in enumerate(iframes):
+                            iframe_info = {
+                                "index": iframe_index + 1,
+                                "src": iframe.get_attribute("src") or "无源地址",
+                                "id": iframe.get_attribute("id") or f"iframe_{iframe_index+1}",
+                                "content_extracted": False
+                            }
+                            
+                            try:
+                                # 切换到iframe
+                                driver.switch_to.frame(iframe)
+                                
+                                # 获取内容
+                                iframe_content = driver.page_source
+                                iframe_text = driver.find_element(By.TAG_NAME, "body").text
+                                
+                                # 保存内容
+                                iframe_html_file = os.path.join(iframe_dir, f"iframe_{iframe_index+1}.html")
+                                with open(iframe_html_file, "w", encoding="utf-8") as f:
+                                    f.write(iframe_content)
+                                
+                                iframe_text_file = os.path.join(iframe_dir, f"iframe_{iframe_index+1}.txt")
+                                with open(iframe_text_file, "w", encoding="utf-8") as f:
+                                    f.write(f"Iframe {iframe_index+1}\n")
+                                    f.write(f"源: {iframe_info['src']}\n")
+                                    f.write(f"ID: {iframe_info['id']}\n\n")
+                                    f.write(iframe_text)
+                                
+                                # 捕获iframe截图
+                                iframe_screenshot = os.path.join(iframe_dir, f"iframe_{iframe_index+1}.png")
+                                driver.save_screenshot(iframe_screenshot)
+                                
+                                iframe_info["content_extracted"] = True
+                                iframe_info["files"] = [
+                                    {"type": "html", "name": f"iframe_{iframe_index+1}.html", "description": "HTML内容"},
+                                    {"type": "text", "name": f"iframe_{iframe_index+1}.txt", "description": "文本内容"},
+                                    {"type": "screenshot", "name": f"iframe_{iframe_index+1}.png", "description": "屏幕截图"}
+                                ]
+                                
+                                print(f"  Iframe {iframe_index+1} ({iframe_info['id']}) 内容已提取")
+                                
+                                # 切回主文档
+                                driver.switch_to.default_content()
+                                
+                            except Exception as e:
+                                print(f"  提取iframe {iframe_index+1} 内容时出错: {str(e)}")
+                                driver.switch_to.default_content()
+                            
+                            tab_info["iframes"].append(iframe_info)
+                        
+                except Exception as e:
+                    print(f"处理iframe时出错: {str(e)}")
+                
+                # 尝试捕获API请求数据
+                try:
+                    js_get_requests = "return window._requestCaptures || [];"
+                    api_requests = driver.execute_script(js_get_requests)
+                    
+                    if api_requests:
+                        print(f"  捕获到 {len(api_requests)} 个API请求")
+                        
+                        # 保存API请求数据
+                        api_dir = os.path.join(tab_dir, "api_data")
+                        if not os.path.exists(api_dir):
+                            os.makedirs(api_dir)
+                        
+                        api_json_file = os.path.join(api_dir, "api_responses.json")
+                        with open(api_json_file, "w", encoding="utf-8") as f:
+                            json.dump(api_requests, f, ensure_ascii=False, indent=2)
+                        
+                        tab_info["api_requests"] = len(api_requests)
+                        tab_info["files"].append({"type": "json", "name": "api_data/api_responses.json", "description": "API响应数据"})
+                        
+                        # 为每个API响应创建单独的文件
+                        for req_index, req in enumerate(api_requests):
+                            # 只处理成功的请求
+                            if req.get("status", 0) >= 200 and req.get("status", 0) < 300:
+                                response_data = req.get("responseData")
+                                if response_data:
+                                    # 创建文件名
+                                    url_parts = req.get("url", "").split("/")
+                                    endpoint = url_parts[-1].split("?")[0] or "unknown"
+                                    endpoint = clean_filename(endpoint)
+                                    
+                                    # 保存响应数据
+                                    if isinstance(response_data, (dict, list)):
+                                        # JSON数据
+                                        req_file = os.path.join(api_dir, f"{req_index+1}_{endpoint}.json")
+                                        with open(req_file, "w", encoding="utf-8") as f:
+                                            json.dump(response_data, f, ensure_ascii=False, indent=2)
+                                    else:
+                                        # 文本数据
+                                        req_file = os.path.join(api_dir, f"{req_index+1}_{endpoint}.txt")
+                                        with open(req_file, "w", encoding="utf-8") as f:
+                                            f.write(str(response_data))
+                
+                except Exception as e:
+                    print(f"  处理API请求数据时出错: {str(e)}")
+                
+                print(f"标签页 '{tab['text']}' 的内容已保存到目录 {tab_dir}")
+                
+            else:
+                print("DOM和URL无变化，可能不是真正的标签页或内容已预加载")
+                with open(os.path.join(tab_dir, "info.txt"), "w", encoding="utf-8") as f:
+                    f.write(f"标签页 '{tab['text']}' 点击后无明显变化\n")
+                    f.write("可能不是真正的标签页或内容已预加载")
+                
+                tab_info["files"].append({"type": "text", "name": "info.txt", "description": "点击结果信息"})
+            
+        except Exception as e:
+            print(f"处理标签页 '{tab['text']}' 时出错: {str(e)}")
+            # 记录错误
+            with open(os.path.join(tab_dir, "error.txt"), "w", encoding="utf-8") as f:
+                f.write(f"处理时出错: {str(e)}")
+            
+            tab_info["error"] = str(e)
+            tab_info["files"].append({"type": "text", "name": "error.txt", "description": "错误信息"})
+        
+        # 将标签页信息添加到索引中
+        tabs_index.append(tab_info)
+        main_info["tabs"].append(tab_info)
+        
+        # 尝试导航回初始URL (如果URL有变化)
+        if driver.current_url != current_url:
+            try:
+                print(f"  导航回初始URL: {current_url}")
+                driver.get(current_url)
+                time.sleep(2)  # 等待页面加载
+            except Exception as e:
+                print(f"  导航回初始URL时出错: {str(e)}")
+    
+    # 保存标签页索引
+    index_file = os.path.join(output_dir, "tabs_index.json")
+    with open(index_file, "w", encoding="utf-8") as f:
+        json.dump(main_info, f, ensure_ascii=False, indent=2)
+    
+    # 创建一个用户友好的HTML索引
+    html_index = os.path.join(output_dir, "tabs_index.html")
+    with open(html_index, "w", encoding="utf-8") as f:
+        f.write(f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>标签页内容索引</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }}
+        h1, h2, h3 {{ color: #333; }}
+        .tab-card {{ 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            margin-bottom: 20px; 
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }}
+        .tab-header {{ display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }}
+        .tab-content {{ margin-top: 15px; }}
+        .file-list {{ margin-left: 20px; }}
+        .file-item {{ margin-bottom: 5px; }}
+        .screenshot {{ max-width: 300px; border: 1px solid #ddd; margin-top: 10px; }}
+        .success {{ color: green; }}
+        .warning {{ color: orange; }}
+        .error {{ color: red; }}
+    </style>
+</head>
+<body>
+    <h1>标签页内容索引</h1>
+    <p><strong>URL:</strong> {current_url}</p>
+    <p><strong>页面标题:</strong> {page_title}</p>
+    <p><strong>找到 {len(tabs_index)} 个可能的标签页</strong></p>
+    
+    <h2>标签页列表</h2>
+""")
+        
+        # 添加标签页卡片
+        for tab in tabs_index:
+            status_class = "success" if tab.get("content_extracted") else "warning"
+            status_text = "内容已提取" if tab.get("content_extracted") else "点击后无明显变化"
+            if "error" in tab:
+                status_class = "error"
+                status_text = f"错误: {tab['error']}"
+            
+            f.write(f"""
+    <div class="tab-card">
+        <div class="tab-header">
+            <h3>#{tab['index']} - {tab['name']}</h3>
+            <span class="{status_class}">{status_text}</span>
+        </div>
+        <div>
+            <p><strong>元素类型:</strong> {tab['tag']}</p>
+            {f'<p><strong>标题:</strong> {tab.get("title", "未知")}</p>' if tab.get("content_extracted") else ''}
+            {f'<p><strong>URL变化为:</strong> {tab.get("new_url", "")}</p>' if tab.get("new_url") else ''}
+        </div>
+""")
+            
+            # 添加文件列表
+            if tab.get("files"):
+                f.write(f"""
+        <div class="tab-content">
+            <h4>内容文件:</h4>
+            <ul class="file-list">
+""")
+                
+                # 文件列表
+                for file in tab["files"]:
+                    file_path = f"tabs_content/{tab['index']}_{clean_filename(tab['name'])}/{file['name']}"
+                    f.write(f'                <li class="file-item"><a href="{file_path}">{file["name"]}</a> - {file["description"]}</li>\n')
+                
+                f.write("            </ul>\n")
+                
+                # 显示截图
+                f.write(f"""
+            <div>
+                <h4>截图:</h4>
+                <p>点击前:</p>
+                <img src="tabs_content/{tab['index']}_{clean_filename(tab['name'])}/before_click.png" class="screenshot" alt="点击前">
+                
+                <p>点击后:</p>
+                <img src="tabs_content/{tab['index']}_{clean_filename(tab['name'])}/after_click.png" class="screenshot" alt="点击后">
+            </div>
+""")
+                
+                f.write("        </div>\n")
+            
+            # iframe信息
+            if tab.get("iframes"):
+                iframe_count = len(tab["iframes"])
+                f.write(f"""
+        <div class="tab-content">
+            <h4>找到 {iframe_count} 个iframe</h4>
+            <ul class="file-list">
+""")
+                
+                for iframe in tab["iframes"]:
+                    iframe_status = "内容已提取" if iframe.get("content_extracted") else "无法提取内容"
+                    f.write(f'                <li>Iframe #{iframe["index"]}: {iframe["id"]} - {iframe_status}</li>\n')
+                
+                f.write("            </ul>\n        </div>\n")
+            
+            # API请求信息
+            if tab.get("api_requests"):
+                f.write(f"""
+        <div class="tab-content">
+            <h4>API请求</h4>
+            <p>捕获到 {tab["api_requests"]} 个API请求</p>
+            <p><a href="tabs_content/{tab['index']}_{clean_filename(tab['name'])}/api_data/api_responses.json">查看API响应数据</a></p>
+        </div>
+""")
+            
+            f.write("    </div>\n")
+        
+        # 结束HTML文件
+        f.write("""
+</body>
+</html>
+""")
+    
+    print(f"\n全部标签页内容已提取完成")
+    print(f"- 标签页内容保存在: {tabs_dir}")
+    print(f"- 索引JSON文件: {index_file}")
+    print(f"- HTML索引: {html_index}")
+    
+    # 在开始时，创建并注入网络请求监控脚本
+    def inject_network_monitor(driver):
+        """注入JavaScript来监控网络请求"""
+        js_xhr_monitor = """
+        // 存储捕获的请求
+        window._requestCaptures = [];
+        
+        // 拦截XMLHttpRequest
+        (function(open) {
+            XMLHttpRequest.prototype.open = function() {
+                this._requestMethod = arguments[0];
+                this._requestUrl = arguments[1];
+                this._requestTime = new Date().getTime();
+                return open.apply(this, arguments);
+            };
+        })(XMLHttpRequest.prototype.open);
+        
+        (function(send) {
+            XMLHttpRequest.prototype.send = function() {
+                const xhr = this;
+                this._requestBody = arguments[0] || null;
+                
+                // 处理响应
+                xhr.addEventListener('load', function() {
+                    try {
+                        let responseData = xhr.responseText;
+                        let contentType = xhr.getResponseHeader('Content-Type') || '';
+                        
+                        // 尝试解析JSON
+                        if(contentType.includes('application/json') || 
+                           (responseData && responseData.trim().startsWith('{'))) {
+                            try {
+                                responseData = JSON.parse(responseData);
+                            } catch(e) {
+                                // 无法解析为JSON，保持原文本
+                            }
+                        }
+                        
+                        window._requestCaptures.push({
+                            type: 'xhr',
+                            method: xhr._requestMethod,
+                            url: xhr._requestUrl,
+                            time: xhr._requestTime,
+                            requestBody: xhr._requestBody,
+                            status: xhr.status,
+                            responseType: contentType,
+                            responseData: responseData
+                        });
+                    } catch(e) {
+                        console.error('XHR响应捕获错误:', e);
+                    }
+                });
+                
+                return send.apply(this, arguments);
+            };
+        })(XMLHttpRequest.prototype.send);
+        
+        // 拦截Fetch
+        (function(fetch) {
+            window.fetch = function() {
+                const url = arguments[0];
+                const options = arguments[1] || {};
+                const method = options.method || 'GET';
+                const requestBody = options.body || null;
+                const requestTime = new Date().getTime();
+                
+                return fetch.apply(this, arguments).then(response => {
+                    // 克隆响应以便我们可以同时读取它并将其返回
+                    const responseClone = response.clone();
+                    
+                    responseClone.text().then(text => {
+                        let responseData = text;
+                        let contentType = response.headers.get('Content-Type') || '';
+                        
+                        // 尝试解析JSON
+                        if(contentType.includes('application/json') || 
+                           (responseData && responseData.trim().startsWith('{'))) {
+                            try {
+                                responseData = JSON.parse(responseData);
+                            } catch(e) {
+                                // 无法解析为JSON，保持原文本
+                            }
+                        }
+                        
+                        window._requestCaptures.push({
+                            type: 'fetch',
+                            method: method,
+                            url: typeof url === 'string' ? url : url.url,
+                            time: requestTime,
+                            requestBody: requestBody,
+                            status: response.status,
+                            responseType: contentType,
+                            responseData: responseData
+                        });
+                    }).catch(e => {
+                        console.error('Fetch响应捕获错误:', e);
+                    });
+                    
+                    return response;
+                });
+            };
+        })(window.fetch);
+        
+        console.log('已安装XHR/Fetch拦截器');
+        """
+        
+        driver.execute_script(js_xhr_monitor)
+        print("已注入网络请求监控脚本")
+    
+    # 在页面初始分析时注入监控脚本
+    inject_network_monitor(driver)
+    
+    # 最后尝试查找和分析iframe
+    try:
+        iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        if iframes:
+            print(f"找到 {len(iframes)} 个iframe")
+            
+            iframe_dir = os.path.join(output_dir, "iframes")
+            if not os.path.exists(iframe_dir):
+                os.makedirs(iframe_dir)
+            
+            for i, iframe in enumerate(iframes):
+                try:
+                    iframe_src = iframe.get_attribute("src") or "无源地址"
+                    iframe_id = iframe.get_attribute("id") or f"iframe_{i+1}"
+                    
+                    print(f"处理iframe: {iframe_id} (源: {iframe_src})")
+                    
+                    # 创建iframe目录
+                    iframe_sub_dir = os.path.join(iframe_dir, f"iframe_{i+1}_{clean_filename(iframe_id)}")
+                    if not os.path.exists(iframe_sub_dir):
+                        os.makedirs(iframe_sub_dir)
+                    
+                    # 获取iframe在页面中的位置和大小（用于后续裁剪）
+                    iframe_rect = None
+                    try:
+                        iframe_rect = {
+                            'x': iframe.rect['x'],
+                            'y': iframe.rect['y'],
+                            'width': iframe.rect['width'],
+                            'height': iframe.rect['height']
+                        }
+                    except:
+                        pass
+                    
+                    # 捕获iframe信息
+                    info_file = os.path.join(iframe_sub_dir, "info.txt")
+                    with open(info_file, "w", encoding="utf-8") as f:
+                        f.write(f"iframe: {iframe_id}\n")
+                        f.write(f"源URL: {iframe_src}\n")
+                        if iframe_rect:
+                            f.write(f"位置: x={iframe_rect['x']}, y={iframe_rect['y']}, 宽={iframe_rect['width']}, 高={iframe_rect['height']}\n")
+                    
+                    # 先捕获iframe的原始视图（未切换到iframe前）
+                    try:
+                        from PIL import Image
+                        import io
+                        
+                        # 捕获整个窗口的截图
+                        original_screenshot = driver.get_screenshot_as_png()
+                        img = Image.open(io.BytesIO(original_screenshot))
+                        
+                        # 如果获取到了iframe位置，裁剪图像
+                        if iframe_rect:
+                            # 考虑设备像素比
+                            pixel_ratio = driver.execute_script('return window.devicePixelRatio') or 1
+                            
+                            # 获取原始图像尺寸
+                            img_width, img_height = img.size
+                            
+                            # 计算裁剪区域
+                            x = int(iframe_rect['x'] * pixel_ratio)
+                            y = int(iframe_rect['y'] * pixel_ratio)
+                            width = int(iframe_rect['width'] * pixel_ratio)
+                            height = int(iframe_rect['height'] * pixel_ratio)
+                            
+                            # 确保裁剪区域不超出图像边界
+                            x = max(0, x)
+                            y = max(0, y) 
+                            right = min(img_width, x + width)
+                            bottom = min(img_height, y + height)
+                            
+                            # 检查裁剪区域是否有效
+                            if x < right and y < bottom:
+                                # 裁剪iframe区域
+                                iframe_view = img.crop((x, y, right, bottom))
+                                iframe_view.save(os.path.join(iframe_sub_dir, "iframe_view.png"))
+                                print(f"已保存iframe外部视图")
+                            else:
+                                # 裁剪区域无效，保存原始截图
+                                img.save(os.path.join(iframe_sub_dir, "full_page.png"))
+                                print(f"iframe位于可见区域外，已保存完整页面截图")
+                    except ImportError:
+                        print("未安装PIL，无法裁剪iframe视图。使用pip install pillow安装")
+                    except Exception as e:
+                        print(f"捕获iframe外部视图时出错: {str(e)}")
+                        # 在出错时保存原始截图
+                        try:
+                            original_screenshot = driver.get_screenshot_as_png()
+                            with open(os.path.join(iframe_sub_dir, "original_screenshot.png"), "wb") as f:
+                                f.write(original_screenshot)
+                            print("已保存原始截图")
+                        except:
+                            pass
+                    
+                    # 现在切换到iframe内部
+                    try:
+                        driver.switch_to.frame(iframe)
+                        
+                        # 首先尝试使用JavaScript的html2canvas捕获内容
+                        try:
+                            # 注入html2canvas库
+                            driver.execute_script("""
+                            if (!window.html2canvas) {
+                                var script = document.createElement('script');
+                                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                                script.async = false;
+                                document.head.appendChild(script);
+                            }
+                            """)
+                            
+                            # 等待库加载完成
+                            time.sleep(2)
+                            
+                            # 使用html2canvas截取iframe内容
+                            screenshot_data = driver.execute_script("""
+                            return new Promise((resolve) => {
+                                // 检查html2canvas是否已加载
+                                if (typeof html2canvas === 'undefined') {
+                                    console.log('html2canvas未加载');
+                                    resolve(null);
+                                    return;
+                                }
+                                
+                                html2canvas(document.body, {
+                                    logging: false,
+                                    allowTaint: true,
+                                    useCORS: true
+                                }).then(function(canvas) {
+                                    resolve(canvas.toDataURL('image/png'));
+                                }).catch(function(err) {
+                                    console.error('Canvas截图失败:', err);
+                                    resolve(null);
+                                });
+                            });
+                            """)
+                            
+                            if screenshot_data and screenshot_data.startswith('data:image/png;base64,'):
+                                # 保存base64图像数据为文件
+                                import base64
+                                screenshot_file = os.path.join(iframe_sub_dir, "iframe_content.png")
+                                
+                                # 移除data URL前缀
+                                screenshot_data = screenshot_data[len('data:image/png;base64,'):]
+                                    
+                                with open(screenshot_file, "wb") as f:
+                                    f.write(base64.b64decode(screenshot_data))
+                                print(f"已使用html2canvas捕获iframe内容")
+                            else:
+                                # 退回到常规截图
+                                driver.save_screenshot(os.path.join(iframe_sub_dir, "iframe_screenshot.png"))
+                                print(f"html2canvas失败，已使用常规方法捕获iframe的窗口截图")
+                        except Exception as e:
+                            print(f"使用html2canvas捕获iframe内容时出错: {str(e)}")
+                            # 退回到常规截图
+                            driver.save_screenshot(os.path.join(iframe_sub_dir, "iframe_screenshot.png"))
+                        
+                        # 获取HTML内容
+                        html_content = driver.page_source
+                        html_file = os.path.join(iframe_sub_dir, "content.html")
+                        with open(html_file, "w", encoding="utf-8") as f:
+                            f.write(html_content)
+                        
+                        # 获取文本内容
+                        text_content = driver.find_element(By.TAG_NAME, "body").text
+                        text_file = os.path.join(iframe_sub_dir, "content.txt")
+                        with open(text_file, "w", encoding="utf-8") as f:
+                            f.write(text_content)
+                        
+                        print(f"已提取iframe '{iframe_id}' 的内容")
+                        
+                        # 切回主文档
+                        driver.switch_to.default_content()
+                        
+                    except Exception as e:
+                        print(f"提取iframe内容时出错: {str(e)}")
+                        # 确保切回主文档
+                        driver.switch_to.default_content()
+                    
+                except Exception as e:
+                    print(f"处理iframe时出错: {str(e)}")
+            
+            print(f"所有iframe内容已保存到 {iframe_dir}")
+        
+    except Exception as e:
+        print(f"检查iframe时出错: {str(e)}")
+    
+    return True
+def extract_structured_content(driver, filename="structured_content.json"):
+    """使用BeautifulSoup提取结构化内容"""
+    try:
+        # 获取页面HTML
+        html_content = driver.page_source
+        
+        # 使用BeautifulSoup解析
+        soup = BeautifulSoup(html_content, 'html.parser')
+        
+        # 移除script和style元素
+        for script in soup(["script", "style", "noscript"]):
+            script.decompose()
+        
+        # 结构化数据字典
+        structured_data = {
+            "title": soup.title.text if soup.title else "",
+            "headings": [],
+            "paragraphs": [],
+            "lists": [],
+            "tables": [],
+            "forms": [],
+            "links": [],
+            "images": []
+        }
+        
+        # 提取标题
+        for i in range(1, 7):
+            for heading in soup.find_all(f'h{i}'):
+                if heading.text.strip():
+                    structured_data["headings"].append({
+                        "level": i,
+                        "text": heading.text.strip()
+                    })
+        
+        # 提取段落
+        for p in soup.find_all('p'):
+            if p.text.strip():
+                structured_data["paragraphs"].append(p.text.strip())
+        
+        # 提取列表
+        for ul in soup.find_all(['ul', 'ol']):
+            list_items = []
+            for li in ul.find_all('li'):
+                if li.text.strip():
+                    list_items.append(li.text.strip())
+            
+            if list_items:
+                structured_data["lists"].append({
+                    "type": ul.name,
+                    "items": list_items
+                })
+        
+        # 提取表格
+        for table in soup.find_all('table'):
+            table_data = []
+            rows = table.find_all('tr')
+            
+            for row in rows:
+                cells = row.find_all(['th', 'td'])
+                if cells:
+                    row_data = [cell.text.strip() for cell in cells]
+                    table_data.append(row_data)
+            
+            if table_data:
+                structured_data["tables"].append(table_data)
+        
+        # 提取表单
+        for form in soup.find_all('form'):
+            form_data = {
+                "action": form.get('action', ''),
+                "method": form.get('method', 'get'),
+                "inputs": []
+            }
+            
+            for input_tag in form.find_all(['input', 'textarea', 'select']):
+                input_data = {
+                    "type": input_tag.name if input_tag.name != 'input' else input_tag.get('type', 'text'),
+                    "name": input_tag.get('name', ''),
+                    "id": input_tag.get('id', ''),
+                    "placeholder": input_tag.get('placeholder', '')
+                }
+                form_data["inputs"].append(input_data)
+            
+            structured_data["forms"].append(form_data)
+        
+        # 提取链接
+        for a in soup.find_all('a', href=True):
+            if a.text.strip():
+                structured_data["links"].append({
+                    "text": a.text.strip(),
+                    "href": a.get('href', '')
+                })
+        
+        # 提取图片
+        for img in soup.find_all('img'):
+            img_data = {
+                "alt": img.get('alt', ''),
+                "src": img.get('src', '')
+            }
+            structured_data["images"].append(img_data)
+        
+        # 提取主要文本内容（用于简单文本分析）
+        main_text = soup.get_text(separator=' ', strip=True)
+        structured_data["full_text"] = main_text
+        
+        # 保存为JSON
+        import json
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(structured_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"结构化内容已保存到 {filename}")
+        
+        # 保存一个可读性更好的文本版本
+        text_filename = filename.rsplit('.', 1)[0] + '.txt'
+        with open(text_filename, 'w', encoding='utf-8') as f:
+            f.write(f"页面标题: {structured_data['title']}\n\n")
+            
+            f.write("=" * 80 + "\n")
+            f.write("标题结构:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for heading in structured_data["headings"]:
+                f.write("  " * (heading["level"]-1) + heading["text"] + "\n")
+            
+            f.write("\n" + "=" * 80 + "\n")
+            f.write("主要段落内容:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for para in structured_data["paragraphs"]:
+                f.write(para + "\n\n")
+            
+            f.write("\n" + "=" * 80 + "\n")
+            f.write("列表内容:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for i, lst in enumerate(structured_data["lists"]):
+                f.write(f"列表 {i+1} ({lst['type']}):\n")
+                for j, item in enumerate(lst["items"]):
+                    f.write(f"  {j+1}. {item}\n")
+                f.write("\n")
+            
+            f.write("\n" + "=" * 80 + "\n")
+            f.write("链接内容:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for link in structured_data["links"]:
+                f.write(f"{link['text']}: {link['href']}\n")
+        
+        print(f"文本版内容已保存到 {text_filename}")
+        
+        return structured_data
+        
+    except ImportError:
+        print("请安装BeautifulSoup库: pip install beautifulsoup4")
+        return None
+    except Exception as e:
+        print(f"提取结构化内容时出错: {str(e)}")
+        return None
+        
+def extract_page_content(driver, filename="page_content.txt"):
+    """提取页面的完整文本内容并保存到文件"""
+    try:
+        # 获取页面标题
+        title = driver.title
+        
+        # 获取页面的完整HTML
+        html_content = driver.page_source
+        
+        # 使用JavaScript提取所有可见文本内容
+        js_script = """
+        function getVisibleText() {
+            // 获取所有可见文本节点
+            const textNodeWalker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                {
+                    acceptNode: function(node) {
+                        // 检查节点是否可见
+                        if(node.parentElement) {
+                            const style = window.getComputedStyle(node.parentElement);
+                            if(style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') {
+                                return NodeFilter.FILTER_REJECT;
+                            }
+                            
+                            // 检查父元素是否为脚本或样式标签
+                            const tag = node.parentElement.tagName.toLowerCase();
+                            if(tag === 'script' || tag === 'style' || tag === 'noscript') {
+                                return NodeFilter.FILTER_REJECT;
+                            }
+                            
+                            // 排除空白文本
+                            if(node.textContent.trim() === '') {
+                                return NodeFilter.FILTER_REJECT;
+                            }
+                            
+                            return NodeFilter.FILTER_ACCEPT;
+                        }
+                        return NodeFilter.FILTER_REJECT;
+                    }
+                }
+            );
+            
+            // 收集文本
+            let textContent = [];
+            let headings = [];
+            let paragraphs = [];
+            
+            // 当前处理的节点
+            let node;
+            while(node = textNodeWalker.nextNode()) {
+                const parent = node.parentElement;
+                const tag = parent.tagName.toLowerCase();
+                
+                // 收集文本，并区分标题和段落
+                const text = node.textContent.trim();
+                
+                if(text) {
+                    textContent.push(text);
+                    
+                    // 收集标题
+                    if(tag.match(/^h[1-6]$/)) {
+                        headings.push({
+                            level: parseInt(tag.substring(1)),
+                            text: text
+                        });
+                    }
+                    
+                    // 收集段落
+                    if(tag === 'p' || tag === 'div' && text.length > 50) {
+                        paragraphs.push(text);
+                    }
+                }
+            }
+            
+            // 收集所有链接
+            const links = [];
+            const anchors = document.querySelectorAll('a[href]');
+            anchors.forEach(a => {
+                if(a.textContent.trim() && a.href) {
+                    links.push({
+                        text: a.textContent.trim(),
+                        href: a.href
+                    });
+                }
+            });
+            
+            // 收集所有图片
+            const images = [];
+            const imgs = document.querySelectorAll('img');
+            imgs.forEach(img => {
+                if(img.alt || img.src) {
+                    images.push({
+                        alt: img.alt,
+                        src: img.src
+                    });
+                }
+            });
+            
+            return {
+                allText: textContent,
+                headings: headings,
+                paragraphs: paragraphs,
+                links: links,
+                images: images
+            };
+        }
+        
+        return getVisibleText();
+        """
+        
+        content_data = driver.execute_script(js_script)
+        
+        # 保存文本内容到文件
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(f"页面标题: {title}\n\n")
+            
+            f.write("=" * 80 + "\n")
+            f.write("标题层次结构:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            # 写入标题结构
+            for heading in content_data['headings']:
+                f.write("  " * (heading['level']-1) + heading['text'] + "\n")
+            
+            f.write("\n" + "=" * 80 + "\n")
+            f.write("主要段落内容:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            # 写入段落
+            for para in content_data['paragraphs']:
+                f.write(para + "\n\n")
+            
+            f.write("\n" + "=" * 80 + "\n")
+            f.write("所有链接:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            # 写入链接
+            for link in content_data['links']:
+                f.write(f"{link['text']}: {link['href']}\n")
+            
+            f.write("\n" + "=" * 80 + "\n")
+            f.write("所有文本内容:\n")
+            f.write("=" * 80 + "\n\n")
+            
+            # 写入所有文本
+            for text in content_data['allText']:
+                f.write(text + "\n")
+        
+        # 保存结构化内容为JSON
+        json_filename = filename.rsplit('.', 1)[0] + '.json'
+        with open(json_filename, 'w', encoding='utf-8') as f:
+            import json
+            json.dump(content_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"页面内容已保存到 {filename}")
+        print(f"结构化内容已保存到 {json_filename}")
+        
+        return content_data
+    
+    except Exception as e:
+        print(f"提取页面内容时出错: {str(e)}")
+        return None
 def get_element_info(driver, url=None):
     """
     Get page element information for creating automation functions
@@ -311,32 +1587,54 @@ def get_element_info(driver, url=None):
 def filter_essential_elements(elements):
     """Filter and keep only essential information for each element"""
     essential_elements = []
-    
     for el in elements:
-        # Always include interactive and form elements
-        if el.get('isInteractive') or el.get('isFormElement'):
+        # Always include interactive elements (isInteractive = True)
+        if el.get('isInteractive'):
             essential_el = {
                 'tag': el['tag'],
                 'text': el['text'].strip() if el.get('text') else '',
                 'directText': el['directText'].strip() if el.get('directText') else '',
                 'selector': el['selector'],
                 'selectorType': el['selectorType'],
-                'isInteractive': el['isInteractive'],
+                'isInteractive': True,
                 'isFormElement': el.get('isFormElement', False)
             }
             
             # Include only essential attributes
             if 'attributes' in el:
                 essential_el['attributes'] = {k: v for k, v in el['attributes'].items() 
-                                            if k in ['id', 'name', 'type', 'placeholder', 'title', 'data-id', 'data-name']}
+                                             if k in ['id', 'name', 'type', 'placeholder', 'title', 'data-id', 'data-name']}
             
             # Include cursor style as it's important for interactivity
             if 'keyStyles' in el and 'cursor' in el['keyStyles']:
                 essential_el['cursor'] = el['keyStyles']['cursor']
                 
             essential_elements.append(essential_el)
-        
-        # Also include elements with significant text that might be important for page understanding
+            
+        # Form elements (keeping this condition in case there are form elements with isInteractive=False)
+        elif el.get('isFormElement'):
+            essential_el = {
+                'tag': el['tag'],
+                'text': el['text'].strip() if el.get('text') else '',
+                'directText': el['directText'].strip() if el.get('directText') else '',
+                'selector': el['selector'],
+                'selectorType': el['selectorType'],
+                'isInteractive': False,
+                'isFormElement': True
+            }
+            
+            # Include only essential attributes
+            if 'attributes' in el:
+                essential_el['attributes'] = {k: v for k, v in el['attributes'].items() 
+                                             if k in ['id', 'name', 'type', 'placeholder', 'title', 'data-id', 'data-name']}
+            
+            # Include cursor style as it's important for interactivity
+            if 'keyStyles' in el and 'cursor' in el['keyStyles']:
+                essential_el['cursor'] = el['keyStyles']['cursor']
+                
+            essential_elements.append(essential_el)
+            
+        # Also include elements with significant text (keeping this condition if you still want text elements)
         elif el.get('text') and len(el.get('text', '').strip()) > 5:
             essential_el = {
                 'tag': el['tag'],
@@ -348,7 +1646,7 @@ def filter_essential_elements(elements):
                 'isFormElement': False
             }
             essential_elements.append(essential_el)
-    
+            
     return essential_elements
 
 def save_elements_to_file(elements, filename="page_elements.json"):
@@ -1417,10 +2715,11 @@ def generate_page_automation_class(elements, filename="page_automation.py"):
     print(f"Generated page automation class to {filename}")        # Generate form fill methods
 
 def main():
-    url = input("Enter URL to analyze (or press Enter to analyze current page): ")
-    
+    #url = input("Enter URL to analyze (or press Enter to analyze current page): ")
+    url=False
     # Setup Chrome options
     chrome_options = Options()
+    chrome_options.add_experimental_option("debuggerAddress", "localhost:9222")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--disable-dev-shm-usage')
@@ -1428,7 +2727,8 @@ def main():
     # Initialize Chrome driver
     try:
         # Try to use local ChromeDriver first
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+        driver = webdriver.Chrome(service=Service('/usr/local/bin/chromedriver'), options=chrome_options)
+        #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
         print("Using local Chrome driver")
     except Exception as local_error:
         print(f"Failed to initialize local Chrome driver: {str(local_error)}")
@@ -1453,7 +2753,16 @@ def main():
         
         # Create output directory
         output_dir = create_output_dir()
-        
+        print("\n提取单页应用内容，包括内部标签页...")
+        extract_spa_content(driver, output_dir)
+        # 提取页面内容
+        print("\n提取页面文本内容...")
+        content_file = os.path.join(output_dir, "page_content.txt")
+        extract_page_content(driver, content_file)
+        # 提取结构化内容
+        print("\n提取页面结构化内容...")
+        structured_file = os.path.join(output_dir, "structured_content.json")
+        extract_structured_content(driver, structured_file)
         # Get element information
         print("Collecting page element information...")
         elements = get_element_info(driver)

@@ -1,0 +1,1106 @@
+{
+  "allText": [
+    "Skip to content",
+    "Navigation Menu",
+    "Global navigation",
+    "Home",
+    "Issues",
+    "Pull requests",
+    "Projects",
+    "Discussions",
+    "Codespaces",
+    "Copilot",
+    "Explore",
+    "Marketplace",
+    "Loading",
+    "© 2025 GitHub, Inc.",
+    "About",
+    "Blog",
+    "Terms",
+    "Privacy",
+    "Security",
+    "Status",
+    "ew384",
+    "/",
+    "intelligent_agent",
+    "Navigate back to",
+    "ew384",
+    "intelligent_agent",
+    "ew384",
+    "/",
+    "intelligent_agent",
+    "Type",
+    "/",
+    "to search",
+    "Search code, repositories, users, issues, pull requests...",
+    "Search",
+    "Clear",
+    "0 suggestions.",
+    "Search syntax tips",
+    "Give feedback",
+    "Provide feedback",
+    "We read every piece of feedback, and take your input very seriously.",
+    "Include my email address so I can be contacted",
+    "Cancel",
+    "Submit feedback",
+    "Saved searches",
+    "Use saved searches to filter your results more quickly",
+    "Name",
+    "Query",
+    "To see all available qualifiers, see our",
+    "documentation",
+    ".",
+    "Cancel",
+    "Create saved search",
+    "Code",
+    "Issues",
+    "Pull requests",
+    "Actions",
+    "Projects",
+    "Security",
+    "22",
+    "Insights",
+    "Settings",
+    "Reload",
+    "Reload",
+    "Reload",
+    "intelligent_agent",
+    "Private",
+    "Unwatch",
+    "1",
+    "Fork",
+    "0",
+    "Loading",
+    "Starred",
+    "0",
+    "Lists",
+    "Loading",
+    "Star",
+    "0",
+    "Lists",
+    "Loading",
+    "Unwatch",
+    "1",
+    "0",
+    "stars",
+    "0",
+    "forks",
+    "1",
+    "watching",
+    "Branches",
+    "Tags",
+    "Activity",
+    "Private repository",
+    "ew384/intelligent_agent",
+    "main",
+    "1",
+    "Branch",
+    "1",
+    "Tag",
+    "t",
+    "Go to file",
+    "Add file",
+    "Add file",
+    "Add file",
+    "Code",
+    "Folders and files",
+    "Name",
+    "Name",
+    "Last commit message",
+    "Last commit date",
+    "Latest commit",
+    "ew384",
+    "Remove browser_test folder from repository",
+    "Mar 7, 2025",
+    "515a4e6",
+    "·",
+    "Mar 7, 2025",
+    "History",
+    "42 Commits",
+    "api_gateway",
+    "api_gateway",
+    "Remove .DS_Store files",
+    "Mar 1, 2025",
+    "common",
+    "common",
+    "Remove __pycache__ folders from repository",
+    "Feb 27, 2025",
+    "orchestrator_service",
+    "orchestrator_service",
+    "feat: add wechat tool functionality",
+    "Mar 2, 2025",
+    "page_analyzer",
+    "page_analyzer",
+    "page analyzer automation",
+    "Mar 7, 2025",
+    "scenario_service",
+    "scenario_service",
+    "feat: add wechat tool functionality",
+    "Mar 2, 2025",
+    "tests",
+    "tests",
+    "Remove browser_test folder from repository",
+    "Mar 7, 2025",
+    "tool_service",
+    "tool_service",
+    "fix get_or_create_tab",
+    "Mar 5, 2025",
+    ".gitignore",
+    ".gitignore",
+    "remote browser_test",
+    "Mar 7, 2025",
+    "Makefile",
+    "Makefile",
+    "init commit",
+    "Feb 24, 2025",
+    "README.md",
+    "README.md",
+    "fix base",
+    "Feb 25, 2025",
+    "__init__.py",
+    "__init__.py",
+    "udpate",
+    "Feb 24, 2025",
+    "app.py",
+    "app.py",
+    "fix get_or_create_tab",
+    "Mar 5, 2025",
+    "browser_config.json",
+    "browser_config.json",
+    "use chrome driver",
+    "Feb 26, 2025",
+    "docker-compose.yml",
+    "docker-compose.yml",
+    "init commit",
+    "Feb 24, 2025",
+    "logging.conf",
+    "logging.conf",
+    "update tests",
+    "Feb 26, 2025",
+    "requirements.txt",
+    "requirements.txt",
+    "update requirements.txt",
+    "Mar 5, 2025",
+    "run_app.sh",
+    "run_app.sh",
+    "add streamlit app",
+    "Mar 4, 2025",
+    "run_local.py",
+    "run_local.py",
+    "feat: add wechat tool functionality",
+    "Mar 2, 2025",
+    "scenario-test.py",
+    "scenario-test.py",
+    "page analyzer automation",
+    "Mar 7, 2025",
+    "View all files",
+    "Repository files navigation",
+    "README",
+    "intelligent-agent",
+    "Agent系统使用说明",
+    "这是一个通用的智能Agent系统，可支持多种自动化场景，如简历筛选、电商运营、价格比较和银行账单查询等。",
+    "环境要求",
+    "Python 3.8+",
+    "Playwright (自动安装)",
+    "FastAPI, Uvicorn, HTTPX等依赖包 (自动安装)",
+    "快速启动",
+    "克隆此仓库，并进入项目目录:",
+    "git clone",
+    "<",
+    "repository-url",
+    ">",
+    "cd",
+    "intelligent-agent",
+    "运行本地启动脚本:",
+    "python run_local.py",
+    "此命令将:",
+    "安装所有必要的依赖",
+    "安装Playwright和Chromium浏览器",
+    "启动所有服务（API网关、编排服务、场景服务和工具服务）",
+    "若只想启动特定服务，可以指定服务名称:",
+    "python run_local.py --services api-gateway tool",
+    "测试场景",
+    "系统预置了四个场景的测试脚本，在运行服务后可以选择测试:",
+    "信用卡账单查询",
+    "python test_credit_card.py",
+    "这将自动访问中信银行信用卡中心网站，查询账单金额。",
+    "简历筛选与评估",
+    "python test_hr_recruitment.py",
+    "访问招聘网站，提取求职者简历并根据职位要求进行评分排序。\n注意：使用前需要在脚本中设置正确的登录凭证。",
+    "电商平台运营",
+    "python test_ecommerce.py",
+    "在多平台（Amazon、Temu、Shopee等）上管理电商账号，可执行产品列表查询、添加产品、回复客户等操作。\n注意：使用前需要在脚本中设置正确的账号凭证和平台选择。",
+    "价格比较与购物车",
+    "python test_price_comparison.py",
+    "在多个平台（淘宝、京东、拼多多等）搜索产品并比较价格，找到最优选择并加入购物车。\n注意：使用前需要在脚本中设置要搜索的产品和价格区间。",
+    "服务访问端口",
+    "API网关:",
+    "http://localhost:8000",
+    "编排服务:",
+    "http://localhost:8001",
+    "场景服务:",
+    "http://localhost:8002",
+    "工具服务:",
+    "http://localhost:8003",
+    "自定义场景",
+    "系统设计支持自定义场景。要添加新场景，需要:",
+    "在",
+    "scenario-service/src/scenarios/",
+    "中创建新的场景类",
+    "在",
+    "orchestrator-service/src/workflows/",
+    "中创建对应的工作流类",
+    "在",
+    "tool-service/src/tools/handlers/",
+    "中实现必要的处理器",
+    "将新场景注册到",
+    "ScenarioRegistry",
+    "和",
+    "TaskOrchestrator",
+    "中",
+    "项目结构",
+    "intelligent-agent/\n├── api-gateway/          # API网关服务\n├── orchestrator-service/ # 任务编排服务\n├── scenario-service/     # 场景定义服务\n├── tool-service/         # 工具服务(浏览器、LLM等)\n├── common/               # 公共组件\n└── tests/                # 测试代码",
+    "注意事项",
+    "涉及登录的场景需要提供正确的账号凭证",
+    "首次登录可能需要手动完成验证码或安全校验",
+    "系统会在",
+    "./browser_data",
+    "目录保存cookies，便于后续登录",
+    "运行过程中请勿关闭自动打开的浏览器窗口",
+    "项目结构",
+    "intelligent-agent/\n├── README.md                     # 项目文档\n├── Makefile                     # 构建和运行脚本\n├── docker-compose.yml           # Docker编排配置\n├── requirements.txt             # 公共依赖\n│\n├── api-gateway/                 # API网关服务\n│   ├── Dockerfile\n│   ├── requirements.txt\n│   └── src/\n│       ├── main.py             # FastAPI应用入口\n│       ├── config/             # 配置文件\n│       │   └── settings.py\n│       ├── core/               # 核心功能\n│       │   ├── auth.py         # 认证和授权\n│       │   ├── security.py     # 安全相关\n│       │   └── middleware.py   # 中间件\n│       ├── routes/             # API路由\n│       │   ├── tasks.py        # 任务管理\n│       │   └── tools.py        # 工具调用\n│       └── clients/            # 服务客户端\n│           └── orchestrator.py  # 编排服务客户端\n│\n├── orchestrator-service/        # 任务编排服务\n│   ├── Dockerfile\n│   ├── requirements.txt\n│   └── src/\n│       ├── main.py             # 服务入口\n│       ├── config/\n│       │   └── settings.py\n│       ├── core/\n│       │   ├── orchestrator.py  # 编排核心\n│       │   └── agent.py        # Agent实现\n│       ├── workflows/          # 工作流定义\n│       │   ├── base.py        # 基础工作流\n│       │   ├── ecommerce.py   # 电商场景\n│       │   └── hr.py          # HR场景\n│       └── clients/           # 服务客户端\n│           ├── scenario.py    # 场景服务\n│           └── tool.py        # 工具服务\n│\n├── scenario-service/           # 场景服务\n│   ├── Dockerfile\n│   ├── requirements.txt\n│   └── src/\n│       ├── main.py            # 服务入口\n│       ├── config/\n│       │   └── settings.py\n│       ├── models/            # 数据模型\n│       │   ├── scenario.py    # 场景模型\n│       │   └── workflow.py    # 工作流模型\n│       ├── scenarios/         # 场景定义\n│       │   ├── ecommerce/     # 电商场景\n│       │   │   ├── search.py  # 商品搜索\n│       │   │   └── compare.py # 价格对比\n│       │   └── hr/            # HR场景\n│       │       ├── resume.py  # 简历筛选\n│       │       └── match.py   # 职位匹配\n│       └── internal/          # 内部API\n│           └── endpoints.py\n│\n├── tool-service/              # 工具服务\n│   ├── Dockerfile\n│   ├── requirements.txt\n│   └── src/\n│       ├── main.py           # 服务入口\n│       ├── config/\n│       │   └── settings.py\n│       ├── internal/         # 内部API\n│       │   └── endpoints/\n│       │       ├── browser.py # 浏览器API\n│       │       └── llm.py     # LLM API\n│       └── tools/            # 工具实现\n│           ├── browser/      # 浏览器工具\n│           │   ├── __init__.py\n│           │   ├── browser_service.py  # 浏览器服务\n│           │   └── exceptions.py       # 异常定义\n│           ├── llm/          # LLM工具\n│           │   ├── __init__.py\n│           │   ├── base.py   # 基础类\n│           │   ├── claude/   # Claude实现\n│           │   │   ├── __init__.py\n│           │   │   ├── service.py     # Claude服务\n│           │   │   ├── auth_handler.py # 认证处理\n│           │   │   └── selectors.py   # 页面选择器\n│           │   └── factory.py # LLM工厂\n│           └── common/       # 通用工具\n│               ├── cookies_manager.py  # Cookie管理\n│               └── utils.py  # 工具函数\n│\n├── common/                   # 公共代码\n│   ├── __init__.py\n│   ├── models.py            # 共享模型\n│   ├── exceptions.py        # 异常定义\n│   └── utils/              # 工具函数\n│       ├── __init__.py\n│       ├── datetime.py\n│       └── validation.py\n│\n└── tests/                   # 测试代码\n    ├── conftest.py         # 测试配置\n    ├── api_gateway/        # API网关测试\n    ├── orchestrator/       # 编排服务测试\n    ├── scenarios/          # 场景服务测试\n    └── tools/              # 工具服务测试\n        ├── browser/        # 浏览器工具测试\n        └── llm/            # LLM工具测试\n\n# 配置文件示例\nconfig/\n├── development.yml        # 开发环境配置\n├── production.yml        # 生产环境配置\n└── test.yml             # 测试环境配置",
+    "Edit repository details",
+    "Description",
+    "Website",
+    "Topics",
+    "(separate with spaces)",
+    "Include in the home page",
+    "Releases",
+    "Packages",
+    "Deployments",
+    "Save changes",
+    "Cancel",
+    "About",
+    "No description, website, or topics provided.",
+    "Resources",
+    "Readme",
+    "Activity",
+    "Stars",
+    "0",
+    "stars",
+    "Watchers",
+    "1",
+    "watching",
+    "Forks",
+    "0",
+    "forks",
+    "Releases",
+    "1",
+    "tags",
+    "Create a new release",
+    "Packages",
+    "No packages published",
+    "Publish your first package",
+    "Languages",
+    "Python",
+    "80.7%",
+    "Jupyter Notebook",
+    "19.3%",
+    "Suggested workflows",
+    "Based on your tech stack",
+    "Python Package using Anaconda",
+    "Configure",
+    "Python Package using Anaconda",
+    "Create and test a Python package on multiple Python versions using Anaconda for package management.",
+    "Python package",
+    "Configure",
+    "Python package",
+    "Create and test a Python package on multiple Python versions.",
+    "Python application",
+    "Configure",
+    "Python application",
+    "Create and test a Python application.",
+    "More workflows",
+    "Dismiss suggestions",
+    "Footer",
+    "© 2025 GitHub, Inc.",
+    "Footer navigation",
+    "Terms",
+    "Privacy",
+    "Security",
+    "Status",
+    "Docs",
+    "Contact",
+    "Manage cookies",
+    "Do not share my personal information"
+  ],
+  "headings": [
+    {
+      "level": 2,
+      "text": "Navigation Menu"
+    },
+    {
+      "level": 1,
+      "text": "Global navigation"
+    },
+    {
+      "level": 1,
+      "text": "Navigate back to"
+    },
+    {
+      "level": 1,
+      "text": "Search code, repositories, users, issues, pull requests..."
+    },
+    {
+      "level": 1,
+      "text": "Provide feedback"
+    },
+    {
+      "level": 1,
+      "text": "Saved searches"
+    },
+    {
+      "level": 2,
+      "text": "Use saved searches to filter your results more quickly"
+    },
+    {
+      "level": 4,
+      "text": "Lists"
+    },
+    {
+      "level": 4,
+      "text": "Lists"
+    },
+    {
+      "level": 1,
+      "text": "ew384/intelligent_agent"
+    },
+    {
+      "level": 2,
+      "text": "Add file"
+    },
+    {
+      "level": 2,
+      "text": "Add file"
+    },
+    {
+      "level": 2,
+      "text": "Folders and files"
+    },
+    {
+      "level": 2,
+      "text": "Latest commit"
+    },
+    {
+      "level": 2,
+      "text": "History"
+    },
+    {
+      "level": 2,
+      "text": "Repository files navigation"
+    },
+    {
+      "level": 1,
+      "text": "intelligent-agent"
+    },
+    {
+      "level": 1,
+      "text": "Agent系统使用说明"
+    },
+    {
+      "level": 2,
+      "text": "环境要求"
+    },
+    {
+      "level": 2,
+      "text": "快速启动"
+    },
+    {
+      "level": 2,
+      "text": "测试场景"
+    },
+    {
+      "level": 3,
+      "text": "信用卡账单查询"
+    },
+    {
+      "level": 3,
+      "text": "简历筛选与评估"
+    },
+    {
+      "level": 3,
+      "text": "电商平台运营"
+    },
+    {
+      "level": 3,
+      "text": "价格比较与购物车"
+    },
+    {
+      "level": 2,
+      "text": "服务访问端口"
+    },
+    {
+      "level": 2,
+      "text": "自定义场景"
+    },
+    {
+      "level": 2,
+      "text": "项目结构"
+    },
+    {
+      "level": 2,
+      "text": "注意事项"
+    },
+    {
+      "level": 2,
+      "text": "项目结构"
+    },
+    {
+      "level": 1,
+      "text": "Edit repository details"
+    },
+    {
+      "level": 2,
+      "text": "About"
+    },
+    {
+      "level": 3,
+      "text": "Resources"
+    },
+    {
+      "level": 3,
+      "text": "Stars"
+    },
+    {
+      "level": 3,
+      "text": "Watchers"
+    },
+    {
+      "level": 3,
+      "text": "Forks"
+    },
+    {
+      "level": 2,
+      "text": "Languages"
+    },
+    {
+      "level": 2,
+      "text": "Suggested workflows"
+    },
+    {
+      "level": 2,
+      "text": "Footer"
+    },
+    {
+      "level": 3,
+      "text": "Footer navigation"
+    }
+  ],
+  "images": [
+    {
+      "alt": "",
+      "src": "https://avatars.githubusercontent.com/u/7527950?v=4"
+    },
+    {
+      "alt": "Owner avatar",
+      "src": "https://avatars.githubusercontent.com/u/7527950?s=48&v=4"
+    },
+    {
+      "alt": "ew384",
+      "src": "https://avatars.githubusercontent.com/u/7527950?v=4&size=40"
+    },
+    {
+      "alt": "Python Package using Anaconda logo",
+      "src": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMjMuNTkxYy4wMi0uMDY2LjAzNi0uMTM0LjA0NS0uMjAyLjAzNy0uNjk3LjA0NS0xLjQwMi4xMi0yLjEuMTE3LTIuMjYuODcxLTQuNDQgMi4xNzUtNi4yOWE2LjMyMiA2LjMyMiAwIDAxNS4wODUtMi41NjVIMjMuNjFjLjMxNSAwIC4zMTUgMCAuMzE1LS4zMTV2LTEuMTI1YzAtLjIzMi0uMDY4LS4yODQtLjI4NS0uMjg0SDEyLjYyM2MtLjE4OCAwLS4yNTUtLjA1My0uMjU1LS4yNDhWNC45NjZjLjAzNi0uNzk2LjM2OC0xLjU1LjkzLTIuMTE1YTYuNjgzIDYuNjgzIDAgMDEyLjcwNy0xLjc0NyAxNi42NjggMTYuNjY4IDAgMDEzLjktLjg5MiAzMi44NDMgMzIuODQzIDAgMDE1LjQ4Mi0uMTY1YzEuOTcyLjAzNyAzLjkyMy4zOTkgNS43NzYgMS4wNzJhNy4wOTUgNy4wOTUgMCAwMTMuMjQgMi4yNSA0LjUzNiA0LjUzNiAwIDAxLjk0NSAzLjA3NGMtLjA0NS45MyAwIDEuODY3IDAgMi44MDR2NS4xOWMwIDEuMDE5IDAgMi4wNDYtLjA0NSAzLjA1OGE1LjQyMSA1LjQyMSAwIDAxLTMuNTE4IDUuMDQgOC4wNDIgOC4wNDIgMCAwMS0zLjE0My41OTloLTExLjQ2YTYuNTQgNi41NCAwIDAwLTMuNDUuOTA3IDUuOTk5IDUuOTk5IDAgMDAtMi42NDcgMy43MDQgOC42NTYgOC42NTYgMCAwMC0uMzIzIDIuMzc3djUuMTk2YzAgLjM0NSAwIC4zMzgtLjM0NS4zNDUtMS4yNDUgMC0yLjQ5LjAzOC0zLjc1IDBBNS4yNSA1LjI1IDAgMDEzLjM0NSAzNC4zYTguMjQ4IDguMjQ4IDAgMDEtMi4yOTUtMy41NTQgMTUuMTQyIDE1LjE0MiAwIDAxLS44NDgtMy44NDdjLS4wNzUtLjg0LS4xMDUtMS42OC0uMTU3LTIuNTEyQTIuNDc1IDIuNDc1IDAgMDAwIDI0LjExdi0uNTE4eiIgZmlsbD0iIzM3NzJhNCIvPjxwYXRoIGQ9Ik0xNS4yMDMgNS43MzhhMi4xMDcgMi4xMDcgMCAxMDIuMTA3LTIuMTIyIDIuMTIzIDIuMTIzIDAgMDAtMi4xMDcgMi4xMjJ6IiBmaWxsPSIjMDAwIi8+PHBhdGggZD0iTTE1LjIwMyA1LjczOGEyLjExIDIuMTEgMCAxMTQuMjIgMCAyLjExIDIuMTEgMCAwMS00LjIyIDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTQ4IDI0LjQwMWMtLjAyLjA2Ni0uMDM2LjEzNC0uMDQ1LjIwMy0uMDM3LjY5Ny0uMDQ1IDEuNDAyLS4xMiAyLjFhMTEuOTk1IDExLjk5NSAwIDAxLTIuMTc1IDYuMjkgNi4zMjIgNi4zMjIgMCAwMS01LjA4NSAyLjU3MkgyNC4zOWMtLjMxNSAwLS4zMTUgMC0uMzE1LjMxNXYxLjEyNWMwIC4yMzIuMDY4LjI4NS4yODUuMjg1aDExLjAxOGMuMTg3IDAgLjI1NS4wNTIuMjU1LjI0N3Y1LjQ5NmEzLjIwOSAzLjIwOSAwIDAxLS45MyAyLjExNSA2LjY4MyA2LjY4MyAwIDAxLTIuNzA4IDEuNzQ3IDE2LjY2OSAxNi42NjkgMCAwMS0zLjg5Mi44OTJjLTEuODIuMjA4LTMuNjU0LjI2My01LjQ4My4xNjVhMTcuODc3IDE3Ljg3NyAwIDAxLTUuNzc1LTEuMDcyIDcuMDk1IDcuMDk1IDAgMDEtMy4yNC0yLjI1IDQuNTM2IDQuNTM2IDAgMDEtLjk0NS0zLjA3NGMuMDQ1LS45MyAwLTEuODY3IDAtMi44MDR2LTUuMTljMC0xLjAxOSAwLTIuMDQ2LjA0NS0zLjA1OGE1LjQyIDUuNDIgMCAwMTMuNTE3LTUuMDQgOC4wNDIgOC4wNDIgMCAwMTMuMTQzLS41OTloMTEuNDUzYTYuNTQgNi41NCAwIDAwMy40NS0uOTA3IDYgNiAwIDAwMi42NDctMy43MTIgOC42NiA4LjY2IDAgMDAuMzIzLTIuMzc3di01LjE5NmMwLS4zNDUgMC0uMzM3LjM0NS0uMzQ1IDEuMjQ1IDAgMi40OS0uMDM3IDMuNzUgMGE1LjI1IDUuMjUgMCAwMTMuMzIyIDEuMzY1IDguMjQ5IDguMjQ5IDAgMDEyLjI5NSAzLjU1NCAxNS4xNSAxNS4xNSAwIDAxLjg0IDMuODYxYy4wNzUuODQuMTA1IDEuNjguMTU4IDIuNTEyLjAxLjA5MS4wMjUuMTgxLjA0NS4yNy4wMDUuMTY1LjAwNy4zMzUuMDA3LjUxeiIgZmlsbD0iI2ZmZGE0YiIvPjxwYXRoIGQ9Ik0zMi43OTcgNDEuOTkyYTIuMTA3IDIuMTA3IDAgMTAtMi4xMDcgMi4xMjIgMi4xMjMgMi4xMjMgMCAwMDIuMTA3LTIuMTIyeiIgZmlsbD0iIzAwMCIvPjxwYXRoIGQ9Ik0zMi43OTcgNDEuOTkyYTIuMTEgMi4xMSAwIDExLTQuMjIgMCAyLjExIDIuMTEgMCAwMTQuMjIgMHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4="
+    },
+    {
+      "alt": "Python package logo",
+      "src": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMjMuNTkxYy4wMi0uMDY2LjAzNi0uMTM0LjA0NS0uMjAyLjAzNy0uNjk3LjA0NS0xLjQwMi4xMi0yLjEuMTE3LTIuMjYuODcxLTQuNDQgMi4xNzUtNi4yOWE2LjMyMiA2LjMyMiAwIDAxNS4wODUtMi41NjVIMjMuNjFjLjMxNSAwIC4zMTUgMCAuMzE1LS4zMTV2LTEuMTI1YzAtLjIzMi0uMDY4LS4yODQtLjI4NS0uMjg0SDEyLjYyM2MtLjE4OCAwLS4yNTUtLjA1My0uMjU1LS4yNDhWNC45NjZjLjAzNi0uNzk2LjM2OC0xLjU1LjkzLTIuMTE1YTYuNjgzIDYuNjgzIDAgMDEyLjcwNy0xLjc0NyAxNi42NjggMTYuNjY4IDAgMDEzLjktLjg5MiAzMi44NDMgMzIuODQzIDAgMDE1LjQ4Mi0uMTY1YzEuOTcyLjAzNyAzLjkyMy4zOTkgNS43NzYgMS4wNzJhNy4wOTUgNy4wOTUgMCAwMTMuMjQgMi4yNSA0LjUzNiA0LjUzNiAwIDAxLjk0NSAzLjA3NGMtLjA0NS45MyAwIDEuODY3IDAgMi44MDR2NS4xOWMwIDEuMDE5IDAgMi4wNDYtLjA0NSAzLjA1OGE1LjQyMSA1LjQyMSAwIDAxLTMuNTE4IDUuMDQgOC4wNDIgOC4wNDIgMCAwMS0zLjE0My41OTloLTExLjQ2YTYuNTQgNi41NCAwIDAwLTMuNDUuOTA3IDUuOTk5IDUuOTk5IDAgMDAtMi42NDcgMy43MDQgOC42NTYgOC42NTYgMCAwMC0uMzIzIDIuMzc3djUuMTk2YzAgLjM0NSAwIC4zMzgtLjM0NS4zNDUtMS4yNDUgMC0yLjQ5LjAzOC0zLjc1IDBBNS4yNSA1LjI1IDAgMDEzLjM0NSAzNC4zYTguMjQ4IDguMjQ4IDAgMDEtMi4yOTUtMy41NTQgMTUuMTQyIDE1LjE0MiAwIDAxLS44NDgtMy44NDdjLS4wNzUtLjg0LS4xMDUtMS42OC0uMTU3LTIuNTEyQTIuNDc1IDIuNDc1IDAgMDAwIDI0LjExdi0uNTE4eiIgZmlsbD0iIzM3NzJhNCIvPjxwYXRoIGQ9Ik0xNS4yMDMgNS43MzhhMi4xMDcgMi4xMDcgMCAxMDIuMTA3LTIuMTIyIDIuMTIzIDIuMTIzIDAgMDAtMi4xMDcgMi4xMjJ6IiBmaWxsPSIjMDAwIi8+PHBhdGggZD0iTTE1LjIwMyA1LjczOGEyLjExIDIuMTEgMCAxMTQuMjIgMCAyLjExIDIuMTEgMCAwMS00LjIyIDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTQ4IDI0LjQwMWMtLjAyLjA2Ni0uMDM2LjEzNC0uMDQ1LjIwMy0uMDM3LjY5Ny0uMDQ1IDEuNDAyLS4xMiAyLjFhMTEuOTk1IDExLjk5NSAwIDAxLTIuMTc1IDYuMjkgNi4zMjIgNi4zMjIgMCAwMS01LjA4NSAyLjU3MkgyNC4zOWMtLjMxNSAwLS4zMTUgMC0uMzE1LjMxNXYxLjEyNWMwIC4yMzIuMDY4LjI4NS4yODUuMjg1aDExLjAxOGMuMTg3IDAgLjI1NS4wNTIuMjU1LjI0N3Y1LjQ5NmEzLjIwOSAzLjIwOSAwIDAxLS45MyAyLjExNSA2LjY4MyA2LjY4MyAwIDAxLTIuNzA4IDEuNzQ3IDE2LjY2OSAxNi42NjkgMCAwMS0zLjg5Mi44OTJjLTEuODIuMjA4LTMuNjU0LjI2My01LjQ4My4xNjVhMTcuODc3IDE3Ljg3NyAwIDAxLTUuNzc1LTEuMDcyIDcuMDk1IDcuMDk1IDAgMDEtMy4yNC0yLjI1IDQuNTM2IDQuNTM2IDAgMDEtLjk0NS0zLjA3NGMuMDQ1LS45MyAwLTEuODY3IDAtMi44MDR2LTUuMTljMC0xLjAxOSAwLTIuMDQ2LjA0NS0zLjA1OGE1LjQyIDUuNDIgMCAwMTMuNTE3LTUuMDQgOC4wNDIgOC4wNDIgMCAwMTMuMTQzLS41OTloMTEuNDUzYTYuNTQgNi41NCAwIDAwMy40NS0uOTA3IDYgNiAwIDAwMi42NDctMy43MTIgOC42NiA4LjY2IDAgMDAuMzIzLTIuMzc3di01LjE5NmMwLS4zNDUgMC0uMzM3LjM0NS0uMzQ1IDEuMjQ1IDAgMi40OS0uMDM3IDMuNzUgMGE1LjI1IDUuMjUgMCAwMTMuMzIyIDEuMzY1IDguMjQ5IDguMjQ5IDAgMDEyLjI5NSAzLjU1NCAxNS4xNSAxNS4xNSAwIDAxLjg0IDMuODYxYy4wNzUuODQuMTA1IDEuNjguMTU4IDIuNTEyLjAxLjA5MS4wMjUuMTgxLjA0NS4yNy4wMDUuMTY1LjAwNy4zMzUuMDA3LjUxeiIgZmlsbD0iI2ZmZGE0YiIvPjxwYXRoIGQ9Ik0zMi43OTcgNDEuOTkyYTIuMTA3IDIuMTA3IDAgMTAtMi4xMDcgMi4xMjIgMi4xMjMgMi4xMjMgMCAwMDIuMTA3LTIuMTIyeiIgZmlsbD0iIzAwMCIvPjxwYXRoIGQ9Ik0zMi43OTcgNDEuOTkyYTIuMTEgMi4xMSAwIDExLTQuMjIgMCAyLjExIDIuMTEgMCAwMTQuMjIgMHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4="
+    },
+    {
+      "alt": "Python application logo",
+      "src": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMjMuNTkxYy4wMi0uMDY2LjAzNi0uMTM0LjA0NS0uMjAyLjAzNy0uNjk3LjA0NS0xLjQwMi4xMi0yLjEuMTE3LTIuMjYuODcxLTQuNDQgMi4xNzUtNi4yOWE2LjMyMiA2LjMyMiAwIDAxNS4wODUtMi41NjVIMjMuNjFjLjMxNSAwIC4zMTUgMCAuMzE1LS4zMTV2LTEuMTI1YzAtLjIzMi0uMDY4LS4yODQtLjI4NS0uMjg0SDEyLjYyM2MtLjE4OCAwLS4yNTUtLjA1My0uMjU1LS4yNDhWNC45NjZjLjAzNi0uNzk2LjM2OC0xLjU1LjkzLTIuMTE1YTYuNjgzIDYuNjgzIDAgMDEyLjcwNy0xLjc0NyAxNi42NjggMTYuNjY4IDAgMDEzLjktLjg5MiAzMi44NDMgMzIuODQzIDAgMDE1LjQ4Mi0uMTY1YzEuOTcyLjAzNyAzLjkyMy4zOTkgNS43NzYgMS4wNzJhNy4wOTUgNy4wOTUgMCAwMTMuMjQgMi4yNSA0LjUzNiA0LjUzNiAwIDAxLjk0NSAzLjA3NGMtLjA0NS45MyAwIDEuODY3IDAgMi44MDR2NS4xOWMwIDEuMDE5IDAgMi4wNDYtLjA0NSAzLjA1OGE1LjQyMSA1LjQyMSAwIDAxLTMuNTE4IDUuMDQgOC4wNDIgOC4wNDIgMCAwMS0zLjE0My41OTloLTExLjQ2YTYuNTQgNi41NCAwIDAwLTMuNDUuOTA3IDUuOTk5IDUuOTk5IDAgMDAtMi42NDcgMy43MDQgOC42NTYgOC42NTYgMCAwMC0uMzIzIDIuMzc3djUuMTk2YzAgLjM0NSAwIC4zMzgtLjM0NS4zNDUtMS4yNDUgMC0yLjQ5LjAzOC0zLjc1IDBBNS4yNSA1LjI1IDAgMDEzLjM0NSAzNC4zYTguMjQ4IDguMjQ4IDAgMDEtMi4yOTUtMy41NTQgMTUuMTQyIDE1LjE0MiAwIDAxLS44NDgtMy44NDdjLS4wNzUtLjg0LS4xMDUtMS42OC0uMTU3LTIuNTEyQTIuNDc1IDIuNDc1IDAgMDAwIDI0LjExdi0uNTE4eiIgZmlsbD0iIzM3NzJhNCIvPjxwYXRoIGQ9Ik0xNS4yMDMgNS43MzhhMi4xMDcgMi4xMDcgMCAxMDIuMTA3LTIuMTIyIDIuMTIzIDIuMTIzIDAgMDAtMi4xMDcgMi4xMjJ6IiBmaWxsPSIjMDAwIi8+PHBhdGggZD0iTTE1LjIwMyA1LjczOGEyLjExIDIuMTEgMCAxMTQuMjIgMCAyLjExIDIuMTEgMCAwMS00LjIyIDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTQ4IDI0LjQwMWMtLjAyLjA2Ni0uMDM2LjEzNC0uMDQ1LjIwMy0uMDM3LjY5Ny0uMDQ1IDEuNDAyLS4xMiAyLjFhMTEuOTk1IDExLjk5NSAwIDAxLTIuMTc1IDYuMjkgNi4zMjIgNi4zMjIgMCAwMS01LjA4NSAyLjU3MkgyNC4zOWMtLjMxNSAwLS4zMTUgMC0uMzE1LjMxNXYxLjEyNWMwIC4yMzIuMDY4LjI4NS4yODUuMjg1aDExLjAxOGMuMTg3IDAgLjI1NS4wNTIuMjU1LjI0N3Y1LjQ5NmEzLjIwOSAzLjIwOSAwIDAxLS45MyAyLjExNSA2LjY4MyA2LjY4MyAwIDAxLTIuNzA4IDEuNzQ3IDE2LjY2OSAxNi42NjkgMCAwMS0zLjg5Mi44OTJjLTEuODIuMjA4LTMuNjU0LjI2My01LjQ4My4xNjVhMTcuODc3IDE3Ljg3NyAwIDAxLTUuNzc1LTEuMDcyIDcuMDk1IDcuMDk1IDAgMDEtMy4yNC0yLjI1IDQuNTM2IDQuNTM2IDAgMDEtLjk0NS0zLjA3NGMuMDQ1LS45MyAwLTEuODY3IDAtMi44MDR2LTUuMTljMC0xLjAxOSAwLTIuMDQ2LjA0NS0zLjA1OGE1LjQyIDUuNDIgMCAwMTMuNTE3LTUuMDQgOC4wNDIgOC4wNDIgMCAwMTMuMTQzLS41OTloMTEuNDUzYTYuNTQgNi41NCAwIDAwMy40NS0uOTA3IDYgNiAwIDAwMi42NDctMy43MTIgOC42NiA4LjY2IDAgMDAuMzIzLTIuMzc3di01LjE5NmMwLS4zNDUgMC0uMzM3LjM0NS0uMzQ1IDEuMjQ1IDAgMi40OS0uMDM3IDMuNzUgMGE1LjI1IDUuMjUgMCAwMTMuMzIyIDEuMzY1IDguMjQ5IDguMjQ5IDAgMDEyLjI5NSAzLjU1NCAxNS4xNSAxNS4xNSAwIDAxLjg0IDMuODYxYy4wNzUuODQuMTA1IDEuNjguMTU4IDIuNTEyLjAxLjA5MS4wMjUuMTgxLjA0NS4yNy4wMDUuMTY1LjAwNy4zMzUuMDA3LjUxeiIgZmlsbD0iI2ZmZGE0YiIvPjxwYXRoIGQ9Ik0zMi43OTcgNDEuOTkyYTIuMTA3IDIuMTA3IDAgMTAtMi4xMDcgMi4xMjIgMi4xMjMgMi4xMjMgMCAwMDIuMTA3LTIuMTIyeiIgZmlsbD0iIzAwMCIvPjxwYXRoIGQ9Ik0zMi43OTcgNDEuOTkyYTIuMTEgMi4xMSAwIDExLTQuMjIgMCAyLjExIDIuMTEgMCAwMTQuMjIgMHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4="
+    }
+  ],
+  "links": [
+    {
+      "href": "https://github.com/ew384/intelligent_agent#start-of-content",
+      "text": "Skip to content"
+    },
+    {
+      "href": "https://github.com/dashboard",
+      "text": "Home"
+    },
+    {
+      "href": "https://github.com/issues",
+      "text": "Issues"
+    },
+    {
+      "href": "https://github.com/pulls",
+      "text": "Pull requests"
+    },
+    {
+      "href": "https://github.com/projects",
+      "text": "Projects"
+    },
+    {
+      "href": "https://github.com/discussions",
+      "text": "Discussions"
+    },
+    {
+      "href": "https://github.com/codespaces",
+      "text": "Codespaces"
+    },
+    {
+      "href": "https://github.com/copilot",
+      "text": "Copilot"
+    },
+    {
+      "href": "https://github.com/explore",
+      "text": "Explore"
+    },
+    {
+      "href": "https://github.com/marketplace",
+      "text": "Marketplace"
+    },
+    {
+      "href": "https://github.com/about",
+      "text": "About"
+    },
+    {
+      "href": "https://github.blog/",
+      "text": "Blog"
+    },
+    {
+      "href": "https://docs.github.com/site-policy/github-terms/github-terms-of-service",
+      "text": "Terms"
+    },
+    {
+      "href": "https://docs.github.com/site-policy/privacy-policies/github-privacy-statement",
+      "text": "Privacy"
+    },
+    {
+      "href": "https://github.com/security",
+      "text": "Security"
+    },
+    {
+      "href": "https://www.githubstatus.com/",
+      "text": "Status"
+    },
+    {
+      "href": "https://github.com/ew384",
+      "text": "ew384"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "intelligent_agent"
+    },
+    {
+      "href": "https://github.com/ew384",
+      "text": "ew384"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "intelligent_agent"
+    },
+    {
+      "href": "https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax",
+      "text": "Search syntax tips"
+    },
+    {
+      "href": "https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax",
+      "text": "documentation"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "Code"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/issues",
+      "text": "Issues\n          0"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/pulls",
+      "text": "Pull requests\n          0"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/actions",
+      "text": "Actions"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/projects",
+      "text": "Projects\n          0"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/security",
+      "text": "Security\n            22"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/network/dependencies",
+      "text": "Insights"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/settings",
+      "text": "Settings"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "Code"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/issues",
+      "text": "Issues"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/pulls",
+      "text": "Pull requests"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/actions",
+      "text": "Actions"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/projects",
+      "text": "Projects"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/security",
+      "text": "Security"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/network/dependencies",
+      "text": "Insights"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/settings",
+      "text": "Settings"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "Reload"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "Reload"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "Reload"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent",
+      "text": "intelligent_agent"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/stargazers",
+      "text": "0\n    stars"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/forks",
+      "text": "0\n    forks"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/watchers",
+      "text": "1\n    watching"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/branches",
+      "text": "Branches"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tags",
+      "text": "Tags"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/activity",
+      "text": "Activity"
+    },
+    {
+      "href": "https://github.dev/",
+      "text": "Open in github.dev"
+    },
+    {
+      "href": "https://github.dev/",
+      "text": "Open in a new github.dev tab"
+    },
+    {
+      "href": "https://github.com/codespaces/new/ew384/intelligent_agent?resume=1",
+      "text": "Open in codespace"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/branches",
+      "text": "1 Branch"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tags",
+      "text": "1 Tag"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commits?author=ew384",
+      "text": "ew384"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/515a4e6d663851fe538fac98a4df80c6310ad1a2",
+      "text": "Remove browser_test folder from repository"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/515a4e6d663851fe538fac98a4df80c6310ad1a2",
+      "text": "515a4e6"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commits/main/",
+      "text": "42 Commits"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/api_gateway",
+      "text": "api_gateway"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/api_gateway",
+      "text": "api_gateway"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/e85f2d42ca5b953529119794d73c92f891ff1339",
+      "text": "Remove .DS_Store files"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/common",
+      "text": "common"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/common",
+      "text": "common"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/8b8d8c8f97d5a916196a3a3d66653d11692219e9",
+      "text": "Remove __pycache__ folders from repository"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/orchestrator_service",
+      "text": "orchestrator_service"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/orchestrator_service",
+      "text": "orchestrator_service"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/447c6c2d178f601d8a3fb112de8809edfd9367ab",
+      "text": "feat: add wechat tool functionality"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/page_analyzer",
+      "text": "page_analyzer"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/page_analyzer",
+      "text": "page_analyzer"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/047d134df079af5c8e7e79b0c92ce929163b7311",
+      "text": "page analyzer automation"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/scenario_service",
+      "text": "scenario_service"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/scenario_service",
+      "text": "scenario_service"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/447c6c2d178f601d8a3fb112de8809edfd9367ab",
+      "text": "feat: add wechat tool functionality"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/tests",
+      "text": "tests"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/tests",
+      "text": "tests"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/515a4e6d663851fe538fac98a4df80c6310ad1a2",
+      "text": "Remove browser_test folder from repository"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/tool_service",
+      "text": "tool_service"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tree/main/tool_service",
+      "text": "tool_service"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/4bb86d1b8db2694f24cee858adb967a3a7821fb0",
+      "text": "fix get_or_create_tab"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/.gitignore",
+      "text": ".gitignore"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/.gitignore",
+      "text": ".gitignore"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/88f0b5afdf2aeb0d977ea933dd6ce2c0d9d05f69",
+      "text": "remote browser_test"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/Makefile",
+      "text": "Makefile"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/Makefile",
+      "text": "Makefile"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/4f96e3a8957428fdd43e872471233023ace0e7d3",
+      "text": "init commit"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/README.md",
+      "text": "README.md"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/README.md",
+      "text": "README.md"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/8dbb1c4f16dd611b97eafda177b84d9735d92937",
+      "text": "fix base"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/__init__.py",
+      "text": "__init__.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/__init__.py",
+      "text": "__init__.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/bdd5dc3339eae0144913a178026c26d1ffa7532d",
+      "text": "udpate"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/app.py",
+      "text": "app.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/app.py",
+      "text": "app.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/4bb86d1b8db2694f24cee858adb967a3a7821fb0",
+      "text": "fix get_or_create_tab"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/browser_config.json",
+      "text": "browser_config.json"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/browser_config.json",
+      "text": "browser_config.json"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/3719902024bfe46ba0ad8dc0b86d8cf045db13b0",
+      "text": "use chrome driver"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/docker-compose.yml",
+      "text": "docker-compose.yml"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/docker-compose.yml",
+      "text": "docker-compose.yml"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/4f96e3a8957428fdd43e872471233023ace0e7d3",
+      "text": "init commit"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/logging.conf",
+      "text": "logging.conf"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/logging.conf",
+      "text": "logging.conf"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/abd723a8abc342dcb98bf74fea2f267bd2cef35b",
+      "text": "update tests"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/requirements.txt",
+      "text": "requirements.txt"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/requirements.txt",
+      "text": "requirements.txt"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/3553100dff2f96bbb418cef5e2022b59f8c80a90",
+      "text": "update requirements.txt"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/run_app.sh",
+      "text": "run_app.sh"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/run_app.sh",
+      "text": "run_app.sh"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/01fb18161172d73b0623487be877a48d87ec7255",
+      "text": "add streamlit app"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/run_local.py",
+      "text": "run_local.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/run_local.py",
+      "text": "run_local.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/447c6c2d178f601d8a3fb112de8809edfd9367ab",
+      "text": "feat: add wechat tool functionality"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/scenario-test.py",
+      "text": "scenario-test.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/blob/main/scenario-test.py",
+      "text": "scenario-test.py"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/commit/047d134df079af5c8e7e79b0c92ce929163b7311",
+      "text": "page analyzer automation"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent#",
+      "text": "README"
+    },
+    {
+      "href": "http://localhost:8000/",
+      "text": "http://localhost:8000"
+    },
+    {
+      "href": "http://localhost:8001/",
+      "text": "http://localhost:8001"
+    },
+    {
+      "href": "http://localhost:8002/",
+      "text": "http://localhost:8002"
+    },
+    {
+      "href": "http://localhost:8003/",
+      "text": "http://localhost:8003"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent#readme-ov-file",
+      "text": "Readme"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/activity",
+      "text": "Activity"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/stargazers",
+      "text": "0\n      stars"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/watchers",
+      "text": "1\n      watching"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/forks",
+      "text": "0\n      forks"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/releases",
+      "text": "Releases"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/tags",
+      "text": "1\n      tags"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/releases/new",
+      "text": "Create a new release"
+    },
+    {
+      "href": "https://github.com/users/ew384/packages?repo_name=intelligent_agent",
+      "text": "Packages\n      0"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/packages",
+      "text": "Publish your first package"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/search?l=python",
+      "text": "Python\n          80.7%"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/search?l=jupyter-notebook",
+      "text": "Jupyter Notebook\n          19.3%"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/new/main?filename=.github%2Fworkflows%2Fpython-package-conda.yml&workflow_template=ci%2Fpython-package-conda",
+      "text": "Configure Python Package using Anaconda"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/new/main?filename=.github%2Fworkflows%2Fpython-package.yml&workflow_template=ci%2Fpython-package",
+      "text": "Configure Python package"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/new/main?filename=.github%2Fworkflows%2Fpython-app.yml&workflow_template=ci%2Fpython-app",
+      "text": "Configure Python application"
+    },
+    {
+      "href": "https://github.com/ew384/intelligent_agent/actions/new",
+      "text": "More workflows"
+    },
+    {
+      "href": "https://docs.github.com/site-policy/github-terms/github-terms-of-service",
+      "text": "Terms"
+    },
+    {
+      "href": "https://docs.github.com/site-policy/privacy-policies/github-privacy-statement",
+      "text": "Privacy"
+    },
+    {
+      "href": "https://github.com/security",
+      "text": "Security"
+    },
+    {
+      "href": "https://www.githubstatus.com/",
+      "text": "Status"
+    },
+    {
+      "href": "https://docs.github.com/",
+      "text": "Docs"
+    },
+    {
+      "href": "https://support.github.com/?tags=dotcom-footer",
+      "text": "Contact"
+    }
+  ],
+  "paragraphs": [
+    "© 2025 GitHub, Inc.",
+    "We read every piece of feedback, and take your input very seriously.",
+    "To see all available qualifiers, see our",
+    ".",
+    "这是一个通用的智能Agent系统，可支持多种自动化场景，如简历筛选、电商运营、价格比较和银行账单查询等。",
+    "此命令将:",
+    "若只想启动特定服务，可以指定服务名称:",
+    "系统预置了四个场景的测试脚本，在运行服务后可以选择测试:",
+    "这将自动访问中信银行信用卡中心网站，查询账单金额。",
+    "访问招聘网站，提取求职者简历并根据职位要求进行评分排序。\n注意：使用前需要在脚本中设置正确的登录凭证。",
+    "在多平台（Amazon、Temu、Shopee等）上管理电商账号，可执行产品列表查询、添加产品、回复客户等操作。\n注意：使用前需要在脚本中设置正确的账号凭证和平台选择。",
+    "在多个平台（淘宝、京东、拼多多等）搜索产品并比较价格，找到最优选择并加入购物车。\n注意：使用前需要在脚本中设置要搜索的产品和价格区间。",
+    "系统设计支持自定义场景。要添加新场景，需要:"
+  ]
+}
