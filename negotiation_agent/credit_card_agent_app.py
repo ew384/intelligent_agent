@@ -2,6 +2,7 @@ import streamlit as st
 import asyncio
 import httpx
 import json
+import re
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.messages import TextMessage
 from autogen_ext.models.openai import OpenAIChatCompletionClient
@@ -12,7 +13,7 @@ import time
 
 # Set page config
 st.set_page_config(
-    page_title="中信银行信用卡分期顾问",
+    page_title="中信银行信用卡中心",
     page_icon="💳",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -101,6 +102,21 @@ st.markdown("""
         padding: 16px;
         margin-bottom: 16px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Streaming effect styling */
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    
+    #streaming-content::after {
+        content: '▌';
+        display: inline-block;
+        animation: blink 1s step-end infinite;
+        color: #C1272D;
+        margin-left: 2px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -202,44 +218,74 @@ def create_agent():
 async def run_agent(task, history_container):
     agent = create_agent()
     
-    # Create a placeholder for streaming response
+    # Create placeholders - one for the actual response, one for the debug info
     response_placeholder = history_container.empty()
+    debug_placeholder = history_container.empty()
     
     try:
         # Run the agent with the async generator handling
         full_response = ""
-        buffer = ""
+        debug_info = ""
         async_gen = agent.run_stream(task=task)
+        
+        # Initialize HTML container for streaming effect
+        html_template = """
+        <div class="chat-message assistant-message">
+            <div id="streaming-content">💼 经理：{}</div>
+        </div>
+        """
         
         # Process the async generator
         async for response_chunk in async_gen:
-            # If response_chunk is a string, append it
+            # Process the chunk based on its type
+            chunk_text = ""
             if isinstance(response_chunk, str):
-                buffer += response_chunk
-            # If it's a message object (which is more likely), get its content
+                chunk_text = response_chunk
             elif hasattr(response_chunk, 'content'):
-                buffer += str(response_chunk.content)
-            # Otherwise convert it to string
+                chunk_text = str(response_chunk.content)
             else:
-                buffer += str(response_chunk)
+                chunk_text = str(response_chunk)
             
-            # Update the displayed response with proper streaming
-            # Only update when we have complete sentences or enough content
-            if buffer.endswith(('.', '?', '!', ':', '\n')) or len(buffer) > 100:
-                full_response += buffer
-                response_placeholder.markdown(full_response)
-                buffer = ""
-                
-            # Small delay to create a more natural typing effect
-            await asyncio.sleep(0.01)
+            # Check for function calls, results or TaskResult in the chunk
+            if "[FunctionCall" in chunk_text or "[FunctionExecutionResult" in chunk_text or "TaskResult" in chunk_text:
+                # Add this to debug info instead of the main response
+                debug_info += chunk_text
+                continue
+            
+            # Add the chunk to our full response
+            full_response += chunk_text
+            
+            # Update the displayed response with character-by-character streaming effect
+            # Make sure to filter out any function call information that might have slipped through
+            clean_response = full_response
+            # Remove any function call patterns that might be in the response
+            clean_response = re.sub(r'\[FunctionCall.*?\]', '', clean_response)
+            clean_response = re.sub(r'\[FunctionExecutionResult.*?\]', '', clean_response)
+            clean_response = re.sub(r'TaskResult\(.*?\)', '', clean_response)
+            
+            response_placeholder.markdown(html_template.format(clean_response), unsafe_allow_html=True)
+            
+            # Small delay to create a realistic typing effect
+            await asyncio.sleep(0.005)
         
-        # Add any remaining content in the buffer
-        if buffer:
-            full_response += buffer
-            response_placeholder.markdown(full_response)
+        # Final cleanup of the response to remove any function call artifacts
+        clean_response = re.sub(r'\[FunctionCall.*?\]', '', full_response)
+        clean_response = re.sub(r'\[FunctionExecutionResult.*?\]', '', clean_response)
+        clean_response = re.sub(r'TaskResult\(.*?\)', '', clean_response)
         
-        # Return the final result for history tracking
-        return full_response
+        # Update one last time with clean response
+        response_placeholder.markdown(html_template.format(clean_response), unsafe_allow_html=True)
+        
+        # Display debug info in a less prominent way if it exists
+        if debug_info:
+            debug_placeholder.markdown(f'<div style="color: #999999; font-size: 0.8em; margin-top: 8px;">{debug_info}</div>', unsafe_allow_html=True)
+        
+        # Return the clean response for history tracking
+        return clean_response
+    except Exception as e:
+        error_msg = f"Error: {str(e)}"
+        response_placeholder.error(error_msg)
+        return error_msg
     except Exception as e:
         error_msg = f"Error: {str(e)}"
         response_placeholder.error(error_msg)
@@ -267,7 +313,12 @@ if "clear_input" in st.session_state and st.session_state.clear_input:
 
 # Sidebar for configuration
 with st.sidebar:
-    #st.image("./assets/citic_logo.png", width=150)
+    # Try to load local logo first, fall back to placeholder if file doesn't exist
+    try:
+        st.image("citic_logo.png", width=150)
+    except:
+        st.markdown("### 中信银行信用卡中心")
+    
     st.header("客户画像配置")
     customer_type = st.selectbox(
         "选择客户类型:",
@@ -293,13 +344,13 @@ with st.sidebar:
     st.caption("版本: 1.0.0")
 
 # Main app content
-st.title("中信银行信用卡分期顾问")
+st.title("中信银行信用卡分期经理")
 
 # Introduction card
 st.markdown("""
 <div class="card">
-    <h3>专业金融顾问，为您定制最优分期方案</h3>
-    <p>您好！我是中信银行信用卡中心的专业顾问，很高兴为您服务。</p>
+    <h3>专业金融经理，为您定制最优分期方案</h3>
+    <p>您好！我是中信银行信用卡中心的专业经理，很高兴为您服务。</p>
     <p>请告诉我您的分期需求，我将为您推荐最合适的分期方案，并解答您的各类问题。</p>
 </div>
 """, unsafe_allow_html=True)
@@ -345,15 +396,55 @@ with chat_container:
         if message["role"] == "user":
             st.markdown(f"""
             <div class="chat-message user-message">
-                <div>👤 客户：{message["content"]}</div>
+                <div>👤 您：{message["content"]}</div>
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.markdown(f"""
-            <div class="chat-message assistant-message">
-                <div>💼 业务经理：{message["content"]}</div>
-            </div>
-            """, unsafe_allow_html=True)
+        # Check if the content contains FunctionCall or FunctionExecutionResult
+            content = message["content"]
+            debug_info = ""
+            
+            # Use regex to extract function calls and results
+            function_calls = re.findall(r'\[FunctionCall.*?\]', content)
+            function_results = re.findall(r'\[FunctionExecutionResult.*?\]', content)
+            task_results = re.findall(r'TaskResult\(.*?\)', content)
+            
+            # If we found any function-related content
+            if function_calls or function_results or task_results:
+                # Clean the content
+                clean_content = content
+                for fc in function_calls:
+                    clean_content = clean_content.replace(fc, '')
+                for fr in function_results:
+                    clean_content = clean_content.replace(fr, '')
+                for tr in task_results:
+                    clean_content = clean_content.replace(tr, '')
+                
+                # Build debug info
+                debug_info = ''.join(function_calls + function_results + task_results)
+                
+                # Display clean content
+                if clean_content.strip():
+                    st.markdown(f"""
+                    <div class="chat-message assistant-message">
+                        <div>💼 经理：{clean_content.strip()}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                
+                # Display debug info if any
+                if debug_info:
+                    st.markdown(f"""
+                    <div style="color: #999999; font-size: 0.8em; margin-top: 8px; margin-bottom: 16px; margin-right: 40px;">
+                        {debug_info}
+                    </div>
+                    """, unsafe_allow_html=True)
+            else:
+                # Normal display for content without function calls/results
+                st.markdown(f"""
+                <div class="chat-message assistant-message">
+                    <div>💼 经理：{content}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
 # Instructions in an expander
 with st.expander("💡 使用指南"):

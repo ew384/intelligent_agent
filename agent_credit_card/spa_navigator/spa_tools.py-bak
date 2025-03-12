@@ -1,0 +1,901 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
+import time
+import json
+import re
+from typing import Dict, List, Optional, Any, Union
+
+# Global driver instance to be used across functions
+driver = None
+
+def initialize_driver(debugger_address="localhost:9222"):
+    """
+    Initialize or get the Chrome driver instance
+    """
+    global driver
+    
+    if driver is not None:
+        try:
+            # Check if driver is still active
+            driver.title
+            return driver
+        except:
+            # Driver is no longer active, reinitialize
+            pass
+    
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    
+    # Add option to connect to existing browser
+    chrome_options.add_experimental_option("debuggerAddress", debugger_address)
+    
+    try:
+        driver = webdriver.Chrome(service=Service('/usr/local/bin/chromedriver'), options=chrome_options)
+        print("Connected to Chrome browser")
+        return driver
+    except Exception as e:
+        print(f"Failed to initialize Chrome driver: {str(e)}")
+        try:
+            driver = webdriver.Remote(command_executor='http://localhost:4444', options=chrome_options)
+            print("Connected using remote Chrome driver")
+        except Exception as remote_error:
+            print(f"Failed to initialize Chrome driver{str(remote_error)}")
+            return
+
+def get_menu_structure():
+    """
+    Get the complete menu structure from the left sidebar
+    
+    Returns:
+        Dict: A dictionary representing the menu structure with status and content
+    """
+    try:
+        initialize_driver()
+        
+        # Wait for the menu to be loaded
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".sidebar .sidebar-content"))
+        )
+        
+        # Get all menu items
+        menu_items = driver.find_elements(By.CSS_SELECTOR, ".sidebar .sidebar-content ul li")
+        
+        # Process menu structure
+        menu_structure = {}
+        current_level1 = None
+        current_level2 = None
+        
+        for item in menu_items:
+            try:
+                # Check indentation level based on CSS class or parent structure
+                classes = item.get_attribute("class")
+                text = item.text.strip()
+                
+                if not text:
+                    continue
+                
+                if "level1" in classes or "main-menu" in classes:
+                    # This is a level 1 menu
+                    current_level1 = text
+                    current_level2 = None
+                    menu_structure[current_level1] = {"submenus": {}}
+                elif "level2" in classes or "sub-menu" in classes:
+                    # This is a level 2 menu
+                    if current_level1:
+                        current_level2 = text
+                        menu_structure[current_level1]["submenus"][current_level2] = {"submenus": {}}
+                else:
+                    # This is a level 3 menu or action item
+                    if current_level1 and current_level2:
+                        menu_structure[current_level1]["submenus"][current_level2]["submenus"][text] = {}
+                    elif current_level1:
+                        menu_structure[current_level1]["submenus"][text] = {}
+            except Exception as e:
+                print(f"Error processing menu item: {str(e)}")
+         
+        return {
+            "status": "success",
+            "content": menu_structure
+        }
+    except Exception as e:
+        error_msg = f"Failed to get menu structure: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def search_menu_items(keyword: str) -> Dict:
+    """
+    Search for menu items containing the given keyword
+    
+    Args:
+        keyword (str): The keyword to search for
+        
+    Returns:
+        Dict: A dictionary of matching menu items with their paths
+    """
+    try:
+        initialize_driver()
+        
+        # Get the menu structure first
+        menu_result = get_menu_structure()
+        
+        if menu_result["status"] == "error":
+            return menu_result
+            
+        menu_structure = menu_result["content"]
+        
+        # Search for keyword in menu items
+        matches = []
+        
+        # Helper function to search recursively
+        def search_recursively(structure, current_path=[]):
+            for key, value in structure.items():
+                path = current_path + [key]
+                
+                # Check if the keyword is in the menu item name
+                if keyword.lower() in key.lower():
+                    matches.append({
+                        "menu_name": key,
+                        "path": " > ".join(path),
+                        "full_path": path
+                    })
+                
+                # Search in submenus if any
+                if "submenus" in value and value["submenus"]:
+                    search_recursively(value["submenus"], path)
+        
+        # Start the recursive search
+        search_recursively(menu_structure)
+        
+        return {
+            "status": "success",
+            "content": matches
+        }
+    except Exception as e:
+        error_msg = f"Failed to search menu items: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def navigate_to_menu(menu_path: str) -> Dict:
+    """
+    Navigate to a specific menu by its path
+    
+    Args:
+        menu_path (str): The path to the menu, separated by " > "
+        
+    Returns:
+        Dict: Status of the navigation and content of the opened page
+    """
+    try:
+        initialize_driver()
+        
+        # Split the path into individual menu items
+        parts = menu_path.split(" > ")
+        
+        # Find and click on each menu item in sequence
+        current_level = 1
+        
+        for part in parts:
+            # Construct a more flexible XPath to find the menu item
+            xpath_patterns = [
+                f"//li[contains(@class, 'level{current_level}') and contains(text(), '{part}')]",
+                f"//li[contains(@class, 'menu-item') and contains(text(), '{part}')]",
+                f"//div[contains(@class, 'sidebar')]//li[contains(text(), '{part}')]",
+                f"//*[contains(@class, 'sidebar')]//span[contains(text(), '{part}')]/..",
+                f"//*[contains(@class, 'menu')]//span[contains(text(), '{part}')]/.."
+            ]
+            
+            # Try each XPath pattern
+            found = False
+            for xpath in xpath_patterns:
+                try:
+                    # Wait for the element to be clickable
+                    element = WebDriverWait(driver, 5).until(
+                        EC.element_to_be_clickable((By.XPATH, xpath))
+                    )
+                    
+                    # Scroll the element into view
+                    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+                    time.sleep(0.5)  # Small delay for the UI to stabilize
+                    
+                    # Click the element
+                    element.click()
+                    time.sleep(1)  # Wait for any animations or page changes
+                    
+                    found = True
+                    current_level += 1
+                    break
+                except Exception as e:
+                    continue
+            
+            if not found:
+                return {
+                    "status": "error",
+                    "message": f"Could not find or click menu item: {part}"
+                }
+        
+        # Wait for any iframe or content to load
+        time.sleep(2)
+        
+        # Get the content of the iframe or main content area
+        content = get_current_iframe_content()
+        
+        return {
+            "status": "success",
+            "message": f"Successfully navigated to {menu_path}",
+            "content": content["content"] if content["status"] == "success" else None
+        }
+    except Exception as e:
+        error_msg = f"Failed to navigate to menu: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def get_current_iframe_content() -> Dict:
+    """
+    Get the content of the current iframe or main content area
+    
+    Returns:
+        Dict: Content of the iframe including title, headings, form fields, buttons, and text
+    """
+    try:
+        initialize_driver()
+        
+        # Check if there's an iframe and switch to it
+        iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        
+        if iframes:
+            # Switch to the first iframe (most likely the main content)
+            driver.switch_to.frame(iframes[0])
+        
+        # Wait for the content to load
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+        
+        # Get page title
+        try:
+            title = driver.title
+        except:
+            title = "No title available"
+        
+        # Get headings
+        headings = []
+        for h_level in range(1, 7):
+            for heading in driver.find_elements(By.TAG_NAME, f"h{h_level}"):
+                headings.append(heading.text.strip())
+        
+        # Get form fields
+        form_fields = []
+        for input_element in driver.find_elements(By.TAG_NAME, "input"):
+            field_type = input_element.get_attribute("type")
+            field_name = input_element.get_attribute("name") or input_element.get_attribute("id") or ""
+            field_label = input_element.get_attribute("placeholder") or field_name
+            
+            if field_type not in ["hidden", "submit", "button"]:
+                form_fields.append({
+                    "type": field_type,
+                    "name": field_name,
+                    "label": field_label,
+                    "required": input_element.get_attribute("required") is not None,
+                    "disabled": input_element.get_attribute("disabled") is not None
+                })
+        
+        # Get select elements
+        for select_element in driver.find_elements(By.TAG_NAME, "select"):
+            field_name = select_element.get_attribute("name") or select_element.get_attribute("id") or ""
+            options = [option.text for option in select_element.find_elements(By.TAG_NAME, "option")]
+            
+            form_fields.append({
+                "type": "select",
+                "name": field_name,
+                "label": field_name,
+                "options": options,
+                "required": select_element.get_attribute("required") is not None,
+                "disabled": select_element.get_attribute("disabled") is not None
+            })
+        
+        # Get buttons
+        buttons = []
+        for button in driver.find_elements(By.TAG_NAME, "button"):
+            button_text = button.text.strip()
+            if button_text:
+                buttons.append(button_text)
+        
+        # Also look for input buttons
+        for input_button in driver.find_elements(By.XPATH, "//input[@type='button' or @type='submit']"):
+            button_text = input_button.get_attribute("value")
+            if button_text:
+                buttons.append(button_text)
+        
+        # Get links
+        links = []
+        for link in driver.find_elements(By.TAG_NAME, "a"):
+            link_text = link.text.strip()
+            if link_text:
+                links.append(link_text)
+        
+        # Get the main text content
+        body_text = driver.find_element(By.TAG_NAME, "body").text
+        
+        # Create a summary of the text (first few sentences)
+        text_parts = re.split(r'[.!?]\s+', body_text)
+        summary = ' '.join(text_parts[:3]) + ('...' if len(text_parts) > 3 else '')
+        
+        # Extract tables if any
+        tables = []
+        for table in driver.find_elements(By.TAG_NAME, "table"):
+            table_data = []
+            rows = table.find_elements(By.TAG_NAME, "tr")
+            
+            for row in rows:
+                row_data = []
+                cells = row.find_elements(By.TAG_NAME, "td") + row.find_elements(By.TAG_NAME, "th")
+                
+                for cell in cells:
+                    row_data.append(cell.text.strip())
+                
+                if row_data:
+                    table_data.append(row_data)
+            
+            if table_data:
+                tables.append(table_data)
+        
+        # Switch back to default content if we were in an iframe
+        if iframes:
+            driver.switch_to.default_content()
+        
+        # Create content object
+        content = {
+            "title": title,
+            "headings": headings,
+            "form_fields": form_fields,
+            "buttons": buttons,
+            "links": links,
+            "summary": summary,
+            "full_text": body_text,
+            "tables": tables
+        }
+        
+        return {
+            "status": "success",
+            "content": content
+        }
+    except Exception as e:
+        # Make sure to switch back to default content in case of error
+        try:
+            driver.switch_to.default_content()
+        except:
+            pass
+            
+        error_msg = f"Failed to get iframe content: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def click_button_in_iframe(button_text: str) -> Dict:
+    """
+    Click a button in the current iframe or main content
+    
+    Args:
+        button_text (str): The text of the button to click
+        
+    Returns:
+        Dict: Status of the button click operation
+    """
+    try:
+        initialize_driver()
+        
+        # Check if there's an iframe and switch to it
+        iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        
+        if iframes:
+            # Switch to the first iframe (most likely the main content)
+            driver.switch_to.frame(iframes[0])
+        
+        # Try different strategies to find the button
+        button_found = False
+        
+        # Strategy 1: Exact button text match
+        try:
+            button = WebDriverWait(driver, 5).until(
+                EC.element_to_be_clickable((By.XPATH, f"//button[normalize-space(text())='{button_text}']"))
+            )
+            button.click()
+            button_found = True
+        except:
+            pass
+        
+        # Strategy 2: Partial button text match
+        if not button_found:
+            try:
+                button = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, f"//button[contains(text(),'{button_text}')]"))
+                )
+                button.click()
+                button_found = True
+            except:
+                pass
+        
+        # Strategy 3: Input button with value
+        if not button_found:
+            try:
+                button = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, f"//input[@type='button' or @type='submit'][@value='{button_text}']"))
+                )
+                button.click()
+                button_found = True
+            except:
+                pass
+        
+        # Strategy 4: Input button with partial value match
+        if not button_found:
+            try:
+                button = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, f"//input[@type='button' or @type='submit'][contains(@value,'{button_text}')]"))
+                )
+                button.click()
+                button_found = True
+            except:
+                pass
+        
+        # Strategy 5: Any element with the button text and a click handler
+        if not button_found:
+            try:
+                button = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, f"//*[contains(text(),'{button_text}')]"))
+                )
+                button.click()
+                button_found = True
+            except:
+                pass
+        
+        # Switch back to default content
+        if iframes:
+            driver.switch_to.default_content()
+        
+        if not button_found:
+            return {
+                "status": "error",
+                "message": f"Could not find or click button with text: {button_text}"
+            }
+        
+        # Wait for any page changes after clicking
+        time.sleep(2)
+        
+        # Get updated content
+        content = get_current_iframe_content()
+        
+        return {
+            "status": "success",
+            "message": f"Successfully clicked button: {button_text}",
+            "content": content["content"] if content["status"] == "success" else None
+        }
+    except Exception as e:
+        # Make sure to switch back to default content in case of error
+        try:
+            driver.switch_to.default_content()
+        except:
+            pass
+            
+        error_msg = f"Failed to click button: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def fill_input_in_iframe(field_name: str, value: str) -> Dict:
+    """
+    Fill an input field in the current iframe or main content
+    
+    Args:
+        field_name (str): The name, id, or label of the field to fill
+        value (str): The value to set in the field
+        
+    Returns:
+        Dict: Status of the field fill operation
+    """
+    try:
+        initialize_driver()
+        
+        # Check if there's an iframe and switch to it
+        iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        
+        if iframes:
+            # Switch to the first iframe (most likely the main content)
+            driver.switch_to.frame(iframes[0])
+        
+        # Try different strategies to find the input field
+        field_found = False
+        
+        # Strategy 1: By name attribute
+        try:
+            input_field = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.NAME, field_name))
+            )
+            # Clear the field first
+            input_field.clear()
+            input_field.send_keys(value)
+            field_found = True
+        except:
+            pass
+        
+        # Strategy 2: By id attribute
+        if not field_found:
+            try:
+                input_field = WebDriverWait(driver, 5).until(
+                    EC.presence_of_element_located((By.ID, field_name))
+                )
+                input_field.clear()
+                input_field.send_keys(value)
+                field_found = True
+            except:
+                pass
+        
+        # Strategy 3: By placeholder attribute
+        if not field_found:
+            try:
+                input_field = WebDriverWait(driver, 5).until(
+                    EC.presence_of_element_located((By.XPATH, f"//input[@placeholder='{field_name}']"))
+                )
+                input_field.clear()
+                input_field.send_keys(value)
+                field_found = True
+            except:
+                pass
+        
+        # Strategy 4: By label text
+        if not field_found:
+            try:
+                # Find label element with matching text
+                label = WebDriverWait(driver, 5).until(
+                    EC.presence_of_element_located((By.XPATH, f"//label[contains(text(),'{field_name}')]"))
+                )
+                
+                # Get the 'for' attribute to find the corresponding input
+                for_attribute = label.get_attribute("for")
+                
+                if for_attribute:
+                    input_field = driver.find_element(By.ID, for_attribute)
+                    input_field.clear()
+                    input_field.send_keys(value)
+                    field_found = True
+                else:
+                    # Try to find input within the label
+                    input_field = label.find_element(By.TAG_NAME, "input")
+                    input_field.clear()
+                    input_field.send_keys(value)
+                    field_found = True
+            except:
+                pass
+        
+        # Strategy 5: Try to find select element (dropdown) instead of input
+        if not field_found:
+            try:
+                from selenium.webdriver.support.ui import Select
+                
+                # Try by name
+                select_elem = Select(driver.find_element(By.NAME, field_name))
+                select_elem.select_by_visible_text(value)
+                field_found = True
+            except:
+                pass
+        
+        # If still not found, try by ID for select
+        if not field_found:
+            try:
+                from selenium.webdriver.support.ui import Select
+                
+                select_elem = Select(driver.find_element(By.ID, field_name))
+                select_elem.select_by_visible_text(value)
+                field_found = True
+            except:
+                pass
+        
+        # Switch back to default content
+        if iframes:
+            driver.switch_to.default_content()
+        
+        if not field_found:
+            return {
+                "status": "error",
+                "message": f"Could not find or fill input field: {field_name}"
+            }
+        
+        return {
+            "status": "success",
+            "message": f"Successfully filled field {field_name} with value: {value}"
+        }
+    except Exception as e:
+        # Make sure to switch back to default content in case of error
+        try:
+            driver.switch_to.default_content()
+        except:
+            pass
+            
+        error_msg = f"Failed to fill input field: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def click_link_in_iframe(link_text: str) -> Dict:
+    """
+    Click a link in the current iframe or main content
+    
+    Args:
+        link_text (str): The text of the link to click
+        
+    Returns:
+        Dict: Status of the link click operation
+    """
+    try:
+        initialize_driver()
+        
+        # Check if there's an iframe and switch to it
+        iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        
+        if iframes:
+            # Switch to the first iframe (most likely the main content)
+            driver.switch_to.frame(iframes[0])
+        
+        # Try different strategies to find the link
+        link_found = False
+        
+        # Strategy 1: Exact link text match
+        try:
+            link = WebDriverWait(driver, 5).until(
+                EC.element_to_be_clickable((By.LINK_TEXT, link_text))
+            )
+            link.click()
+            link_found = True
+        except:
+            pass
+        
+        # Strategy 2: Partial link text match
+        if not link_found:
+            try:
+                link = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, link_text))
+                )
+                link.click()
+                link_found = True
+            except:
+                pass
+        
+        # Strategy 3: Any anchor element with the text
+        if not link_found:
+            try:
+                link = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, f"//a[contains(text(),'{link_text}')]"))
+                )
+                link.click()
+                link_found = True
+            except:
+                pass
+        
+        # Switch back to default content
+        if iframes:
+            driver.switch_to.default_content()
+        
+        if not link_found:
+            return {
+                "status": "error",
+                "message": f"Could not find or click link with text: {link_text}"
+            }
+        
+        # Wait for any page changes after clicking
+        time.sleep(2)
+        
+        # Get updated content
+        content = get_current_iframe_content()
+        
+        return {
+            "status": "success",
+            "message": f"Successfully clicked link: {link_text}",
+            "content": content["content"] if content["status"] == "success" else None
+        }
+    except Exception as e:
+        # Make sure to switch back to default content in case of error
+        try:
+            driver.switch_to.default_content()
+        except:
+            pass
+            
+        error_msg = f"Failed to click link: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def query_customer_info(customer_id: str) -> Dict:
+    """
+    Query customer information by ID
+    
+    Args:
+        customer_id (str): The customer ID to query
+        
+    Returns:
+        Dict: Customer information
+    """
+    try:
+        # This is a placeholder function that would be implemented with real API calls
+        # For now, we'll return mock data based on the ID
+        
+        # Mock customer data
+        if customer_id == "1234567890":
+            customer_data = {
+                "id": "1234567890",
+                "name": "张三",
+                "card_number": "6229180073234598",
+                "available_credit": 50000,
+                "total_credit_limit": 80000,
+                "card_status": "正常",
+                "level": "金卡"
+            }
+        else:
+            customer_data = {
+                "id": customer_id,
+                "name": f"用户{customer_id[-4:]}",
+                "card_number": f"6229{customer_id[-4:]}XXXX4598",
+                "available_credit": 30000,
+                "total_credit_limit": 50000,
+                "card_status": "正常",
+                "level": "普卡"
+            }
+        
+        return {
+            "status": "success",
+            "content": customer_data
+        }
+    except Exception as e:
+        error_msg = f"Failed to query customer info: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def query_installment_offers(customer_id: str) -> Dict:
+    """
+    Query available installment offers for a customer
+    
+    Args:
+        customer_id (str): The customer ID to query
+        
+    Returns:
+        Dict: Available installment offers
+    """
+    try:
+        # This is a placeholder function that would be implemented with real API calls
+        # For now, we'll return mock data
+        
+        # Mock offers data
+        offers = [
+            {
+                "type": "消费分期",
+                "periods": [3, 6, 12, 24],
+                "rates": {
+                    "3": 1.5,
+                    "6": 3.0,
+                    "12": 6.0,
+                    "24": 12.0
+                },
+                "min_amount": 100,
+                "max_amount": 50000,
+                "description": "将已出账单分期还款"
+            },
+            {
+                "type": "账单分期",
+                "periods": [3, 6, 12],
+                "rates": {
+                    "3": 1.2,
+                    "6": 2.4,
+                    "12": 5.0
+                },
+                "min_amount": 500,
+                "max_amount": 30000,
+                "description": "将已出账单金额分期偿还"
+            },
+            {
+                "type": "现金分期",
+                "periods": [12, 24, 36],
+                "rates": {
+                    "12": 6.5,
+                    "24": 12.5,
+                    "36": 18.0
+                },
+                "min_amount": 1000,
+                "max_amount": 20000,
+                "description": "将信用卡额度转为现金"
+            }
+        ]
+        
+        return {
+            "status": "success",
+            "content": offers
+        }
+    except Exception as e:
+        error_msg = f"Failed to query installment offers: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+def calculate_installment_plan(amount: float, periods: int, rate: float = None) -> Dict:
+    """
+    Calculate installment plan details
+    
+    Args:
+        amount (float): The amount to be paid in installments
+        periods (int): The number of periods
+        rate (float, optional): The interest rate. If not provided, standard rates will be used.
+        
+    Returns:
+        Dict: Installment plan details
+    """
+    try:
+        # Use standard rates if not provided
+        if rate is None:
+            if periods == 3:
+                rate = 1.5
+            elif periods == 6:
+                rate = 3.0
+            elif periods == 12:
+                rate = 6.0
+            elif periods == 24:
+                rate = 12.0
+            else:
+                rate = periods * 0.5  # Simple estimate
+        
+        # Calculate fee
+        fee_amount = amount * (rate / 100)
+        
+        # Calculate monthly payment (principal only)
+        monthly_principal = amount / periods
+        
+        # Calculate total amount
+        total_amount = amount + fee_amount
+        
+        # Calculate monthly payment with fee distributed
+        monthly_payment = total_amount / periods
+        
+        # Create payment schedule
+        payment_schedule = []
+        remaining = amount
+        
+        for i in range(1, periods + 1):
+            remaining -= monthly_principal
+            payment_schedule.append({
+                "period": i,
+                "payment": round(monthly_payment, 2),
+                "principal": round(monthly_principal, 2),
+                "fee": round(fee_amount / periods, 2),
+                "remaining": round(remaining, 2) if remaining > 0 else 0
+            })
+        
+        plan_details = {
+            "amount": amount,
+            "periods": periods,
+            "rate": rate,
+            "fee_amount": round(fee_amount, 2),
+            "total_amount": round(total_amount, 2),
+            "monthly_payment": round(monthly_payment, 2),
+            "payment_schedule": payment_schedule
+        }
+        
+        return {
+            "status": "success",
+            "content": plan_details
+        }
+    except Exception as e:
+        error_msg = f"Failed to calculate installment plan: {str(e)}"
+        print(error_msg)
+        return {"status": "error", "message": error_msg}
+
+# Dictionary of all tools for easy import into the agent system
+function_tools = {
+    "get_menu_structure": get_menu_structure,
+    "search_menu_items": search_menu_items,
+    "navigate_to_menu": navigate_to_menu,
+    "get_current_iframe_content": get_current_iframe_content,
+    "click_button_in_iframe": click_button_in_iframe,
+    "fill_input_in_iframe": fill_input_in_iframe,
+    "click_link_in_iframe": click_link_in_iframe,
+    "query_customer_info": query_customer_info,
+    "query_installment_offers": query_installment_offers,
+    "calculate_installment_plan": calculate_installment_plan
+}

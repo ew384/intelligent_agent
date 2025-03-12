@@ -1,1 +1,1 @@
-streamlit run app.py
+streamlit run credit_card_agent_app.py
