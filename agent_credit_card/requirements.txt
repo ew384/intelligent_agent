@@ -1,0 +1,46 @@
+annotated-types==0.7.0
+anyio==4.8.0
+attrs==25.2.0
+autogen-agentchat @ file:///Users/endian/Downloads/autogen_agentchat-0.4.9-py3-none-any.whl#sha256=b7f80d73ac3f8998c9590c9b36d5249a048c9f9c5a341b5db2d33e06ddbb0c6b
+autogen-core @ file:///Users/endian/Downloads/autogen_core-0.4.9-py3-none-any.whl#sha256=11dcc445675afe97cc37ac51cb0c3f0ab69ffefbdaee9cf4a2cee378db2ab792
+autogen-ext==0.4.9
+certifi==2025.1.31
+charset-normalizer==3.4.1
+Deprecated==1.2.18
+distro==1.9.0
+h11==0.14.0
+httpcore==1.0.7
+httpx==0.28.1
+idna==3.10
+importlib_metadata==8.5.0
+jiter==0.9.0
+jsonref==1.1.0
+numpy @ file:///Users/endian/Downloads/numpy-2.2.3-cp313-cp313-macosx_10_13_x86_64.whl#sha256=7bfdb06b395385ea9b91bf55c1adf1b297c9fdb531552845ff1d3ea6e40d5aba
+openai==1.66.2
+opentelemetry-api==1.30.0
+outcome==1.3.0.post0
+pandas @ file:///Users/endian/Downloads/pandas-2.2.3-cp313-cp313-macosx_10_13_x86_64.whl#sha256=f00d1345d84d8c86a63e476bb4955e46458b304b9575dcf71102b5c705320015
+pillow==11.1.0
+protobuf==5.29.3
+pydantic==2.10.6
+pydantic_core==2.27.2
+PySocks==1.7.1
+python-dateutil==2.9.0.post0
+pytz==2025.1
+regex==2024.11.6
+requests==2.32.3
+selenium @ file:///Users/endian/Downloads/selenium-4.29.0-py3-none-any.whl#sha256=ce5d26f1ddc1111641113653af33694c13947dd36c2df09cdd33f554351d372e
+six==1.17.0
+sniffio==1.3.1
+sortedcontainers==2.4.0
+tiktoken==0.9.0
+tqdm==4.67.1
+trio==0.29.0
+trio-websocket==0.12.2
+typing_extensions==4.12.2
+tzdata==2025.1
+urllib3==2.3.0
+websocket-client==1.8.0
+wrapt==1.17.2
+wsproto==1.2.0
+zipp==3.21.0

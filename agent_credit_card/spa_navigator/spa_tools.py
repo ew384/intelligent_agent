@@ -615,7 +615,7 @@ def get_current_iframe_content() -> Dict:
 
 def click_button_in_iframe(button_text: str) -> Dict:
     """
-    Click a button in the current iframe or main content
+    Click a button in the current iframe or main content with improved detection
     
     Args:
         button_text (str): The text of the button to click
@@ -627,112 +627,159 @@ def click_button_in_iframe(button_text: str) -> Dict:
         driver = initialize_driver()
         if not driver:
             return {"status": "error", "message": "Failed to initialize driver"}
+            
+        print(f"Looking for button with text: '{button_text}'")
         
-        # Check if there's an iframe and switch to it
-        iframes = driver.find_elements(By.TAG_NAME, "iframe")
-        
-        if iframes:
-            # Try to switch to each iframe and look for the button
-            for iframe in iframes:
-                try:
-                    driver.switch_to.frame(iframe)
-                    # Try to find the button
-                    elements = driver.find_elements(By.XPATH, f"//*[contains(text(), '{button_text}')]")
-                    if any(e.is_displayed() for e in elements):
-                        break  # Found elements, stay in this iframe
-                    driver.switch_to.default_content()
-                except:
-                    driver.switch_to.default_content()
-        
-        # Try different strategies to find the button
-        button_found = False
-        
-        # Strategy 1: Exact button text match
+        # First, take a screenshot for debugging
         try:
-            button = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.XPATH, f"//button[normalize-space(text())='{button_text}']"))
-            )
-            driver.execute_script("arguments[0].scrollIntoView(true);", button)
-            button.click()
-            button_found = True
-            print(f"Clicked button using strategy 1: {button_text}")
+            driver.save_screenshot("before_button_click.png")
+            print("Saved screenshot as before_button_click.png")
         except:
-            pass
+            print("Failed to save screenshot")
         
-        # Strategy 2: Partial button text match
-        if not button_found:
-            try:
-                button = WebDriverWait(driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, f"//button[contains(text(),'{button_text}')]"))
-                )
-                driver.execute_script("arguments[0].scrollIntoView(true);", button)
-                button.click()
-                button_found = True
-                print(f"Clicked button using strategy 2: {button_text}")
-            except:
-                pass
+        # Check all frames including main frame
+        frames_to_check = [None]  # Start with main frame
+        iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        frames_to_check.extend(iframes)
         
-        # Strategy 3: Input button with value
-        if not button_found:
-            try:
-                button = WebDriverWait(driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, f"//input[@type='button' or @type='submit'][@value='{button_text}']"))
-                )
-                driver.execute_script("arguments[0].scrollIntoView(true);", button)
-                button.click()
-                button_found = True
-                print(f"Clicked button using strategy 3: {button_text}")
-            except:
-                pass
+        button_found = False
+        current_frame = None
         
-        # Strategy 4: Input button with partial value match
-        if not button_found:
+        for frame in frames_to_check:
             try:
-                button = WebDriverWait(driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, f"//input[@type='button' or @type='submit'][contains(@value,'{button_text}')]"))
-                )
-                driver.execute_script("arguments[0].scrollIntoView(true);", button)
-                button.click()
-                button_found = True
-                print(f"Clicked button using strategy 4: {button_text}")
-            except:
-                pass
-        
-        # Strategy 5: Any element with the button text that looks like a button
-        if not button_found:
-            try:
-                button = WebDriverWait(driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, f"//*[contains(@class, 'btn') or contains(@class, 'button')][contains(text(),'{button_text}')]"))
-                )
-                driver.execute_script("arguments[0].scrollIntoView(true);", button)
-                button.click()
-                button_found = True
-                print(f"Clicked button using strategy 5: {button_text}")
-            except:
-                pass
-        
-        # Strategy 6: Desperate attempt - any clickable element with the text
-        if not button_found:
-            try:
-                elements = driver.find_elements(By.XPATH, f"//*[contains(text(),'{button_text}')]")
-                for element in elements:
+                if frame is None:
+                    # Switch to main content
+                    driver.switch_to.default_content()
+                    print("Checking main frame for buttons")
+                else:
+                    # Switch to iframe
+                    driver.switch_to.frame(frame)
+                    print(f"Checking iframe for buttons")
+                
+                current_frame = frame
+                
+                # Print all visible text elements for debugging
+                try:
+                    elements = driver.find_elements(By.XPATH, "//*[text()]")
+                    visible_texts = []
+                    for element in elements:
+                        try:
+                            if element.is_displayed() and element.text.strip():
+                                visible_texts.append(element.text.strip())
+                        except:
+                            pass
+                    
+                    print(f"Visible text elements in frame: {visible_texts[:10]}")
+                    if "提交" in visible_texts or "查询" in visible_texts or "确定" in visible_texts:
+                        print("Found standard button texts in frame!")
+                except:
+                    print("Could not enumerate text elements")
+                
+                # Multiple selector strategies for finding buttons
+                button_selectors = [
+                    f"//button[normalize-space(text())='{button_text}']",
+                    f"//button[contains(text(),'{button_text}')]",
+                    f"//input[@type='button' or @type='submit'][@value='{button_text}']",
+                    f"//input[@type='button' or @type='submit'][contains(@value,'{button_text}')]",
+                    f"//*[contains(@class, 'btn') or contains(@class, 'button')][contains(text(),'{button_text}')]",
+                    f"//*[contains(@class, 'btn') or contains(@class, 'button')][contains(@value,'{button_text}')]",
+                    # Chinese specific UI patterns
+                    f"//*[contains(@class, '提交') or contains(@class, '确定')][contains(text(),'{button_text}')]",
+                    f"//*[contains(@class, '按钮')][contains(text(),'{button_text}')]",
+                    # For image buttons with alt text
+                    f"//img[contains(@alt,'{button_text}')]",
+                    # Any element that might be clickable with this text
+                    f"//*[contains(text(),'{button_text}')]"
+                ]
+                
+                # Try each selector
+                for selector in button_selectors:
                     try:
-                        if element.is_displayed():
-                            driver.execute_script("arguments[0].scrollIntoView(true);", element)
-                            element.click()
-                            button_found = True
-                            print(f"Clicked element using strategy 6: {button_text}")
+                        print(f"Trying selector: {selector}")
+                        elements = driver.find_elements(By.XPATH, selector)
+                        
+                        for element in elements:
+                            try:
+                                if element.is_displayed():
+                                    print(f"Found visible element with selector: {selector}")
+                                    print(f"Element text: '{element.text}'")
+                                    print(f"Element tag: {element.tag_name}")
+                                    print(f"Element classes: {element.get_attribute('class')}")
+                                    
+                                    # Scroll into view and click
+                                    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+                                    time.sleep(0.5)
+                                    element.click()
+                                    button_found = True
+                                    print(f"Successfully clicked element!")
+                                    break
+                            except Exception as click_error:
+                                print(f"Error clicking element: {str(click_error)}")
+                                continue
+                                
+                        if button_found:
                             break
                     except:
                         continue
+                
+                if button_found:
+                    break
+            except Exception as frame_error:
+                print(f"Error checking frame: {str(frame_error)}")
+                # Reset to default content before trying next frame
+                try:
+                    driver.switch_to.default_content()
+                except:
+                    pass
+        
+        # If no button found yet, try a more aggressive approach - any clickable element
+        if not button_found:
+            print("No button found with standard selectors, trying more aggressive approach")
+            try:
+                driver.switch_to.default_content()
+                
+                # Try common button texts if specified button not found
+                button_texts_to_try = [button_text, "提交", "查询", "确定", "确认", "下一步"]
+                
+                for btn_text in button_texts_to_try:
+                    print(f"Trying to find any clickable element with text: {btn_text}")
+                    try:
+                        elements = driver.find_elements(By.XPATH, f"//*[contains(text(),'{btn_text}')]")
+                        for element in elements:
+                            try:
+                                if element.is_displayed():
+                                    print(f"Found possible button element: {element.tag_name} with text '{element.text}'")
+                                    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+                                    time.sleep(0.5)
+                                    element.click()
+                                    button_found = True
+                                    print(f"Clicked element with text: {btn_text}")
+                                    break
+                            except:
+                                continue
+                    except:
+                        continue
+                    
+                    if button_found:
+                        break
+            except Exception as e:
+                print(f"Error in aggressive button search: {str(e)}")
+        
+        # Make sure to switch back to default content
+        try:
+            driver.switch_to.default_content()
+        except:
+            pass
+            
+        if not button_found:
+            print("Could not find any buttons to click")
+            # Take another screenshot to show the page where no button was found
+            try:
+                driver.save_screenshot("no_button_found.png")
+                print("Saved screenshot as no_button_found.png")
             except:
                 pass
-        
-        # Switch back to default content
-        if iframes:
-            driver.switch_to.default_content()
-        
-        if not button_found:
+                
             return {
                 "status": "error",
                 "message": f"Could not find or click button with text: {button_text}"
@@ -741,12 +788,19 @@ def click_button_in_iframe(button_text: str) -> Dict:
         # Wait for any page changes after clicking
         time.sleep(2)
         
+        # Take screenshot after click
+        try:
+            driver.save_screenshot("after_button_click.png")
+            print("Saved screenshot as after_button_click.png")
+        except:
+            pass
+            
         # Get updated content
         content = get_current_iframe_content()
         
         return {
             "status": "success",
-            "message": f"Successfully clicked button: {button_text}",
+            "message": f"Successfully clicked button/element with text: {button_text}",
             "content": content["content"] if content["status"] == "success" else None
         }
     except Exception as e:
@@ -762,7 +816,7 @@ def click_button_in_iframe(button_text: str) -> Dict:
 
 def fill_input_in_iframe(field_name: str, value: str) -> Dict:
     """
-    Fill an input field in the current iframe or main content
+    Fill an input field in the current iframe or main content with improved detection
     
     Args:
         field_name (str): The name, id, or label of the field to fill
@@ -775,166 +829,418 @@ def fill_input_in_iframe(field_name: str, value: str) -> Dict:
         driver = initialize_driver()
         if not driver:
             return {"status": "error", "message": "Failed to initialize driver"}
+            
+        print(f"Looking for input field with name/label: '{field_name}'")
         
-        # Check if there's an iframe and switch to it
+        # First, take a screenshot for debugging
+        try:
+            driver.save_screenshot("before_fill_input.png")
+            print("Saved screenshot as before_fill_input.png")
+        except:
+            print("Failed to save screenshot")
+        
+        # Check all frames including main frame
+        frames_to_check = [None]  # Start with main frame
         iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        frames_to_check.extend(iframes)
         
-        if iframes:
-            # Try to switch to each iframe and look for the field
-            for iframe in iframes:
+        field_found = False
+        current_frame = None
+        
+        for frame in frames_to_check:
+            try:
+                if frame is None:
+                    # Switch to main content
+                    driver.switch_to.default_content()
+                    print("Checking main frame for input fields")
+                else:
+                    # Switch to iframe
+                    driver.switch_to.frame(frame)
+                    print(f"Checking iframe for input fields")
+                
+                current_frame = frame
+                
+                # Print all form elements for debugging
                 try:
-                    driver.switch_to.frame(iframe)
-                    # Try to find the field
-                    by_name = driver.find_elements(By.NAME, field_name)
-                    by_id = driver.find_elements(By.ID, field_name)
-                    by_placeholder = driver.find_elements(By.XPATH, f"//input[@placeholder='{field_name}']")
-                    by_label = driver.find_elements(By.XPATH, f"//label[contains(text(),'{field_name}')]")
+                    form_elements = []
                     
-                    if any(by_name) or any(by_id) or any(by_placeholder) or any(by_label):
-                        break  # Found elements, stay in this iframe
+                    # Find input elements
+                    inputs = driver.find_elements(By.TAG_NAME, "input")
+                    for input_elem in inputs:
+                        try:
+                            if input_elem.is_displayed():
+                                input_type = input_elem.get_attribute("type") or "text"
+                                input_name = input_elem.get_attribute("name") or ""
+                                input_id = input_elem.get_attribute("id") or ""
+                                input_placeholder = input_elem.get_attribute("placeholder") or ""
+                                form_elements.append({
+                                    "tag": "input",
+                                    "type": input_type,
+                                    "name": input_name,
+                                    "id": input_id,
+                                    "placeholder": input_placeholder
+                                })
+                        except:
+                            pass
+                    
+                    # Find select elements
+                    selects = driver.find_elements(By.TAG_NAME, "select")
+                    for select_elem in selects:
+                        try:
+                            if select_elem.is_displayed():
+                                select_name = select_elem.get_attribute("name") or ""
+                                select_id = select_elem.get_attribute("id") or ""
+                                form_elements.append({
+                                    "tag": "select",
+                                    "name": select_name,
+                                    "id": select_id
+                                })
+                        except:
+                            pass
+                    
+                    # Find textarea elements
+                    textareas = driver.find_elements(By.TAG_NAME, "textarea")
+                    for textarea in textareas:
+                        try:
+                            if textarea.is_displayed():
+                                textarea_name = textarea.get_attribute("name") or ""
+                                textarea_id = textarea.get_attribute("id") or ""
+                                textarea_placeholder = textarea.get_attribute("placeholder") or ""
+                                form_elements.append({
+                                    "tag": "textarea",
+                                    "name": textarea_name,
+                                    "id": textarea_id,
+                                    "placeholder": textarea_placeholder
+                                })
+                        except:
+                            pass
+                    
+                    print(f"Found {len(form_elements)} form elements in frame:")
+                    for i, elem in enumerate(form_elements):
+                        print(f"  {i+1}. {elem['tag']}" + 
+                              (f" (type: {elem['type']})" if 'type' in elem else "") +
+                              (f", name: '{elem['name']}'" if elem['name'] else "") +
+                              (f", id: '{elem['id']}'" if elem['id'] else "") +
+                              (f", placeholder: '{elem['placeholder']}'" if 'placeholder' in elem and elem['placeholder'] else ""))
+                    
+                except:
+                    print("Could not enumerate form elements")
+                
+                # Find all label elements for debugging
+                try:
+                    labels = driver.find_elements(By.TAG_NAME, "label")
+                    label_texts = []
+                    for label in labels:
+                        try:
+                            if label.is_displayed() and label.text.strip():
+                                label_texts.append(label.text.strip())
+                        except:
+                            pass
+                    
+                    if label_texts:
+                        print(f"Label texts in frame: {label_texts}")
+                except:
+                    print("Could not enumerate labels")
+                
+                # Multiple selector strategies for finding input fields
+                field_selectors = [
+                    # By name attribute
+                    (By.NAME, field_name),
+                    
+                    # By id attribute
+                    (By.ID, field_name),
+                    
+                    # By placeholder attribute
+                    (By.XPATH, f"//input[@placeholder='{field_name}']"),
+                    (By.XPATH, f"//input[contains(@placeholder, '{field_name}')]"),
+                    
+                    # By label text
+                    (By.XPATH, f"//label[text()='{field_name}']"),
+                    (By.XPATH, f"//label[contains(text(), '{field_name}')]"),
+                    
+                    # By aria-label attribute
+                    (By.XPATH, f"//*[@aria-label='{field_name}']"),
+                    (By.XPATH, f"//*[contains(@aria-label, '{field_name}')]"),
+                    
+                    # By class containing field name (sometimes used in Angular/React apps)
+                    (By.XPATH, f"//*[contains(@class, '{field_name}')]//input"),
+                    
+                    # By surrounding div/span with text matching field name
+                    (By.XPATH, f"//div[contains(text(), '{field_name}')]/following::input[1]"),
+                    (By.XPATH, f"//span[contains(text(), '{field_name}')]/following::input[1]"),
+                    (By.XPATH, f"//div[contains(text(), '{field_name}')]/..//input"),
+                    (By.XPATH, f"//span[contains(text(), '{field_name}')]/..//input"),
+                    
+                    # Chinese specific patterns - look for field names with or without colon
+                    (By.XPATH, f"//label[contains(text(), '{field_name}：')]"),
+                    (By.XPATH, f"//div[contains(text(), '{field_name}：')]/following::input[1]"),
+                    (By.XPATH, f"//span[contains(text(), '{field_name}：')]/following::input[1]"),
+                    
+                    # Generic input fields (if we can't find the specific one)
+                    (By.XPATH, "//input[@type='text']"),
+                    (By.XPATH, "//input[not(@type) or @type='']")
+                ]
+                
+                # For textarea elements
+                textarea_selectors = [
+                    # By name attribute
+                    (By.XPATH, f"//textarea[@name='{field_name}']"),
+                    
+                    # By id attribute
+                    (By.XPATH, f"//textarea[@id='{field_name}']"),
+                    
+                    # By placeholder attribute
+                    (By.XPATH, f"//textarea[@placeholder='{field_name}']"),
+                    
+                    # By label text
+                    (By.XPATH, f"//label[text()='{field_name}']//following::textarea[1]"),
+                    (By.XPATH, f"//label[contains(text(), '{field_name}')]//following::textarea[1]")
+                ]
+                
+                # For select elements
+                select_selectors = [
+                    # By name attribute
+                    (By.XPATH, f"//select[@name='{field_name}']"),
+                    
+                    # By id attribute
+                    (By.XPATH, f"//select[@id='{field_name}']"),
+                    
+                    # By label text
+                    (By.XPATH, f"//label[text()='{field_name}']//following::select[1]"),
+                    (By.XPATH, f"//label[contains(text(), '{field_name}')]//following::select[1]")
+                ]
+                
+                # Combine all selectors
+                all_selectors = field_selectors + textarea_selectors + select_selectors
+                
+                # Try each selector
+                for selector_type, selector in all_selectors:
+                    try:
+                        print(f"Trying selector: {selector_type} - {selector}")
+                        elements = driver.find_elements(selector_type, selector)
+                        
+                        for element in elements:
+                            try:
+                                if element.is_displayed():
+                                    tag_name = element.tag_name
+                                    print(f"Found visible element with tag: {tag_name}")
+                                    print(f"Element type: {element.get_attribute('type')}")
+                                    print(f"Element name: {element.get_attribute('name')}")
+                                    print(f"Element id: {element.get_attribute('id')}")
+                                    
+                                    # Scroll into view
+                                    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+                                    time.sleep(0.5)
+                                    
+                                    # Handle different element types
+                                    if tag_name == "select":
+                                        # Handle dropdown
+                                        from selenium.webdriver.support.ui import Select
+                                        select = Select(element)
+                                        
+                                        # Try to find an option that matches the value
+                                        try:
+                                            select.select_by_visible_text(value)
+                                            field_found = True
+                                            print(f"Selected option with text: {value}")
+                                        except:
+                                            # If exact match fails, try to find a contains match
+                                            options = select.options
+                                            for option in options:
+                                                option_text = option.text
+                                                if value.lower() in option_text.lower():
+                                                    select.select_by_visible_text(option_text)
+                                                    field_found = True
+                                                    print(f"Selected option with text: {option_text}")
+                                                    break
+                                            
+                                            # If still not found, just select the first option
+                                            if not field_found and options:
+                                                select.select_by_index(0)
+                                                field_found = True
+                                                print(f"Selected first option as fallback: {options[0].text}")
+                                    else:
+                                        # Handle input and textarea
+                                        # Clear the field first
+                                        try:
+                                            element.clear()
+                                        except:
+                                            # If clear fails, try to select all and delete
+                                            try:
+                                                element.send_keys(Keys.CONTROL + "a")
+                                                element.send_keys(Keys.DELETE)
+                                            except:
+                                                pass
+                                        
+                                        # Now send the value
+                                        element.send_keys(value)
+                                        field_found = True
+                                        print(f"Filled element with value: {value}")
+                                    
+                                    break
+                            except Exception as element_error:
+                                print(f"Error interacting with element: {str(element_error)}")
+                                continue
+                                
+                        if field_found:
+                            break
+                    except Exception as selector_error:
+                        print(f"Error with selector {selector}: {str(selector_error)}")
+                        continue
+                
+                if field_found:
+                    break
+            except Exception as frame_error:
+                print(f"Error checking frame: {str(frame_error)}")
+                # Reset to default content before trying next frame
+                try:
                     driver.switch_to.default_content()
                 except:
-                    driver.switch_to.default_content()
+                    pass
         
-        # Try different strategies to find the input field
-        field_found = False
+        # If no field found yet, try a more aggressive approach - any input element
+        if not field_found:
+            print("No field found with standard selectors, trying more aggressive approach")
+            try:
+                driver.switch_to.default_content()
+                
+                # Look for any input field that might match
+                print("Looking for any input field")
+                
+                # Try each frame again
+                for frame in frames_to_check:
+                    if field_found:
+                        break
+                        
+                    try:
+                        if frame is None:
+                            # Switch to main content
+                            driver.switch_to.default_content()
+                        else:
+                            # Switch to iframe
+                            driver.switch_to.frame(frame)
+                        
+                        # Try to find any input field
+                        inputs = driver.find_elements(By.TAG_NAME, "input")
+                        for input_field in inputs:
+                            try:
+                                if input_field.is_displayed():
+                                    input_type = input_field.get_attribute("type") or ""
+                                    # Skip hidden, submit, button inputs
+                                    if input_type not in ["hidden", "submit", "button", "checkbox", "radio"]:
+                                        print(f"Found input field with type: {input_type}")
+                                        driver.execute_script("arguments[0].scrollIntoView(true);", input_field)
+                                        time.sleep(0.5)
+                                        
+                                        try:
+                                            input_field.clear()
+                                        except:
+                                            try:
+                                                input_field.send_keys(Keys.CONTROL + "a")
+                                                input_field.send_keys(Keys.DELETE)
+                                            except:
+                                                pass
+                                        
+                                        input_field.send_keys(value)
+                                        field_found = True
+                                        print(f"Filled generic input field with value: {value}")
+                                        break
+                            except:
+                                continue
+                        
+                        # Try to find any textarea
+                        if not field_found:
+                            textareas = driver.find_elements(By.TAG_NAME, "textarea")
+                            for textarea in textareas:
+                                try:
+                                    if textarea.is_displayed():
+                                        print(f"Found textarea")
+                                        driver.execute_script("arguments[0].scrollIntoView(true);", textarea)
+                                        time.sleep(0.5)
+                                        
+                                        try:
+                                            textarea.clear()
+                                        except:
+                                            try:
+                                                textarea.send_keys(Keys.CONTROL + "a")
+                                                textarea.send_keys(Keys.DELETE)
+                                            except:
+                                                pass
+                                        
+                                        textarea.send_keys(value)
+                                        field_found = True
+                                        print(f"Filled generic textarea with value: {value}")
+                                        break
+                                except:
+                                    continue
+                        
+                        # Try to find any select
+                        if not field_found and value:
+                            selects = driver.find_elements(By.TAG_NAME, "select")
+                            for select_elem in selects:
+                                try:
+                                    if select_elem.is_displayed():
+                                        print(f"Found select element")
+                                        driver.execute_script("arguments[0].scrollIntoView(true);", select_elem)
+                                        time.sleep(0.5)
+                                        
+                                        from selenium.webdriver.support.ui import Select
+                                        select = Select(select_elem)
+                                        
+                                        # Try to select by text or value
+                                        try:
+                                            select.select_by_visible_text(value)
+                                            field_found = True
+                                            print(f"Selected option with text: {value}")
+                                        except:
+                                            # If that fails, select by index
+                                            try:
+                                                select.select_by_index(0)
+                                                field_found = True
+                                                print(f"Selected first option as fallback")
+                                            except:
+                                                pass
+                                except:
+                                    continue
+                        
+                        if field_found:
+                            break
+                    except:
+                        # Reset to default content before trying next frame
+                        try:
+                            driver.switch_to.default_content()
+                        except:
+                            pass
+            except Exception as e:
+                print(f"Error in aggressive field search: {str(e)}")
         
-        # Strategy 1: By name attribute
+        # Make sure to switch back to default content
         try:
-            input_field = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.NAME, field_name))
-            )
-            if input_field.is_displayed():
-                driver.execute_script("arguments[0].scrollIntoView(true);", input_field)
-                # Clear the field first
-                input_field.clear()
-                input_field.send_keys(value)
-                field_found = True
-                print(f"Filled field using strategy 1: {field_name} = {value}")
+            driver.switch_to.default_content()
         except:
             pass
-        
-        # Strategy 2: By id attribute
+            
         if not field_found:
+            print("Could not find any input fields to fill")
+            # Take another screenshot to show the page where no field was found
             try:
-                input_field = WebDriverWait(driver, 5).until(
-                    EC.presence_of_element_located((By.ID, field_name))
-                )
-                if input_field.is_displayed():
-                    driver.execute_script("arguments[0].scrollIntoView(true);", input_field)
-                    input_field.clear()
-                    input_field.send_keys(value)
-                    field_found = True
-                    print(f"Filled field using strategy 2: {field_name} = {value}")
+                driver.save_screenshot("no_field_found.png")
+                print("Saved screenshot as no_field_found.png")
             except:
                 pass
-        
-        # Strategy 3: By placeholder attribute
-        if not field_found:
-            try:
-                input_field = WebDriverWait(driver, 5).until(
-                    EC.presence_of_element_located((By.XPATH, f"//input[@placeholder='{field_name}']"))
-                )
-                if input_field.is_displayed():
-                    driver.execute_script("arguments[0].scrollIntoView(true);", input_field)
-                    input_field.clear()
-                    input_field.send_keys(value)
-                    field_found = True
-                    print(f"Filled field using strategy 3: {field_name} = {value}")
-            except:
-                pass
-        
-        # Strategy 4: By label text
-        if not field_found:
-            try:
-                # Find label element with matching text
-                label = WebDriverWait(driver, 5).until(
-                    EC.presence_of_element_located((By.XPATH, f"//label[contains(text(),'{field_name}')]"))
-                )
                 
-                # Get the 'for' attribute to find the corresponding input
-                for_attribute = label.get_attribute("for")
-                
-                if for_attribute:
-                    input_field = driver.find_element(By.ID, for_attribute)
-                    if input_field.is_displayed():
-                        driver.execute_script("arguments[0].scrollIntoView(true);", input_field)
-                        input_field.clear()
-                        input_field.send_keys(value)
-                        field_found = True
-                        print(f"Filled field using strategy 4a: {field_name} = {value}")
-                else:
-                    # Try to find input within the label
-                    input_field = label.find_element(By.TAG_NAME, "input")
-                    if input_field.is_displayed():
-                        driver.execute_script("arguments[0].scrollIntoView(true);", input_field)
-                        input_field.clear()
-                        input_field.send_keys(value)
-                        field_found = True
-                        print(f"Filled field using strategy 4b: {field_name} = {value}")
-            except:
-                pass
-        
-        # Strategy 5: Try to find an input near text that matches the field name
-        if not field_found:
-            try:
-                # Find an element that contains the field name text
-                text_element = driver.find_element(By.XPATH, f"//*[contains(text(), '{field_name}')]")
-                if text_element:
-                    # Look for nearby inputs
-                    parent = text_element.find_element(By.XPATH, "./..")
-                    inputs = parent.find_elements(By.TAG_NAME, "input") + parent.find_elements(By.TAG_NAME, "select") + parent.find_elements(By.TAG_NAME, "textarea")
-                    
-                    if inputs:
-                        input_field = inputs[0]  # Take the first input found
-                        if input_field.is_displayed():
-                            driver.execute_script("arguments[0].scrollIntoView(true);", input_field)
-                            input_field.clear()
-                            input_field.send_keys(value)
-                            field_found = True
-                            print(f"Filled field using strategy 5: {field_name} = {value}")
-            except:
-                pass
-        
-        # Strategy 6: Try to find select element (dropdown) instead of input
-        if not field_found:
-            try:
-                from selenium.webdriver.support.ui import Select
-                
-                # Try by name
-                select_elem = Select(driver.find_element(By.NAME, field_name))
-                if driver.find_element(By.NAME, field_name).is_displayed():
-                    driver.execute_script("arguments[0].scrollIntoView(true);", driver.find_element(By.NAME, field_name))
-                    select_elem.select_by_visible_text(value)
-                    field_found = True
-                    print(f"Filled dropdown using strategy 6a: {field_name} = {value}")
-            except:
-                pass
-        
-        # Strategy 7: Try by ID for select
-        if not field_found:
-            try:
-                from selenium.webdriver.support.ui import Select
-                
-                select_elem = Select(driver.find_element(By.ID, field_name))
-                if driver.find_element(By.ID, field_name).is_displayed():
-                    driver.execute_script("arguments[0].scrollIntoView(true);", driver.find_element(By.ID, field_name))
-                    select_elem.select_by_visible_text(value)
-                    field_found = True
-                    print(f"Filled dropdown using strategy 6b: {field_name} = {value}")
-            except:
-                pass
-        
-        # Switch back to default content
-        if iframes:
-            driver.switch_to.default_content()
-        
-        if not field_found:
             return {
                 "status": "error",
                 "message": f"Could not find or fill input field: {field_name}"
             }
         
+        # Take screenshot after filling
+        try:
+            driver.save_screenshot("after_fill_input.png")
+            print("Saved screenshot as after_fill_input.png")
+        except:
+            pass
+            
         return {
             "status": "success",
             "message": f"Successfully filled field {field_name} with value: {value}"
@@ -952,7 +1258,7 @@ def fill_input_in_iframe(field_name: str, value: str) -> Dict:
 
 def click_link_in_iframe(link_text: str) -> Dict:
     """
-    Click a link in the current iframe or main content
+    Click a link in the current iframe or main content with improved detection
     
     Args:
         link_text (str): The text of the link to click
@@ -964,101 +1270,179 @@ def click_link_in_iframe(link_text: str) -> Dict:
         driver = initialize_driver()
         if not driver:
             return {"status": "error", "message": "Failed to initialize driver"}
+            
+        print(f"Looking for link with text: '{link_text}'")
         
-        # Check if there's an iframe and switch to it
-        iframes = driver.find_elements(By.TAG_NAME, "iframe")
-        
-        if iframes:
-            # Try to switch to each iframe and look for the link
-            for iframe in iframes:
-                try:
-                    driver.switch_to.frame(iframe)
-                    # Try to find the link
-                    by_link = driver.find_elements(By.LINK_TEXT, link_text)
-                    by_partial = driver.find_elements(By.PARTIAL_LINK_TEXT, link_text)
-                    
-                    if any(by_link) or any(by_partial):
-                        break  # Found elements, stay in this iframe
-                    driver.switch_to.default_content()
-                except:
-                    driver.switch_to.default_content()
-        
-        # Try different strategies to find the link
-        link_found = False
-        
-        # Strategy 1: Exact link text match
+        # First, take a screenshot for debugging
         try:
-            link = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.LINK_TEXT, link_text))
-            )
-            driver.execute_script("arguments[0].scrollIntoView(true);", link)
-            link.click()
-            link_found = True
-            print(f"Clicked link using strategy 1: {link_text}")
+            driver.save_screenshot("before_link_click.png")
+            print("Saved screenshot as before_link_click.png")
         except:
-            pass
+            print("Failed to save screenshot")
         
-        # Strategy 2: Partial link text match
-        if not link_found:
-            try:
-                link = WebDriverWait(driver, 5).until(
-                    EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, link_text))
-                )
-                driver.execute_script("arguments[0].scrollIntoView(true);", link)
-                link.click()
-                link_found = True
-                print(f"Clicked link using strategy 2: {link_text}")
-            except:
-                pass
+        # Check all frames including main frame
+        frames_to_check = [None]  # Start with main frame
+        iframes = driver.find_elements(By.TAG_NAME, "iframe")
+        frames_to_check.extend(iframes)
         
-        # Strategy 3: Any anchor element with the text
-        if not link_found:
-            try:
-                link = WebDriverWait(driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, f"//a[contains(text(),'{link_text}')]"))
-                )
-                driver.execute_script("arguments[0].scrollIntoView(true);", link)
-                link.click()
-                link_found = True
-                print(f"Clicked link using strategy 3: {link_text}")
-            except:
-                pass
+        link_found = False
+        current_frame = None
         
-        # Strategy 4: Any element that looks like a link with the text
-        if not link_found:
+        for frame in frames_to_check:
             try:
-                link = WebDriverWait(driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, f"//*[contains(@class, 'link') and contains(text(),'{link_text}')]"))
-                )
-                driver.execute_script("arguments[0].scrollIntoView(true);", link)
-                link.click()
-                link_found = True
-                print(f"Clicked link using strategy 4: {link_text}")
-            except:
-                pass
-        
-        # Strategy 5: Desperate attempt - any element with the text that might be clickable
-        if not link_found:
-            try:
-                elements = driver.find_elements(By.XPATH, f"//*[contains(text(),'{link_text}')]")
-                for element in elements:
+                if frame is None:
+                    # Switch to main content
+                    driver.switch_to.default_content()
+                    print("Checking main frame for links")
+                else:
+                    # Switch to iframe
+                    driver.switch_to.frame(frame)
+                    print(f"Checking iframe for links")
+                
+                current_frame = frame
+                
+                # Print all visible text elements for debugging
+                try:
+                    elements = driver.find_elements(By.XPATH, "//*[text()]")
+                    visible_texts = []
+                    for element in elements:
+                        try:
+                            if element.is_displayed() and element.text.strip():
+                                visible_texts.append(element.text.strip())
+                        except:
+                            pass
+                    
+                    print(f"Visible text elements in frame: {visible_texts[:10]}")
+                    if "详情" in visible_texts or "查看" in visible_texts or "更多" in visible_texts:
+                        print("Found standard link texts in frame!")
+                except:
+                    print("Could not enumerate text elements")
+                
+                # Multiple selector strategies for finding links
+                link_selectors = [
+                    # Standard link selectors
+                    f"//a[normalize-space(text())='{link_text}']",
+                    f"//a[contains(text(),'{link_text}')]",
+                    # Elements that might function as links
+                    f"//*[contains(@class, 'link')][contains(text(),'{link_text}')]",
+                    f"//*[contains(@class, 'nav-item')][contains(text(),'{link_text}')]",
+                    f"//*[@role='link'][contains(text(),'{link_text}')]",
+                    # Chinese specific UI patterns
+                    f"//*[contains(@class, '链接')][contains(text(),'{link_text}')]",
+                    f"//*[contains(@class, '查看')][contains(text(),'{link_text}')]",
+                    f"//*[contains(@class, '详情')][contains(text(),'{link_text}')]",
+                    # Link-like elements with onClick handlers
+                    f"//*[@onclick][contains(text(),'{link_text}')]",
+                    # Span or div elements that might be styled as links
+                    f"//span[contains(text(),'{link_text}')]",
+                    f"//div[contains(text(),'{link_text}') and string-length(normalize-space(text())) < 30]",
+                    # Any element that might be clickable with this text (if it's short - likely a link)
+                    f"//*[contains(text(),'{link_text}') and string-length(normalize-space(text())) < 50]"
+                ]
+                
+                # Try each selector
+                for selector in link_selectors:
                     try:
-                        if element.is_displayed():
-                            driver.execute_script("arguments[0].scrollIntoView(true);", element)
-                            element.click()
-                            link_found = True
-                            print(f"Clicked element using strategy 5: {link_text}")
+                        print(f"Trying selector: {selector}")
+                        elements = driver.find_elements(By.XPATH, selector)
+                        
+                        for element in elements:
+                            try:
+                                if element.is_displayed():
+                                    print(f"Found visible element with selector: {selector}")
+                                    print(f"Element text: '{element.text}'")
+                                    print(f"Element tag: {element.tag_name}")
+                                    print(f"Element classes: {element.get_attribute('class')}")
+                                    
+                                    # Scroll into view and click
+                                    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+                                    time.sleep(0.5)
+                                    element.click()
+                                    link_found = True
+                                    print(f"Successfully clicked element!")
+                                    break
+                            except Exception as click_error:
+                                print(f"Error clicking element: {str(click_error)}")
+                                try:
+                                    # Try JavaScript click as fallback
+                                    driver.execute_script("arguments[0].click();", element)
+                                    link_found = True
+                                    print(f"Successfully clicked element with JavaScript!")
+                                    break
+                                except Exception as js_error:
+                                    print(f"JavaScript click also failed: {str(js_error)}")
+                                    continue
+                                
+                        if link_found:
                             break
                     except:
                         continue
+                
+                if link_found:
+                    break
+            except Exception as frame_error:
+                print(f"Error checking frame: {str(frame_error)}")
+                # Reset to default content before trying next frame
+                try:
+                    driver.switch_to.default_content()
+                except:
+                    pass
+        
+        # If no link found yet, try a more aggressive approach - any element with matching text
+        if not link_found:
+            print("No link found with standard selectors, trying more aggressive approach")
+            try:
+                driver.switch_to.default_content()
+                
+                # Try common link texts if specified link not found
+                link_texts_to_try = [link_text, "详情", "查看", "更多", "返回", "查询"]
+                
+                for ln_text in link_texts_to_try:
+                    print(f"Trying to find any element with text: {ln_text}")
+                    try:
+                        elements = driver.find_elements(By.XPATH, f"//*[contains(text(),'{ln_text}')]")
+                        for element in elements:
+                            try:
+                                if element.is_displayed():
+                                    print(f"Found possible link element: {element.tag_name} with text '{element.text}'")
+                                    driver.execute_script("arguments[0].scrollIntoView(true);", element)
+                                    time.sleep(0.5)
+                                    element.click()
+                                    link_found = True
+                                    print(f"Clicked element with text: {ln_text}")
+                                    break
+                            except:
+                                try:
+                                    # Try JavaScript click
+                                    driver.execute_script("arguments[0].click();", element)
+                                    link_found = True
+                                    print(f"Clicked element with JavaScript: {ln_text}")
+                                    break
+                                except:
+                                    continue
+                    except:
+                        continue
+                    
+                    if link_found:
+                        break
+            except Exception as e:
+                print(f"Error in aggressive link search: {str(e)}")
+        
+        # Make sure to switch back to default content
+        try:
+            driver.switch_to.default_content()
+        except:
+            pass
+            
+        if not link_found:
+            print("Could not find any links to click")
+            # Take another screenshot to show the page where no link was found
+            try:
+                driver.save_screenshot("no_link_found.png")
+                print("Saved screenshot as no_link_found.png")
             except:
                 pass
-        
-        # Switch back to default content
-        if iframes:
-            driver.switch_to.default_content()
-        
-        if not link_found:
+                
             return {
                 "status": "error",
                 "message": f"Could not find or click link with text: {link_text}"
@@ -1067,12 +1451,19 @@ def click_link_in_iframe(link_text: str) -> Dict:
         # Wait for any page changes after clicking
         time.sleep(2)
         
+        # Take screenshot after click
+        try:
+            driver.save_screenshot("after_link_click.png")
+            print("Saved screenshot as after_link_click.png")
+        except:
+            pass
+            
         # Get updated content
         content = get_current_iframe_content()
         
         return {
             "status": "success",
-            "message": f"Successfully clicked link: {link_text}",
+            "message": f"Successfully clicked link/element with text: {link_text}",
             "content": content["content"] if content["status"] == "success" else None
         }
     except Exception as e:

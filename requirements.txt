@@ -1,7 +1,6 @@
 altair==5.5.0
 annotated-types==0.7.0
 anyio==4.8.0
-apturl==0.5.2
 attrs==21.2.0
 autogen-agentchat==0.4.7
 autogen-core==0.4.7

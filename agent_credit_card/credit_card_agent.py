@@ -13,9 +13,17 @@ from autogen_ext.models.openai import OpenAIChatCompletionClient
 # Import the SPA function tools we generated
 from spa_navigator.integrated_tools import all_tools as spa_tools
 # Modified version of your Agent app with SPA tools integration
+
+
 class CreditCardAgentApp:
-    def __init__(self):
+    def __init__(self, use_mock_tools=False):
         # Set page config
+        """
+        初始化应用
+        
+        Args:
+            use_mock_tools: 是否使用模拟工具
+        """
         st.set_page_config(
             page_title="中信银行信用卡中心",
             page_icon="💳",
@@ -28,14 +36,93 @@ class CreditCardAgentApp:
         # Initialize session state
         self.init_session_state()
         # Add SPA Navigator tools to our tools list
-        self.tools = {
-            "query_knowledge_base": self.query_knowledge_base,
-            "place_installment_order": self.place_installment_order
-        }
-        self.add_spa_tool_wrappers()
+        self.tools = self.setup_mock_tools() if use_mock_tools else self.setup_tools()
         # Setup agent with tools
-        self.agent = self.create_agent()
+        self.agent = self.create_agent(use_mock_api=use_mock_tools)
+        # Track the last user query for response cleaning
+        self._last_user_query = ""
     
+    def setup_tools(self):
+        """设置工具函数"""
+        try:
+            # 尝试导入实际工具
+            from spa_navigator.integrated_tools import all_tools as spa_tools
+            
+            # 创建工具字典
+            tools = {
+                "query_knowledge_base": self.query_knowledge_base,
+                "place_installment_order": self.place_installment_order
+            }
+            
+            # 添加SPA工具包装方法
+            self.add_spa_tool_wrappers()
+            return tools
+        except ImportError:
+            print("警告: 无法导入实际工具，将使用模拟实现")
+            # 返回模拟工具
+            return self.setup_mock_tools()
+    
+    def setup_mock_tools(self):
+        """设置模拟工具函数，完全模拟spa_tools和integrated_tools中的所有工具"""
+        # 这里是完整的setup_mock_tools函数实现
+        # 为简化，我们只展示一部分关键工具函数
+        import random
+        import time
+        
+        async def mock_query_customer_info(customer_id: str):
+            """查询客户信息"""
+            return {
+                "status": "success",
+                "content": {
+                    "id": customer_id,
+                    "name": f"测试用户_{customer_id[-4:]}",
+                    "card_number": f"6229{customer_id[-4:]}XXXX4598",
+                    "available_credit": 30000,
+                    "total_credit_limit": 50000,
+                    "card_status": "正常",
+                    "level": "普卡"
+                }
+            }
+        
+        async def mock_calculate_installment_plan(amount: float, periods: int, rate: float = None):
+            """计算分期方案详情"""
+            if rate is None:
+                rate = periods * 0.5
+            fee_amount = amount * (rate / 100)
+            total_amount = amount + fee_amount
+            monthly_payment = total_amount / periods
+            
+            return {
+                "status": "success",
+                "content": {
+                    "amount": amount,
+                    "periods": periods,
+                    "rate": rate,
+                    "fee_amount": round(fee_amount, 2),
+                    "total_amount": round(total_amount, 2),
+                    "monthly_payment": round(monthly_payment, 2)
+                }
+            }
+        
+        async def mock_place_installment_order(amount: float, periods: int, rate: float, customer_info: dict):
+            """下分期订单"""
+            return {
+                "status": "success",
+                "order_id": f"INS{int(time.time())}",
+                "message": "分期订单已成功创建，系统处理中，预计10分钟内完成审批。"
+            }
+        
+        async def mock_query_knowledge_base(query: str):
+            """查询知识库回答问题"""
+            return "我们的分期业务包括消费分期、账单分期和现金分期。不同期数的费率各不相同，例如3期的费率约为1.5%，6期约为3.0%，12期约为6.0%。"
+        
+        # 返回所有模拟工具
+        return {
+            "query_customer_info": mock_query_customer_info,
+            "calculate_installment_plan": mock_calculate_installment_plan,
+            "place_installment_order": mock_place_installment_order,
+            "query_knowledge_base": mock_query_knowledge_base
+        }
     def add_spa_tool_wrappers(self):
         """为 SPA 工具创建包装方法，确保类型注解正确"""
         from typing import Dict, Any, List, Optional, Union
@@ -274,6 +361,12 @@ class CreditCardAgentApp:
             - 热情：主动了解客户需求，提供周到服务
             - 高效：能快速解决客户问题，简洁明了地回答
             - 诚信：提供真实准确的信息，不夸大产品优势
+            
+            ## 重要提示
+            - 回复时请勿重复用户的问题或输入
+            - 回复要直接给出信息，不要像"您好！请告诉我您的分期需求"这样的开场白
+            - 直接回答用户的问题，简明扼要
+            - 使用函数工具时，保持简洁，不要在回复中包含函数调用的技术细节
             """
     
     # Tool: Place credit card installment order
@@ -336,18 +429,25 @@ class CreditCardAgentApp:
                 return f"知识库查询失败: {str(e)}。请稍后再试。"
                 
     # Create an agent with the tools
-    def create_agent(self):
-        model_client = OpenAIChatCompletionClient(
-            model="qwen2.5:14b-instruct-q8_0",
-            base_url="http://localhost:11434/v1",
-            api_key="placeholder",
-            model_info={
-                "vision": False,
-                "function_calling": True,
-                "json_output": False,
-                "family": "unknown",
-            },
-        )
+    def create_agent(self, use_mock_api=True):
+        if use_mock_api:
+        # 使用模拟API
+            from mock_llm_api import create_mock_openai_client
+            model_client = create_mock_openai_client()
+            print("成功创建模拟OpenAI客户端")
+        else:
+            # 使用实际API
+            model_client = OpenAIChatCompletionClient(
+                model="qwen2.5:14b-instruct-q8_0",
+                base_url="http://localhost:11434/v1",
+                api_key="placeholder",
+                model_info={
+                    "vision": False,
+                    "function_calling": True,
+                    "json_output": False,
+                    "family": "unknown",
+                },
+            )
         
         # Read the sales agent prompt template
         system_prompt = self.read_prompt_template()
@@ -364,79 +464,121 @@ class CreditCardAgentApp:
         return agent
     
     # Main function to run the agent with streaming output
-    async def run_agent(self, task, history_container):
-        # Create placeholders - one for the actual response, one for the debug info
+    # In the run_agent method, update the logic to better handle streaming output and filter function calls
+    async def run_agent(self, task, history_container=None):
+        """
+        运行代理并处理响应
+        
+        Args:
+            task: 用户任务
+            history_container: 用于显示历史的容器
+        
+        Returns:
+            str: 完整的响应
+        """
+        # 如果没有提供历史容器，创建一个空容器
+        if history_container is None:
+            history_container = st.empty()
+        
+        # 创建占位符
         response_placeholder = history_container.empty()
         debug_placeholder = history_container.empty()
         
         try:
-            # Run the agent with the async generator handling
+            # 运行代理
             full_response = ""
             debug_info = ""
+            
+            # 获取流式响应
             async_gen = self.agent.run_stream(task=task)
             
-            # Initialize HTML container for streaming effect
+            # 初始化HTML容器
             html_template = """
             <div class="chat-message assistant-message">
                 <div id="streaming-content">💼 经理：{}</div>
             </div>
             """
             
-            # Process the async generator
+            # 处理异步生成器
             async for response_chunk in async_gen:
-                # Process the chunk based on its type
+                # 处理基于类型的块
                 chunk_text = ""
+                
+                # 检查response_chunk的类型并相应处理
                 if isinstance(response_chunk, str):
                     chunk_text = response_chunk
                 elif hasattr(response_chunk, 'content'):
+                    # 处理UserMessage或类似对象
                     chunk_text = str(response_chunk.content)
+                elif isinstance(response_chunk, dict) and "content" in response_chunk:
+                    # 处理类似字典的对象
+                    chunk_text = str(response_chunk["content"])
                 else:
+                    # 处理其他类型
                     chunk_text = str(response_chunk)
                 
-                # Check for function calls, results or TaskResult in the chunk
-                if "[FunctionCall" in chunk_text or "[FunctionExecutionResult" in chunk_text or "TaskResult" in chunk_text:
-                    # Add this to debug info instead of the main response
+                # 检查是否包含函数调用信息
+                if any(marker in chunk_text for marker in ["[FunctionCall", "[FunctionExecutionResult", "TaskResult("]):
+                    # 添加到调试信息
                     debug_info += chunk_text
-                    
-                    # Check for SPA navigation updates and update session state
-                    self.update_navigation_state(chunk_text)
                     continue
                 
-                # Add the chunk to our full response
+                # 添加到完整响应
                 full_response += chunk_text
                 
-                # Update the displayed response with character-by-character streaming effect
-                # Make sure to filter out any function call information that might have slipped through
-                clean_response = full_response
-                # Remove any function call patterns that might be in the response
-                clean_response = re.sub(r'\[FunctionCall.*?\]', '', clean_response)
-                clean_response = re.sub(r'\[FunctionExecutionResult.*?\]', '', clean_response)
-                clean_response = re.sub(r'TaskResult\(.*?\)', '', clean_response)
+                # 清理响应文本
+                clean_response = self.clean_response_text(full_response)
                 
+                # 更新响应占位符
                 response_placeholder.markdown(html_template.format(clean_response), unsafe_allow_html=True)
                 
-                # Small delay to create a realistic typing effect
+                # 小延迟以创建打字效果
                 await asyncio.sleep(0.005)
             
-            # Final cleanup of the response to remove any function call artifacts
-            clean_response = re.sub(r'\[FunctionCall.*?\]', '', full_response)
-            clean_response = re.sub(r'\[FunctionExecutionResult.*?\]', '', clean_response)
-            clean_response = re.sub(r'TaskResult\(.*?\)', '', clean_response)
+            # 最终清理响应
+            clean_response = self.clean_response_text(full_response)
             
-            # Update one last time with clean response
+            # 最后一次更新
             response_placeholder.markdown(html_template.format(clean_response), unsafe_allow_html=True)
             
-            # Display debug info in a less prominent way if it exists
-            if debug_info:
-                debug_placeholder.markdown(f'<div style="color: #999999; font-size: 0.8em; margin-top: 8px;">{debug_info}</div>', unsafe_allow_html=True)
+            # 显示调试信息
+            if debug_info and debug_info.strip():
+                with debug_placeholder.expander("查看系统操作详情", expanded=False):
+                    st.markdown(f'<div style="color: #999999; font-size: 0.8em;">{debug_info}</div>', unsafe_allow_html=True)
             
-            # Return the clean response for history tracking
+            # 存储最后一次用户查询
+            self._last_user_query = task
+            
+            # 返回清理后的响应
             return clean_response
+            
         except Exception as e:
-            error_msg = f"Error: {str(e)}"
+            error_msg = f"错误: {str(e)}"
             response_placeholder.error(error_msg)
             return error_msg
-    
+    # Helper method to clean response text
+    def clean_response_text(self, text):
+        """Clean the response text by removing function calls and query repetitions"""
+        # Remove any function call patterns
+        clean_text = re.sub(r'\[FunctionCall.*?\]', '', text)
+        clean_text = re.sub(r'\[FunctionExecutionResult.*?\]', '', clean_text)
+        clean_text = re.sub(r'TaskResult\(.*?\)', '', clean_text)
+        
+        # Remove any query repetition at the beginning
+        # This pattern looks for common greeting/repetition patterns
+        clean_text = re.sub(r'^(您好[！!]?\s*请告诉我您的.*?。\s*)', '', clean_text)
+        
+        # Remove any direct repetition of the user's query
+        if self._last_user_query:
+            # Escape special regex characters in the user query
+            escaped_query = re.escape(self._last_user_query)
+            # Create a pattern that might match the query with some variation
+            pattern = fr'^({escaped_query}|.*?{escaped_query}[:：]?\s*)'
+            clean_text = re.sub(pattern, '', clean_text)
+        
+        return clean_text.strip()
+
+
     def update_navigation_state(self, debug_text):
         """Update session state based on SPA navigation function calls"""
         # Check for navigate_to_menu calls
@@ -498,7 +640,8 @@ class CreditCardAgentApp:
         with chat_container:
             if not st.session_state.chat_history:
                 st.info("👋 您好！请告诉我您的分期需求，我将为您推荐最合适的方案。")
-            
+            # Update the chat display part in the run method to use the new helper function
+            # Replace the chat history display section in run() method with this:
             for message in st.session_state.chat_history:
                 if message["role"] == "user":
                     st.markdown(f"""
@@ -507,53 +650,46 @@ class CreditCardAgentApp:
                     </div>
                     """, unsafe_allow_html=True)
                 else:
-                    # Check if the content contains FunctionCall or FunctionExecutionResult
-                    content = message["content"]
-                    debug_info = ""
-                    
-                    # Use regex to extract function calls and results
-                    function_calls = re.findall(r'\[FunctionCall.*?\]', content)
-                    function_results = re.findall(r'\[FunctionExecutionResult.*?\]', content)
-                    task_results = re.findall(r'TaskResult\(.*?\)', content)
-                    
-                    # If we found any function-related content
-                    if function_calls or function_results or task_results:
-                        # Clean the content
-                        clean_content = content
-                        for fc in function_calls:
-                            clean_content = clean_content.replace(fc, '')
-                        for fr in function_results:
-                            clean_content = clean_content.replace(fr, '')
-                        for tr in task_results:
-                            clean_content = clean_content.replace(tr, '')
-                        
-                        # Build debug info
-                        debug_info = ''.join(function_calls + function_results + task_results)
-                        
-                        # Display clean content
-                        if clean_content.strip():
-                            st.markdown(f"""
-                            <div class="chat-message assistant-message">
-                                <div>💼 经理：{clean_content.strip()}</div>
-                            </div>
-                            """, unsafe_allow_html=True)
-                        
-                        # Display debug info if any
-                        if debug_info:
-                            st.markdown(f"""
-                            <div style="color: #999999; font-size: 0.8em; margin-top: 8px; margin-bottom: 16px; margin-right: 40px;">
-                                {debug_info}
-                            </div>
-                            """, unsafe_allow_html=True)
+                    # 使用 content 属性或字典访问方式获取内容
+                    if isinstance(message, dict):
+                        content = message.get("content", "")
+                    elif hasattr(message, "content"):
+                        content = message.content
                     else:
-                        # Normal display for content without function calls/results
+                        content = str(message)
+                    
+                    # 清理响应文本
+                    content = self.clean_response_text(content)
+                    
+                    # 提取调试信息（函数调用和结果）
+                    debug_info = ""
+                    for pattern in [r'\[FunctionCall.*?\]', r'\[FunctionExecutionResult.*?\]', r'TaskResult\(.*?\)']:
+                        if isinstance(content, str):
+                            matches = re.findall(pattern, content, re.DOTALL)
+                            if matches:
+                                debug_info += ''.join(matches)
+                    
+                    # 显示清理后的内容
+                    if content.strip():
                         st.markdown(f"""
                         <div class="chat-message assistant-message">
                             <div>💼 经理：{content}</div>
                         </div>
                         """, unsafe_allow_html=True)
+                    
+                    # 显示调试信息
+                    if debug_info:
+                        with st.expander("查看系统操作详情", expanded=False):
+                            st.markdown(f"""
+                            <div style="color: #999999; font-size: 0.8em;">
+                                {debug_info}
+                            </div>
+                            """, unsafe_allow_html=True)
         
         # User input
+        # 修改 run 方法中处理用户输入和接收响应的部分
+        # 替换以下代码到 run 方法中对应部分
+
         with st.container():
             user_input = st.text_area("请输入您的问题或需求:", key="user_input", height=80, 
                                     placeholder="例如：我想购买一部手机，大约5000元，可以分期吗？")
@@ -561,19 +697,25 @@ class CreditCardAgentApp:
             with cols[0]:
                 if st.button("发送", use_container_width=True):
                     if user_input:
-                        # Add user message to history
+                        # 添加用户消息到历史
                         st.session_state.chat_history.append({"role": "user", "content": user_input})
                         
-                        # Create a container for this response
+                        # 创建一个容器用于显示这次响应
                         response_container = st.empty()
                         
-                        # Run the agent asynchronously
+                        # 运行代理获取响应
                         response = asyncio.run(self.run_agent(user_input, response_container))
                         
-                        # Add assistant response to history
-                        st.session_state.chat_history.append({"role": "assistant", "content": response})
+                        # 添加响应到历史（确保它是字典格式）
+                        if isinstance(response, str):
+                            response_dict = {"role": "assistant", "content": response}
+                            st.session_state.chat_history.append(response_dict)
+                        else:
+                            # 如果response已经是一个对象，转换为字典格式
+                            content = response.content if hasattr(response, "content") else str(response)
+                            st.session_state.chat_history.append({"role": "assistant", "content": content})
                         
-                        # Schedule clearing the input on next rerun
+                        # 清空输入
                         st.session_state.clear_input = True
                         st.rerun()
             
@@ -681,9 +823,9 @@ class CreditCardAgentApp:
             """)
 
 # Main application entry point
-def main():
-    app = CreditCardAgentApp()
-    app.run()
+#def main():
+#    app = CreditCardAgentApp(use_mock_tools=True)
+#    app.run()
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()

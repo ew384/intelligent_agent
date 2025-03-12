@@ -1,1 +1,1 @@
-streamlit run complete-agent-integration.py
+streamlit run app.py
