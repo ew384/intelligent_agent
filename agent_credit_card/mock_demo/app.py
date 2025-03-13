@@ -14,7 +14,7 @@ st.set_page_config(
 from credit_card_agent import CreditCardAgentApp
 
 # 使用命令行参数控制是否使用模拟工具
-use_mock = True#"--mock" in sys.argv
+use_mock = False#"--mock" in sys.argv
 
 class ModifiedCreditCardAgentApp(CreditCardAgentApp):
     def __init__(self, use_mock_tools=False):

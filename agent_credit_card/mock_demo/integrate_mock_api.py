@@ -35,12 +35,12 @@ class ModifiedCreditCardAgentApp:
             }
             
             # 添加SPA工具...
-            
             return tools
         except ImportError:
             print("警告: 无法导入实际工具，将使用模拟实现")
             # 返回模拟工具
             return self.setup_mock_tools()
+        #return self.setup_mock_tools()
     
     def setup_mock_tools(self):
         """设置模拟工具函数"""
@@ -241,10 +241,13 @@ class ModifiedCreditCardAgentApp:
                 if isinstance(response_chunk, str):
                     chunk_text = response_chunk
                 elif hasattr(response_chunk, 'content'):
-                    chunk_text = str(response_chunk.content)
+                    message_str = str(response_chunk)
+                    start_idx = message_str.find("content='") + 9
+                    end_idx = message_str.find("'", start_idx)
+                    if start_idx > 8 and end_idx > start_idx:
+                        chunk_text = message_str[start_idx:end_idx]
                 else:
                     chunk_text = str(response_chunk)
-                
                 # 检查是否包含函数调用信息
                 if any(marker in chunk_text for marker in ["[FunctionCall", "[FunctionExecutionResult", "TaskResult("]):
                     if show_debug:
@@ -253,6 +256,7 @@ class ModifiedCreditCardAgentApp:
                 
                 # 添加到完整响应
                 full_response += chunk_text
+                print(full_response)
                 print(f"收到响应块: {chunk_text}")
             
             print(f"完整响应: {full_response}")

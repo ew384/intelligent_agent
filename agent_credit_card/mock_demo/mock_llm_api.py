@@ -359,7 +359,6 @@ class MockLLMResponseGenerator:
             "role": "assistant",
             "content": text_response
         }
-        
         # 如果有函数调用，添加到响应中
         if function_call:
             response["function_call"] = function_call
@@ -393,7 +392,7 @@ class MockLLMClient:
         self.model_info = {
             "vision": False,
             "function_calling": True,
-            "json_output": False,
+            "json_output": True,
             "family": "qwen",
         }
         
@@ -418,9 +417,16 @@ class MockLLMClient:
         # 获取用户的最后一条消息
         user_message = None
         for message in reversed(messages):
-            if message["role"] == "user":
-                user_message = message["content"]
-                break
+            # Try dictionary access first
+            message_str = str(message)
+            if "source='user'" in message_str:
+                # Extract content from the string representation
+                # This is a fallback and might not be reliable
+                start_idx = message_str.find("content='") + 9
+                end_idx = message_str.find("'", start_idx)
+                if start_idx > 8 and end_idx > start_idx:
+                    user_message = message_str[start_idx:end_idx]
+                    break
         
         if not user_message:
             return {
@@ -466,12 +472,10 @@ def create_mock_openai_client(api_key=None, base_url=None, **kwargs):
     # 为了演示，这里使用占位符
     try:
         # 尝试导入真实的工具模块
-        from spa_tools import function_tools as spa_tools
-        from integrated_tools import all_tools as integrated_tools
+        from spa_navigator.integrated_tools import all_tools as spa_tools
         
         tools_modules = {
             "spa_tools": spa_tools,
-            "integrated_tools": integrated_tools
         }
     except ImportError:
         print("警告: 未能导入实际工具模块，将使用空工具模块")

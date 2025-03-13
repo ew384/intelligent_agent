@@ -36,7 +36,11 @@ class CreditCardAgentApp:
         # Initialize session state
         self.init_session_state()
         # Add SPA Navigator tools to our tools list
-        self.tools = self.setup_mock_tools() if use_mock_tools else self.setup_tools()
+        self.tools = None
+        if use_mock_tools:
+            self.setup_mock_tools() 
+        else:
+            self.setup_tools()
         # Setup agent with tools
         self.agent = self.create_agent(use_mock_api=use_mock_tools)
         # Track the last user query for response cleaning
@@ -49,14 +53,13 @@ class CreditCardAgentApp:
             from spa_navigator.integrated_tools import all_tools as spa_tools
             
             # 创建工具字典
-            tools = {
+            self.tools = {
                 "query_knowledge_base": self.query_knowledge_base,
                 "place_installment_order": self.place_installment_order
             }
             
             # 添加SPA工具包装方法
-            self.add_spa_tool_wrappers()
-            return tools
+            #self.add_spa_tool_wrappers()
         except ImportError:
             print("警告: 无法导入实际工具，将使用模拟实现")
             # 返回模拟工具
@@ -130,80 +133,81 @@ class CreditCardAgentApp:
         async def wrapped_get_menu_structure() -> Dict[str, Any]:
             """获取菜单结构"""
             func = spa_tools["get_menu_structure"]
-            return await func()
+            print("&*"*100)
+            return func()
         self.tools["get_menu_structure"] = wrapped_get_menu_structure
         
         async def wrapped_search_menu_items(keyword: str) -> Dict[str, Any]:
             """搜索包含关键词的菜单项"""
             func = spa_tools["search_menu_items"]
-            return await func(keyword)
+            return  func(keyword)
         self.tools["search_menu_items"] = wrapped_search_menu_items
         
         async def wrapped_navigate_to_menu(menu_path: str) -> Dict[str, Any]:
             """导航到指定菜单路径"""
             func = spa_tools["navigate_to_menu"]
-            return await func(menu_path)
+            return  func(menu_path)
         self.tools["navigate_to_menu"] = wrapped_navigate_to_menu
         
         async def wrapped_get_current_iframe_content() -> Dict[str, Any]:
             """获取当前 iframe 的内容"""
             func = spa_tools["get_current_iframe_content"]
-            return await func()
+            return  func()
         self.tools["get_current_iframe_content"] = wrapped_get_current_iframe_content
         
         async def wrapped_click_button_in_iframe(button_text: str) -> Dict[str, Any]:
             """点击 iframe 中的按钮"""
             func = spa_tools["click_button_in_iframe"]
-            return await func(button_text)
+            return  func(button_text)
         self.tools["click_button_in_iframe"] = wrapped_click_button_in_iframe
         
         async def wrapped_fill_input_in_iframe(field_name: str, value: str) -> Dict[str, Any]:
             """填写 iframe 中的输入框"""
             func = spa_tools["fill_input_in_iframe"]
-            return await func(field_name, value)
+            return  func(field_name, value)
         self.tools["fill_input_in_iframe"] = wrapped_fill_input_in_iframe
         
         async def wrapped_click_link_in_iframe(link_text: str) -> Dict[str, Any]:
             """点击 iframe 中的链接"""
             func = spa_tools["click_link_in_iframe"]
-            return await func(link_text)
+            return  func(link_text)
         self.tools["click_link_in_iframe"] = wrapped_click_link_in_iframe
         
         async def wrapped_query_customer_info(customer_id: str) -> Dict[str, Any]:
             """查询客户信息"""
             func = spa_tools["query_customer_info"]
-            return await func(customer_id)
+            return  func(customer_id)
         self.tools["query_customer_info"] = wrapped_query_customer_info
         
         async def wrapped_query_installment_offers(customer_id: str) -> Dict[str, Any]:
             """查询客户可用的分期优惠"""
             func = spa_tools["query_installment_offers"]
-            return await func(customer_id)
+            return  func(customer_id)
         self.tools["query_installment_offers"] = wrapped_query_installment_offers
         
         async def wrapped_calculate_installment_plan(amount: float, periods: int, rate: Optional[float] = None) -> Dict[str, Any]:
             """计算分期方案详情"""
             func = spa_tools["calculate_installment_plan"]
-            return await func(amount, periods, rate)
+            return  func(amount, periods, rate)
         self.tools["calculate_installment_plan"] = wrapped_calculate_installment_plan
         
         # 组合工具包装
         async def wrapped_search_and_navigate(keyword: str) -> Dict[str, Any]:
             """搜索并导航到匹配的菜单项"""
             func = spa_tools["search_and_navigate"]
-            return await func(keyword)
+            return  func(keyword)
         self.tools["search_and_navigate"] = wrapped_search_and_navigate
         
         async def wrapped_process_form_and_submit(form_data: Dict[str, str], submit_button: str = "提交") -> Dict[str, Any]:
             """填写表单并提交"""
             func = spa_tools["process_form_and_submit"]
-            return await func(form_data, submit_button)
+            return  func(form_data, submit_button)
         self.tools["process_form_and_submit"] = wrapped_process_form_and_submit
         
         async def wrapped_place_installment_order_sap(amount: float, periods: int, customer_info: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
             """通过SAP系统下分期订单"""
             func = spa_tools["place_installment_order_sap"]
-            return await func(amount, periods, customer_info)
+            return  func(amount, periods, customer_info)
         self.tools["place_installment_order_sap"] = wrapped_place_installment_order_sap
         
     def apply_custom_css(self):
@@ -438,7 +442,7 @@ class CreditCardAgentApp:
         else:
             # 使用实际API
             model_client = OpenAIChatCompletionClient(
-                model="qwen2.5:14b-instruct-q8_0",
+                model="gemma2:27b-tools",
                 base_url="http://localhost:11434/v1",
                 api_key="placeholder",
                 model_info={
@@ -822,10 +826,9 @@ class CreditCardAgentApp:
             - **申请条件**：信用卡状态正常，且有足够的可用额度
             """)
 
-# Main application entry point
-#def main():
-#    app = CreditCardAgentApp(use_mock_tools=True)
-#    app.run()
+def main():
+    app = CreditCardAgentApp(use_mock_tools=False)
+    app.run()
 
-#if __name__ == "__main__":
-#    main()
+if __name__ == "__main__":
+    main()
