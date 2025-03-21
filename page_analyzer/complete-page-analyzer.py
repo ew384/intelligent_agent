@@ -2813,7 +2813,7 @@ def main():
     finally:
         # Close browser
         print("Closing browser...")
-        driver.quit()
+        #driver.quit()
 
 if __name__ == "__main__":
     main()        # Generate utility methods

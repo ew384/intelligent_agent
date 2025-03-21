@@ -68,6 +68,7 @@ def get_menu_structure():
         
         # Try different strategies to find menu items
         menu_structure = {}
+        processed_elements = set()  # 用来跟踪已处理的元素，避免重复处理
         
         # Strategy 1: Find menu items by left-side vertical position
         try:
@@ -96,6 +97,16 @@ def get_menu_structure():
                         text = element.text.strip()
                         if not text:
                             continue
+                        
+                        # 生成元素的唯一标识符 (使用XPath或其他属性组合)
+                        element_id = f"{text}_{element.tag_name}_{element.location['x']}_{element.location['y']}"
+                        
+                        # 如果已经处理过这个元素，则跳过
+                        if element_id in processed_elements:
+                            continue
+                        
+                        # 标记此元素为已处理
+                        processed_elements.add(element_id)
                             
                         # Check element characteristics to determine menu level
                         classes = element.get_attribute("class") or ""
@@ -122,7 +133,7 @@ def get_menu_structure():
                         elif level <= 3 and current_level1:
                             menu_structure[current_level1]["submenus"][text] = {}
                             
-                        print(f"Processed menu item: {text} (Level: {level})")
+                        print(f"Processed menu item: {text} (Level: {level}, ID: {element_id})")
                     except Exception as e:
                         print(f"Error processing element: {str(e)}")
             
@@ -141,24 +152,38 @@ def get_menu_structure():
                 for item_text in common_menu_items:
                     try:
                         elements = driver.find_elements(By.XPATH, f"//*[contains(text(), '{item_text}')]")
-                        if elements and elements[0].is_displayed():
-                            print(f"Found menu item: {item_text}")
-                            
-                            # If this is a top-level item
-                            if item_text in ["客户操作台", "我的收藏", "客户服务", "基本业务", "营销作业", "分期业务"]:
-                                menu_structure[item_text] = {"submenus": {}}
-                            else:
-                                # Try to determine parent based on proximity or hierarchy
-                                # For simplicity, we'll assign to a default parent
-                                if "分期" in item_text:
-                                    parent = "分期业务"
-                                elif "营销" in item_text:
-                                    parent = "营销作业"
-                                else:
-                                    parent = "基本业务"
+                        for element in elements:
+                            try:
+                                if element.is_displayed():
+                                    # 生成元素的唯一标识符
+                                    element_id = f"{item_text}_{element.tag_name}_{element.location['x']}_{element.location['y']}"
                                     
-                                if parent in menu_structure:
-                                    menu_structure[parent]["submenus"][item_text] = {}
+                                    # 如果已经处理过这个元素，则跳过
+                                    if element_id in processed_elements:
+                                        continue
+                                    
+                                    # 标记此元素为已处理
+                                    processed_elements.add(element_id)
+                                    
+                                    print(f"Found menu item: {item_text} (ID: {element_id})")
+                                    
+                                    # If this is a top-level item
+                                    if item_text in ["客户操作台", "我的收藏", "客户服务", "基本业务", "营销作业", "分期业务"]:
+                                        menu_structure[item_text] = {"submenus": {}}
+                                    else:
+                                        # Try to determine parent based on proximity or hierarchy
+                                        # For simplicity, we'll assign to a default parent
+                                        if "分期" in item_text:
+                                            parent = "分期业务"
+                                        elif "营销" in item_text:
+                                            parent = "营销作业"
+                                        else:
+                                            parent = "基本业务"
+                                            
+                                        if parent in menu_structure:
+                                            menu_structure[parent]["submenus"][item_text] = {}
+                            except:
+                                continue
                     except:
                         continue
             except Exception as e:
@@ -188,13 +213,13 @@ def get_menu_structure():
 
 def search_menu_items(keyword: str) -> Dict:
     """
-    Search for menu items containing the given keyword
+    Search for menu items containing the given keyword with improved text matching
     
     Args:
         keyword (str): The keyword to search for
         
     Returns:
-        Dict: A dictionary of matching menu items with their paths
+        Dict: A dictionary of matching menu items with their paths, sorted by relevance
     """
     try:
         driver = initialize_driver()
@@ -209,54 +234,87 @@ def search_menu_items(keyword: str) -> Dict:
         # Get the menu structure first
         menu_result = get_menu_structure()
         
+        # Prepare list for matches
+        matches = []
+        
+        # Helper function to calculate text relevance score
+        def calculate_relevance(menu_text, search_keyword):
+            # Convert both to lowercase for case-insensitive comparison
+            menu_lower = menu_text.lower()
+            keyword_lower = search_keyword.lower()
+            
+            # Calculate relevance score: higher is better
+            score = 0
+            
+            # Exact match gets highest score
+            if menu_lower == keyword_lower:
+                score = 100
+            # Starts with keyword gets high score
+            elif menu_lower.startswith(keyword_lower):
+                score = 80
+            # Contains keyword as a whole word
+            elif f" {keyword_lower} " in f" {menu_lower} ":
+                score = 70
+            # Contains keyword
+            elif keyword_lower in menu_lower:
+                score = 60
+            # Keyword parts match (for complex multi-word searches)
+            else:
+                keyword_parts = keyword_lower.split()
+                matching_parts = 0
+                
+                for part in keyword_parts:
+                    if part in menu_lower:
+                        matching_parts += 1
+                
+                if matching_parts > 0:
+                    score = 40 * (matching_parts / len(keyword_parts))
+            
+            return score
+        
         if menu_result["status"] == "error":
             # If menu structure fails, try direct search
-            matches = []
-            
-            # Search directly for elements containing the keyword
             try:
                 elements = driver.find_elements(By.XPATH, f"//*[contains(text(), '{keyword}')]")
                 for element in elements:
                     if element.is_displayed():
                         text = element.text.strip()
                         if keyword.lower() in text.lower():
+                            relevance = calculate_relevance(text, keyword)
                             matches.append({
                                 "menu_name": text,
                                 "path": text,
-                                "full_path": [text]
+                                "full_path": [text],
+                                "relevance": relevance
                             })
-            except:
-                pass
-                
-            return {
-                "status": "success",
-                "content": matches
-            }
+            except Exception as e:
+                print(f"Direct search error: {str(e)}")
+        else:
+            menu_structure = menu_result["content"]
             
-        menu_structure = menu_result["content"]
-        
-        # Search for keyword in menu items
-        matches = []
-        
-        # Helper function to search recursively
-        def search_recursively(structure, current_path=[]):
-            for key, value in structure.items():
-                path = current_path + [key]
-                
-                # Check if the keyword is in the menu item name
-                if keyword.lower() in key.lower():
-                    matches.append({
-                        "menu_name": key,
-                        "path": " > ".join(path),
-                        "full_path": path
-                    })
-                
-                # Search in submenus if any
-                if "submenus" in value and value["submenus"]:
-                    search_recursively(value["submenus"], path)
-        
-        # Start the recursive search
-        search_recursively(menu_structure)
+            # Helper function to search recursively
+            def search_recursively(structure, current_path=[]):
+                for key, value in structure.items():
+                    path = current_path + [key]
+                    
+                    # Calculate relevance score for this menu item
+                    relevance = calculate_relevance(key, keyword)
+                    
+                    # Add to matches if there's any relevance
+                    if relevance > 0:
+                        matches.append({
+                            "menu_name": key,
+                            "path": " > ".join(path),
+                            "full_path": path,
+                            "relevance": relevance
+                        })
+                    
+                    # Search in submenus if any
+                    if "submenus" in value and value["submenus"]:
+                        search_recursively(value["submenus"], path)
+            
+            # Start the recursive search
+            search_recursively(menu_structure)
         
         # If no matches found in menu structure, try direct search
         if not matches:
@@ -265,14 +323,30 @@ def search_menu_items(keyword: str) -> Dict:
                 for element in elements:
                     if element.is_displayed():
                         text = element.text.strip()
-                        if keyword.lower() in text.lower():
+                        relevance = calculate_relevance(text, keyword)
+                        if relevance > 0:
                             matches.append({
                                 "menu_name": text,
                                 "path": text,
-                                "full_path": [text]
+                                "full_path": [text],
+                                "relevance": relevance
                             })
-            except:
-                pass
+            except Exception as e:
+                print(f"Secondary direct search error: {str(e)}")
+        
+        # Sort matches by relevance score (highest first)
+        matches.sort(key=lambda x: x.get("relevance", 0), reverse=True)
+        
+        # For debugging
+        if matches:
+            print(f"Found {len(matches)} matches for '{keyword}':")
+            for idx, match in enumerate(matches[:5]):  # Show top 5 matches
+                print(f"  {idx+1}. '{match['menu_name']}' (Score: {match.get('relevance', 0)}, Path: {match['path']})")
+        
+        # Remove relevance scores from final output if needed
+        # for match in matches:
+        #     if "relevance" in match:
+        #         del match["relevance"]
         
         return {
             "status": "success",
@@ -1522,7 +1596,7 @@ def query_customer_info(customer_id: str) -> Dict:
         print(error_msg)
         return {"status": "error", "message": error_msg}
 
-def query_installment_offers(customer_id: str) -> Dict:
+def query_installment_offers() -> Dict:
     """
     Query available installment offers for a customer
     

@@ -43,6 +43,6 @@ async def send_bill_via_wechat_message():
 
 # Run the async function
 if __name__ == "__main__":
-    #result = asyncio.run(send_wechat_message())
-    result = asyncio.run(send_bill_via_wechat_message())
+    result = asyncio.run(send_wechat_message())
+    #result = asyncio.run(send_bill_via_wechat_message())
     print(result)

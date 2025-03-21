@@ -21,7 +21,7 @@ async def main():
         ("API网关 (聊天)", "http://localhost:8000/chat", 405),   # 同上
         ("Orchestrator", "http://localhost:8001/tasks", 405),
         ("Scenario", "http://localhost:8002/", 404),
-        ("Tool", "http://localhost:8003/", 404)
+        ("Tool", "http://localhost:8003/", 200)
     ]
     
     for name, url, expected_status in services:

@@ -59,7 +59,7 @@ class CreditCardAgentApp:
             }
             
             # 添加SPA工具包装方法
-            #self.add_spa_tool_wrappers()
+            self.add_spa_tool_wrappers()
         except ImportError:
             print("警告: 无法导入实际工具，将使用模拟实现")
             # 返回模拟工具
@@ -72,7 +72,7 @@ class CreditCardAgentApp:
         import random
         import time
         
-        async def mock_query_customer_info(customer_id: str):
+        def mock_query_customer_info(customer_id: str):
             """查询客户信息"""
             return {
                 "status": "success",
@@ -87,7 +87,7 @@ class CreditCardAgentApp:
                 }
             }
         
-        async def mock_calculate_installment_plan(amount: float, periods: int, rate: float = None):
+        def mock_calculate_installment_plan(amount: float, periods: int, rate: float = None):
             """计算分期方案详情"""
             if rate is None:
                 rate = periods * 0.5
@@ -107,7 +107,7 @@ class CreditCardAgentApp:
                 }
             }
         
-        async def mock_place_installment_order(amount: float, periods: int, rate: float, customer_info: dict):
+        def mock_place_installment_order(amount: float, periods: int, rate: float, customer_info: dict):
             """下分期订单"""
             return {
                 "status": "success",
@@ -115,7 +115,7 @@ class CreditCardAgentApp:
                 "message": "分期订单已成功创建，系统处理中，预计10分钟内完成审批。"
             }
         
-        async def mock_query_knowledge_base(query: str):
+        def mock_query_knowledge_base(query: str):
             """查询知识库回答问题"""
             return "我们的分期业务包括消费分期、账单分期和现金分期。不同期数的费率各不相同，例如3期的费率约为1.5%，6期约为3.0%，12期约为6.0%。"
         
@@ -130,81 +130,86 @@ class CreditCardAgentApp:
         """为 SPA 工具创建包装方法，确保类型注解正确"""
         from typing import Dict, Any, List, Optional, Union
         
-        async def wrapped_get_menu_structure() -> Dict[str, Any]:
+        def wrapped_get_menu_structure() -> Dict[str, Any]:
             """获取菜单结构"""
             func = spa_tools["get_menu_structure"]
-            print("&*"*100)
             return func()
         self.tools["get_menu_structure"] = wrapped_get_menu_structure
         
-        async def wrapped_search_menu_items(keyword: str) -> Dict[str, Any]:
+        def wrapped_search_menu_items(keyword: str) -> Dict[str, Any]:
             """搜索包含关键词的菜单项"""
             func = spa_tools["search_menu_items"]
             return  func(keyword)
         self.tools["search_menu_items"] = wrapped_search_menu_items
         
-        async def wrapped_navigate_to_menu(menu_path: str) -> Dict[str, Any]:
+        def wrapped_navigate_to_menu(menu_path: str) -> Dict[str, Any]:
             """导航到指定菜单路径"""
             func = spa_tools["navigate_to_menu"]
             return  func(menu_path)
         self.tools["navigate_to_menu"] = wrapped_navigate_to_menu
         
-        async def wrapped_get_current_iframe_content() -> Dict[str, Any]:
+        def wrapped_get_current_iframe_content() -> Dict[str, Any]:
             """获取当前 iframe 的内容"""
             func = spa_tools["get_current_iframe_content"]
             return  func()
         self.tools["get_current_iframe_content"] = wrapped_get_current_iframe_content
         
-        async def wrapped_click_button_in_iframe(button_text: str) -> Dict[str, Any]:
+        def wrapped_click_button_in_iframe(button_text: str) -> Dict[str, Any]:
             """点击 iframe 中的按钮"""
             func = spa_tools["click_button_in_iframe"]
             return  func(button_text)
         self.tools["click_button_in_iframe"] = wrapped_click_button_in_iframe
         
-        async def wrapped_fill_input_in_iframe(field_name: str, value: str) -> Dict[str, Any]:
+        def wrapped_fill_input_in_iframe(field_name: str, value: str) -> Dict[str, Any]:
             """填写 iframe 中的输入框"""
             func = spa_tools["fill_input_in_iframe"]
             return  func(field_name, value)
         self.tools["fill_input_in_iframe"] = wrapped_fill_input_in_iframe
         
-        async def wrapped_click_link_in_iframe(link_text: str) -> Dict[str, Any]:
+        def wrapped_click_link_in_iframe(link_text: str) -> Dict[str, Any]:
             """点击 iframe 中的链接"""
             func = spa_tools["click_link_in_iframe"]
             return  func(link_text)
         self.tools["click_link_in_iframe"] = wrapped_click_link_in_iframe
         
-        async def wrapped_query_customer_info(customer_id: str) -> Dict[str, Any]:
+        def wrapped_query_customer_info(customer_id: str) -> Dict[str, Any]:
             """查询客户信息"""
             func = spa_tools["query_customer_info"]
             return  func(customer_id)
         self.tools["query_customer_info"] = wrapped_query_customer_info
         
-        async def wrapped_query_installment_offers(customer_id: str) -> Dict[str, Any]:
+        def wrapped_query_installment_offers() -> Dict[str, Any]:
             """查询客户可用的分期优惠"""
             func = spa_tools["query_installment_offers"]
-            return  func(customer_id)
+            return  func()
         self.tools["query_installment_offers"] = wrapped_query_installment_offers
         
-        async def wrapped_calculate_installment_plan(amount: float, periods: int, rate: Optional[float] = None) -> Dict[str, Any]:
+        def wrapped_query_historical_bills():
+            """查询客户可用的分期优惠"""
+            func = spa_tools["query_historical_bills"]
+            return  func()
+        self.tools["query_historical_bills"] = wrapped_query_historical_bills
+
+        def wrapped_calculate_installment_plan(amount: float, periods: int, rate: Optional[float] = None) -> Dict[str, Any]:
             """计算分期方案详情"""
             func = spa_tools["calculate_installment_plan"]
             return  func(amount, periods, rate)
         self.tools["calculate_installment_plan"] = wrapped_calculate_installment_plan
         
         # 组合工具包装
-        async def wrapped_search_and_navigate(keyword: str) -> Dict[str, Any]:
+        def wrapped_search_and_navigate(keyword: str) -> Dict[str, Any]:
             """搜索并导航到匹配的菜单项"""
             func = spa_tools["search_and_navigate"]
             return  func(keyword)
         self.tools["search_and_navigate"] = wrapped_search_and_navigate
         
-        async def wrapped_process_form_and_submit(form_data: Dict[str, str], submit_button: str = "提交") -> Dict[str, Any]:
+        def wrapped_process_form_and_submit(form_data: Dict[str, str], submit_button: str = "提交") -> Dict[str, Any]:
             """填写表单并提交"""
             func = spa_tools["process_form_and_submit"]
             return  func(form_data, submit_button)
         self.tools["process_form_and_submit"] = wrapped_process_form_and_submit
         
-        async def wrapped_place_installment_order_sap(amount: float, periods: int, customer_info: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        def wrapped_place_installment_order_sap(amount: float, periods: int, customer_info: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
             """通过SAP系统下分期订单"""
             func = spa_tools["place_installment_order_sap"]
             return  func(amount, periods, customer_info)
@@ -374,11 +379,11 @@ class CreditCardAgentApp:
             """
     
     # Tool: Place credit card installment order
-    async def place_installment_order(self, amount: float, periods: int, rate: float, customer_info: dict) -> str:
+    def place_installment_order(self, amount: float, periods: int, rate: float, customer_info: dict) -> str:
         """Place a credit card installment order in the system"""
         try:
             # 首先尝试使用SPA系统下单
-            sap_result = await self.tools["place_installment_order_sap"](amount, periods, customer_info)
+            sap_result = self.tools["place_installment_order_sap"](amount, periods, customer_info)
             
             if sap_result["status"] == "success":
                 # 如果SPA下单成功，直接返回结果
@@ -425,7 +430,7 @@ class CreditCardAgentApp:
                 result = response.json()
                 
                 # 根据接口的返回格式获取答案
-                if result.get("code") == 200:
+                if result.get("code") == '200':
                     return result.get("data", {}).get("answer", "抱歉，我暂时无法回答这个问题，请联系客服热线获取更多帮助。")
                 else:
                     return f"知识库查询失败: {result.get('message', '未知错误')}。请稍后再试。"
@@ -443,7 +448,8 @@ class CreditCardAgentApp:
             # 使用实际API
             model_client = OpenAIChatCompletionClient(
                 model="gemma2:27b-tools",
-                base_url="http://localhost:11434/v1",
+                base_url="http://localhost:11434/v1",#外网
+                #base_url="http://28.105.66.197:11434/v1",
                 api_key="placeholder",
                 model_info={
                     "vision": False,
@@ -455,6 +461,7 @@ class CreditCardAgentApp:
         
         # Read the sales agent prompt template
         system_prompt = self.read_prompt_template()
+        system_prompt += "\n\n重要提示：严格禁止在回复中重复用户的问题。直接回答，不要重复用户的输入。"
 
         # Convert tools dict to list for the agent
         tool_list = list(self.tools.values())
@@ -487,6 +494,7 @@ class CreditCardAgentApp:
         # 创建占位符
         response_placeholder = history_container.empty()
         debug_placeholder = history_container.empty()
+        self._last_user_query = task
         
         try:
             # 运行代理
@@ -550,9 +558,6 @@ class CreditCardAgentApp:
                 with debug_placeholder.expander("查看系统操作详情", expanded=False):
                     st.markdown(f'<div style="color: #999999; font-size: 0.8em;">{debug_info}</div>', unsafe_allow_html=True)
             
-            # 存储最后一次用户查询
-            self._last_user_query = task
-            
             # 返回清理后的响应
             return clean_response
             
@@ -563,25 +568,45 @@ class CreditCardAgentApp:
     # Helper method to clean response text
     def clean_response_text(self, text):
         """Clean the response text by removing function calls and query repetitions"""
+        if not text:
+            return ""
+        
         # Remove any function call patterns
         clean_text = re.sub(r'\[FunctionCall.*?\]', '', text)
         clean_text = re.sub(r'\[FunctionExecutionResult.*?\]', '', clean_text)
         clean_text = re.sub(r'TaskResult\(.*?\)', '', clean_text)
         
-        # Remove any query repetition at the beginning
-        # This pattern looks for common greeting/repetition patterns
-        clean_text = re.sub(r'^(您好[！!]?\s*请告诉我您的.*?。\s*)', '', clean_text)
+        # Remove common greeting patterns that often precede repetition
+        clean_text = re.sub(r'^(您好[！!,，.。]?\s*)', '', clean_text)
+        clean_text = re.sub(r'^(好的[！!,，.。]?\s*)', '', clean_text)
+        clean_text = re.sub(r'^(非常感谢您的咨询[！!,，.。]?\s*)', '', clean_text)
         
-        # Remove any direct repetition of the user's query
+        # Remove any direct repetition of the user's query with various formats
         if self._last_user_query:
             # Escape special regex characters in the user query
             escaped_query = re.escape(self._last_user_query)
-            # Create a pattern that might match the query with some variation
-            pattern = fr'^({escaped_query}|.*?{escaped_query}[:：]?\s*)'
-            clean_text = re.sub(pattern, '', clean_text)
+            
+            # Create patterns for different ways the query might be repeated
+            patterns = [
+                # Direct repetition at start
+                fr'^({escaped_query})\s*[:：]?\s*',
+                # Repetition with a prefix like "关于" or "您的问题："
+                fr'^(关于{escaped_query}|您的问题[:：]?\s*{escaped_query}|您询问的[:：]?\s*{escaped_query})\s*[:：]?\s*',
+                # Repetition with "您问"
+                fr'^(您问[:：]?\s*{escaped_query})\s*[:：]?\s*',
+                # Summary repetition - match partial repetitions
+                fr'^(根据您提到的.*?{escaped_query.split()[0]}.*?[:：]?)\s*',
+            ]
+            
+            # Apply all patterns
+            for pattern in patterns:
+                clean_text = re.sub(pattern, '', clean_text)
         
-        return clean_text.strip()
-
+        # Clean up any duplicate spaces and start of response
+        clean_text = clean_text.strip()
+        clean_text = re.sub(r'\s+', ' ', clean_text)
+        
+        return clean_text
 
     def update_navigation_state(self, debug_text):
         """Update session state based on SPA navigation function calls"""
