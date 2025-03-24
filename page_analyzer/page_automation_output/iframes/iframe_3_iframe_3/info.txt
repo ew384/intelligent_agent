@@ -1,3 +1,3 @@
 iframe: iframe_3
-源URL: https://js.stripe.com/v3/m-outer-3437aaddcdf6922d623e172c2d6f9278.html#url=https%3A%2F%2Fclaude.ai%2Fnew&title=Claude&referrer=https%3A%2F%2Fclaude.ai%2Fchat%2F13962754-4f91-450d-b468-d08455978311&muid=f392d0e7-31ec-401e-ae0a-96fe2d036387c58bd0&sid=NA&version=6&preview=false&__shared_params__[version]=v3
-位置: x=0, y=907, 宽=1904, 高=1
+源URL: https://js.stripe.com/v3/m-outer-3437aaddcdf6922d623e172c2d6f9278.html#url=https%3A%2F%2Fclaude.ai%2Fnew&title=Claude&referrer=&muid=f392d0e7-31ec-401e-ae0a-96fe2d036387c58bd0&sid=NA&version=6&preview=false&__shared_params__[version]=v3
+位置: x=0, y=931, 宽=1920, 高=1

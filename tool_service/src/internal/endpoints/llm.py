@@ -30,7 +30,7 @@ async def chat_with_llm(provider: str, request: Dict):
             responses = []
             async for response in service.chat(
                 request["prompt"],
-                request.get("image_path"),
+                request.get("file_paths"),
                 request.get("stream"),
                 request.get("new_chat"),
             ):

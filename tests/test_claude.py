@@ -22,12 +22,13 @@ async def test_claude_chat():
     prompt = input("Input Prompt\n")#"Tell me about the benefits of artificial intelligence in healthcare. Keep your answer under 200 words."
     
     # You can optionally include an image
-    image_path = None  # Set to a valid path if you want to test with an image
-    
+    file_paths = None  # Set to a valid path if you want to test with an image
+    #file_paths="/oper/work/endian/intelligent_agent/tests/5g.png"
     request_data = {
         "prompt": prompt,
-        "image_path": image_path,
-        "stream": False
+        "file_paths": file_paths,
+        "stream": False,
+        "new_chat":False
     }
     
     logger.info(f"Sending prompt to Claude: {prompt[:50]}...")
@@ -89,11 +90,11 @@ async def test_claude_chat_v2():
     prompt = "Tell me about the benefits of artificial intelligence in healthcare. Keep your answer under 200 words."
     
     # You can optionally include an image
-    image_path = None
+    file_paths = None
     
     request_data = {
         "prompt": prompt,
-        "image_path": image_path
+        "file_paths": file_paths
     }
     
     logger.info(f"Trying alternative API endpoint format...")

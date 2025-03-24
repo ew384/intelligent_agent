@@ -127,32 +127,191 @@ class ClaudeAuthHandler:
             logger.error(f"等待手动登录出错: {str(e)}")
             return False
             
+    async def _start_new_chat(self):
+        """
+        Start a new chat conversation by directly navigating to the new chat URL
+        
+        Returns:
+            Boolean indicating success
+        """
+        try:
+            logger.info("Starting new chat via direct navigation")
+            
+            # Use direct navigation to /new as the primary method
+            try:
+                current_url = await self.session.execute_script("return window.location.href")
+                if "/new" not in current_url:
+                    await self.session.goto("https://claude.ai/new")
+                    await asyncio.sleep(3)  # Give more time for the page to load
+                    
+                    # Check if navigation was successful
+                    current_url = await self.session.execute_script("return window.location.href")
+                    if "/new" in current_url:
+                        logger.info("Started new chat successfully via direct navigation")
+                        return True
+                    else:
+                        logger.warning(f"Navigation completed but URL doesn't contain /new: {current_url}")
+                else:
+                    logger.info("Already on new chat page")
+                    return True
+            except Exception as e:
+                logger.error(f"Direct navigation failed: {str(e)}")
+                
+                # Fall back to JavaScript history manipulation as a last resort
+                try:
+                    logger.info("Trying navigation via history.pushState")
+                    await self.session.execute_script("""
+                        history.pushState({}, '', '/new');
+                        window.location.reload();
+                    """)
+                    await asyncio.sleep(3)
+                    return True
+                except Exception as js_error:
+                    logger.error(f"JavaScript navigation failed: {str(js_error)}")
+                    return False
+                
+        except Exception as e:
+            logger.error(f"Error starting new chat: {str(e)}")
+            return False
 
-
-    async def handle_chat_stream(self, prompt: str = None, image_path: str = None, stream: bool = True, new_chat: bool = False) -> AsyncGenerator[Dict[str, Any], None]:
+    async def _upload_files(self, file_paths):
+        """
+        Upload one or more files to Claude using JavaScript to directly set the file
+        
+        Args:
+            file_paths: Path or list of paths to files to upload
+                
+        Returns:
+            Boolean indicating success
+        """
+        try:
+            if not file_paths:
+                return False
+                
+            # Convert single path to list
+            if isinstance(file_paths, str):
+                file_paths = [file_paths]
+            
+            # First, try to ensure file input is available without clicking button
+            # (Often the file input exists but is hidden)
+            file_input = await self.session.query_selector('input[type="file"]')
+            
+            if not file_input:
+                logger.warning("File input not immediately found, trying alternative approaches")
+                
+                # Try clicking the upload button using JavaScript
+                js_click_result = await self.session.execute_script("""
+                    // Try multiple selector approaches
+                    const selectors = [
+                        '[aria-label*="upload" i]',
+                        '[data-testid="file-upload"]',
+                        'button:has-text("Upload")',
+                        'button svg[*|href*="upload"]'
+                    ];
+                    
+                    for (const selector of selectors) {
+                        const button = document.querySelector(selector);
+                        if (button) {
+                            console.log("Found upload button with selector: " + selector);
+                            button.click();
+                            return true;
+                        }
+                    }
+                    
+                    return false;
+                """)
+                
+                if not js_click_result:
+                    logger.warning("Could not find upload button with any known selectors")
+                
+                await asyncio.sleep(1)
+                
+                # Try to find the file input again
+                file_input = await self.session.query_selector('input[type="file"]')
+            
+            if not file_input:
+                logger.error("Could not find file input element after multiple attempts")
+                return False
+            
+            # Now that we have the file input, upload the files
+            logger.info(f"Uploading {len(file_paths)} files")
+            await file_input.set_input_files(file_paths)
+            
+            # Wait for uploads to complete
+            await asyncio.sleep(3)  # Give it some time to process
+            
+            # Check for various indicators that the upload succeeded
+            upload_success = await self.session.execute_script("""
+                // Check for various preview indicators
+                const previewSelectors = [
+                    '[data-testid="image-preview"]',
+                    '[data-testid="file-preview"]',
+                    '.file-preview',
+                    '[data-testid*="upload-preview"]'
+                ];
+                
+                for (const selector of previewSelectors) {
+                    if (document.querySelector(selector)) {
+                        return true;
+                    }
+                }
+                
+                // Look for any newly added elements that might contain the filename
+                const files = Array.from(document.querySelectorAll('div, span, p'))
+                    .filter(el => {
+                        const text = el.textContent.toLowerCase();
+                        return text.endsWith('.jpg') || 
+                            text.endsWith('.png') || 
+                            text.endsWith('.pdf') ||
+                            text.endsWith('.txt') ||
+                            text.endsWith('.csv');
+                    });
+                    
+                return files.length > 0;
+            """)
+            
+            if upload_success:
+                logger.info("File upload appears to have succeeded")
+                return True
+            else:
+                logger.warning("Could not confirm file upload success")
+                return False
+                    
+        except Exception as e:
+            logger.error(f"Error uploading files: {str(e)}")
+            return False
+            
+    async def handle_chat_stream(self, prompt: str = None, file_paths = None, stream: bool = True, new_chat: bool = False) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Handle chat interaction with Claude
-    
+        
         Args:
-            image_path: Optional path to image to upload
+            file_paths: Optional paths to upload
             prompt: Text prompt to send
             stream: Whether to stream responses (True) or wait for complete response (False)
             new_chat: Whether to start a new chat
-    
+        
         Yields:
-            Dict containing response chunks
+            Dict containing response chunks or final structured content
         """
         try:
             # Start a new chat if requested
             if new_chat:
-                logger.info("开始新聊天")
-                new_chat_button = await self.session.query_selector(CLAUDE_SELECTORS['new_chat_button'])
-                if new_chat_button:
-                    await self.session.click(CLAUDE_SELECTORS['new_chat_button'])
-                    await asyncio.sleep(2)
-                else:
-                    logger.warning("未找到新聊天按钮")
-    
+                logger.info("Starting new chat")
+                success = await self._start_new_chat()
+                if not success:
+                    yield {"status": "error", "message": "Could not start new chat"}
+                    return
+                    
+            # Upload files if provided
+            if file_paths:
+                logger.info(file_paths)
+                logger.info(f"Uploading files: {file_paths}")
+                success = await self._upload_files(file_paths)
+                if not success:
+                    yield {"status": "error", "message": "Failed to upload files"}
+                    return
+
             # Enter the prompt
             if prompt:
                 # Find the textarea
@@ -160,10 +319,6 @@ class ClaudeAuthHandler:
                 if not textarea:
                     yield {"status": "error", "message": "找不到输入框"}
                     return
-    
-                # Type the prompt
-                #await self.session.fill("div.ProseMirror", prompt) 
-                # Use JavaScript to simulate paste behavior
 
                 if not isinstance(prompt, str):
                     prompt = str(prompt)
@@ -202,210 +357,405 @@ class ClaudeAuthHandler:
                 if not success:
                     yield {"status": "error", "message": "无法粘贴内容到输入框"}
                     return
-                # Click the send button
-                send_button = await self.session.query_selector("button[aria-label='Send Message']")
-                if not send_button:
-                    send_button = await self.session.query_selector("button.bg-accent-main-100")
-    
-                if not send_button:
+
+                try:
+                    # Click the send button
+                    await self.session.click("button[aria-label='Send Message']")
+                    logger.info("已发送消息")
+                except:
                     yield {"status": "error", "message": "找不到发送按钮"}
-                    return
-    
-                await self.session.click(send_button)
-                logger.info("已发送消息")
-    
-                # Wait longer for initial response - artifacts can take time to generate
-                await asyncio.sleep(8)
-                # Check for loading indicators and wait for them to disappear
-                is_loading = True
-                loading_attempts = 0
-                max_loading_attempts = 20  # Maximum number of attempts to wait for loading to complete
-                
-                while is_loading and loading_attempts < max_loading_attempts:
-                    is_loading = await self.session.execute_script("""
-                        return Boolean(
-                            document.querySelector('.animate-pulse') || 
-                            document.querySelector('[aria-label="Loading"]') ||
-                            document.querySelector('.typing-indicator')
-                        );
-                    """)
-                    
-                    if is_loading:
-                        loading_attempts += 1
-                        logger.info(f"等待Claude响应生成完成... ({loading_attempts}/{max_loading_attempts})")
-                        await asyncio.sleep(2)
-                    else:
-                        # Once loading indicators disappear, wait a bit more for content to stabilize
-                        await asyncio.sleep(2)
-                
-                # Get the full page HTML for comprehensive BeautifulSoup analysis
-                html_content = await self.session.execute_script("return document.documentElement.outerHTML;")
-                
-                # Use BeautifulSoup to parse the HTML
-                soup = BeautifulSoup(html_content, 'html.parser')
-                
-                # Remove script and style elements to clean up the text extraction
-                for script in soup(["script", "style", "noscript"]):
-                    script.decompose()
-                
-                # Extract all messages to find the conversation structure
-                all_messages = []
-                
-                # Try to find message containers with author roles
-                message_containers = soup.select('li.flex.flex-col')
-                
-                for container in message_containers:
-                    # Determine if this is a user or assistant message
-                    is_user = bool(container.select_one('[data-message-author-role="human"]'))
-                    is_assistant = bool(container.select_one('[data-message-author-role="assistant"]'))
-                    
-                    # Extract the text content
-                    message_text = container.get_text(separator=' ', strip=True)
-                    
-                    # Save message info
-                    if message_text:
-                        all_messages.append({
-                            "role": "user" if is_user else "assistant" if is_assistant else "unknown",
-                            "content": message_text
-                        })
-                
-                # If we found at least one message pair, we can try to match the prompt and extract the response
-                if len(all_messages) >= 2:
-                    # Find the last user message with our prompt
-                    last_user_index = -1
-                    for i, msg in enumerate(all_messages):
-                        if msg["role"] == "user" and prompt in msg["content"]:
-                            last_user_index = i
-                    
-                    # If we found our prompt, extract the assistant's response that follows
-                    if last_user_index >= 0 and last_user_index + 1 < len(all_messages):
-                        assistant_response = all_messages[last_user_index + 1]
-                        if assistant_response["role"] == "assistant":
-                            logger.info("提取了助手对最近提示的响应")
-                            yield {
-                                "status": "success",
-                                "content": assistant_response["content"],
-                                "complete": True,
-                                "messages": all_messages  # Include full conversation history
+
+                # Wait for response to complete
+                try:
+                    # Wait for Claude to finish generating a response
+                    # More reliable way to detect response completion using JavaScript
+                    js_detect_completion = """
+                    function checkResponseComplete() {
+                        // Check if "thinking" indicator is gone
+                        const thinkingIndicator = document.querySelector('.animate-pulse');
+                        if (thinkingIndicator) return false;
+                        
+                        // Check if input area is enabled again
+                        const textArea = document.querySelector('div.ProseMirror[contenteditable="true"]');
+                        const sendButton = document.querySelector('button[aria-label="Send Message"]:not([disabled])');
+                        
+                        // Check for regenerate button by looking for buttons with certain text content
+                        let regenerateButton = null;
+                        const buttons = Array.from(document.querySelectorAll('button'));
+                        for (const button of buttons) {
+                            if (button.textContent.includes('Regenerate') || 
+                                button.textContent.includes('重新生成') ||
+                                button.textContent.includes('Retry')) {
+                                regenerateButton = button;
+                                break;
                             }
-                            return
-                
-                # If the above approach didn't work, we'll try a more direct approach
-                # Extract all content from the page
-                full_text = soup.get_text(separator=' ', strip=True)
-                
-                # Try to find the prompt in the full text and extract content that follows
-                if prompt in full_text:
-                    prompt_index = full_text.find(prompt)
-                    if prompt_index >= 0:
-                        # Get text after the prompt
-                        after_prompt = full_text[prompt_index + len(prompt):].strip()
-                        
-                        # Split into lines and clean up
-                        lines = after_prompt.split('\n')
-                        clean_lines = []
-                        
-                        # Filter out UI elements and other noise
-                        for line in lines:
-                            line = line.strip()
-                            if (line and 
-                                'retry' not in line.lower() and 
-                                'edit' not in line.lower() and
-                                'thumb' not in line.lower() and
-                                'choose style' not in line.lower() and
-                                'claude can make mistakes' not in line.lower()):
-                                clean_lines.append(line)
-                        
-                        # Join the filtered lines
-                        response_text = ' '.join(clean_lines)
-                        
-                        # If we got a substantial response, return it
-                        if response_text and len(response_text) > 20:
-                            logger.info("从提示后提取文本内容")
-                            yield {
-                                "status": "success",
-                                "content": response_text,
-                                "complete": True
-                            }
-                            return
-                
-                # Final attempt: try to find the last substantial message
-                prose_elements = soup.select('div.prose, div.whitespace-pre-wrap, pre')
-                if prose_elements:
-                    last_content = prose_elements[-1].get_text(strip=True)
-                    if last_content and len(last_content) > 20 and prompt not in last_content:
-                        logger.info("从prose元素提取内容")
-                        yield {
-                            "status": "success",
-                            "content": last_content,
-                            "complete": True
                         }
+                        
+                        // If text area is enabled OR regenerate button exists, response is complete
+                        return (textArea && sendButton) || regenerateButton;
+                    }
+                    return checkResponseComplete();
+                    """
+                    
+                    # Wait for response to complete with timeout
+                    retry_count = 0
+                    max_retries = 60  # About 2 minutes of waiting
+                    
+                    while retry_count < max_retries:
+                        is_complete = await self.session.execute_script(js_detect_completion)
+                        if is_complete:
+                            logger.info("Claude响应已完成")
+                            break
+                        
+                        await asyncio.sleep(2)
+                        retry_count += 1
+                    
+                    # Extra wait to ensure all content is fully loaded
+                    await asyncio.sleep(2)
+                    
+                    # Now extract the page content
+                    page_content = await self._extract_page_content()
+                    
+                    if page_content and "conversationTurns" in page_content:
+                        # Format the content as desired
+                        formatted_content = {
+                            "status": "success",
+                            "content": {}
+                        }
+                        
+                        # Add each conversation round to the result
+                        for i, turn in enumerate(page_content["conversationTurns"]):
+                            round_key = f"round {i+1}"
+                            formatted_content["content"][round_key] = {
+                                "query": turn.get("query", ""),
+                                "response": "\n".join(turn.get("responses", [])),
+                                "codeBlocks": turn.get("codeBlocks", []),
+                                "documents": turn.get("documents", []),
+                                "codeExplanations": turn.get("codeExplanations", [])
+                            }
+                        
+                        yield formatted_content
                         return
-                
+                    else:
+                        logger.error("无法提取页面内容")
+                    
+                except Exception as e:
+                    logger.error(f"提取内容时出错: {str(e)}")
+                    
                 # If we still don't have good content, report an error
                 yield {"status": "error", "message": "无法获取Claude的有效响应内容"}
 
         except Exception as e:
             logger.error(f"聊天错误: {str(e)}")
             yield {"status": "error", "message": str(e)}
-                
     
-
-    async def _upload_image(self, image_path: str) -> bool:
-        """
-        Upload an image to Claude
-        
-        Args:
-            image_path: Path to the image file
-            
-        Returns:
-            Boolean indicating success
-        """
+    async def _extract_page_content(self):
+        """Extract the page content similar to extract_page_content function"""
         try:
-            # 点击上传按钮
-            upload_button = await self.session.query_selector(CLAUDE_SELECTORS['upload_button'])
-            if not upload_button:
-                return False
-            
-            # 设置文件输入处理
-            file_input_selector = 'input[type="file"]'
-            file_input = await self.session.query_selector(file_input_selector)
-            
-            if not file_input:
-                # 如果没有文件输入，可能需要点击按钮触发它
-                await self.session.click(CLAUDE_SELECTORS['upload_button'])
-                file_input = await self.session.wait_for_selector(file_input_selector, timeout=5000)
-            
-            if file_input:
-                # 使用JavaScript设置文件
-                await self.session.execute_script(
-                    """
-                    const input = arguments[0];
-                    const filePath = arguments[1];
-                    
-                    // 创建一个自定义事件
-                    const dataTransfer = new DataTransfer();
-                    const file = new File([''], filePath.split('/').pop(), { type: 'image/png' });
-                    dataTransfer.items.add(file);
-                    input.files = dataTransfer.files;
-                    
-                    // 触发change事件
-                    const event = new Event('change', { bubbles: true });
-                    input.dispatchEvent(event);
-                    """,
-                    file_input, image_path
-                )
+            # Use JavaScript to extract content and preserve formatting
+            js_script = """
+            function getFormattedContent() {
+                // 存储内容
+                let content = {
+                    conversationTurns: [],
+                    uiElements: []
+                };
                 
-                # 等待上传完成
-                await self.session.wait_for_selector(CLAUDE_SELECTORS['image_preview'], timeout=30000)
-                return True
-            else:
-                logger.error("找不到文件输入元素")
-                return False
+                // 更可靠的方式查找对话区域
+                const mainContentArea = document.querySelector('div.flex-1.flex.flex-col.gap-3');
+                if (!mainContentArea) {
+                    return { error: "无法找到主要内容区域" };
+                }
                 
+                // 获取所有直接子元素，它们应该是对话轮次
+                const conversationElements = Array.from(mainContentArea.children);
+                
+                // 初始化变量来跟踪当前的对话轮次
+                let currentTurn = null;
+                
+                for (const element of conversationElements) {
+                    // 检查元素是否包含用户查询（通常有特定的背景色）
+                    const isUserQuery = element.querySelector('.bg-bg-300');
+                    
+                    if (isUserQuery) {
+                        // 如果有之前的轮次，将其添加到结果中
+                        if (currentTurn) {
+                            content.conversationTurns.push(currentTurn);
+                        }
+                        
+                        // 提取用户查询文本，排除可能的编辑按钮
+                        let queryText = isUserQuery.textContent.trim();
+                        queryText = queryText.replace(/Edit$/, '').trim();
+                        
+                        // 移除用户名前缀（例如："E"）
+                        queryText = queryText.replace(/^[A-Z]\\s*/, '');
+                        
+                        // 创建新的对话轮次
+                        currentTurn = {
+                            query: queryText,
+                            responses: [],
+                            codeBlocks: [],
+                            documents: [],
+                            codeExplanations: []
+                        };
+                    } else {
+                        // 如果没有当前轮次，跳过
+                        if (!currentTurn) continue;
+                        
+                        // 检查是否是 Claude 的回复（通常有特定的样式特征）
+                        const hasResponseContent = element.querySelector('.font-claude-message') || 
+                                                element.querySelector('[class*="tracking"]');
+                        
+                        if (hasResponseContent) {
+                            // 处理回复内容
+                            
+                            // 1. 查找代码块
+                            const codeBlocks = element.querySelectorAll('pre');
+                            for (const codeBlock of codeBlocks) {
+                                // 获取代码语言
+                                let language = '';
+                                const codeElement = codeBlock.querySelector('code');
+                                if (codeElement && codeElement.className) {
+                                    const match = codeElement.className.match(/language-([a-zA-Z0-9]+)/);
+                                    if (match) {
+                                        language = match[1];
+                                    }
+                                }
+                                
+                                // 获取代码文本
+                                let codeText = codeBlock.textContent || "";
+                                
+                                // 移除"Copy"和语言标识
+                                codeText = codeText.replace(/^(python|javascript|html|css|json)\\s*Copy\\s*/i, '');
+                                
+                                // 将代码块添加到当前轮次
+                                if (codeText.trim()) {
+                                    currentTurn.codeBlocks.push({
+                                        language: language || 'python', // 默认为python
+                                        code: codeText
+                                    });
+                                }
+                            }
+                            
+                            // 2. 查找文档引用
+                            const docButtons = element.querySelectorAll('button[class*="font-styrene"][class*="border-0"]');
+                            for (const docButton of docButtons) {
+                                // 提取文档标题
+                                const docTitle = docButton.textContent.replace(/Click to open document.*$/, '').trim();
+                                
+                                // 尝试找到文档内容
+                                let docContent = [];
+                                
+                                // 检查页面上是否有侧边栏，其中可能包含文档内容
+                                const sidebarContent = document.querySelector('div[class*="fixed"][class*="right-0"][class*="flex"][class*="w-full"]');
+                                if (sidebarContent) {
+                                    // 从侧边栏中提取段落
+                                    const docTextElements = sidebarContent.querySelectorAll('p');
+                                    for (const textEl of docTextElements) {
+                                        docContent.push(textEl.textContent.trim());
+                                    }
+                                }
+                                
+                                // 添加文档到当前轮次
+                                if (docTitle) {
+                                    currentTurn.documents.push({
+                                        title: docTitle,
+                                        content: docContent
+                                    });
+                                }
+                            }
+                            
+                            // 3. 提取代码说明和使用说明 - 改进的捕获方式
+                            let codeExplanations = [];
+                            
+                            // 整个响应元素作为容器，查找所有可能的说明文本
+                            const allExplanationTexts = [];
+                            
+                            // 查找所有列表（有序和无序）
+                            const listItems = element.querySelectorAll('ol li, ul li');
+                            for (const item of listItems) {
+                                // 检查不在代码块内
+                                if (!item.closest('pre')) {
+                                    allExplanationTexts.push(item.textContent.trim());
+                                }
+                            }
+                            
+                            // 如果找到列表项，添加为代码说明
+                            if (listItems.length > 0) {
+                                const orderedLists = element.querySelectorAll('ol');
+                                for (const list of orderedLists) {
+                                    // 检查不在代码块内
+                                    if (!list.closest('pre')) {
+                                        codeExplanations.push(list.textContent.trim());
+                                    }
+                                }
+                                
+                                const unorderedLists = element.querySelectorAll('ul');
+                                for (const list of unorderedLists) {
+                                    // 检查不在代码块内
+                                    if (!list.closest('pre')) {
+                                        codeExplanations.push(list.textContent.trim());
+                                    }
+                                }
+                            }
+                            
+                            // 查找可能包含使用说明的段落和div
+                            const explanationParagraphs = element.querySelectorAll('p, div');
+                            for (const para of explanationParagraphs) {
+                                const text = para.textContent.trim();
+                                
+                                // 特定关键词的段落，如果不在代码块中
+                                if ((text.includes('To use this code') || 
+                                    text.includes('Install') || 
+                                    text.includes('Set your API') || 
+                                    text.includes('Run the script') ||
+                                    text.includes('adjust parameters') ||
+                                    text.includes('This demo shows')) && 
+                                    !para.closest('pre') && 
+                                    !para.querySelector('pre') &&
+                                    !text.includes('Claude can make mistakes')) {
+                                    
+                                    // 排除已经添加的（避免重复）
+                                    if (!codeExplanations.includes(text)) {
+                                        codeExplanations.push(text);
+                                    }
+                                }
+                            }
+                            
+                            // 添加到当前轮次
+                            currentTurn.codeExplanations = codeExplanations;
+                            
+                            // 4. 更全面地捕获说明文本
+                            // 创建一个临时的容器来保存所有内容，过滤掉代码区域
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = element.innerHTML;
+                            
+                            // 移除所有代码块，以便我们可以获取剩余文本
+                            const codeToRemove = tempDiv.querySelectorAll('pre');
+                            for (const code of codeToRemove) {
+                                if (code.parentNode) {
+                                    code.parentNode.removeChild(code);
+                                }
+                            }
+                            
+                            // 查找特定的段落文本模式
+                            const remainingText = tempDiv.textContent;
+                            const usageMatch = remainingText.match(/To use this code:([\\s\\S]*?)(?=\\n\\n|$)/);
+                            if (usageMatch && usageMatch[1]) {
+                                const usageText = usageMatch[1].trim();
+                                if (usageText && !codeExplanations.includes(usageText)) {
+                                    codeExplanations.push("To use this code:" + usageText);
+                                }
+                            }
+                            
+                            // 查找其他关键说明段落
+                            const demoMatch = remainingText.match(/This demo shows([\\s\\S]*?)(?=\\n\\n|$)/);
+                            if (demoMatch && demoMatch[0]) {
+                                const demoText = demoMatch[0].trim();
+                                if (demoText && !codeExplanations.includes(demoText)) {
+                                    codeExplanations.push(demoText);
+                                }
+                            }
+                            
+                            // 5. 提取回复文本（排除代码块、按钮和已捕获的说明）
+                            let responseText = '';
+                            
+                            // 查找所有段落元素
+                            const allParagraphs = element.querySelectorAll('p');
+                            for (const para of allParagraphs) {
+                                // 排除代码块内的段落、文档引用按钮内的文本和明显的说明文本
+                                const paraText = para.textContent.trim();
+                                if (!para.closest('pre') && 
+                                    !para.closest('button') && 
+                                    !paraText.includes('To use this code') &&
+                                    !paraText.includes('This demo shows') &&
+                                    !paraText.includes('Claude can make mistakes')) {
+                                    
+                                    responseText += paraText + '\\n\\n';
+                                }
+                            }
+                            
+                            // 如果没有找到段落元素或文本为空，尝试从主元素提取
+                            if (!responseText.trim()) {
+                                // 复制内容
+                                const tempTextDiv = document.createElement('div');
+                                tempTextDiv.innerHTML = element.innerHTML;
+                                
+                                // 移除代码块、按钮和其他UI元素
+                                const elementsToRemove = [
+                                    ...tempTextDiv.querySelectorAll('pre'),
+                                    ...tempTextDiv.querySelectorAll('button'),
+                                    ...tempTextDiv.querySelectorAll('ol'),
+                                    ...tempTextDiv.querySelectorAll('ul')
+                                ];
+                                
+                                for (const el of elementsToRemove) {
+                                    if (el.parentNode) {
+                                        el.parentNode.removeChild(el);
+                                    }
+                                }
+                                
+                                // 移除UI元素文本
+                                responseText = tempTextDiv.textContent.trim()
+                                    .replace(/Retry/g, '')
+                                    .replace(/Copy/g, '')
+                                    .replace(/Edit/g, '')
+                                    .replace(/Claude can make mistakes. Please double-check responses./g, '')
+                                    .trim();
+                            }
+                            
+                            // 移除多余的空行
+                            responseText = responseText.replace(/\\n{3,}/g, '\\n\\n');
+                            
+                            // 添加到当前轮次的回复
+                            if (responseText.trim()) {
+                                currentTurn.responses.push(responseText);
+                            }
+                        }
+                    }
+                }
+                
+                // 添加最后一个轮次（如果有）
+                if (currentTurn) {
+                    content.conversationTurns.push(currentTurn);
+                }
+                
+                // 收集页面头部信息作为UI元素
+                const headerElement = document.querySelector('header');
+                if (headerElement) {
+                    content.uiElements.push({
+                        type: 'header',
+                        text: headerElement.textContent.trim()
+                    });
+                }
+                
+                // 收集页面底部的免责声明
+                const disclaimerElement = document.querySelector('div[class*="Claude can make mistakes"]');
+                if (disclaimerElement) {
+                    content.uiElements.push({
+                        type: 'disclaimer',
+                        text: disclaimerElement.textContent.trim()
+                    });
+                }
+                
+                return content;
+            }
+            
+            return getFormattedContent();
+            """
+            
+            content_data = await self.session.execute_script(js_script)
+            
+            # 检查是否有错误
+            if isinstance(content_data, dict) and 'error' in content_data:
+                logger.error(f"JavaScript执行错误: {content_data['error']}")
+                return None
+            
+            return content_data
+            
         except Exception as e:
-            logger.error(f"图片上传错误: {str(e)}")
-            return False
+            logger.error(f"提取页面内容时出错: {str(e)}")
+            return None
 
     async def debug_page_elements(self):
         """

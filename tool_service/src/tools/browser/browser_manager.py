@@ -59,7 +59,7 @@ class BrowserManager:
         
         # 确保数据目录存在
         self.data_dir = Path(self.config['data_dir'])
-        self.data_dir.mkdir(parents=True, exist_ok=True)
+        #self.data_dir.mkdir(parents=True, exist_ok=True)
         # 记录标签页到服务的映射关系
         self.tab_services = {}  # 格式：{tab_handle: service_name}
         # 注册退出时的清理函数

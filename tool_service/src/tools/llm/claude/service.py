@@ -35,18 +35,18 @@ class ClaudeService:
             await self.cleanup()
             raise
 
-    async def chat(self, prompt: str = None, image_path: str = None, stream: bool = True, new_chat: bool = False) -> AsyncGenerator[str, None]:
+    async def chat(self, prompt: str = None, file_paths = None, stream: bool = True, new_chat: bool = False) -> AsyncGenerator[str, None]:
         """与Claude对话
     
         Args:
             prompt: 发送给Claude的提示文本
-            image_path: 可选图片路径
+            file_paths: 可选附件
             new_chat: 是否开始新聊天
         """
         if not self.auth_handler:
             raise Exception("Service not initialized")
     
-        async for response in self.auth_handler.handle_chat_stream(prompt, image_path, stream, new_chat):
+        async for response in self.auth_handler.handle_chat_stream(prompt, file_paths, stream, new_chat):
             yield response
 
     async def cleanup(self):
