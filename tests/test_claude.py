@@ -1,4 +1,5 @@
 import asyncio
+import json
 import httpx
 import logging
 import json
@@ -14,6 +15,16 @@ logging.basicConfig(
 )
 logger = logging.getLogger("claude_test")
 
+async def send_wechat_message(processed_params ={"contact_name": "陈浩","message": "测试微信数据接口 "}):
+    async with httpx.AsyncClient() as client:
+        tool_response = await client.post(
+            "http://localhost:8003/tools/wechat/search_and_send",
+            json=processed_params,
+            timeout=300.0
+        )
+    print(tool_response.json())
+    return tool_response.json()
+
 async def test_claude_chat():
     """
     Test the Claude chat functionality via the tool service API
@@ -23,7 +34,7 @@ async def test_claude_chat():
     
     # You can optionally include an image
     file_paths = None  # Set to a valid path if you want to test with an image
-    #file_paths="/oper/work/endian/intelligent_agent/tests/5g.png"
+    #file_paths=["/oper/work/endian/intelligent_agent/tests/5g.png"]
     request_data = {
         "prompt": prompt,
         "file_paths": file_paths,
@@ -50,21 +61,6 @@ async def test_claude_chat():
             result = response.json()
             
             if result.get("status") == "success":
-                # Print the responses
-                print(result)
-                for idx, resp in enumerate(result.get("responses", [])):
-                    logger.info(f"Response {idx+1}:")
-                    
-                    # Handle streaming responses
-                    if resp.get("status") == "streaming":
-                        logger.info(f"Streaming content: {resp.get('content')[:100]}...")
-                        if resp.get("complete"):
-                            logger.info("Response complete.")
-                    else:
-                        logger.info(f"Response status: {resp.get('status')}")
-                        if resp.get("message"):
-                            logger.info(f"Message: {resp.get('message')}")
-                
                 return result
             else:
                 logger.error(f"Error from API: {result.get('message', 'Unknown error')}")
@@ -74,12 +70,6 @@ async def test_claude_chat():
             logger.error(f"HTTP error: {e}")
             logger.error(f"Response content: {e.response.text}")
             return {"status": "error", "message": f"HTTP error: {str(e)}"}
-        except httpx.RequestError as e:
-            logger.error(f"Request error: {e}")
-            return {"status": "error", "message": f"Request error: {str(e)}"}
-        except Exception as e:
-            logger.error(f"Unexpected error: {e}")
-            return {"status": "error", "message": f"Unexpected error: {str(e)}"}
 
 # Alternative version based on your API structure
 async def test_claude_chat_v2():
@@ -104,7 +94,7 @@ async def test_claude_chat_v2():
         try:
             # Try the format used in api.py
             response = await client.post(
-                "http://localhost:8003/tools/llm/claude",
+                "http://localhost:8003/tools/llm/chat/claude",
                 json=request_data,
                 timeout=300.0
             )
@@ -151,13 +141,12 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1 and sys.argv[1] == "--alt":
         # Try alternative endpoint
         result = asyncio.run(test_claude_chat_v2())
+    elif len(sys.argv) > 1 and sys.argv[1] == "--wechat":
+        result = asyncio.run(test_claude_chat())
+        pretty_output = json.dumps(result, indent=2, ensure_ascii=False)
+        # Print the responses
+        print(pretty_output)
+        res_wechat = asyncio.run(send_wechat_message({"contact_name": "陈浩","message": pretty_output}))
     else:
         # Regular test
         result = asyncio.run(test_claude_chat())
-    
-    # Print final result status
-    print(f"\nFinal result status: {result.get('status', 'unknown')}")
-    
-    # If there's an error message, print it
-    if result.get('status') != 'success' and result.get('message'):
-        print(f"Error message: {result.get('message')}")

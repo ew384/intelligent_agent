@@ -8,10 +8,13 @@ import json
 import socket
 import subprocess
 import time
+import re
+
 import platform
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 from ..common.cookies_manager import CookiesManager
+#from .browser_manager import BrowserManager
 logger = logging.getLogger(__name__)
 
 class ChromeDriverBrowserService:
@@ -41,7 +44,7 @@ class ChromeDriverBrowserService:
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'
             ),
             'chrome_binary': os.environ.get('CHROME_BINARY', None),
-            'debug_port': int(9222)
+            'debug_port': int(54805)
         }
         
         # 创建数据目录
@@ -77,7 +80,7 @@ class ChromeDriverBrowserService:
             from .browser_session import BrowserSession
             
             # 检查是否有已运行的Chrome调试实例
-            has_running_chrome = self._is_debug_port_in_use()
+            has_running_chrome = True# self._is_debug_port_in_use()
             logger.info(f"has_running_chrome: {str(has_running_chrome)} ")
             if not has_running_chrome:
                 # 启动Chrome调试实例
@@ -135,7 +138,7 @@ class ChromeDriverBrowserService:
         Returns:
             端口是否被使用
         """
-        port = 9222#self.config['debug_port']
+        port = 54805#self.config['debug_port']
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             return s.connect_ex(('localhost', port)) == 0
     
@@ -296,6 +299,7 @@ class ChromeDriverBrowserService:
         except Exception as e:
             logger.error(f"启动Chrome调试实例失败: {str(e)}")
             raise
+
     
     async def _connect_to_chrome(self) -> tuple:
         """
@@ -305,18 +309,25 @@ class ChromeDriverBrowserService:
             (driver, service)元组
         """
         try:
-            port = 9222 #self.config['debug_port']
-            
+            try:
+                port = 54805  
+                print(f"Chrome debugging port: {port}")
+                
+                # Now you can use this port in your Python code
+                # For example:
+                # chrome_driver = webdriver.Chrome(options=options, port=port)
+                
+            except Exception as e:
+                print(f"Error: {e}")
             # 创建ChromeOptions - 当连接到已运行的Chrome实例时只能使用debuggerAddress选项
             chrome_options = Options()
             chrome_options.add_experimental_option("debuggerAddress", f"127.0.0.1:{port}")
             
             # 创建Service对象
-            from .browser_manager import BrowserManager
             driver_path = "/usr/local/bin/chromedriver"#BrowserManager().download_chromedriver()
             service = Service(driver_path)
             #service = Service()
-            #logger.info(f"正在连接到Chrome debug端口: {port}, 使用driver: {driver_path}")
+            logger.info(f"正在连接到Chrome debug端口: {port}, 使用driver: {driver_path}")
             
             # 创建WebDriver
             driver = webdriver.Chrome(service=service, options=chrome_options)

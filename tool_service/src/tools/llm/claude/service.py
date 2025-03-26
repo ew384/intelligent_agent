@@ -14,9 +14,10 @@ class ClaudeService:
         try:
             # 获取浏览器服务
             browser_service = await self.browser_manager.get_browser_service("claude")
-            
+            #browser_service, session, tab_handle = await self.browser_manager.get_or_create_service_tab("claude", url="https://claude.ai")
             # 初始化会话
             self.session = await browser_service.initialize()
+            #self.session = session
             if not self.session:
                 raise Exception("浏览器会话初始化失败")
                 

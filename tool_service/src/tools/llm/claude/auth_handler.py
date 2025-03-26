@@ -2,6 +2,9 @@ from typing import Dict, Any, AsyncGenerator
 import logging
 import time
 import json
+import os
+import random
+import uuid
 import asyncio
 from .selectors import CLAUDE_SELECTORS
 from bs4 import BeautifulSoup
@@ -126,49 +129,51 @@ class ClaudeAuthHandler:
         except Exception as e:
             logger.error(f"等待手动登录出错: {str(e)}")
             return False
-            
+    # Alternative approach preserving more information
     async def _start_new_chat(self):
         """
-        Start a new chat conversation by directly navigating to the new chat URL
+        Start a new chat conversation by clicking the new chat button
         
         Returns:
             Boolean indicating success
         """
         try:
-            logger.info("Starting new chat via direct navigation")
+            logger.info("Starting new chat via button click")
             
-            # Use direct navigation to /new as the primary method
-            try:
-                current_url = await self.session.execute_script("return window.location.href")
-                if "/new" not in current_url:
-                    await self.session.goto("https://claude.ai/new")
-                    await asyncio.sleep(3)  # Give more time for the page to load
-                    
-                    # Check if navigation was successful
-                    current_url = await self.session.execute_script("return window.location.href")
-                    if "/new" in current_url:
-                        logger.info("Started new chat successfully via direct navigation")
-                        return True
-                    else:
-                        logger.warning(f"Navigation completed but URL doesn't contain /new: {current_url}")
-                else:
-                    logger.info("Already on new chat page")
-                    return True
-            except Exception as e:
-                logger.error(f"Direct navigation failed: {str(e)}")
+            # Check if we need to start a new chat
+            current_url = await self.session.execute_script("return window.location.href")
+            if "/new" in current_url:
+                logger.info("Already on new chat page")
+                return True
                 
-                # Fall back to JavaScript history manipulation as a last resort
-                try:
-                    logger.info("Trying navigation via history.pushState")
-                    await self.session.execute_script("""
-                        history.pushState({}, '', '/new');
-                        window.location.reload();
-                    """)
-                    await asyncio.sleep(3)
-                    return True
-                except Exception as js_error:
-                    logger.error(f"JavaScript navigation failed: {str(js_error)}")
-                    return False
+            # Find and click the new chat button using the selector from CLAUDE_SELECTORS
+            new_chat_selector = CLAUDE_SELECTORS['new_chat_button']
+            
+            # Wait for the button to be visible
+            await self.session.wait_for_selector(new_chat_selector)
+            
+            # Add a small random delay before clicking to simulate human behavior
+            await asyncio.sleep(random.uniform(0.5, 1.5))
+            
+            # Click the button
+            await self.session.click(new_chat_selector)
+            
+            # Wait for page to load
+            await asyncio.sleep(random.uniform(2.0, 4.0))
+            
+            # Verify we're on the new chat page
+            current_url = await self.session.execute_script("return window.location.href")
+            if "/new" in current_url:
+                logger.info("Started new chat successfully via button click")
+                return True
+            else:
+                logger.warning(f"Button click completed but URL doesn't contain /new: {current_url}")
+                
+                # Fall back to direct navigation if button click doesn't work
+                logger.info("Falling back to direct navigation")
+                await self.session.goto("https://claude.ai/new")
+                await asyncio.sleep(3)
+                return True
                 
         except Exception as e:
             logger.error(f"Error starting new chat: {str(e)}")
@@ -227,60 +232,45 @@ class ClaudeAuthHandler:
                 await asyncio.sleep(1)
                 
                 # Try to find the file input again
-                file_input = await self.session.query_selector('input[type="file"]')
-            
-            if not file_input:
-                logger.error("Could not find file input element after multiple attempts")
-                return False
+                #file_input = await self.session.query_selector('input[type="file"]')
+                try:
+                    file_input = self.session.find_element_by_css_selector('input[type="file"]')
+                except:
+                    logger.error("Could not find file input element after multiple attempts")
+
             
             # Now that we have the file input, upload the files
             logger.info(f"Uploading {len(file_paths)} files")
-            await file_input.set_input_files(file_paths)
-            
+            for file_path in file_paths:
+                file_input.send_keys(os.path.abspath(file_path))
+                logger.info(f"File {file_path} upload succeeded")
+
             # Wait for uploads to complete
             await asyncio.sleep(3)  # Give it some time to process
-            
-            # Check for various indicators that the upload succeeded
-            upload_success = await self.session.execute_script("""
-                // Check for various preview indicators
-                const previewSelectors = [
-                    '[data-testid="image-preview"]',
-                    '[data-testid="file-preview"]',
-                    '.file-preview',
-                    '[data-testid*="upload-preview"]'
-                ];
-                
-                for (const selector of previewSelectors) {
-                    if (document.querySelector(selector)) {
-                        return true;
-                    }
-                }
-                
-                // Look for any newly added elements that might contain the filename
-                const files = Array.from(document.querySelectorAll('div, span, p'))
-                    .filter(el => {
-                        const text = el.textContent.toLowerCase();
-                        return text.endsWith('.jpg') || 
-                            text.endsWith('.png') || 
-                            text.endsWith('.pdf') ||
-                            text.endsWith('.txt') ||
-                            text.endsWith('.csv');
-                    });
-                    
-                return files.length > 0;
-            """)
-            
-            if upload_success:
-                logger.info("File upload appears to have succeeded")
-                return True
-            else:
-                logger.warning("Could not confirm file upload success")
-                return False
                     
         except Exception as e:
             logger.error(f"Error uploading files: {str(e)}")
             return False
+        return True
+
+    async def get_chat_id(self):
+        try:
+            chat_id = await self.session.execute_script("""
+                const url = window.location.href;
+                const match = url.match(/claude\\.ai\\/chat\\/([^?#]+)/);
+                return match ? match[1] : null;
+            """)
             
+            if chat_id:
+                logger.info(f"获取到会话 ID: {chat_id}")
+                return chat_id
+            else:
+                logger.warning("无法从 URL 获取会话 ID")
+                return None
+        except Exception as e:
+            logger.error(f"获取会话 ID 时出错: {str(e)}")
+            return None
+        
     async def handle_chat_stream(self, prompt: str = None, file_paths = None, stream: bool = True, new_chat: bool = False) -> AsyncGenerator[Dict[str, Any], None]:
         """
         Handle chat interaction with Claude
@@ -358,12 +348,44 @@ class ClaudeAuthHandler:
                     yield {"status": "error", "message": "无法粘贴内容到输入框"}
                     return
 
+                send_button_enabled = False
+                retry_count = 0
+                while retry_count < 20 and not send_button_enabled:
+                    try:
+                        # Use JavaScript to check if the button is enabled
+                        send_button_enabled = await self.session.execute_script("""
+                            const sendBtn = document.querySelector('button[aria-label="Send Message"]');
+                            return sendBtn && !sendBtn.disabled;
+                        """)
+                        
+                        if send_button_enabled:
+                            break
+                            
+                        await asyncio.sleep(1)
+                        retry_count += 1
+                    except Exception as e:
+                        logger.warning(f"Error checking send button state: {str(e)}")
+                        retry_count += 1
+                        
+                if not send_button_enabled:
+                    yield {"status": "error", "message": "发送按钮未启用，可能是输入框为空或Claude正在处理"}
+                    return
+                    
                 try:
-                    # Click the send button
-                    await self.session.click("button[aria-label='Send Message']")
+                    # Click the send button using JavaScript instead of Playwright's click
+                    await self.session.execute_script("""
+                        const sendBtn = document.querySelector('button[aria-label="Send Message"]');
+                        if (sendBtn && !sendBtn.disabled) {
+                            sendBtn.click();
+                            return true;
+                        }
+                        return false;
+                    """)
                     logger.info("已发送消息")
-                except:
-                    yield {"status": "error", "message": "找不到发送按钮"}
+                except Exception as e:
+                    logger.error(f"点击发送按钮失败: {str(e)}")
+                    yield {"status": "error", "message": "发送消息失败"}
+                    return
 
                 # Wait for response to complete
                 try:
@@ -424,6 +446,7 @@ class ClaudeAuthHandler:
                         }
                         
                         # Add each conversation round to the result
+                        '''
                         for i, turn in enumerate(page_content["conversationTurns"]):
                             round_key = f"round {i+1}"
                             formatted_content["content"][round_key] = {
@@ -433,9 +456,40 @@ class ClaudeAuthHandler:
                                 "documents": turn.get("documents", []),
                                 "codeExplanations": turn.get("codeExplanations", [])
                             }
+                        '''
+                        messages = []
+                        # Add each conversation round as a message
+                        for turn in page_content["conversationTurns"]:
+                            # Add user message
+                            if turn.get("query", ""):
+                                messages.append({
+                                    "role": "user",
+                                    "content": turn.get("query", "")
+                                })
+                            
+                            # Add assistant message
+                            if turn.get("responses", []):
+                                messages.append({
+                                    "role": "assistant",
+                                    "content": {
+                                        "response": turn.get("responses", []),
+                                        "codeBlocks": turn.get("codeBlocks", []),
+                                        "documents": turn.get("documents", []),
+                                        "codeExplanations": turn.get("codeExplanations", [])
+                                    }
+                                })
                         
-                        yield formatted_content
-                        return
+                        # Create the simplified response object
+                        chat_id = await self.get_chat_id()
+                        logger.info(f"当前会话 ID: {chat_id}")
+                        openai_format = {
+                            "id": "chatcmpl-" + str(chat_id),
+                            "created": int(time.time()),
+                            "model": "Claude 3.7 Sonnet",
+                            "messages":messages
+                        }
+                        yield openai_format
+
                     else:
                         logger.error("无法提取页面内容")
                     
@@ -443,6 +497,7 @@ class ClaudeAuthHandler:
                     logger.error(f"提取内容时出错: {str(e)}")
                     
                 # If we still don't have good content, report an error
+            else:
                 yield {"status": "error", "message": "无法获取Claude的有效响应内容"}
 
         except Exception as e:
@@ -756,6 +811,7 @@ class ClaudeAuthHandler:
         except Exception as e:
             logger.error(f"提取页面内容时出错: {str(e)}")
             return None
+
 
     async def debug_page_elements(self):
         """
