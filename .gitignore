@@ -3,4 +3,5 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 ./tests/browser_test/
+./tests/browser_test/claude
 ./page_analyzer/page_automation_output/
