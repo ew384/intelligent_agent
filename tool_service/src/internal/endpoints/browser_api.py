@@ -62,35 +62,4 @@ async def handle_credit_card(request: Request):
     Returns:
         查询结果
     """
-    try:
-        # 解析请求体
-        parameters = await request.json()
-        
-        logger.info(f"执行信用卡查询，参数: {parameters}")
-        
-        # 获取浏览器服务
-        service_id = parameters.get('service_id', 'credit_card')
-        browser_service = await browser_manager.get_browser_service(service_id)
-        
-        if not browser_service:
-            return {"status": "error", "message": "无法创建浏览器服务"}
-        
-        # 初始化会话
-        session = await browser_service.initialize()
-        if not session:
-            return {"status": "error", "message": "无法创建浏览器会话"}
-        
-        # 创建信用卡处理器
-        handler = CreditCardHandler(session)
-        
-        # 执行查询
-        result = await handler.process_query(parameters)
-        
-        # 如果需要关闭会话，则关闭
-        if parameters.get('close_session', False):
-            await session.close()
-        
-        return result
-    except Exception as e:
-        logger.error(f"处理信用卡查询时出错: {str(e)}", exc_info=True)
-        return {"status": "error", "message": f"查询失败: {str(e)}"}
+    pass

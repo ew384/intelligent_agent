@@ -1,0 +1,32 @@
+# ChatGPT UI Selectors Analysis
+# Generated on: 2025-03-28 17:38:38
+
+## Best Selectors
+
+```python
+CHATGPT_SELECTORS = {
+    'new_chat_button': '[data-discover="true"]',
+    'prompt_textarea': '#prompt-textarea',
+    'send_button': '.flex.items-center.justify-center.h-9.rounded-full.border.border-token-border-light.text-token-text-secondary.w-9.can-hover:hover:bg-black/5.dark:can-hover:hover:bg-white/5.min-h-8.min-w-[34px]',
+    'response_container': '[data-message-author-role="assistant"]',
+    'upload_button': 'input[type="file"], [data-testid="upload-button"]',
+    'file_input': '.hidden',
+}
+```
+
+## Complete Updated LLM Selectors
+
+```python
+# Updated ChatGPT web interface selectors
+CHATGPT_SELECTORS = {
+    # Core UI elements
+    'new_chat_button': '[data-discover="true"]',
+    'prompt_textarea': '#prompt-textarea',
+    'send_button': '.flex.items-center.justify-center.h-9.rounded-full.border.border-token-border-light.text-token-text-secondary.w-9.can-hover:hover:bg-black/5.dark:can-hover:hover:bg-white/5.min-h-8.min-w-[34px]',
+    'response_container': '[data-message-author-role="assistant"]',
+
+    # File upload
+    'upload_button': 'input[type="file"], [data-testid="upload-button"]',
+    'file_input': '.hidden',
+}
+```

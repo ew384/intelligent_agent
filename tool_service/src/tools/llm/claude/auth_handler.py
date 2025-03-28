@@ -32,28 +32,7 @@ class ClaudeAuthHandler:
         Returns:
             Dict with login status
         """
-        try:
-            # 检查是否已登录
-            is_logged_in = await self._check_logged_in()
-            if is_logged_in:
-                self.logged_in = True
-                logger.info("已通过cookie成功登录Claude")
-                return {"status": "success", "message": "已使用cookie登录"}
-            
-            # 如果cookie登录失败，我们需要处理手动登录
-            logger.info("Cookie登录失败，等待手动登录")
-            
-            # 等待手动登录
-            is_logged_in = await self._wait_for_manual_login()
-            if is_logged_in:
-                self.logged_in = True
-                return {"status": "success", "message": "已手动登录"}
-            else:
-                return {"status": "error", "message": "登录超时"}
-                
-        except Exception as e:
-            logger.error(f"Claude登录错误: {str(e)}")
-            return {"status": "error", "message": str(e)}
+        pass
             
             
     async def _check_logged_in(self) -> bool:
@@ -63,33 +42,7 @@ class ClaudeAuthHandler:
         Returns:
             Boolean indicating logged in status
         """
-        try:
-            # Try multiple CSS selectors that could indicate being logged in
-            selectors = [
-                CLAUDE_SELECTORS['logged_in_indicator'],
-                "header", 
-                ".main-container",
-                "[role='main']"
-            ]
-            
-            for selector in selectors:
-                try:
-                    element = await self.session.wait_for_selector(
-                        selector,
-                        timeout=2000  # Shorter timeouts for each attempt
-                    )
-                    if element is not None:
-                        return True
-                except:
-                    continue
-                    
-            # If we didn't find any indicators, check if we're on the login page
-            login_button = await self.session.query_selector("button:has-text('Log in')")
-            return login_button is None  # If no login button, we're probably logged in
-                
-        except Exception as e:
-            self.logger.warning(f"Error checking login status: {str(e)}")
-            return False
+        pass
 
     async def _wait_for_manual_login(self, timeout: int = 300000) -> bool:
         """
@@ -101,35 +54,9 @@ class ClaudeAuthHandler:
         Returns:
             Boolean indicating success
         """
-        try:
-            # 显示消息告知用户
-            #await self.session.execute_script("""() => {
-            #    const div = document.createElement('div');
-            #    div.id = 'login-message';
-            #    div.style = 'position: fixed; top: 0; left: 0; right: 0; background: red; color: white; padding: 10px; text-align: center; z-index: 9999;';
-            #    div.innerText = '请登录Claude';
-            #    document.body.appendChild(div);
-            #}""")
-            #
-            ## 提示用户手动登录
-            print("请在浏览器中登录Claude，然后按回车继续...")
-            await asyncio.get_event_loop().run_in_executor(None, input)
-            
-            # 检查是否登录成功
-            is_logged_in = await self._check_logged_in()
-            
-            # 移除消息
-            await self.session.execute_script("""() => {
-                const div = document.getElementById('login-message');
-                if (div) div.remove();
-            }""")
-            
-            return is_logged_in
-            
-        except Exception as e:
-            logger.error(f"等待手动登录出错: {str(e)}")
-            return False
+        pass
     # Alternative approach preserving more information
+
     async def _start_new_chat(self):
         """
         Start a new chat conversation by clicking the new chat button
@@ -446,17 +373,6 @@ class ClaudeAuthHandler:
                         }
                         
                         # Add each conversation round to the result
-                        '''
-                        for i, turn in enumerate(page_content["conversationTurns"]):
-                            round_key = f"round {i+1}"
-                            formatted_content["content"][round_key] = {
-                                "query": turn.get("query", ""),
-                                "response": "\n".join(turn.get("responses", [])),
-                                "codeBlocks": turn.get("codeBlocks", []),
-                                "documents": turn.get("documents", []),
-                                "codeExplanations": turn.get("codeExplanations", [])
-                            }
-                        '''
                         messages = []
                         # Add each conversation round as a message
                         for turn in page_content["conversationTurns"]:
@@ -503,50 +419,124 @@ class ClaudeAuthHandler:
         except Exception as e:
             logger.error(f"聊天错误: {str(e)}")
             yield {"status": "error", "message": str(e)}
-    
+
     async def _extract_page_content(self):
-        """Extract the page content similar to extract_page_content function"""
+        """Extract the page content including folded code blocks and multiple versions"""
         try:
-            # Use JavaScript to extract content and preserve formatting
+            # First, we'll try to extract all the code versions from the page
+            # This improved approach directly interacts with the buttons and extracts code
+            code_versions = await self.session.execute_script("""
+            async function extractAllCodeVersions() {
+                // Map to store all code versions
+                const codeVersions = new Map();
+                
+                // Find all code version buttons
+                const codeButtons = Array.from(document.querySelectorAll('button.flex.text-left.font-styrene.rounded-xl'));
+                const codeButtonsFiltered = codeButtons.filter(btn => 
+                    btn.textContent.includes('Code') && 
+                    (btn.textContent.includes('Version') || btn.textContent.includes('∙'))
+                );
+                
+                // Process each button sequentially
+                for (const button of codeButtonsFiltered) {
+                    try {
+                        const buttonText = button.textContent.trim();
+                        
+                        // Extract version information
+                        let versionLabel = "Version 1";
+                        if (buttonText.includes('Version')) {
+                            const versionMatch = buttonText.match(/Version\\s*(\\d+)/i);
+                            if (versionMatch) {
+                                versionLabel = `Version ${versionMatch[1]}`;
+                            }
+                        } else if (buttonText.includes('∙')) {
+                            const parts = buttonText.split('∙');
+                            if (parts.length > 1) {
+                                versionLabel = parts[1].trim();
+                            }
+                        }
+                        
+                        // Click the button to display code in sidebar
+                        button.click();
+                        
+                        // Wait for sidebar to update
+                        await new Promise(r => setTimeout(r, 500));
+                        
+                        // Extract code from the sidebar
+                        const sidebarCodeContainer = document.querySelector('.max-md\\\\:absolute.top-0.right-0.bottom-0.left-0.z-20');
+                        if (sidebarCodeContainer) {
+                            const codeElement = sidebarCodeContainer.querySelector('code.language-python');
+                            if (codeElement) {
+                                const fullCodeText = codeElement.textContent.trim();
+                                if (fullCodeText) {
+                                    // Store code with its version info
+                                    codeVersions.set(buttonText, {
+                                        language: 'python',
+                                        code: fullCodeText,
+                                        buttonLabel: buttonText,
+                                        version: versionLabel
+                                    });
+                                    console.log(`Extracted code for: ${buttonText} (${versionLabel})`);
+                                }
+                            }
+                        }
+                    } catch (buttonError) {
+                        console.error("Error processing button:", buttonError);
+                    }
+                }
+                
+                return Array.from(codeVersions.entries());
+            }
+            
+            return await extractAllCodeVersions();
+            """)
+            
+            # Now extract the conversation structure
             js_script = """
             function getFormattedContent() {
-                // 存储内容
+                // Store content
                 let content = {
                     conversationTurns: [],
                     uiElements: []
                 };
                 
-                // 更可靠的方式查找对话区域
+                // Get external code versions map
+                const codeVersionsMap = new Map(arguments[0]);
+                
+                // More reliable way to find the conversation area
                 const mainContentArea = document.querySelector('div.flex-1.flex.flex-col.gap-3');
                 if (!mainContentArea) {
-                    return { error: "无法找到主要内容区域" };
+                    return { error: "Cannot find main content area" };
                 }
                 
-                // 获取所有直接子元素，它们应该是对话轮次
+                // Get all direct children, which should be conversation turns
                 const conversationElements = Array.from(mainContentArea.children);
                 
-                // 初始化变量来跟踪当前的对话轮次
+                // Initialize variables to track the current conversation turn
                 let currentTurn = null;
+                let turnIndex = 0;
                 
                 for (const element of conversationElements) {
-                    // 检查元素是否包含用户查询（通常有特定的背景色）
+                    // Check if the element contains a user query (usually has a specific background color)
                     const isUserQuery = element.querySelector('.bg-bg-300');
                     
                     if (isUserQuery) {
-                        // 如果有之前的轮次，将其添加到结果中
+                        // If there was a previous turn, add it to the results
                         if (currentTurn) {
                             content.conversationTurns.push(currentTurn);
+                            turnIndex++;
                         }
                         
-                        // 提取用户查询文本，排除可能的编辑按钮
+                        // Extract user query text, excluding possible edit buttons
                         let queryText = isUserQuery.textContent.trim();
                         queryText = queryText.replace(/Edit$/, '').trim();
                         
-                        // 移除用户名前缀（例如："E"）
+                        // Remove user name prefix (e.g., "E")
                         queryText = queryText.replace(/^[A-Z]\\s*/, '');
                         
-                        // 创建新的对话轮次
+                        // Create a new conversation turn
                         currentTurn = {
+                            turnIndex: turnIndex,
                             query: queryText,
                             responses: [],
                             codeBlocks: [],
@@ -554,20 +544,64 @@ class ClaudeAuthHandler:
                             codeExplanations: []
                         };
                     } else {
-                        // 如果没有当前轮次，跳过
+                        // If there's no current turn, skip
                         if (!currentTurn) continue;
                         
-                        // 检查是否是 Claude 的回复（通常有特定的样式特征）
+                        // Check if it's Claude's reply (usually has specific style features)
                         const hasResponseContent = element.querySelector('.font-claude-message') || 
                                                 element.querySelector('[class*="tracking"]');
                         
                         if (hasResponseContent) {
-                            // 处理回复内容
+                            // Process reply content
                             
-                            // 1. 查找代码块
+                            // Look for code block buttons that reference folded code
+                            const codeBlockButtons = element.querySelectorAll('button.flex.text-left.font-styrene.rounded-xl');
+                            for (const button of codeBlockButtons) {
+                                try {
+                                    const buttonText = button.textContent.trim();
+                                    // Check if this is a code block button
+                                    if (buttonText.includes('Code') && (buttonText.includes('Version') || buttonText.includes('∙'))) {
+                                        // Look for the corresponding code in our map
+                                        if (codeVersionsMap.has(buttonText)) {
+                                            const codeData = codeVersionsMap.get(buttonText);
+                                            currentTurn.codeBlocks.push({
+                                                language: codeData.language || 'python',
+                                                code: codeData.code,
+                                                version: codeData.version,
+                                                buttonLabel: buttonText
+                                            });
+                                        } else {
+                                            // If code not found, add placeholder
+                                            let versionLabel = "Version 1";
+                                            if (buttonText.includes('Version')) {
+                                                const versionMatch = buttonText.match(/Version\\s*(\\d+)/i);
+                                                if (versionMatch) {
+                                                    versionLabel = `Version ${versionMatch[1]}`;
+                                                }
+                                            } else if (buttonText.includes('∙')) {
+                                                const parts = buttonText.split('∙');
+                                                if (parts.length > 1) {
+                                                    versionLabel = parts[1].trim();
+                                                }
+                                            }
+                                            
+                                            currentTurn.codeBlocks.push({
+                                                language: 'unknown',
+                                                code: `[Code block referenced but not found: ${buttonText}]`,
+                                                version: versionLabel,
+                                                buttonLabel: buttonText
+                                            });
+                                        }
+                                    }
+                                } catch (buttonError) {
+                                    console.error("Error processing code button:", buttonError);
+                                }
+                            }
+                            
+                            // 1. Find inline code blocks (not folded ones)
                             const codeBlocks = element.querySelectorAll('pre');
                             for (const codeBlock of codeBlocks) {
-                                // 获取代码语言
+                                // Get code language
                                 let language = '';
                                 const codeElement = codeBlock.querySelector('code');
                                 if (codeElement && codeElement.className) {
@@ -577,41 +611,55 @@ class ClaudeAuthHandler:
                                     }
                                 }
                                 
-                                // 获取代码文本
+                                // Get code text
                                 let codeText = codeBlock.textContent || "";
                                 
-                                // 移除"Copy"和语言标识
+                                // Remove "Copy" and language identifiers
                                 codeText = codeText.replace(/^(python|javascript|html|css|json)\\s*Copy\\s*/i, '');
+                                codeText = codeText.replace(/Copy$/i, '').trim();
                                 
-                                // 将代码块添加到当前轮次
+                                // Add the code block to the current turn if it's not empty
                                 if (codeText.trim()) {
-                                    currentTurn.codeBlocks.push({
-                                        language: language || 'python', // 默认为python
-                                        code: codeText
-                                    });
+                                    // Check if this is a duplicate of a folded code block we already added
+                                    let isDuplicate = false;
+                                    for (const existingBlock of currentTurn.codeBlocks) {
+                                        // Only mark as duplicate if it's a subset (might be a preview)
+                                        if (existingBlock.code.includes(codeText)) {
+                                            isDuplicate = true;
+                                            break;
+                                        }
+                                    }
+                                    
+                                    if (!isDuplicate) {
+                                        currentTurn.codeBlocks.push({
+                                            language: language || 'python', // Default to python
+                                            code: codeText,
+                                            isInline: true
+                                        });
+                                    }
                                 }
                             }
                             
-                            // 2. 查找文档引用
+                            // 2. Find document references
                             const docButtons = element.querySelectorAll('button[class*="font-styrene"][class*="border-0"]');
                             for (const docButton of docButtons) {
-                                // 提取文档标题
+                                // Extract document title
                                 const docTitle = docButton.textContent.replace(/Click to open document.*$/, '').trim();
                                 
-                                // 尝试找到文档内容
+                                // Try to find document content
                                 let docContent = [];
                                 
-                                // 检查页面上是否有侧边栏，其中可能包含文档内容
+                                // Check if there's a sidebar on the page that might contain document content
                                 const sidebarContent = document.querySelector('div[class*="fixed"][class*="right-0"][class*="flex"][class*="w-full"]');
                                 if (sidebarContent) {
-                                    // 从侧边栏中提取段落
+                                    // Extract paragraphs from the sidebar
                                     const docTextElements = sidebarContent.querySelectorAll('p');
                                     for (const textEl of docTextElements) {
                                         docContent.push(textEl.textContent.trim());
                                     }
                                 }
                                 
-                                // 添加文档到当前轮次
+                                // Add the document to the current turn
                                 if (docTitle) {
                                     currentTurn.documents.push({
                                         title: docTitle,
@@ -620,46 +668,50 @@ class ClaudeAuthHandler:
                                 }
                             }
                             
-                            // 3. 提取代码说明和使用说明 - 改进的捕获方式
+                            // 3. Extract code explanations and usage instructions
                             let codeExplanations = [];
                             
-                            // 整个响应元素作为容器，查找所有可能的说明文本
-                            const allExplanationTexts = [];
-                            
-                            // 查找所有列表（有序和无序）
+                            // Find all lists (ordered and unordered)
                             const listItems = element.querySelectorAll('ol li, ul li');
                             for (const item of listItems) {
-                                // 检查不在代码块内
+                                // Check not in a code block
                                 if (!item.closest('pre')) {
-                                    allExplanationTexts.push(item.textContent.trim());
-                                }
-                            }
-                            
-                            // 如果找到列表项，添加为代码说明
-                            if (listItems.length > 0) {
-                                const orderedLists = element.querySelectorAll('ol');
-                                for (const list of orderedLists) {
-                                    // 检查不在代码块内
-                                    if (!list.closest('pre')) {
-                                        codeExplanations.push(list.textContent.trim());
-                                    }
-                                }
-                                
-                                const unorderedLists = element.querySelectorAll('ul');
-                                for (const list of unorderedLists) {
-                                    // 检查不在代码块内
-                                    if (!list.closest('pre')) {
-                                        codeExplanations.push(list.textContent.trim());
+                                    const itemText = item.textContent.trim();
+                                    if (itemText && !codeExplanations.includes(itemText)) {
+                                        codeExplanations.push(itemText);
                                     }
                                 }
                             }
                             
-                            // 查找可能包含使用说明的段落和div
+                            // Get complete ordered and unordered lists
+                            const orderedLists = element.querySelectorAll('ol');
+                            for (const list of orderedLists) {
+                                // Check not in a code block
+                                if (!list.closest('pre')) {
+                                    const listText = list.textContent.trim();
+                                    if (listText && !codeExplanations.includes(listText)) {
+                                        codeExplanations.push(listText);
+                                    }
+                                }
+                            }
+                            
+                            const unorderedLists = element.querySelectorAll('ul');
+                            for (const list of unorderedLists) {
+                                // Check not in a code block
+                                if (!list.closest('pre')) {
+                                    const listText = list.textContent.trim();
+                                    if (listText && !codeExplanations.includes(listText)) {
+                                        codeExplanations.push(listText);
+                                    }
+                                }
+                            }
+                            
+                            // Find paragraphs and divs that might contain usage instructions
                             const explanationParagraphs = element.querySelectorAll('p, div');
                             for (const para of explanationParagraphs) {
                                 const text = para.textContent.trim();
                                 
-                                // 特定关键词的段落，如果不在代码块中
+                                // Specific keywords in paragraphs, if not in a code block
                                 if ((text.includes('To use this code') || 
                                     text.includes('Install') || 
                                     text.includes('Set your API') || 
@@ -670,305 +722,98 @@ class ClaudeAuthHandler:
                                     !para.querySelector('pre') &&
                                     !text.includes('Claude can make mistakes')) {
                                     
-                                    // 排除已经添加的（避免重复）
+                                    // Exclude already added (avoid duplicates)
                                     if (!codeExplanations.includes(text)) {
                                         codeExplanations.push(text);
                                     }
                                 }
                             }
                             
-                            // 添加到当前轮次
+                            // Add to current turn
                             currentTurn.codeExplanations = codeExplanations;
                             
-                            // 4. 更全面地捕获说明文本
-                            // 创建一个临时的容器来保存所有内容，过滤掉代码区域
+                            // 5. Extract response text (excluding code blocks, buttons, and captured explanations)
+                            let responseText = '';
+                            
+                            // Create a temporary container to hold all content, filter out code areas
                             const tempDiv = document.createElement('div');
                             tempDiv.innerHTML = element.innerHTML;
                             
-                            // 移除所有代码块，以便我们可以获取剩余文本
-                            const codeToRemove = tempDiv.querySelectorAll('pre');
-                            for (const code of codeToRemove) {
-                                if (code.parentNode) {
-                                    code.parentNode.removeChild(code);
+                            // Remove all code blocks, buttons, and other UI elements
+                            const elementsToRemove = [
+                                ...tempDiv.querySelectorAll('pre'),
+                                ...tempDiv.querySelectorAll('button'),
+                                ...tempDiv.querySelectorAll('ol'),
+                                ...tempDiv.querySelectorAll('ul')
+                            ];
+                            
+                            for (const el of elementsToRemove) {
+                                if (el.parentNode) {
+                                    el.parentNode.removeChild(el);
                                 }
                             }
                             
-                            // 查找特定的段落文本模式
-                            const remainingText = tempDiv.textContent;
-                            const usageMatch = remainingText.match(/To use this code:([\\s\\S]*?)(?=\\n\\n|$)/);
-                            if (usageMatch && usageMatch[1]) {
-                                const usageText = usageMatch[1].trim();
-                                if (usageText && !codeExplanations.includes(usageText)) {
-                                    codeExplanations.push("To use this code:" + usageText);
-                                }
-                            }
-                            
-                            // 查找其他关键说明段落
-                            const demoMatch = remainingText.match(/This demo shows([\\s\\S]*?)(?=\\n\\n|$)/);
-                            if (demoMatch && demoMatch[0]) {
-                                const demoText = demoMatch[0].trim();
-                                if (demoText && !codeExplanations.includes(demoText)) {
-                                    codeExplanations.push(demoText);
-                                }
-                            }
-                            
-                            // 5. 提取回复文本（排除代码块、按钮和已捕获的说明）
-                            let responseText = '';
-                            
-                            // 查找所有段落元素
-                            const allParagraphs = element.querySelectorAll('p');
-                            for (const para of allParagraphs) {
-                                // 排除代码块内的段落、文档引用按钮内的文本和明显的说明文本
-                                const paraText = para.textContent.trim();
-                                if (!para.closest('pre') && 
-                                    !para.closest('button') && 
-                                    !paraText.includes('To use this code') &&
-                                    !paraText.includes('This demo shows') &&
-                                    !paraText.includes('Claude can make mistakes')) {
-                                    
-                                    responseText += paraText + '\\n\\n';
-                                }
-                            }
-                            
-                            // 如果没有找到段落元素或文本为空，尝试从主元素提取
-                            if (!responseText.trim()) {
-                                // 复制内容
-                                const tempTextDiv = document.createElement('div');
-                                tempTextDiv.innerHTML = element.innerHTML;
+                            // Remove UI element text
+                            responseText = tempDiv.textContent.trim()
+                                .replace(/Retry/g, '')
+                                .replace(/Copy/g, '')
+                                .replace(/Edit/g, '')
+                                .replace(/Claude can make mistakes. Please double-check responses./g, '')
+                                .trim();
                                 
-                                // 移除代码块、按钮和其他UI元素
-                                const elementsToRemove = [
-                                    ...tempTextDiv.querySelectorAll('pre'),
-                                    ...tempTextDiv.querySelectorAll('button'),
-                                    ...tempTextDiv.querySelectorAll('ol'),
-                                    ...tempTextDiv.querySelectorAll('ul')
-                                ];
-                                
-                                for (const el of elementsToRemove) {
-                                    if (el.parentNode) {
-                                        el.parentNode.removeChild(el);
-                                    }
-                                }
-                                
-                                // 移除UI元素文本
-                                responseText = tempTextDiv.textContent.trim()
-                                    .replace(/Retry/g, '')
-                                    .replace(/Copy/g, '')
-                                    .replace(/Edit/g, '')
-                                    .replace(/Claude can make mistakes. Please double-check responses./g, '')
-                                    .trim();
-                            }
-                            
-                            // 移除多余的空行
+                            // Remove excess blank lines
                             responseText = responseText.replace(/\\n{3,}/g, '\\n\\n');
                             
-                            // 添加到当前轮次的回复
+                            // Add to the current turn's responses
                             if (responseText.trim()) {
                                 currentTurn.responses.push(responseText);
+                            }
+                            
+                            // Look for "Claude hit the max length" messages
+                            if (responseText.includes("Claude hit the max length") || 
+                                responseText.includes("has paused its response")) {
+                                currentTurn.hitMaxLength = true;
                             }
                         }
                     }
                 }
                 
-                // 添加最后一个轮次（如果有）
+                // Add the last turn (if any)
                 if (currentTurn) {
                     content.conversationTurns.push(currentTurn);
                 }
                 
-                // 收集页面头部信息作为UI元素
-                const headerElement = document.querySelector('header');
-                if (headerElement) {
-                    content.uiElements.push({
-                        type: 'header',
-                        text: headerElement.textContent.trim()
-                    });
-                }
-                
-                // 收集页面底部的免责声明
-                const disclaimerElement = document.querySelector('div[class*="Claude can make mistakes"]');
-                if (disclaimerElement) {
-                    content.uiElements.push({
-                        type: 'disclaimer',
-                        text: disclaimerElement.textContent.trim()
-                    });
+                // Post-process turns to mark "continue" queries
+                for (let i = 1; i < content.conversationTurns.length; i++) {
+                    const prevTurn = content.conversationTurns[i-1];
+                    const currentTurn = content.conversationTurns[i];
+                    
+                    // If previous turn hit max length and current is "continue" or similar
+                    if (prevTurn.hitMaxLength && 
+                        (currentTurn.query.toLowerCase() === "continue" || 
+                        currentTurn.query.toLowerCase() === "继续" ||
+                        currentTurn.query.toLowerCase().includes("continue"))) {
+                        currentTurn.isContinuation = true;
+                        currentTurn.continuesFrom = i - 1;
+                    }
                 }
                 
                 return content;
             }
             
-            return getFormattedContent();
+            return getFormattedContent(arguments[0]);
             """
             
-            content_data = await self.session.execute_script(js_script)
+            # Execute the script with the extracted code versions
+            content_data = await self.session.execute_script(js_script, code_versions)
             
-            # 检查是否有错误
+            # Check for errors
             if isinstance(content_data, dict) and 'error' in content_data:
-                logger.error(f"JavaScript执行错误: {content_data['error']}")
+                logger.error(f"JavaScript execution error: {content_data['error']}")
                 return None
             
             return content_data
             
         except Exception as e:
-            logger.error(f"提取页面内容时出错: {str(e)}")
+            logger.error(f"Error extracting page content: {str(e)}")
             return None
-
-
-    async def debug_page_elements(self):
-        """
-        Debug function to print page structure and elements
-        """
-        try:
-            # Get all message elements
-            logger.info("Analyzing page structure...")
-    
-            # Get HTML structure of messages
-            page_html = await self.session.execute_script("""
-                // Get the main chat container
-                const chatContainer = document.querySelector('main');
-                if (!chatContainer) return 'Chat container not found';
-    
-                // Function to get a simplified DOM representation
-                function getElementInfo(element, depth = 0) {
-                    if (!element) return '';
-    
-                    const indent = '  '.repeat(depth);
-                    const classes = Array.from(element.classList || []).join('.');
-                    const tagName = element.tagName.toLowerCase();
-                    const id = element.id ? `#${element.id}` : '';
-                    const roleAttr = element.getAttribute('data-message-author-role') || '';
-                    const role = roleAttr ? `[data-message-author-role="${roleAttr}"]` : '';
-    
-                    // Get text content (truncated if needed)
-                    let textContent = element.textContent?.trim() || '';
-                    if (textContent.length > 50) {
-                        textContent = textContent.substring(0, 47) + '...';
-                    }
-    
-                    // Create element representation
-                    let info = `${indent}<${tagName}${id}${classes ? '.' + classes : ''}${role}>`;
-                    if (textContent) {
-                        info += ` "${textContent}"`;
-                    }
-    
-                    // Get child elements, but limit depth and number to avoid huge output
-                    if (depth < 10) {
-                        const children = Array.from(element.children).slice(0, 20);
-                        if (children.length > 0) {
-                            info += '\\n';
-                            for (const child of children) {
-                                info += getElementInfo(child, depth + 1) + '\\n';
-                            }
-                        }
-                    }
-    
-                    return info;
-                }
-    
-                // Get info for the chat container and its key children
-                return getElementInfo(chatContainer);
-            """)
-    
-            logger.info("Page structure:")
-            logger.info(page_html)
-    
-            # Find all potential message containers
-            message_containers = await self.session.execute_script("""
-                // Find all potential message containers
-                const messages = document.querySelectorAll('li, div.prose, div.whitespace-pre-wrap');
-    
-                // Get information about each message
-                const messageInfo = [];
-                messages.forEach((message, index) => {
-                    const text = message.textContent.trim();
-                    if (text.length < 10) return; // Skip very short text elements
-    
-                    const classes = Array.from(message.classList).join('.');
-                    const hasUserIndicator = message.querySelector('[data-message-author-role="human"]') !== null;
-                    const hasClaudeIndicator = message.querySelector('[data-message-author-role="assistant"]') !== null;
-    
-                    messageInfo.push({
-                        index,
-                        selector: message.tagName.toLowerCase() + (classes ? '.' + classes : ''),
-                        length: text.length,
-                        preview: text.substring(0, 50) + (text.length > 50 ? '...' : ''),
-                        isUser: hasUserIndicator,
-                        isAssistant: hasClaudeIndicator
-                    });
-                });
-    
-                return messageInfo;
-            """)
-    
-            logger.info("Potential message containers:")
-            for container in message_containers:
-                logger.info(f"Index: {container['index']}")
-                logger.info(f"Selector: {container['selector']}")
-                logger.info(f"Type: {'User' if container['isUser'] else 'Assistant' if container['isAssistant'] else 'Unknown'}")
-                logger.info(f"Length: {container['length']}")
-                logger.info(f"Preview: {container['preview']}")
-                logger.info("-" * 50)
-    
-            # Try to find a better selector for Claude's responses
-            claude_selectors = await self.session.execute_script("""
-                // List of possible DOM attributes that might indicate a Claude response
-                const roleAttributes = [
-                    'data-message-author-role="assistant"',
-                    'data-author="claude"',
-                    'data-message-role="assistant"',
-                    'aria-label*="Claude"'
-                ];
-    
-                // List of possible class name patterns that might indicate a Claude response
-                const classPatterns = [
-                    'prose',
-                    'whitespace-pre-wrap',
-                    'message',
-                    'assistant',
-                    'claude'
-                ];
-    
-                // Check for elements matching role attributes
-                let roleMatches = [];
-                roleAttributes.forEach(attr => {
-                    const attrName = attr.split('=')[0];
-                    const attrValue = attr.includes('=') ? attr.split('=')[1].replace(/"/g, '') : '';
-                    const attrSelector = attrValue ? `[${attrName}="${attrValue}"]` : `[${attrName}]`;
-    
-                    const matches = document.querySelectorAll(attrSelector);
-                    if (matches.length > 0) {
-                        roleMatches.push({
-                            selector: attrSelector,
-                            count: matches.length
-                        });
-                    }
-                });
-    
-                // Check for elements with class patterns
-                let classMatches = [];
-                classPatterns.forEach(pattern => {
-                    const matches = document.querySelectorAll(`[class*="${pattern}"]`);
-                    if (matches.length > 0) {
-                        classMatches.push({
-                            selector: `[class*="${pattern}"]`,
-                            count: matches.length
-                        });
-                    }
-                });
-    
-                return {
-                    roleMatches,
-                    classMatches
-                };
-            """)
-    
-            logger.info("Potential Claude response selectors:")
-            logger.info("Role-based selectors:")
-            for selector in claude_selectors['roleMatches']:
-                logger.info(f"Selector: {selector['selector']} (Count: {selector['count']})")
-    
-            logger.info("Class-based selectors:")
-            for selector in claude_selectors['classMatches']:
-                logger.info(f"Selector: {selector['selector']} (Count: {selector['count']})")
-    
-        except Exception as e:
-            logger.error(f"Debug error: {str(e)}")

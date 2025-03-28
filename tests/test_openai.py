@@ -13,21 +13,12 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
-logger = logging.getLogger("claude_test")
+logger = logging.getLogger("openai_test")
 
-async def send_wechat_message(processed_params ={"contact_name": "陈浩","message": "测试微信数据接口 "}):
-    async with httpx.AsyncClient() as client:
-        tool_response = await client.post(
-            "http://localhost:8003/tools/wechat/search_and_send",
-            json=processed_params,
-            timeout=300.0
-        )
-    print(tool_response.json())
-    return tool_response.json()
 
-async def test_claude_chat():
+async def test_openai_chat():
     """
-    Test the Claude chat functionality via the tool service API
+    Test the openAI chat functionality via the tool service API
     """
     # Prepare the request parameters
     prompt = input("Input Prompt\n")#"Tell me about the benefits of artificial intelligence in healthcare. Keep your answer under 200 words."
@@ -42,16 +33,16 @@ async def test_claude_chat():
         "new_chat":False
     }
     
-    logger.info(f"Sending prompt to Claude: {prompt[:50]}...")
+    logger.info(f"Sending prompt to openAI: {prompt[:50]}...")
     
     # Make the API call
     async with httpx.AsyncClient() as client:
         try:
             # Based on llm_api.py, the endpoint pattern is /llm/chat/{provider}
             response = await client.post(
-                "http://localhost:8003/tools/llm/chat/claude",
+                "http://localhost:8003/tools/llm/chat/openai",
                 json=request_data,
-                timeout=300.0  # 5 minute timeout since Claude might take time to respond
+                timeout=300.0  # 5 minute timeout since openAI might take time to respond
             )
             
             # Check for HTTP errors
@@ -72,9 +63,9 @@ async def test_claude_chat():
             return {"status": "error", "message": f"HTTP error: {str(e)}"}
 
 # Alternative version based on your API structure
-async def test_claude_chat_v2():
+async def test_openai_chat_v2():
     """
-    Test the Claude chat functionality - alternative endpoint format
+    Test the openAI chat functionality - alternative endpoint format
     """
     # Prepare the request parameters
     prompt = "Tell me about the benefits of artificial intelligence in healthcare. Keep your answer under 200 words."
@@ -94,7 +85,7 @@ async def test_claude_chat_v2():
         try:
             # Try the format used in api.py
             response = await client.post(
-                "http://localhost:8003/tools/llm/chat/claude",
+                "http://localhost:8003/tools/llm/chat/openai",
                 json=request_data,
                 timeout=300.0
             )
@@ -140,16 +131,10 @@ if __name__ == "__main__":
         result = asyncio.run(debug_api_structure())
     elif len(sys.argv) > 1 and sys.argv[1] == "--alt":
         # Try alternative endpoint
-        result = asyncio.run(test_claude_chat_v2())
-    elif len(sys.argv) > 1 and sys.argv[1] == "--wechat":
-        result = asyncio.run(test_claude_chat())
-        pretty_output = json.dumps(result, indent=2, ensure_ascii=False)
-        # Print the responses
-        print(pretty_output)
-        res_wechat = asyncio.run(send_wechat_message({"contact_name": "陈浩","message": pretty_output}))
+        result = asyncio.run(test_openai_chat_v2())
     else:
         # Regular test
-        result = asyncio.run(test_claude_chat())
+        result = asyncio.run(test_openai_chat())
         pretty_output = json.dumps(result, indent=2, ensure_ascii=False)
         # Print the responses
         print(pretty_output)

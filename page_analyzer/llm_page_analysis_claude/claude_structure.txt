@@ -1,0 +1,1644 @@
+Claude Page Structure Analysis
+
+================================================================================
+Common Tag Statistics:
+================================================================================
+
+span: 623
+div: 360
+path: 75
+svg: 71
+button: 67
+li: 58
+a: 35
+p: 28
+script: 25
+strong: 5
+ul: 5
+h3: 4
+ol: 4
+code: 3
+br: 2
+iframe: 2
+img: 2
+body: 1
+fieldset: 1
+header: 1
+input: 1
+nav: 1
+next-route-announcer: 1
+noscript: 1
+style: 1
+
+================================================================================
+Common Class Statistics:
+================================================================================
+
+token: 562
+string: 532
+triple-quoted-string: 529
+items-center: 176
+flex: 169
+relative: 158
+w-full: 126
+select-none: 113
+text-text-300: 109
+transition: 97
+justify-center: 91
+shrink-0: 91
+rounded-md: 89
+font-styrene: 85
+inline-flex: 84
+duration-300: 79
+can-focus: 78
+disabled:drop-shadow-none: 78
+disabled:opacity-50: 78
+disabled:pointer-events-none: 78
+disabled:shadow-none: 78
+group: 78
+flex-row: 75
+hover:bg-bg-400: 75
+whitespace-nowrap: 74
+border-transparent: 72
+aria-checked:bg-bg-400: 71
+aria-checked:text-text-100: 71
+aria-expanded:bg-bg-300: 71
+aria-expanded:text-text-100: 71
+aria-pressed:bg-bg-400: 71
+aria-pressed:text-text-100: 71
+ease-[cubic-bezier(0.165,0.85,0.45,1)]: 71
+hover:text-text-100: 71
+h-8: 68
+break-words: 59
+text-xs: 57
+overflow-hidden: 56
+absolute: 51
+active:scale-95: 50
+text-sm: 50
+gap-1: 44
+px-4: 43
+active:scale-[0.985]: 39
+right-0: 38
+truncate: 38
+gap-3: 37
+!min-w-0: 35
+px-3: 34
+w-8: 34
+
+================================================================================
+ID Statistics:
+================================================================================
+
+chat-input-file-upload: 1
+intercom-frame: 1
+intercom-lightweight-app-style: 1
+radix-:r10:: 1
+radix-:r14:: 1
+radix-:r15j:: 1
+radix-:r15n:: 1
+radix-:r15r:: 1
+radix-:r18:: 1
+radix-:r1c:: 1
+radix-:r1ff:: 1
+radix-:r1fu:: 1
+radix-:r1g:: 1
+radix-:r1iq:: 1
+radix-:r1iu:: 1
+radix-:r1j2:: 1
+radix-:r1jb:: 1
+radix-:r1ji:: 1
+radix-:r1jo:: 1
+radix-:r1k:: 1
+radix-:r1o:: 1
+radix-:r1s:: 1
+radix-:r20:: 1
+radix-:r24:: 1
+radix-:r28:: 1
+radix-:r2c:: 1
+radix-:r2g:: 1
+radix-:r2k:: 1
+radix-:r2o:: 1
+radix-:r2s:: 1
+radix-:r30:: 1
+radix-:r34:: 1
+radix-:r38:: 1
+radix-:r3:: 1
+radix-:r3c:: 1
+radix-:r3g:: 1
+radix-:r3k:: 1
+radix-:rbm:: 1
+radix-:rbq:: 1
+radix-:rbu:: 1
+radix-:rff:: 1
+radix-:rl7:: 1
+sift-snippet: 1
+
+================================================================================
+Possible Message Elements:
+================================================================================
+
+
+================================================================================
+Code Blocks:
+================================================================================
+
+Tag: code
+ID: 
+Classes: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.3rem] px-1 py-px text-[0.9rem]
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-300.[&_.ignore-pre-bg>div]:bg-transparent > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.3rem].px-1.py-px.text-[0.9rem]
+Code Sample: extract_page_content
+
+Tag: code
+ID: 
+Classes: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.3rem] px-1 py-px text-[0.9rem]
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-300.[&_.ignore-pre-bg>div]:bg-transparent > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.3rem].px-1.py-px.text-[0.9rem]
+Code Sample: extract_page_content
+
+Tag: code
+ID: 
+Classes: language-python
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1 > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.bg-bg-000.flex.h-full.flex-col.relative > div.ease-out.duration-200.relative.flex.w-full.flex-1.overflow-x-auto.overflow-y-scroll > div.w-full.h-full.relative.[&_*::selection]:bg-transparent.[&_:not(input)::selection]:text-[inherit] > div.prismjs.code-block__code.!my-0.h-fit.min-h-full.w-fit.min-w-full.!rounded-none.!text-sm.!leading-relaxed > code.language-python
+Code Sample: def extract_page_content(driver, llm_config, filename=None):
+    """
+    Extract page content and save to file, preserving format and distinguishing between generated content and UI elements
+    
+    ...
+
+
+================================================================================
+Code with Explanations:
+================================================================================
+
+Code Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-300.[&_.ignore-pre-bg>div]:bg-transparent > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.3rem].px-1.py-px.text-[0.9rem]
+Code Sample: extract_page_content
+
+Code Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-300.[&_.ignore-pre-bg>div]:bg-transparent > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.3rem].px-1.py-px.text-[0.9rem]
+Code Sample: extract_page_content
+
+Code Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1 > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.bg-bg-000.flex.h-full.flex-col.relative > div.ease-out.duration-200.relative.flex.w-full.flex-1.overflow-x-auto.overflow-y-scroll > div.w-full.h-full.relative.[&_*::selection]:bg-transparent.[&_:not(input)::selection]:text-[inherit] > div.prismjs.code-block__code.!my-0.h-fit.min-h-full.w-fit.min-w-full.!rounded-none.!text-sm.!leading-relaxed > code.language-python
+Code Sample: def extract_page_content(driver, llm_config, filename=None):
+    """
+    Extract page content and save to file, preserving format and distinguishing b...
+
+
+================================================================================
+Document Sections:
+================================================================================
+
+
+================================================================================
+Interactive Elements:
+================================================================================
+
+Tag: button
+ID: 
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 group
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.w-full.items-center.gap-px.p-2 > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.w-8.rounded-md.active:scale-95.group
+Text: 
+
+Tag: button
+ID: radix-:rl7:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:rl7:
+Text: 
+
+Tag: button
+ID: radix-:r15j:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r15j:
+Text: 
+
+Tag: button
+ID: radix-:r15n:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.block > button#radix-:r15n:
+Text: 
+
+Tag: button
+ID: radix-:r15r:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r15r:
+Text: 
+
+Tag: button
+ID: radix-:rff:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:rff:
+Text: 
+
+Tag: button
+ID: radix-:rbm:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:rbm:
+Text: 
+
+Tag: button
+ID: radix-:rbq:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:rbq:
+Text: 
+
+Tag: button
+ID: radix-:rbu:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:rbu:
+Text: 
+
+Tag: button
+ID: radix-:r10:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r10:
+Text: 
+
+Tag: button
+ID: radix-:r14:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r14:
+Text: 
+
+Tag: button
+ID: radix-:r18:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r18:
+Text: 
+
+Tag: button
+ID: radix-:r1c:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r1c:
+Text: 
+
+Tag: button
+ID: radix-:r1g:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r1g:
+Text: 
+
+Tag: button
+ID: radix-:r1k:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r1k:
+Text: 
+
+Tag: button
+ID: radix-:r1o:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r1o:
+Text: 
+
+Tag: button
+ID: radix-:r1s:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r1s:
+Text: 
+
+Tag: button
+ID: radix-:r20:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r20:
+Text: 
+
+Tag: button
+ID: radix-:r24:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r24:
+Text: 
+
+Tag: button
+ID: radix-:r28:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r28:
+Text: 
+
+Tag: button
+ID: radix-:r2c:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r2c:
+Text: 
+
+Tag: button
+ID: radix-:r2g:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r2g:
+Text: 
+
+Tag: button
+ID: radix-:r2k:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r2k:
+Text: 
+
+Tag: button
+ID: radix-:r2o:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r2o:
+Text: 
+
+Tag: button
+ID: radix-:r2s:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r2s:
+Text: 
+
+Tag: button
+ID: radix-:r30:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r30:
+Text: 
+
+Tag: button
+ID: radix-:r34:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r34:
+Text: 
+
+Tag: button
+ID: radix-:r38:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r38:
+Text: 
+
+Tag: button
+ID: radix-:r3c:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r3c:
+Text: 
+
+Tag: button
+ID: radix-:r3g:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r3g:
+Text: 
+
+Tag: button
+ID: radix-:r3k:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block > button#radix-:r3k:
+Text: 
+
+Tag: button
+ID: radix-:r3:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 px-4 py-2 rounded-lg min-w-[5rem] active:scale-[0.985] whitespace-nowrap text-sm flex !justify-start !min-w-0 py-5 !px-0.5  w-full hover:!bg-transparent active:!bg-transparent
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.px-2.pb-1 > button#radix-:r3:
+Text: EEndianProfessional plan
+
+Tag: button
+ID: radix-:r1ff:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 px-4 py-2 rounded-lg min-w-[5rem] active:scale-[0.985] whitespace-nowrap text-sm pl-3 pr-2 gap-1 !text-text-000 !shrink gap-1 !px-1 !py-0 !scale-100 !h-7
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > header.flex.w-full.bg-bg-100.sticky.top-0.z-header.h-12.h-12.-mb-6 > div.flex.w-full.items-center.justify-between.gap-4.pl-11.lg:pl-8.gap-6.pr-2.pr-3 > div.flex.min-w-0.flex-1.shrink.flex-col.md:flex-row.md:items-center > div.flex.min-w-0.shrink-1.items-center.max-md:text-sm > button#radix-:r1ff:
+Text: Improving LLM Page Analyzer to Capture Expanded Content
+
+Tag: button
+ID: 
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 px-4 py-2 rounded-lg min-w-[5rem] active:scale-[0.985] whitespace-nowrap text-sm pl-2 pr-3 gap-1 font-medium text-sm !text-text-100
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > header.flex.w-full.bg-bg-100.sticky.top-0.z-header.h-12.h-12.-mb-6 > div.flex.w-full.items-center.justify-between.gap-4.pl-11.lg:pl-8.gap-6.pr-2.pr-3 > div.right-3.flex.gap-2 > div.flex.items-center.gap-1.transition-opacity.duration-300.md:opacity-0.pointer-events-none.user-select-none > div > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-9.px-4.py-2.rounded-lg.min-w-[5rem].active:scale-[0.985].whitespace-nowrap.text-sm.pl-2.pr-3.gap-1.font-medium.text-sm.!text-text-100
+Text: Share
+
+Tag: button
+ID: 
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 w-9 rounded-md active:scale-95 shrink-0
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > header.flex.w-full.bg-bg-100.sticky.top-0.z-header.h-12.h-12.-mb-6 > div.flex.w-full.items-center.justify-between.gap-4.pl-11.lg:pl-8.gap-6.pr-2.pr-3 > div.right-3.flex.gap-2 > div.flex.items-center.gap-1.transition-opacity.duration-300.md:opacity-0.pointer-events-none.user-select-none > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-9.w-9.rounded-md.active:scale-95.shrink-0
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-400
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.ml-px.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-400
+Text: Edit
+
+Tag: button
+ID: 
+Classes: flex text-left font-styrene rounded-xl mb-1 -mx-0.5 overflow-hidden border transition duration-300 w-full hover:bg-bg-000/50 border-border-300 hover:border-border-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-300.[&_.ignore-pre-bg>div]:bg-transparent > div.py-2.py-2 > button.flex.text-left.font-styrene.rounded-xl.mb-1.-mx-0.5.overflow-hidden.border.transition.duration-300.w-full.hover:bg-bg-000/50.border-border-300.hover:border-border-200
+Text: Improved LLM Page AnalyzerCode def extract_page_content(driver, llm_config, filename=None):
+    """
+    Extract page content and save to file, preserving format and distinguishing between generated content and UI elements
+    
+    Args:
+        driver: Selenium WebDriver instance
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: radix-:r1iq:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 hover:bg-bg-200 select-none
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.items-center.gap-0.5.pl-1 > button#radix-:r1iq:
+Text: Retry
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-400
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.ml-px.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-400
+Text: Edit
+
+Tag: button
+ID: 
+Classes: flex text-left font-styrene rounded-xl mb-1 -mx-0.5 overflow-hidden border transition duration-300 w-full hover:bg-bg-000/50 border-border-300 hover:border-border-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-300.[&_.ignore-pre-bg>div]:bg-transparent > div.py-2 > button.flex.text-left.font-styrene.rounded-xl.mb-1.-mx-0.5.overflow-hidden.border.transition.duration-300.w-full.hover:bg-bg-000/50.border-border-300.hover:border-border-200
+Text: Improved LLM Page AnalyzerCode ∙ Version 2 def extract_page_content(driver, llm_config, filename=None):
+    """
+    Extract page content and save to file, preserving format and distinguishing between generated content and UI elements
+    
+    Args:
+        driver: Selenium WebDriver instance
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: radix-:r1iu:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 hover:bg-bg-200 select-none
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.items-center.gap-0.5.pl-1 > button#radix-:r1iu:
+Text: Retry
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-400
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.ml-px.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-400
+Text: Edit
+
+Tag: button
+ID: 
+Classes: flex text-left font-styrene rounded-xl mb-1 -mx-0.5 overflow-hidden border transition duration-300 w-full hover:bg-bg-000/50 border-accent-secondary-200 duration-500
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-300.[&_.ignore-pre-bg>div]:bg-transparent > div.py-2 > button.flex.text-left.font-styrene.rounded-xl.mb-1.-mx-0.5.overflow-hidden.border.transition.duration-300.w-full.hover:bg-bg-000/50.border-accent-secondary-200.duration-500
+Text: Improved LLM Page AnalyzerCode ∙ Version 3                 sidebars.push({
+                            element: el,
+                            rect: rect
+                        });
+                    }
+                }
+                
+                return sidebars;
+            }
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: radix-:r1j2:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 hover:bg-bg-200 select-none
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.items-center.gap-0.5.pl-1 > button#radix-:r1j2:
+Text: Retry
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-400
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.ml-px.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.absolute.bottom-0.-right-1.5 > div.transition.bg-bg-000.border-0.5.border-border-300.mb-0.5.p-1.translate-y-1/2.rounded-lg.shadow-sm.transition.translate-x-1.opacity-0.group-hover:translate-x-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-400
+Text: Edit
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-3 > div.absolute.bottom-0.-right-1.5 > div.transition.translate-y-full.pt-3 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-3 > div.absolute.bottom-0.-right-1.5 > div.transition.translate-y-full.pt-3 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: 
+Classes: flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 text-text-300 active:scale-95 select-none hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-3 > div.absolute.bottom-0.-right-1.5 > div.transition.translate-y-full.pt-3 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.gap-0.5 > button.flex.flex-row.items-center.gap-1.rounded-md.p-1.py-0.5.text-xs.transition-opacity.delay-100.text-text-300.active:scale-95.select-none.hover:bg-bg-200
+Text: 
+
+Tag: button
+ID: radix-:r1jb:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none flex flex-row items-center gap-1 rounded-md p-1 py-0.5 text-xs transition-opacity delay-100 hover:bg-bg-200 select-none
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].px-2.pb-3 > div.absolute.bottom-0.-right-1.5 > div.transition.translate-y-full.pt-3 > div.text-text-300.flex.items-stretch.justify-between.gap-0.5 > div.flex.items-center.gap-0.5.pl-1 > button#radix-:r1jb:
+Text: Retry
+
+Tag: button
+ID: 
+Classes: text-text-300 h-8 min-w-8 px-2 rounded-lg transition shadow-inset-border-0.5 shadow-border-300 max-xs:w-full flex flex-row items-center gap-1 hover:text-text-200/90 hover:bg-bg-100 active:scale-[0.97]
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0 > div.relative.shrink-0 > div > div.flex.items-center > button.text-text-300.h-8.min-w-8.px-2.rounded-lg.transition.shadow-inset-border-0.5.shadow-border-300.max-xs:w-full.flex.flex-row.items-center.gap-1.hover:text-text-200/90.hover:bg-bg-100.active:scale-[0.97]
+Text: 
+
+Tag: button
+ID: 
+Classes: text-text-300 h-8 min-w-8 px-2 rounded-lg transition shadow-inset-border-0.5 shadow-border-300 max-xs:w-full flex flex-row items-center gap-1 hover:text-text-200/90 hover:bg-bg-100 active:scale-[0.97]
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0 > div.relative.shrink-0 > div > div.flex.items-center > button.text-text-300.h-8.min-w-8.px-2.rounded-lg.transition.shadow-inset-border-0.5.shadow-border-300.max-xs:w-full.flex.flex-row.items-center.gap-1.hover:text-text-200/90.hover:bg-bg-100.active:scale-[0.97]
+Text: 
+
+Tag: button
+ID: 
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none h-7 border-0.5 text-text-100 ml-1.5 inline-flex items-start gap-[0.175em] rounded-md border-transparent text-sm opacity-80 transition hover:opacity-100 disabled:!opacity-80 sm:ml-0 sm:pb-1 sm:pl-1.5 sm:pr-1 sm:pt-1 hover:bg-bg-100 hover:border-border-400
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div#radix-:r1fu: > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.h-7.border-0.5.text-text-100.ml-1.5.inline-flex.items-start.gap-[0.175em].rounded-md.border-transparent.text-sm.opacity-80.transition.hover:opacity-100.disabled:!opacity-80.sm:ml-0.sm:pb-1.sm:pl-1.5.sm:pr-1.sm:pt-1.hover:bg-bg-100.hover:border-border-400
+Text: 3.7 Sonnet
+
+Tag: button
+ID: 
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none bg-accent-main-000
+          text-oncolor-100
+          font-styrene
+          font-medium
+          transition-colors
+          hover:bg-accent-main-200 h-8 w-8 rounded-md active:scale-95 !rounded-lg !h-8 !w-8
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div > div > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.bg-accent-main-000.text-oncolor-100.font-styrene.font-medium.transition-colors.hover:bg-accent-main-200.h-8.w-8.rounded-md.active:scale-95.!rounded-lg.!h-8.!w-8
+Text: 
+
+Tag: button
+ID: radix-:r1ji:
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 rounded-md px-3 text-xs min-w-[4rem] active:scale-[0.985] whitespace-nowrap rounded  py-1  px-2  max-w-full  whitespace-nowrap  text-ellipsis  overflow-hidden group !text-text-000 gap-1 justify-between !pl-1.5 !pr-1 !text-sm
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1 > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.bg-bg-000.flex.h-full.flex-col.relative > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.items-center.flex-1.gap-2 > button#radix-:r1ji:
+Text: v3∙Latest
+
+Tag: button
+ID: 
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 rounded-md px-3 text-xs min-w-[4rem] active:scale-[0.985] whitespace-nowrap  pl-2 pr-2.5 gap-1 font-medium !text-text-100 !text-sm
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1 > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.bg-bg-000.flex.h-full.flex-col.relative > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.gap-2.items-center.text-sm > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.pl-2.pr-2.5.gap-1.font-medium.!text-text-100.!text-sm
+Text: Publish
+
+Tag: button
+ID: 
+Classes: py-1 px-2 border-r border-border-300 hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1 > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.bg-bg-000.flex.h-full.flex-col.relative > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.gap-2.items-center.text-sm > div.flex.border.border-border-300.font-medium.rounded-lg.overflow-hidden > button.py-1.px-2.border-r.border-border-300.hover:bg-bg-200
+Text: Copy
+
+Tag: button
+ID: radix-:r1jo:
+Classes: py-1 px-1 hover:bg-bg-200
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1 > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.bg-bg-000.flex.h-full.flex-col.relative > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.gap-2.items-center.text-sm > div.flex.border.border-border-300.font-medium.rounded-lg.overflow-hidden > button#radix-:r1jo:
+Text: 
+
+Tag: button
+ID: 
+Classes: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1 > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.bg-bg-000.flex.h-full.flex-col.relative > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.gap-2.items-center.text-sm > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.w-8.rounded-md.active:scale-95
+Text: 
+
+
+================================================================================
+Conversation Container:
+================================================================================
+
+Tag: div
+ID: 
+Classes: flex flex-col 
+Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col
+Child Element Count: 4
+
+Conversation Elements:
+Element 1:
+  Tag: h3
+  ID: 
+  Classes: text-text-300 pb-2 mt-1 text-xs select-none pl-2 sticky top-0 z-10 bg-gradient-to-b from-bg-200 from-50% to-bg-200/40 pointer-events-none
+  Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > h3.text-text-300.pb-2.mt-1.text-xs.select-none.pl-2.sticky.top-0.z-10.bg-gradient-to-b.from-bg-200.from-50%.to-bg-200/40.pointer-events-none
+  Position: Top=206, Height=24
+  Text: Recents
+
+Element 2:
+  Tag: ul
+  ID: 
+  Classes: flex flex-col gap-px
+  Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px
+  Position: Top=230, Height=989
+  Text: Generalized Web Scraper for LLM WebsitesExtracting Code Blocks from Claude InterfaceImproving LLM Pa...
+
+Element 3:
+  Tag: div
+  ID: 
+  Classes: relative group
+  Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > div.relative.group
+  Position: Top=1219, Height=32
+  Text: All chats
+
+Element 4:
+  Tag: div
+  ID: 
+  Classes: bg-gradient-to-t from-bg-200 to-transparent sticky fixed h-10 bottom-0 left-0 right-0
+  Path: div.flex.min-h-screen.w-full > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5 > div.flex.flex-col.align-center.h-full.overflow-hidden > div.opacity-0.-translate-x-0.5.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > div.bg-gradient-to-t.from-bg-200.to-transparent.sticky.fixed.h-10.bottom-0.left-0.right-0
+  Position: Top=865, Height=40
+  Text: 
+
+
+================================================================================
+Text Samples:
+================================================================================
+
+Sample 1:
+Tag: body
+ID: 
+Classes: bg-bg-100 text-text-100 font-styrene min-h-screen tracking-tight
+Path: body
+Text: New chatProjectsChatsRecentsGeneralized Web Scraper for LLM WebsitesExtracting Code Blocks from Claude InterfaceImproving LLM Page Analyzer to Capture...
+
+Sample 2:
+Tag: div
+ID: 
+Classes: flex min-h-screen w-full
+Path: div.flex.min-h-screen.w-full
+Text: New chatProjectsChatsRecentsGeneralized Web Scraper for LLM WebsitesExtracting Code Blocks from Claude InterfaceImproving LLM Page Analyzer to Capture...
+
+Sample 3:
+Tag: div
+ID: 
+Classes: min-h-full w-full min-w-0 flex-1
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1
+Text: Improving LLM Page Analyzer to Capture Expanded ContentSharellm_page_analyzer.py1,713 linespyclaude_content.txt41 linestxtE这个通用代码能把不同llm网站网页的内容和select...
+
+Sample 4:
+Tag: div
+ID: 
+Classes: flex flex-1 h-screen w-full overflow-hidden relative
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative
+Text: Improving LLM Page Analyzer to Capture Expanded ContentSharellm_page_analyzer.py1,713 linespyclaude_content.txt41 linestxtE这个通用代码能把不同llm网站网页的内容和select...
+
+Sample 5:
+Tag: div
+ID: 
+Classes: h-screen flex flex-col overflow-hidden
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden
+Text: Improving LLM Page Analyzer to Capture Expanded ContentSharellm_page_analyzer.py1,713 linespyclaude_content.txt41 linestxtE这个通用代码能把不同llm网站网页的内容和select...
+
+Sample 6:
+Tag: div
+ID: 
+Classes: max-md:absolute top-0 right-0 bottom-0 left-0 z-20 md:flex-grow-0 md:flex-shrink-0 md:basis-0 overflow-hidden h-screen max-md:flex-1
+Path: div.flex.min-h-screen.w-full > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:flex-1
+Text: v3∙LatestPublishCopydef extract_page_content(driver, llm_config, filename=None):
+    """
+    Extract page content and save to file, preserving format ...
+

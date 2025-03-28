@@ -26,7 +26,6 @@ async def chat_with_llm(provider: str, request: Dict):
         if provider == "claude":
             service = ClaudeService(browser_manager)
             await service.initialize()
-            
             responses = []
             async for response in service.chat(
                 request["prompt"],
@@ -35,7 +34,6 @@ async def chat_with_llm(provider: str, request: Dict):
                 request.get("new_chat"),
             ):
                 responses.append(response)
-            
             return {"status": "success", "responses": responses}
         else:
             raise HTTPException(

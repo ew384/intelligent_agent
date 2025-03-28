@@ -256,67 +256,7 @@ class BrowserManager:
         Returns:
             Chrome版本号或None
         """
-        system = platform.system()
-        
-        # 如果配置了Chrome路径，则使用该路径
-        chrome_binary = self.config.get('chrome_binary')
-        
-        try:
-            if system == "Windows":
-                # 如果没有提供路径，使用默认路径
-                if not chrome_binary:
-                    import winreg
-                    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Google\Chrome\BLBeacon")
-                    version, _ = winreg.QueryValueEx(key, "version")
-                    return version
-                
-                # 使用提供的路径
-                from win32com.client import Dispatch
-                parser = Dispatch("Scripting.FileSystemObject")
-                version = parser.GetFileVersion(chrome_binary)
-                return version
-                
-            elif system == "Darwin":
-                # macOS
-                if not chrome_binary:
-                    chrome_binary = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-                
-                if not os.path.exists(chrome_binary):
-                    chrome_binary = "/Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
-                
-                if not os.path.exists(chrome_binary):
-                    return None
-                
-                # 获取版本信息
-                import subprocess
-                cmd = [chrome_binary, "--version"]
-                proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-                out, _ = proc.communicate()
-                version = out.decode('utf-8').strip().split()[-1]
-                return version
-                
-            else:
-                # Linux
-                if not chrome_binary:
-                    for path in ["/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/usr/local/bin/chrome-for-testing"]:
-                        if os.path.exists(path):
-                            chrome_binary = path
-                            break
-                
-                if not chrome_binary or not os.path.exists(chrome_binary):
-                    return None
-                
-                # 获取版本信息
-                import subprocess
-                cmd = [chrome_binary, "--version"]
-                proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-                out, _ = proc.communicate()
-                version = out.decode('utf-8').strip().split()[-1]
-                return version
-                
-        except Exception as e:
-            logger.error(f"获取Chrome版本失败: {str(e)}")
-            return None
+        pass
     
     def list_browser_services(self):
         """列出所有运行中的浏览器服务"""
@@ -332,44 +272,8 @@ class BrowserManager:
         Returns:
             是否成功关闭
         """
-        if service_id not in self.browser_services:
-            return False
-        
-        try:
-            service = self.browser_services[service_id]
-            await service.cleanup()
-            del self.browser_services[service_id]
-            return True
-        except Exception as e:
-            logger.error(f"关闭浏览器服务 {service_id} 失败: {str(e)}")
-            return False
+        pass
     
     def cleanup(self) -> None:
         """清理所有资源"""
-        logger.info("清理浏览器资源...")
-        
-        # 关闭所有浏览器服务
-        try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-        
-        for service_id in list(self.browser_services.keys()):
-            try:
-                service = self.browser_services[service_id]
-                loop.run_until_complete(service.cleanup())
-            except Exception as e:
-                logger.error(f"清理浏览器服务 {service_id} 失败: {str(e)}")
-        
-        self.browser_services.clear()
-        
-        # 终止所有子进程
-        for proc in self.running_processes:
-            try:
-                proc.terminate()
-                logger.info(f"终止进程 {proc.pid}")
-            except:
-                pass
-        
-        self.running_processes.clear()
+        pass

@@ -29,31 +29,12 @@ async def root():
         "status": "running",
         "endpoints": [
             "/tools/browser/{action}",
-            "/tools/browser/credit-card",
-            "/tools/llm/chat/claude",
+            #"/tools/llm/chat/claude",
             "/tools/wechat/{action}",
             "/tools/wechat/login/check"
         ]
     }
 
-@app.get("/health")
-async def health_check():
-    """健康检查端点"""
-    return {"status": "healthy"}
-
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    """请求日志中间件"""
-    path = request.url.path
-    method = request.method
-    logger.info(f"收到请求: {method} {path}")
-    
-    response = await call_next(request)
-    
-    status_code = response.status_code
-    logger.info(f"响应: {method} {path} - {status_code}")
-    
-    return response
 
 if __name__ == "__main__":
     import uvicorn
