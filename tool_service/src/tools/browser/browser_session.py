@@ -29,6 +29,30 @@ class BrowserSession:
         self.wait = WebDriverWait(self.driver, 30)
         self.screenshots_dir = self.browser_service.screenshots_dir
 
+    async def get_browser_use_context(self):
+        """获取 browser_use 的 BrowserContext 对象"""
+        if not hasattr(self, '_browser_use_context') or self._browser_use_context is None:
+            from browser_use.browser.browser import Browser, BrowserConfig
+            from browser_use.browser.context import BrowserContext, BrowserContextConfig
+            
+            debug_port = self.browser_service.config.get('debug_port', 9222)
+            
+            # 配置连接到已有的 Chrome
+            browser_config = BrowserConfig(
+                cdp_url=f"http://localhost:{debug_port}"
+            )
+            
+            # 创建 Browser 实例
+            self._browser_use_browser = Browser(config=browser_config)
+            
+            # 创建 BrowserContext
+            self._browser_use_context = BrowserContext(browser=self._browser_use_browser)
+            
+            # 初始化上下文
+            await self._browser_use_context._initialize_session()
+        
+        return self._browser_use_context
+
     async def save_cookies(self, service_id: str = "default") -> bool:
         """
         保存当前会话的 cookies

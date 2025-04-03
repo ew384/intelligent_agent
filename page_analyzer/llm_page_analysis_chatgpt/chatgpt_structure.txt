@@ -4,15 +4,15 @@ ChatGPT Page Structure Analysis
 Common Tag Statistics:
 ================================================================================
 
-span: 560
-div: 415
-path: 120
+span: 586
+div: 421
+path: 138
 p: 91
+svg: 80
+button: 76
 code: 71
-svg: 66
 li: 65
 strong: 65
-button: 64
 a: 39
 h3: 36
 pre: 22
@@ -39,51 +39,51 @@ textarea: 1
 Common Class Statistics:
 ================================================================================
 
-flex: 278
-items-center: 193
+flex: 296
+items-center: 207
 relative: 171
 h-9: 88
+text-token-text-secondary: 78
 w-full: 76
 bg-token-sidebar-surface-primary: 75
 flex-col: 71
 hljs-comment: 71
+select-none: 69
 gap-1: 68
-select-none: 67
 px-4: 66
-text-token-text-secondary: 66
 hljs-string: 58
 text-xs: 53
-overflow-hidden: 49
+overflow-hidden: 51
+rounded-lg: 51
 gap-2: 47
+text-sm: 45
 dark:bg-token-main-surface-secondary: 44
 font-sans: 44
 py-1: 44
-text-sm: 43
-rounded-lg: 41
 group: 37
+justify-center: 37
 no-draggable: 37
-whitespace-nowrap: 35
+whitespace-nowrap: 37
 p-2: 34
 px-2: 34
+absolute: 33
 grow: 33
 active:opacity-90: 32
 bg-[var(--item-background-color)]: 32
 screen-arch:bg-transparent: 32
-absolute: 31
 sticky: 30
 screen-arch:motion-safe:group-active:duration-100: 28
 screen-arch:motion-safe:group-active:scale-[98%]: 28
 screen-arch:motion-safe:group-active:transition-transform: 28
-justify-center: 27
+right-0: 27
 text-token-text-primary: 27
 bottom-0: 25
 justify-between: 25
-right-0: 25
+rounded-md: 25
 overflow-y-auto: 24
 py-2: 24
 contain-inline-size: 23
 mx-auto: 23
-rounded-md: 23
 !overflow-visible: 22
 !whitespace-pre: 22
 border-[0.5px]: 22
@@ -95,13 +95,15 @@ ID Statistics:
 ================================================================================
 
 prompt-textarea: 1
-radix-:r2j:: 1
-radix-:r59:: 1
-radix-:r5b:: 1
-radix-:r5e:: 1
-radix-:r5k:: 1
-radix-:r5p:: 1
-radix-:r5q:: 1
+radix-:r2f:: 1
+radix-:r2h:: 1
+radix-:r2k:: 1
+radix-:r2q:: 1
+radix-:r2v:: 1
+radix-:r30:: 1
+radix-:r4p:: 1
+radix-:r50:: 1
+radix-:r5:: 1
 
 ================================================================================
 Possible Message Elements:
@@ -1489,9 +1491,9 @@ Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.o
 Text: Open sidebar
 
 Tag: button
-ID: radix-:r2j:
+ID: radix-:r5:
 Classes: group flex cursor-pointer items-center gap-1 rounded-lg py-1.5 px-3 text-lg hover:bg-token-main-surface-secondary radix-state-open:bg-token-main-surface-secondary font-semibold text-token-text-secondary overflow-hidden whitespace-nowrap
-Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > div.draggable.sticky.top-0.z-10.flex.h-header-height.items-center.justify-center.border-transparent.bg-token-main-surface-primary.pl-0.md:hidden.[box-shadow:var(--sharp-edge-top-shadow)] > div.no-draggable > button#radix-:r2j:
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > div.draggable.sticky.top-0.z-10.flex.h-header-height.items-center.justify-center.border-transparent.bg-token-main-surface-primary.pl-0.md:hidden.[box-shadow:var(--sharp-edge-top-shadow)] > div.no-draggable > button#radix-:r5:
 Text: ChatGPT
 
 Tag: button
@@ -1501,9 +1503,9 @@ Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.o
 Text: 
 
 Tag: button
-ID: radix-:r59:
+ID: radix-:r2f:
 Classes: group flex cursor-pointer items-center gap-1 rounded-lg py-1.5 px-3 text-lg hover:bg-token-main-surface-secondary radix-state-open:bg-token-main-surface-secondary font-semibold text-token-text-secondary overflow-hidden whitespace-nowrap
-Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.draggable.no-draggable-children.sticky.top-0.p-3.flex.items-center.justify-between.z-10.h-header-height.font-semibold.bg-token-main-surface-primary.pointer-events-none.select-none.*:pointer-events-auto.motion-safe:transition.max-md:hidden.@thread-xl/thread:absolute.@thread-xl/thread:left-0.@thread-xl/thread:right-0.@thread-xl/thread:bg-transparent.@thread-xl/thread:!shadow-none.[box-shadow:var(--sharp-edge-top-shadow)] > div.flex.items-center.gap-0.overflow-hidden > button#radix-:r59:
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.draggable.no-draggable-children.sticky.top-0.p-3.flex.items-center.justify-between.z-10.h-header-height.font-semibold.bg-token-main-surface-primary.pointer-events-none.select-none.*:pointer-events-auto.motion-safe:transition.max-md:hidden.@thread-xl/thread:absolute.@thread-xl/thread:left-0.@thread-xl/thread:right-0.@thread-xl/thread:bg-transparent.@thread-xl/thread:!shadow-none.[box-shadow:var(--sharp-edge-top-shadow)] > div.flex.items-center.gap-0.overflow-hidden > button#radix-:r2f:
 Text: ChatGPT
 
 Tag: button
@@ -1513,9 +1515,9 @@ Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.o
 Text: Share
 
 Tag: button
-ID: radix-:r5b:
+ID: radix-:r2h:
 Classes: flex h-10 w-10 items-center justify-center rounded-full hover:bg-token-main-surface-secondary focus-visible:bg-token-main-surface-secondary focus-visible:outline-0
-Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.draggable.no-draggable-children.sticky.top-0.p-3.flex.items-center.justify-between.z-10.h-header-height.font-semibold.bg-token-main-surface-primary.pointer-events-none.select-none.*:pointer-events-auto.motion-safe:transition.max-md:hidden.@thread-xl/thread:absolute.@thread-xl/thread:left-0.@thread-xl/thread:right-0.@thread-xl/thread:bg-transparent.@thread-xl/thread:!shadow-none.[box-shadow:var(--sharp-edge-top-shadow)] > div.flex.items-center.gap-2.pr-1.leading-[0] > button#radix-:r5b:
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.draggable.no-draggable-children.sticky.top-0.p-3.flex.items-center.justify-between.z-10.h-header-height.font-semibold.bg-token-main-surface-primary.pointer-events-none.select-none.*:pointer-events-auto.motion-safe:transition.max-md:hidden.@thread-xl/thread:absolute.@thread-xl/thread:left-0.@thread-xl/thread:right-0.@thread-xl/thread:bg-transparent.@thread-xl/thread:!shadow-none.[box-shadow:var(--sharp-edge-top-shadow)] > div.flex.items-center.gap-2.pr-1.leading-[0] > button#radix-:r2h:
 Text: 
 
 Tag: button
@@ -1544,6 +1546,42 @@ Text: Edit
 
 Tag: button
 ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: radix-:r4p:
+Classes: cursor-pointer h-[30px] rounded-md px-1.5 text-token-text-secondary hover:bg-token-main-surface-secondary touch:px-2.5
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button#radix-:r4p:
+Text: 4o
+
+Tag: button
+ID: 
 Classes: flex gap-1 items-center select-none px-4 py-1
 Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.max-w-full.flex-col.flex-grow > div.min-h-8.text-message.relative.flex.w-full.flex-col.items-end.gap-2.whitespace-normal.break-words.text-start.[.text-message+&]:mt-5 > div.flex.w-full.flex-col.gap-1.empty:hidden.first:pt-[3px] > div.markdown.prose.w-full.break-words.dark:prose-invert.light > pre.!overflow-visible > div.contain-inline-size.rounded-md.border-[0.5px].border-token-border-medium.relative.bg-token-sidebar-surface-primary > div.sticky.top-9 > div.absolute.bottom-0.right-0.flex.h-9.items-center.pr-2 > div.flex.items-center.rounded.bg-token-sidebar-surface-primary.px-2.font-sans.text-xs.text-token-text-secondary.dark:bg-token-main-surface-secondary > span > button.flex.gap-1.items-center.select-none.px-4.py-1
 Text: Copy
@@ -1783,9 +1821,45 @@ Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.o
 Text: Edit
 
 Tag: button
-ID: radix-:r5e:
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: 
+Classes: rounded-lg text-token-text-secondary hover:bg-token-main-surface-secondary
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button.rounded-lg.text-token-text-secondary.hover:bg-token-main-surface-secondary
+Text: 
+
+Tag: button
+ID: radix-:r50:
+Classes: cursor-pointer h-[30px] rounded-md px-1.5 text-token-text-secondary hover:bg-token-main-surface-secondary touch:px-2.5
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.flex.flex-1.grow.basis-auto.flex-col.overflow-hidden > div.relative.h-full > div.flex.h-full.flex-col.overflow-y-auto.[scrollbar-gutter:stable] > div.mt-1.5.flex.flex-col.text-sm.@thread-xl/thread:pt-header-height.md:pb-9 > article.w-full.text-token-text-primary > div.text-base.my-auto.mx-auto.py-5.px-6 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem].group/turn-messages.focus-visible:outline-none > div.group/conversation-turn.relative.flex.w-full.min-w-0.flex-col.agent-turn.@xs/thread:px-0.@sm/thread:px-1.5.@md/thread:px-4 > div.relative.flex-col.gap-1.md:gap-3 > div.flex.absolute.left-0.right-0.flex.justify-start > div.-me-1.-ms-2.5.flex.select-none.items-center.p-1.touch:-me-2.touch:-ms-3.5.-mt-1.focus-within:transition-none.hover:transition-none.duration-500.group-hover/turn-messages:delay-300.pointer-events-none.[mask-image:linear-gradient(to_right,black_33%,transparent_66%)].[mask-position:100%_0%].[mask-size:300%_100%].motion-safe:transition-[mask-position].group-hover/turn-messages:pointer-events-auto.group-hover/turn-messages:[mask-position:0_0].group-focus-within/turn-messages:pointer-events-auto.group-focus-within/turn-messages:[mask-position:0_0].has-[[data-state=open]]:pointer-events-auto.has-[[data-state=open]]:[mask-position:0_0] > span > button#radix-:r50:
+Text: 4o
+
+Tag: button
+ID: radix-:r2k:
 Classes: text-token-text-primary border border-transparent inline-flex items-center justify-center gap-1 rounded-lg text-sm dark:transparent dark:bg-transparent leading-none outline-none cursor-pointer hover:bg-token-main-surface-secondary dark:hover:bg-token-main-surface-secondary focus-visible:bg-token-main-surface-secondary radix-state-active:text-token-text-secondary radix-disabled:cursor-auto radix-disabled:bg-transparent radix-disabled:text-token-text-tertiary dark:radix-disabled:bg-transparent m-0 h-0 w-0 border-none bg-transparent p-0
-Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.isolate.w-full.basis-auto.has-[[data-has-thread-error]]:pt-2.has-[[data-has-thread-error]]:[box-shadow:var(--sharp-edge-bottom-shadow)].dark:border-white/20.md:border-transparent.md:pt-0.md:dark:border-transparent > div.text-base.mx-auto.px-3.md:px-4.w-full.md:px-5.lg:px-4.xl:px-5 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem] > div.relative.z-[1].flex.max-w-full.flex-1.flex-col.h-full.max-xs:[--force-hide-label:none] > form.w-full > div.flex.w-full.cursor-text.flex-col.items-center.justify-center.rounded-[28px].border.border-token-border-xlight.contain-inline-size.overflow-clip.shadow-sm.dark:!shadow-none.sm:shadow-lg.bg-token-main-surface-primary.dark:bg-[#303030] > div.relative.flex.w-full.items-end.py-3.pl-3 > div.bg-primary-surface-primary.absolute.bottom-[9px].left-[17px].right-0.z-[2].flex.items-center.[--force-hide-label:none].@xl/thread:[--force-hide-label:unset] > div > div.flex.items-center.gap-2.max-xs:gap-1 > div > div.relative > div.relative > div.flex.flex-col > button#radix-:r5e:
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.isolate.w-full.basis-auto.has-[[data-has-thread-error]]:pt-2.has-[[data-has-thread-error]]:[box-shadow:var(--sharp-edge-bottom-shadow)].dark:border-white/20.md:border-transparent.md:pt-0.md:dark:border-transparent > div.text-base.mx-auto.px-3.md:px-4.w-full.md:px-5.lg:px-4.xl:px-5 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem] > div.relative.z-[1].flex.max-w-full.flex-1.flex-col.h-full.max-xs:[--force-hide-label:none] > form.w-full > div.flex.w-full.cursor-text.flex-col.items-center.justify-center.rounded-[28px].border.border-token-border-xlight.contain-inline-size.overflow-clip.shadow-sm.dark:!shadow-none.sm:shadow-lg.bg-token-main-surface-primary.dark:bg-[#303030] > div.relative.flex.w-full.items-end.py-3.pl-3 > div.bg-primary-surface-primary.absolute.bottom-[9px].left-[17px].right-0.z-[2].flex.items-center.[--force-hide-label:none].@xl/thread:[--force-hide-label:unset] > div > div.flex.items-center.gap-2.max-xs:gap-1 > div > div.relative > div.relative > div.flex.flex-col > button#radix-:r2k:
 Text: 
 
 Tag: button
@@ -1801,9 +1875,9 @@ Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.o
 Text: Reason
 
 Tag: button
-ID: radix-:r5k:
+ID: radix-:r2q:
 Classes: _toolsButton_d2h2h_8 flex h-9 min-w-9 items-center justify-center rounded-full border border-token-border-light p-1 text-xs font-semibold text-token-text-secondary focus-visible:outline-black disabled:opacity-30 radix-state-open:bg-black/10 can-hover:hover:bg-token-main-surface-secondary dark:focus-visible:outline-white dark:can-hover:hover:bg-gray-700
-Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.isolate.w-full.basis-auto.has-[[data-has-thread-error]]:pt-2.has-[[data-has-thread-error]]:[box-shadow:var(--sharp-edge-bottom-shadow)].dark:border-white/20.md:border-transparent.md:pt-0.md:dark:border-transparent > div.text-base.mx-auto.px-3.md:px-4.w-full.md:px-5.lg:px-4.xl:px-5 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem] > div.relative.z-[1].flex.max-w-full.flex-1.flex-col.h-full.max-xs:[--force-hide-label:none] > form.w-full > div.flex.w-full.cursor-text.flex-col.items-center.justify-center.rounded-[28px].border.border-token-border-xlight.contain-inline-size.overflow-clip.shadow-sm.dark:!shadow-none.sm:shadow-lg.bg-token-main-surface-primary.dark:bg-[#303030] > div.relative.flex.w-full.items-end.py-3.pl-3 > div.bg-primary-surface-primary.absolute.bottom-[9px].left-[17px].right-0.z-[2].flex.items-center.[--force-hide-label:none].@xl/thread:[--force-hide-label:unset] > div > div.flex.items-center.gap-2.max-xs:gap-1 > div > span > button#radix-:r5k:
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.h-full.w-full.@container/thread > div.composer-parent.flex.h-full.flex-col.focus-visible:outline-0 > div.isolate.w-full.basis-auto.has-[[data-has-thread-error]]:pt-2.has-[[data-has-thread-error]]:[box-shadow:var(--sharp-edge-bottom-shadow)].dark:border-white/20.md:border-transparent.md:pt-0.md:dark:border-transparent > div.text-base.mx-auto.px-3.md:px-4.w-full.md:px-5.lg:px-4.xl:px-5 > div.mx-auto.flex.flex-1.text-base.gap-4.md:gap-5.lg:gap-6.md:max-w-3xl.lg:max-w-[40rem].xl:max-w-[48rem] > div.relative.z-[1].flex.max-w-full.flex-1.flex-col.h-full.max-xs:[--force-hide-label:none] > form.w-full > div.flex.w-full.cursor-text.flex-col.items-center.justify-center.rounded-[28px].border.border-token-border-xlight.contain-inline-size.overflow-clip.shadow-sm.dark:!shadow-none.sm:shadow-lg.bg-token-main-surface-primary.dark:bg-[#303030] > div.relative.flex.w-full.items-end.py-3.pl-3 > div.bg-primary-surface-primary.absolute.bottom-[9px].left-[17px].right-0.z-[2].flex.items-center.[--force-hide-label:none].@xl/thread:[--force-hide-label:unset] > div > div.flex.items-center.gap-2.max-xs:gap-1 > div > span > button#radix-:r2q:
 Text: 
 
 Tag: button
@@ -1819,9 +1893,9 @@ Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.o
 Text: 
 
 Tag: button
-ID: radix-:r5q:
+ID: radix-:r30:
 Classes: flex h-6 w-6 items-center justify-center rounded-full border border-token-border-light text-xs text-token-text-secondary
-Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.group.absolute.bottom-2.end-2.z-20.flex.flex-col.gap-1.md:flex.lg:bottom-3.lg:end-3 > button#radix-:r5q:
+Path: div.flex.h-full.w-full.flex-col > div.relative.flex.h-full.w-full.flex-1.overflow-hidden.transition-colors.z-0 > div.relative.flex.h-full.w-full.flex-row.overflow-hidden > div.relative.flex.h-full.max-w-full.flex-1.flex-col.overflow-hidden > main.relative.h-full.w-full.flex-1.overflow-auto.transition-width > div.group.absolute.bottom-2.end-2.z-20.flex.flex-col.gap-1.md:flex.lg:bottom-3.lg:end-3 > button#radix-:r30:
 Text: ?
 
 

@@ -358,28 +358,6 @@ with chat_container:
 # Instructions in an expander
 with st.expander("💡 使用指南"):
     st.markdown("""
-    ### 如何获得最佳分期方案
-
-    1. **明确您的需求**
-       - 告诉我您的分期金额和用途
-       - 您期望的每月还款预算
-       - 您希望分几期还款
-
-    2. **了解分期政策**
-       - 不同期数有不同的费率标准
-       - 可以根据您的需求和资质提供个性化优惠
-       - 分期不会影响您的信用记录（正常还款情况下）
-
-    3. **办理流程**
-       - 确认分期方案后，系统将进行审批
-       - 审批通过后资金即刻到账
-       - 分期金额将计入您的信用卡账单
-
-    ### 常见问题
-
-    - **提前还款**：支持提前还款，但可能无法退还未发生的手续费
-    - **额度影响**：分期金额将占用您的信用卡额度
-    - **申请条件**：信用卡状态正常，且有足够的可用额度
     """)
 
 # Footer
@@ -387,6 +365,5 @@ st.markdown("---")
 st.markdown("""
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <span>中信银行信用卡中心</span>
-    <span>客服热线：400-888-8888</span>
 </div>
 """, unsafe_allow_html=True)

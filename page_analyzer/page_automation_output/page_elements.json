@@ -1,0 +1,2506 @@
+[
+  {
+    "tag": "a",
+    "text": "自然人电子税务局",
+    "directText": "",
+    "selector": ".header-logo",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "自然人电子税务局",
+    "directText": "",
+    "selector": ".header-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "8",
+    "directText": "",
+    "selector": ".header-message-bar.el-popover__reference",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "auto"
+  },
+  {
+    "tag": "a",
+    "text": "手机APP",
+    "directText": "手机APP",
+    "selector": ".show-download-app.el-popover__reference",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "帮助中心",
+    "directText": "帮助中心",
+    "selector": "div > a:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "下载服务",
+    "directText": "下载服务",
+    "selector": "div > a:nth-child(5)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "电子税务局",
+    "directText": "电子税务局",
+    "selector": "div > a:nth-child(7)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "待办\n        0",
+    "directText": "",
+    "selector": ".pending-tasks-info",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "sup",
+    "text": "8",
+    "directText": "8",
+    "selector": ".badge-msg",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "",
+    "directText": "",
+    "selector": ".header-user-thumb.el-popover__reference",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "auto"
+  },
+  {
+    "tag": "input",
+    "text": "",
+    "directText": "",
+    "selector": ".header-search-input.el-popover__reference",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {},
+    "cursor": "text"
+  },
+  {
+    "tag": "a",
+    "text": "8",
+    "directText": "",
+    "selector": ".message-info",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "8",
+    "directText": "",
+    "selector": ".badge",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "i",
+    "text": "",
+    "directText": "",
+    "selector": ".icon.icon-message",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "自然人电子税务局",
+    "directText": "自然人电子税务局",
+    "selector": "div > span:nth-child(1)",
+    "selectorType": "position",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "待办\n        0",
+    "directText": "待办",
+    "selector": ".badge",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "首页",
+    "directText": "首页",
+    "selector": ".navbar-first-menu",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "我要办税",
+    "directText": "我要办税",
+    "selector": ".navbar-first-menu",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "我要查询",
+    "directText": "我要查询",
+    "selector": ".navbar-first-menu",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "公众服务",
+    "directText": "公众服务",
+    "selector": ".navbar-first-menu",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "特色应用",
+    "directText": "特色应用",
+    "selector": ".navbar-first-menu",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "完善个人信息",
+    "directText": "完善个人信息",
+    "selector": ".el-button.el-button--primary.is-plain",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "我要咨询",
+    "directText": "",
+    "selector": ".customer-service-group.customer-service-list",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "我要咨询",
+    "directText": "",
+    "selector": ".customer-service-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "点击查看",
+    "directText": "点击查看",
+    "selector": ".notice-carousel-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".customer-service-icon",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "点击查看",
+    "directText": "点击查看",
+    "selector": ".notice-carousel-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "我要咨询",
+    "directText": "",
+    "selector": ".customer-service-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "我要咨询",
+    "directText": "我要咨询",
+    "selector": "div > span",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "点击查看",
+    "directText": "点击查看",
+    "selector": ".notice-carousel-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "点击查看",
+    "directText": "点击查看",
+    "selector": ".notice-carousel-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "年度汇算（仅取得境内综合所得适用）\n      居民个人综合所得年度汇算申报（仅取得境内综合所得适用）",
+    "directText": "",
+    "selector": ".common-business-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "年度汇算（取得境外所得适用）\n      居民个人综合所得年度汇算申报（取得境外所得适用）",
+    "directText": "",
+    "selector": ".common-business-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "专项附加扣除填报\n      子女教育、继续教育等专项附加扣除的填报",
+    "directText": "",
+    "selector": ".common-business-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "经营所得（A表）\n      生产经营及承包承租经营所得月度或者季度预缴申报",
+    "directText": "",
+    "selector": ".common-business-item.common-business-item-last",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "年度汇算（仅取得境内综合所得适用）",
+    "directText": "年度汇算（仅取得境内综合所得适用）",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "年度汇算（取得境外所得适用）",
+    "directText": "年度汇算（取得境外所得适用）",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "专项附加扣除填报",
+    "directText": "专项附加扣除填报",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "经营所得（A表）",
+    "directText": "经营所得（A表）",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "子女教育、继续教育等专项附加扣除的填报",
+    "directText": "子女教育、继续教育等专项附加扣除的填报",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "生产经营及承包承租经营所得月度或者季度预缴申报",
+    "directText": "生产经营及承包承租经营所得月度或者季度预缴申报",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "居民个人综合所得年度汇算申报（仅取得境内综合所得适用）",
+    "directText": "居民个人综合所得年度汇算申报（仅取得境内综合所得适用）",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "居民个人综合所得年度汇算申报（取得境外所得适用）",
+    "directText": "居民个人综合所得年度汇算申报（取得境外所得适用）",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "经营所得（B表）\n      生产经营及承包承租经营所得的年度汇缴申报",
+    "directText": "",
+    "selector": ".common-business-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "纳税记录开具\n      已缴款记录的在线查询、下载和打印",
+    "directText": "",
+    "selector": ".common-business-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "专项附加扣除信息查询\n      已填报的各项专项附加扣除记录的查询",
+    "directText": "",
+    "selector": ".common-business-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "申报查询\n      已完成申报的申报表查询",
+    "directText": "",
+    "selector": ".common-business-item.common-business-item-last",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "li > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "经营所得（B表）",
+    "directText": "经营所得（B表）",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "纳税记录开具",
+    "directText": "纳税记录开具",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "专项附加扣除信息查询",
+    "directText": "专项附加扣除信息查询",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "申报查询",
+    "directText": "申报查询",
+    "selector": ".common-business-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "生产经营及承包承租经营所得的年度汇缴申报",
+    "directText": "生产经营及承包承租经营所得的年度汇缴申报",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "已缴款记录的在线查询、下载和打印",
+    "directText": "已缴款记录的在线查询、下载和打印",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "已填报的各项专项附加扣除记录的查询",
+    "directText": "已填报的各项专项附加扣除记录的查询",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "已完成申报的申报表查询",
+    "directText": "已完成申报的申报表查询",
+    "selector": ".common-business-text",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "热点问题",
+    "directText": "热点问题",
+    "selector": "div > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "查看更多",
+    "directText": "查看更多",
+    "selector": "li > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "i",
+    "text": "",
+    "directText": "",
+    "selector": ".iconfont.icon-enter",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "税收政策及解读",
+    "directText": "税收政策及解读",
+    "selector": "div > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "通知公告",
+    "directText": "通知公告",
+    "selector": "div > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "查看更多",
+    "directText": "查看更多",
+    "selector": "li > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "查看更多",
+    "directText": "查看更多",
+    "selector": "li > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "i",
+    "text": "",
+    "directText": "",
+    "selector": ".iconfont.icon-enter",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "i",
+    "text": "",
+    "directText": "",
+    "selector": ".iconfont.icon-enter",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "平台功能简介",
+    "directText": "平台功能简介",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "平台服务",
+    "directText": "平台服务",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "用户注册",
+    "directText": "用户注册",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "用户登录",
+    "directText": "用户登录",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "找回密码",
+    "directText": "找回密码",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "子女教育支出",
+    "directText": "子女教育支出",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "继续教育支出",
+    "directText": "继续教育支出",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "大病医疗支出",
+    "directText": "大病医疗支出",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "住房贷款利息支出",
+    "directText": "住房贷款利息支出",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "住房租金支出",
+    "directText": "住房租金支出",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "赡养老人支出",
+    "directText": "赡养老人支出",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "3岁以下婴幼儿照护支出",
+    "directText": "3岁以下婴幼儿照护支出",
+    "selector": "span > a",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "我要办税\n        \n            专项附加扣除填报\n          \n            税费申报\n          \n            证明开具",
+    "directText": "",
+    "selector": ".footer-map-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "我要办税",
+    "directText": "我要办税",
+    "selector": ".footer-map-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "我要查询\n        \n            申报信息查询\n          \n            备案信息查询\n          \n            其他查询",
+    "directText": "",
+    "selector": ".footer-map-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "我要查询",
+    "directText": "我要查询",
+    "selector": ".footer-map-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "公众服务\n        \n            票证查验\n          \n            帮助中心",
+    "directText": "",
+    "selector": ".footer-map-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "公众服务",
+    "directText": "公众服务",
+    "selector": ".footer-map-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "li",
+    "text": "特色应用",
+    "directText": "",
+    "selector": ".footer-map-item",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "特色应用",
+    "directText": "特色应用",
+    "selector": ".footer-map-title",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "专项附加扣除填报",
+    "directText": "专项附加扣除填报",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "申报信息查询",
+    "directText": "申报信息查询",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "票证查验",
+    "directText": "票证查验",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "税费申报",
+    "directText": "税费申报",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "备案信息查询",
+    "directText": "备案信息查询",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "帮助中心",
+    "directText": "帮助中心",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "我的委托",
+    "directText": "我的委托",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "其他查询",
+    "directText": "其他查询",
+    "selector": ".footer-map-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".footer-gov-img",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "a > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".footer-seek-error-img",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "a > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "网站声明",
+    "directText": "网站声明",
+    "selector": ".footer-copyright-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "京ICP备13021685号-2",
+    "directText": "京ICP备13021685号-2",
+    "selector": ".footer-copyright-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "个人信息及隐私保护政策",
+    "directText": "个人信息及隐私保护政策",
+    "selector": ".footer-copyright-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "京公网安备 11040102700073号",
+    "directText": "京公网安备 11040102700073号",
+    "selector": ".footer-copyright-link",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "a > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "html",
+    "text": ".vml{behavior:url(#default#VML);display:inline-block;position:absolute}.amap-custom{top:0;left:0;pos",
+    "directText": "",
+    "selector": ".skin-theme-normal",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "body",
+    "text": "<strong>We're sorry but web-infra-demo doesn't work properly without JavaScript enabled. Please enab",
+    "directText": "",
+    "selector": "html > body",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "自然人电子税务局\n        未检索到相关应用\n      \n        待办\n        0没有新消息\n        查看更多\n      8手机APP帮助中心下载服务电子税务局个人信",
+    "directText": "",
+    "selector": "#app",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "自然人电子税务局\n        未检索到相关应用\n      \n        待办\n        0没有新消息\n        查看更多\n      8手机APP帮助中心下载服务电子税务局个人信",
+    "directText": "",
+    "selector": ".header-log",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "自然人电子税务局\n        未检索到相关应用\n      \n        待办\n        0没有新消息\n        查看更多\n      8手机APP帮助中心下载服务电子税务局个人信",
+    "directText": "",
+    "selector": ".header",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "自然人电子税务局\n        未检索到相关应用\n      \n        待办\n        0没有新消息\n        查看更多\n      8手机APP帮助中心下载服务电子税务局个人信",
+    "directText": "",
+    "selector": ".header-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "未检索到相关应用\n      \n        待办\n        0没有新消息\n        查看更多\n      8手机APP帮助中心下载服务电子税务局个人信息管理退出登录",
+    "directText": "",
+    "selector": ".header-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "未检索到相关应用",
+    "directText": "",
+    "selector": ".header-search",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "待办\n        0",
+    "directText": "",
+    "selector": ".header-pending-tasks-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "待办\n        0",
+    "directText": "",
+    "selector": ".header-pending-tasks-bar",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "没有新消息\n        查看更多\n      8",
+    "directText": "",
+    "selector": ".header-message-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "手机APP帮助中心下载服务电子税务局",
+    "directText": "",
+    "selector": ".header-toolbar",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "个人信息管理退出登录",
+    "directText": "",
+    "selector": ".header-user-info",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "个人信息管理退出登录",
+    "directText": "",
+    "selector": ".header-user-avatar",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "个人信息管理退出登录",
+    "directText": "",
+    "selector": "div > span",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "首页\n        \n        我要办税\n        \n            扣除填报\n          专项附加扣除填报\n                  子女教育",
+    "directText": "",
+    "selector": ".navbar-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "首页\n        \n        我要办税\n        \n            扣除填报\n          专项附加扣除填报\n                  子女教育",
+    "directText": "",
+    "selector": ".nabvar-list",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "我要办税\n        \n            扣除填报\n          专项附加扣除填报\n                  子女教育",
+    "directText": "",
+    "selector": "ul > li:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "我要查询\n        \n            申报信息查询\n          \n                  申报查询（更正/作废申报）",
+    "directText": "",
+    "selector": "ul > li:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "公众服务\n        \n            公众服务\n          \n                  票证查验",
+    "directText": "",
+    "selector": "ul > li:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Hi, 王恩典完善个人信息\n        密码登录\n      \n      扫码登录\n    \n    打开个人所得税APP扫码登录\n  \n    手机端下载\n  下载APP\n\n\n\n\n请按住滑块",
+    "directText": "",
+    "selector": "div > div:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Hi, 王恩典完善个人信息\n        密码登录\n      \n      扫码登录\n    \n    打开个人所得税APP扫码登录\n  \n    手机端下载\n  下载APP\n\n\n\n\n请按住滑块",
+    "directText": "",
+    "selector": ".home-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Hi, 王恩典完善个人信息\n        密码登录\n      \n      扫码登录\n    \n    打开个人所得税APP扫码登录\n  \n    手机端下载\n  下载APP\n\n\n\n\n请按住滑块",
+    "directText": "",
+    "selector": ".login-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Hi, 王恩典完善个人信息\n        密码登录\n      \n      扫码登录\n    \n    打开个人所得税APP扫码登录\n  \n    手机端下载\n  下载APP\n\n\n\n\n请按住滑块",
+    "directText": "",
+    "selector": ".login-wrap",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Hi, 王恩典完善个人信息",
+    "directText": "",
+    "selector": ".logged-panel",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Hi, 王恩典",
+    "directText": "",
+    "selector": ".logged-panel-user-info",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Hi, 王恩典",
+    "directText": "",
+    "selector": ".logged-panel-user-detail",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "Hi, 王恩典",
+    "directText": "",
+    "selector": ".logged-panel-user-username",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "完善个人信息",
+    "directText": "",
+    "selector": ".logged-panel-actions",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "个人退税的这些陷阱你必须知道\n        点击查看",
+    "directText": "",
+    "selector": ".el-carousel__item.is-animating",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "个人退税的这些陷阱你必须知道\n        点击查看",
+    "directText": "",
+    "selector": ".notice-carousel-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "个人退税的这些陷阱你必须知道",
+    "directText": "个人退税的这些陷阱你必须知道",
+    "selector": ".notice-carousel-text",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "我要咨询顶部",
+    "directText": "",
+    "selector": ".customer-service",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n        点击查看\n          关于《个人所得税综合所得汇算清缴管理办法》的解读\n        点击查看",
+    "directText": "",
+    "selector": ".notice-carousel-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n        点击查看\n          关于《个人所得税综合所得汇算清缴管理办法》的解读\n        点击查看",
+    "directText": "",
+    "selector": ".el-carousel.el-carousel--vertical",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n        点击查看\n          关于《个人所得税综合所得汇算清缴管理办法》的解读\n        点击查看",
+    "directText": "",
+    "selector": ".el-carousel__container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "关于近期虚假退税宣传的温馨提示\n        点击查看",
+    "directText": "",
+    "selector": ".el-carousel__item.is-active.is-animating",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "关于近期虚假退税宣传的温馨提示\n        点击查看",
+    "directText": "",
+    "selector": ".notice-carousel-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "关于近期虚假退税宣传的温馨提示",
+    "directText": "关于近期虚假退税宣传的温馨提示",
+    "selector": ".notice-carousel-text",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n        点击查看",
+    "directText": "",
+    "selector": ".el-carousel__item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n        点击查看",
+    "directText": "",
+    "selector": ".notice-carousel-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》",
+    "directText": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》",
+    "selector": ".notice-carousel-text",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "通知公告我要咨询顶部\n          国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n        点击查看\n          关于《个人所得税综合所得汇算清缴管理办法》的解读",
+    "directText": "",
+    "selector": ".home-container-white",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "通知公告我要咨询顶部\n          国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n        点击查看\n          关于《个人所得税综合所得汇算清缴管理办法》的解读",
+    "directText": "",
+    "selector": ".page-component",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "常用业务\n  \n        年度汇算（仅取得境内综合所得适用）\n      居民个人综合所得年度汇算申报（仅取得境内综合所得适用）\n        年度汇算（取得境外所得适用）\n      居民个",
+    "directText": "",
+    "selector": ".common-business-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "关于《个人所得税综合所得汇算清缴管理办法》的解读\n        点击查看",
+    "directText": "",
+    "selector": ".el-carousel__item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "关于《个人所得税综合所得汇算清缴管理办法》的解读\n        点击查看",
+    "directText": "",
+    "selector": ".notice-carousel-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "关于《个人所得税综合所得汇算清缴管理办法》的解读",
+    "directText": "关于《个人所得税综合所得汇算清缴管理办法》的解读",
+    "selector": ".notice-carousel-text",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "年度汇算（仅取得境内综合所得适用）\n      居民个人综合所得年度汇算申报（仅取得境内综合所得适用）\n        年度汇算（取得境外所得适用）\n      居民个人综合所得年度汇算申报（取得境外",
+    "directText": "",
+    "selector": ".common-business-list.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "税务动态\n  热点问题\n      “反向开票”后个人所得税经营所得汇算清缴五问答\n    2025-02-28\n      自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清",
+    "directText": "",
+    "selector": ".home-container-grey",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "税务动态\n  热点问题\n      “反向开票”后个人所得税经营所得汇算清缴五问答\n    2025-02-28\n      自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清",
+    "directText": "",
+    "selector": ".page-component",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "税务动态\n  热点问题\n      “反向开票”后个人所得税经营所得汇算清缴五问答\n    2025-02-28\n      自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清",
+    "directText": "",
+    "selector": ".tax-news-container.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "热点问题\n      “反向开票”后个人所得税经营所得汇算清缴五问答\n    2025-02-28\n      自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清缴？",
+    "directText": "",
+    "selector": ".tax-news-item-12.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "“反向开票”后个人所得税经营所得汇算清缴五问答\n    2025-02-28\n      自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清缴？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news-list.tax-news-list-12.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "“反向开票”后个人所得税经营所得汇算清缴五问答\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "“反向开票”后个人所得税经营所得汇算清缴五问答",
+    "directText": "“反向开票”后个人所得税经营所得汇算清缴五问答",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清缴？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清缴？",
+    "directText": "自然人通过“反向开票”销售报废产品是否需要预缴个人所得税及办理所得税汇算清缴？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "纳税人如何享受个人养老金个人所得税税前扣除优惠政策？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "纳税人如何享受个人养老金个人所得税税前扣除优惠政策？",
+    "directText": "纳税人如何享受个人养老金个人所得税税前扣除优惠政策？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "个人养老金个人所得税优惠政策的具体规定是什么？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "个人养老金个人所得税优惠政策的具体规定是什么？",
+    "directText": "个人养老金个人所得税优惠政策的具体规定是什么？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "个人取得彩票中奖收入如何缴纳个人所得税？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "个人取得彩票中奖收入如何缴纳个人所得税？",
+    "directText": "个人取得彩票中奖收入如何缴纳个人所得税？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "如何理解纳税人只能享受一次个人所得税住房贷款利息专项附加扣除？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "如何理解纳税人只能享受一次个人所得税住房贷款利息专项附加扣除？",
+    "directText": "如何理解纳税人只能享受一次个人所得税住房贷款利息专项附加扣除？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "硕士研究生、博士研究生教育属于子女教育还是继续教育，由谁扣除？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "硕士研究生、博士研究生教育属于子女教育还是继续教育，由谁扣除？",
+    "directText": "硕士研究生、博士研究生教育属于子女教育还是继续教育，由谁扣除？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "中级管理会计证书是否可以作为专项附加扣除抵税？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "中级管理会计证书是否可以作为专项附加扣除抵税？",
+    "directText": "中级管理会计证书是否可以作为专项附加扣除抵税？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "个人所得税生产经营所得可通过网络渠道如何进行申报？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "个人所得税生产经营所得可通过网络渠道如何进行申报？",
+    "directText": "个人所得税生产经营所得可通过网络渠道如何进行申报？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "从事个体经营自主就业退役士兵可以享受哪些优惠？\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "从事个体经营自主就业退役士兵可以享受哪些优惠？",
+    "directText": "从事个体经营自主就业退役士兵可以享受哪些优惠？",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "税收政策及解读\n      个人所得税综合所得汇算清缴管理办法\n    2025-02-28\n      国家税务总局 财政部 中国证监会关于进一步完善个人转让上市公司限售股所得个人所得税有关征管服务",
+    "directText": "",
+    "selector": ".tax-news-item-6",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "税收政策及解读",
+    "directText": "",
+    "selector": ".tax-news-item-title.tax-news-policy-bg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "税收政策及解读",
+    "directText": "",
+    "selector": ".tax-news-item-text",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "通知公告\n      国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n    2025-02-28\n      关于《个人所得税综合所得汇算清缴管理办法》的解读\n    2025-02",
+    "directText": "",
+    "selector": ".tax-news-item-6",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "个人所得税综合所得汇算清缴管理办法\n    2025-02-28\n      国家税务总局 财政部 中国证监会关于进一步完善个人转让上市公司限售股所得个人所得税有关征管服务事项的公告\n    2025",
+    "directText": "",
+    "selector": ".tax-news-list.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "个人所得税综合所得汇算清缴管理办法\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "个人所得税综合所得汇算清缴管理办法",
+    "directText": "个人所得税综合所得汇算清缴管理办法",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n    2025-02-28\n      关于《个人所得税综合所得汇算清缴管理办法》的解读\n    2025-02-28\n      2",
+    "directText": "",
+    "selector": ".tax-news-list.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》",
+    "directText": "国家税务总局令第57号：《个人所得税综合所得汇算清缴管理办法》",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "国家税务总局 财政部 中国证监会关于进一步完善个人转让上市公司限售股所得个人所得税有关征管服务事项的公告\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "国家税务总局 财政部 中国证监会关于进一步完善个人转让上市公司限售股所得个人所得税有关征管服务事项的公告",
+    "directText": "国家税务总局 财政部 中国证监会关于进一步完善个人转让上市公司限售股所得个人所得税有关征管服务事项的公告",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "关于《个人所得税综合所得汇算清缴管理办法》的解读\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "关于《个人所得税综合所得汇算清缴管理办法》的解读",
+    "directText": "关于《个人所得税综合所得汇算清缴管理办法》的解读",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "财政部 税务总局关于在全国范围实施个人养老金个人所得税优惠政策的公告\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "财政部 税务总局关于在全国范围实施个人养老金个人所得税优惠政策的公告",
+    "directText": "财政部 税务总局关于在全国范围实施个人养老金个人所得税优惠政策的公告",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "2024年度个人所得税综合所得汇算清缴问答\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2024年度个人所得税综合所得汇算清缴问答",
+    "directText": "2024年度个人所得税综合所得汇算清缴问答",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "人力资源社会保障部 财政部 国家税务总局 金融监管总局 中国证监会关于全面实施个人养老金制度的通知\n    2025-02-28",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "人力资源社会保障部 财政部 国家税务总局 金融监管总局 中国证监会关于全面实施个人养老金制度的通知",
+    "directText": "人力资源社会保障部 财政部 国家税务总局 金融监管总局 中国证监会关于全面实施个人养老金制度的通知",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2025-02-28",
+    "directText": "2025-02-28",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "个人退税的这些陷阱你必须知道\n    2024-03-01",
+    "directText": "",
+    "selector": ".tax-news.clearfix.tax-news-right",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "个人退税的这些陷阱你必须知道",
+    "directText": "个人退税的这些陷阱你必须知道",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2024-03-01",
+    "directText": "2024-03-01",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "关于《国家税务总局关于贯彻执行提高个人所得税有关专项附加扣除标准政策的公告》的解读\n    2023-08-31",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "关于《国家税务总局关于贯彻执行提高个人所得税有关专项附加扣除标准政策的公告》的解读",
+    "directText": "关于《国家税务总局关于贯彻执行提高个人所得税有关专项附加扣除标准政策的公告》的解读",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2023-08-31",
+    "directText": "2023-08-31",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "2023年度个税汇算十问答\n    2024-03-01",
+    "directText": "",
+    "selector": ".tax-news.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2023年度个税汇算十问答",
+    "directText": "2023年度个税汇算十问答",
+    "selector": ".tax-news-content",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "2024-03-01",
+    "directText": "2024-03-01",
+    "selector": ".tax-news-time",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "我要帮助\n  平台简介平台功能简介|平台服务账户管理用户注册|用户登录|找回密码专项附加扣除子女教育支出|继续教育支出|大病医疗支出|住房贷款利息支出|住房租金支出|赡养老人支出|3岁以下婴幼儿照护支",
+    "directText": "",
+    "selector": ".user-help-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "平台简介平台功能简介|平台服务账户管理用户注册|用户登录|找回密码专项附加扣除子女教育支出|继续教育支出|大病医疗支出|住房贷款利息支出|住房租金支出|赡养老人支出|3岁以下婴幼儿照护支出",
+    "directText": "",
+    "selector": ".user-help-list.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "平台简介平台功能简介|平台服务",
+    "directText": "",
+    "selector": ".user-help-item.user-help-platform-bg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "账户管理用户注册|用户登录|找回密码",
+    "directText": "",
+    "selector": ".user-help-item.user-help-login-bg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "专项附加扣除子女教育支出|继续教育支出|大病医疗支出|住房贷款利息支出|住房租金支出|赡养老人支出|3岁以下婴幼儿照护支出",
+    "directText": "",
+    "selector": ".user-help-item.user-help-special-additional-deduction-bg",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "专项附加扣除",
+    "directText": "专项附加扣除",
+    "selector": "li > p",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "平台功能简介|",
+    "directText": "",
+    "selector": "li > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "子女教育支出|",
+    "directText": "",
+    "selector": "li > span:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "继续教育支出|",
+    "directText": "",
+    "selector": "li > span:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "大病医疗支出|",
+    "directText": "",
+    "selector": "li > span:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "住房贷款利息支出|",
+    "directText": "",
+    "selector": "li > span:nth-child(5)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "住房租金支出|",
+    "directText": "",
+    "selector": "li > span:nth-child(6)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "赡养老人支出|",
+    "directText": "",
+    "selector": "li > span:nth-child(7)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "span",
+    "text": "3岁以下婴幼儿照护支出",
+    "directText": "",
+    "selector": "li > span:nth-child(8)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "网站地图\n    \n          我要办税\n        \n            专项附加扣除填报\n          \n            税费申报",
+    "directText": "",
+    "selector": ".footer",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "网站地图\n    \n          我要办税\n        \n            专项附加扣除填报\n          \n            税费申报",
+    "directText": "",
+    "selector": ".footer-map",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "我要办税\n        \n            专项附加扣除填报\n          \n            税费申报\n          \n            证明开具",
+    "directText": "",
+    "selector": ".footer-map-list.clearfix",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局主办\n        \n          版权所有：国家税务总局\n        \n          京ICP备13021685号-2\n        京公网安备 1104010270",
+    "directText": "",
+    "selector": ".footer-links",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局主办\n        \n          版权所有：国家税务总局\n        \n          京ICP备13021685号-2\n        京公网安备 1104010270",
+    "directText": "",
+    "selector": ".footer-copyright",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "国家税务总局主办\n        \n          版权所有：国家税务总局\n        \n          京ICP备13021685号-2\n        京公网安备 1104010270",
+    "directText": "",
+    "selector": ".footer-copyright-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "纳税服务热线：12366\n        \n          网站声明\n        \n          个人信息及隐私保护政策",
+    "directText": "",
+    "selector": ".footer-copyright-container",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "手机APP\n        \n          微信公众号",
+    "directText": "",
+    "selector": ".footer-qrcode",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "国家税务总局主办",
+    "directText": "国家税务总局主办",
+    "selector": ".footer-copyright-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "纳税服务热线：12366",
+    "directText": "纳税服务热线：12366",
+    "selector": ".footer-copyright-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "p",
+    "text": "版权所有：国家税务总局",
+    "directText": "版权所有：国家税务总局",
+    "selector": ".footer-copyright-item",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  }
+]

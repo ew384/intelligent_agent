@@ -41,7 +41,6 @@ class BrowserOperations(BaseHandler):  # 注意类名也改了
             "extract_elements": self.extract_elements,
             "execute_script": self.execute_script,
             "screenshot": self.take_screenshot,
-            "credit-card": self.credit_card
         }
         # 调用具体的业务逻辑方法
         handler = action_map.get(action)
@@ -49,32 +48,6 @@ class BrowserOperations(BaseHandler):  # 注意类名也改了
             return {"status": "error", "message": f"未知的action: {action}"}
         
         return await handler(parameters)
-    
-    async def credit_card(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        处理信用卡操作 - 转发到CreditCardHandler
-        
-        Args:
-            parameters: 操作参数
-            
-        Returns:
-            操作结果
-        """
-        from .credit_card import CreditCardHandler
-        
-        try:
-            logger.info("处理信用卡操作")
-            # 创建信用卡处理器
-            handler = CreditCardHandler(self.session)
-            # 转发请求
-            result = await handler.process_query(parameters)  
-            return result
-        except Exception as e:
-            logger.error(f"处理信用卡操作时出错: {str(e)}")
-            return {
-                "status": "error",
-                "message": f"信用卡操作失败: {str(e)}"
-            }
 
     async def navigate(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -162,79 +135,7 @@ class BrowserOperations(BaseHandler):  # 注意类名也改了
         Returns:
             等待结果
         """
-        login_indicators = parameters.get('login_indicators', [])
-        text_indicators = parameters.get('text_indicators', [])
-        
-        if not login_indicators and not text_indicators:
-            return {"status": "error", "message": "缺少login_indicators或text_indicators参数"}
-        
-        timeout = parameters.get('timeout', 300)  # 默认300秒超时
-        check_interval = parameters.get('check_interval', 10)  # 默认每10秒检查一次
-        immediate_check = parameters.get('immediate_check', True)  # 默认立即检查
-        try:
-            logger.info(f"检查登录状态，指示器: {login_indicators}, 文本指示器: {text_indicators}")
-            
-            # 立即检查是否已登录
-            # 检查元素指示器
-            if login_indicators:
-                for selector in login_indicators:
-                    element = await self.session.query_selector(selector)
-                    if element:
-                        # 检查元素是否可见
-                        is_visible = await self.session.execute_script("""
-                            function isVisible(el) {
-                                if (!el) return false;
-                                const style = window.getComputedStyle(el);
-                                return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetWidth > 0 && el.offsetHeight > 0;
-                            }
-                            return isVisible(arguments[0]);
-                        """, element)
-                        
-                        if is_visible:
-                            logger.info(f"检测到登录状态，指示器: {selector}")
-                            return {
-                                "status": "success",
-                                "message": "用户已登录",
-                                "indicator": selector
-                            }
-            
-            # 检查文本指示器
-            if text_indicators:
-                page_text = await self.session.execute_script("return document.body.innerText;")
-                for text in text_indicators:
-                    if text in page_text:
-                        logger.info(f"检测到登录状态，文本指示: {text}")
-                        return {
-                            "status": "success",
-                            "message": "用户已登录",
-                            "indicator": f"text: {text}"
-                        }
-            
-            # 如果只是立即检查而不等待，返回pending状态
-            if immediate_check:
-                logger.info("未检测到登录状态，返回pending状态")
-                return {
-                    "status": "pending",
-                    "message": "需要用户登录，请在浏览器中完成登录操作"
-                }
-            
-            # 否则，等待登录
-            logger.info(f"未检测到登录状态，等待用户登录，超时时间: {timeout}秒")
-            # 周期性检查登录状态的代码与之前相同
-            # ...省略...
-            
-            # 超时返回pending状态
-            logger.warning("等待登录超时")
-            return {
-                "status": "pending",
-                "message": "等待登录超时，请在浏览器中完成登录操作"
-            }
-        except Exception as e:
-            logger.error(f"等待登录时出错: {str(e)}")
-            return {
-                "status": "error",
-                "message": f"等待登录失败: {str(e)}"
-            }
+        pass
     
     async def click(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """

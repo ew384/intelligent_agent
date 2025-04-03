@@ -300,7 +300,6 @@ class ChromeDriverBrowserService:
             logger.error(f"启动Chrome调试实例失败: {str(e)}")
             raise
 
-    
     async def _connect_to_chrome(self) -> tuple:
         """
         连接到正在运行的Chrome实例

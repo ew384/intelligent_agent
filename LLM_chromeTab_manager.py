@@ -30,8 +30,9 @@ class ChatRequest(BaseModel):
 # 全局状态
 browser_session = None
 api_keys = {
-    "5f8a621e-7f5c-4d57-a910-dabf7934c3b2": "user_1",#endian
-    "f16ab7cb-c2d9-4f2a-b2a9-968a0df75385": "user_2",#hao
+    "wangendian": "user_1",
+    "chenhao": "user_2",
+    "test1": "user_3",
 }
 
 # 用户标签页映射: {api_key: {provider: {"handle": window_handle, "tab_id": tab_id, "handler": handler_instance}}}
@@ -45,54 +46,83 @@ lock = asyncio.Lock()
 TABS_STATE_FILE = "tabs_state.json"
 
 def save_tabs_state():
-    """保存标签页状态到文件"""
+    """Save tab state to file"""
     try:
-        # 创建可以序列化的状态数据结构
-        serializable_state = {}
-        for api_key, providers in user_tabs.items():
-            serializable_state[api_key] = {}
-            for provider, tab_info in providers.items():
-                serializable_state[api_key][provider] = {
-                    "tab_id": tab_info.get("tab_id"),
-                    "handle": tab_info.get("handle"),
-                    # handler对象不能序列化，所以不保存
-                }
+        # Load existing state
+        state = {}
+        if os.path.exists(TABS_STATE_FILE):
+            with open(TABS_STATE_FILE, 'r') as f:
+                state = json.load(f)
         
+        if "tabs" not in state:
+            state["tabs"] = {}
+        
+        # Update LLM tabs
+        for api_key, providers in user_tabs.items():
+            user_id = api_keys.get(api_key)
+            
+            for provider, tab_info in providers.items():
+                tab_id = tab_info.get("tab_id")
+                if tab_id:
+                    state["tabs"][tab_id] = {
+                        "handle": tab_info.get("handle"),
+                        "type": "llm",
+                        "provider": provider,
+                        "service_id": provider,
+                        "user_id": user_id,
+                        "url": browser_session.driver.current_url if browser_session else ""
+                    }
+        
+        # Write state
         with open(TABS_STATE_FILE, 'w') as f:
-            json.dump(serializable_state, f)
-        logger.info("标签页状态已保存")
+            json.dump(state, f)
+        
+        logger.info("Tab state saved")
     except Exception as e:
-        logger.error(f"保存标签页状态失败: {str(e)}")
+        logger.error(f"Failed to save tab state: {str(e)}")
 
 def load_tabs_state():
-    """从文件加载标签页状态"""
-    if not os.path.exists(TABS_STATE_FILE):
-        logger.info("没有找到标签页状态文件")
-        return
-    
+    """Load tab state from file"""
     try:
-        with open(TABS_STATE_FILE, 'r') as f:
-            serializable_state = json.load(f)
+        if not os.path.exists(TABS_STATE_FILE):
+            logger.info("No tab state file found")
+            return
         
-        # 清空当前状态
+        with open(TABS_STATE_FILE, 'r') as f:
+            state = json.load(f)
+        
+        # Clear current state
         for api_key in user_tabs:
             user_tabs[api_key] = {}
         
-        # 加载已保存的状态
-        for api_key, providers in serializable_state.items():
-            if api_key not in user_tabs:
-                user_tabs[api_key] = {}
-            
-            for provider, tab_info in providers.items():
-                user_tabs[api_key][provider] = {
-                    "tab_id": tab_info.get("tab_id"),
-                    "handle": tab_info.get("handle"),
-                    "handler": None  # handler将在需要时创建
-                }
+        # Get tabs
+        tabs = state.get("tabs", {})
         
-        logger.info("标签页状态已加载")
+        # Load LLM tabs
+        for tab_id, info in tabs.items():
+            if info.get("type") == "llm":
+                provider = info.get("provider")
+                handle = info.get("handle")
+                user_id = info.get("user_id")
+                
+                # Find API key for user
+                matching_api_key = None
+                for api_key, uid in api_keys.items():
+                    if uid == user_id:
+                        matching_api_key = api_key
+                        break
+                
+                if matching_api_key and provider:
+                    user_tabs[matching_api_key][provider] = {
+                        "tab_id": tab_id,
+                        "handle": handle,
+                        "handler": None  # Create when needed
+                    }
+        
+        logger.info("Tab state loaded")
     except Exception as e:
-        logger.error(f"加载标签页状态失败: {str(e)}")
+        logger.error(f"Failed to load tab state: {str(e)}")
+
 
 async def validate_existing_tabs():
     """验证和清理已加载的标签页状态"""
@@ -152,6 +182,7 @@ async def startup_event():
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:54805")
         service = Service("/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver")
+        #service = Service("/usr/local/bin/chromedriver")
         driver = webdriver.Chrome(service=service, options=chrome_options)
         
         # 创建BrowserService模拟对象
@@ -200,8 +231,8 @@ async def reinitialize_browser_session():
         
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:54805")
+        #service = Service("/usr/local/bin/chromedriver")#"/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver")
         service = Service("/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver")
-        
         # 尝试创建驱动
         try:
             driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -260,13 +291,13 @@ async def create_tab(request: TabRequest, api_key: str = Depends(get_api_key)):
                 logger.error(f"浏览器会话无效: {str(e)}")
                 # 尝试重新初始化浏览器会话
                 await reinitialize_browser_session()
+                current_handles = await browser_session.get_all_tabs()
             
             # 检查用户是否已经有这个提供商的标签页
             if provider in user_tabs[api_key] and user_tabs[api_key][provider].get("handle"):
                 # 验证标签页是否仍然有效
                 handle = user_tabs[api_key][provider]["handle"]
                 try:
-                    current_handles = await browser_session.get_all_tabs()
                     if handle in current_handles:
                         await browser_session.switch_to_tab(handle)
                         # 标签页有效，返回现有信息
@@ -295,144 +326,122 @@ async def create_tab(request: TabRequest, api_key: str = Depends(get_api_key)):
             if provider not in provider_urls:
                 raise HTTPException(status_code=400, detail=f"不支持的提供商: {provider}")
             
-            # 安全地创建新标签页
-            try:
-                # 确认浏览器会话有效性
-                try:
-                    current_handles = await browser_session.get_all_tabs()
-                except Exception:
-                    logger.warning("浏览器会话无效，尝试重新初始化")
-                    await reinitialize_browser_session()
-                    current_handles = await browser_session.get_all_tabs()
+            # 查找未被使用的标签页
+            unused_handles = []
+            for handle in current_handles:
+                is_used = False
+                # 检查此标签页是否已被任何用户使用
+                for user_api_key, providers in user_tabs.items():
+                    for provider_name, provider_info in providers.items():
+                        if provider_info.get("handle") == handle:
+                            is_used = True
+                            break
+                    if is_used:
+                        break
                 
-                # 如果没有标签页，创建一个初始标签页
-                if not current_handles:
-                    logger.warning("没有可用的标签页，创建初始标签页")
+                if not is_used:
+                    unused_handles.append(handle)
+            
+            logger.info(f"找到 {len(unused_handles)} 个未使用的标签页")
+            
+            # 使用未使用的标签页或创建新标签页
+            if unused_handles:
+                try:
+                    new_handle = unused_handles[0]
+                    success = await browser_session.switch_to_tab(new_handle)
+                    if not success:
+                        raise Exception("切换到未使用标签页失败")
+                    logger.info(f"使用现有未使用标签页: {new_handle}")
+                except Exception as e:
+                    logger.warning(f"使用未使用标签页失败: {str(e)}，将创建新标签页")
+                    unused_handles = []  # 清空未使用标签页列表，强制创建新标签页
+            
+            # 如果没有可用的未使用标签页，创建新标签页
+            if not unused_handles:
+                try:
+                    logger.info("创建新标签页")
+                    # 记录当前标签页列表
+                    before_handles = await browser_session.get_all_tabs()
+                    
+                    # 使用 Selenium 原生方法创建新标签页，更可靠
                     browser_session.driver.switch_to.new_window('tab')
-                    await asyncio.sleep(2)
-                    current_handles = await browser_session.get_all_tabs()
-                    if not current_handles:
-                        raise HTTPException(status_code=500, detail="无法创建初始标签页")
-                
-                # 记录当前标签页
-                current_handle = current_handles[0]
-                try:
-                    current_handle = await browser_session.get_current_tab()
-                except Exception:
-                    # 如果获取当前标签页失败，使用第一个可用标签页
-                    await browser_session.switch_to_tab(current_handles[0])
-                    current_handle = current_handles[0]
-                
-                logger.info(f"当前标签页句柄: {current_handle}")
-                
-                # 创建新标签页
-                logger.info("创建新标签页")
-                try:
-                    # 使用JavaScript创建新标签页
-                    #browser_session.driver.execute_script("window.open('about:blank', '_blank');") # 会导致无法获取新标
-                    browser_session.driver.switch_to.new_window('tab')
-                    await asyncio.sleep(2)  # 等待新标签页打开
+                    await asyncio.sleep(1)
                     
                     # 获取新的标签页列表
-                    new_handles = await browser_session.get_all_tabs()
-                    logger.info(f"创建后有 {len(new_handles)} 个标签页")
+                    after_handles = await browser_session.get_all_tabs()
                     
                     # 找出新增的标签页
-                    new_tabs = [h for h in new_handles if h not in current_handles]
+                    new_tabs = [h for h in after_handles if h not in before_handles]
                     
-                    if not new_tabs:
-                        # 如果检测不到新标签页，尝试使用未被跟踪的标签页
-                        untracked_tabs = []
-                        for h in new_handles:
-                            is_tracked = False
-                            for user_providers in user_tabs.values():
-                                for provider_info in user_providers.values():
-                                    if provider_info.get("handle") == h:
-                                        is_tracked = True
-                                        break
-                                if is_tracked:
-                                    break
-                            if not is_tracked:
-                                untracked_tabs.append(h)
-                        
-                        if untracked_tabs:
-                            # 使用未被跟踪的标签页
-                            new_handle = untracked_tabs[0]
-                            logger.info(f"使用未被跟踪的标签页: {new_handle}")
-                        else:
-                            # 创建失败，再次尝试
-                            browser_session.driver.switch_to.new_window('tab')
-                            await asyncio.sleep(1)
-                            newest_handles = await browser_session.get_all_tabs()
-                            new_tabs = [h for h in newest_handles if h not in new_handles]
-                            
-                            if not new_tabs:
-                                raise HTTPException(status_code=500, detail="无法创建新标签页")
-                            new_handle = new_tabs[0]
-                    else:
+                    if new_tabs:
                         new_handle = new_tabs[0]
+                        logger.info(f"成功创建新标签页: {new_handle}")
+                    else:
+                        # 如果检测不到新标签页，使用当前标签页
+                        new_handle = await browser_session.get_current_tab()
+                        logger.warning(f"未检测到新标签页，使用当前标签页: {new_handle}")
                     
-                    logger.info(f"新标签页句柄: {new_handle}")
-                    
-                    # 切换到新标签页
-                    await browser_session.switch_to_tab(new_handle)
-                    
-                except Exception as e:
-                    logger.error(f"创建或切换到新标签页失败: {str(e)}")
-                    raise HTTPException(status_code=500, detail=f"创建新标签页失败: {str(e)}")
-                
-                # 导航到提供商URL
-                try:
-                    success = await browser_session.goto(provider_urls[provider])
+                    # 确保切换到新标签页
+                    success = await browser_session.switch_to_tab(new_handle)
                     if not success:
-                        raise HTTPException(status_code=500, detail=f"导航到 {provider} 页面失败")
-                    
-                    # 等待页面加载
-                    await browser_session.wait_for_load_state("networkidle")
+                        raise Exception("无法切换到新标签页")
                     
                 except Exception as e:
-                    logger.error(f"导航到 {provider} 页面失败: {str(e)}")
-                    # 关闭失败的标签页
-                    try:
-                        await browser_session.close_tab(new_handle)
-                    except:
-                        pass
-                    raise HTTPException(status_code=500, detail=f"导航到 {provider} 页面失败: {str(e)}")
+                    logger.error(f"创建新标签页失败: {str(e)}")
+                    raise HTTPException(status_code=500, detail=f"创建新标签页失败: {str(e)}")
+            else:
+                new_handle = unused_handles[0]
+            
+            # 导航到提供商URL
+            try:
+                logger.info(f"导航到URL: {provider_urls[provider]}")
+                success = await browser_session.goto(provider_urls[provider])
+                if not success:
+                    raise Exception(f"导航到 {provider_urls[provider]} 失败")
                 
-                # 创建对应的处理器
-                handler = None
-                if provider == "claude":
-                    try:
-                        handler = ClaudeAuthHandler(browser_session)
-                    except Exception as e:
-                        logger.error(f"创建Claude处理器失败: {str(e)}")
-                # 可以添加其他处理器
-                
-                # 生成标签页ID
-                tab_id = str(uuid.uuid4())
-                
-                # 保存标签页信息
-                user_tabs[api_key][provider] = {
-                    "tab_id": tab_id,
-                    "handle": new_handle,
-                    "handler": handler
-                }
-                
-                # 更新持久化状态
-                save_tabs_state()
-                
-                return {
-                    "status": "success",
-                    "tab_id": tab_id,
-                    "provider": provider,
-                    "title": browser_session.driver.title,
-                    "url": browser_session.driver.current_url
-                }
+                # 等待页面加载
+                await browser_session.wait_for_load_state("networkidle")
                 
             except Exception as e:
-                logger.error(f"创建新标签页失败: {str(e)}")
-                raise HTTPException(status_code=500, detail=f"创建新标签页失败: {str(e)}")
-                
+                logger.error(f"导航到 {provider} 页面失败: {str(e)}")
+                # 关闭失败的标签页
+                try:
+                    await browser_session.close_tab(new_handle)
+                except:
+                    pass
+                raise HTTPException(status_code=500, detail=f"导航到 {provider} 页面失败: {str(e)}")
+            
+            # 创建对应的处理器
+            handler = None
+            if provider == "claude":
+                try:
+                    handler = ClaudeAuthHandler(browser_session)
+                    logger.info("成功创建Claude处理器")
+                except Exception as e:
+                    logger.error(f"创建Claude处理器失败: {str(e)}")
+            # 可以添加其他处理器
+            
+            # 生成标签页ID
+            tab_id = str(uuid.uuid4())
+            
+            # 保存标签页信息
+            user_tabs[api_key][provider] = {
+                "tab_id": tab_id,
+                "handle": new_handle,
+                "handler": handler
+            }
+            
+            # 更新持久化状态
+            save_tabs_state()
+            
+            return {
+                "status": "success",
+                "tab_id": tab_id,
+                "provider": provider,
+                "title": browser_session.driver.title,
+                "url": browser_session.driver.current_url
+            }
+            
         except Exception as e:
             logger.error(f"创建标签页失败: {str(e)}")
             raise HTTPException(status_code=500, detail=f"创建标签页失败: {str(e)}")

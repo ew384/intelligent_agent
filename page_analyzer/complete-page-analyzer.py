@@ -2719,7 +2719,7 @@ def main():
     url=False
     # Setup Chrome options
     chrome_options = Options()
-    chrome_options.add_experimental_option("debuggerAddress", "localhost:9222")
+    chrome_options.add_experimental_option("debuggerAddress", "localhost:54805")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--disable-dev-shm-usage')

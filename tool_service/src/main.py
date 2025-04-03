@@ -31,7 +31,8 @@ async def root():
             "/tools/browser/{action}",
             #"/tools/llm/chat/claude",
             "/tools/wechat/{action}",
-            "/tools/wechat/login/check"
+            "/tools/tax/{action}",
+            "/tools/tax/query_complete",
         ]
     }
 
