@@ -3,13 +3,15 @@ from fastapi import APIRouter, Request
 from typing import Dict, Any
 import logging
 from datetime import datetime, timedelta
-from ...tools.browser.browser_manager import BrowserManager
+#from ...tools.browser.browser_manager import BrowserManager
 from ...tools.handlers.tax_handler import TaxHandler
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
-browser_manager = BrowserManager()
-
+#browser_manager = BrowserManager()
+from browser_use.browser.browser import Browser, BrowserConfig
+from browser_use.browser.context import BrowserContext, BrowserContextConfig
+import asyncio
 @router.post("/query_complete")
 async def query_tax_records_complete(request: Request):
     """
@@ -28,47 +30,7 @@ async def query_tax_records_complete(request: Request):
     Returns:
         完整的查询结果
     """
-    try:
-        # 解析请求参数
-        parameters = await request.json()
-        
-        # 设置默认参数
-        city = parameters.get('city', '深圳市')
-        service_id = parameters.get('service_id', 'tax_service')
-        
-        # 如果未提供日期，使用近90天的日期范围
-        if not parameters.get('start_date') or not parameters.get('end_date'):
-            end_date = datetime.now()
-            start_date = end_date - timedelta(days=90)
-            
-            parameters['start_date'] = start_date.strftime('%Y-%m-%d')
-            parameters['end_date'] = end_date.strftime('%Y-%m-%d')
-        
-        logger.info(f"开始执行一次性完整税务查询流程，城市: {city}")
-        
-        # 获取专用标签页
-        browser_service, session, tab_handle = await browser_manager.get_or_create_service_tab(
-            service_id, 
-            url=None  # 不预先导航，让处理器负责导航
-        )
-        
-        # 创建处理器
-        handler = TaxHandler(session)
-        
-        # 执行完整查询流程
-        result = await handler.query_tax_records_complete(parameters)
-        
-        # 资源清理（如果需要）
-        if parameters.get('close_session', False):
-            await session.close()
-            if tab_handle in browser_manager.tab_services:
-                del browser_manager.tab_services[tab_handle]
-        
-        return result
-    except Exception as e:
-        logger.error(f"执行一次性完整税务查询流程时出错: {str(e)}", exc_info=True)
-        return {"status": "error", "message": f"查询失败: {str(e)}"}
-
+    pass
 @router.post("/{action}")
 async def handle_tax_action(action: str, request: Request):
     """
@@ -81,6 +43,7 @@ async def handle_tax_action(action: str, request: Request):
     Returns:
         操作执行结果
     """
+    browser_use_context = None
     try:
         # 1. 请求解析
         parameters = await request.json()
@@ -88,102 +51,37 @@ async def handle_tax_action(action: str, request: Request):
         
         logger.info(f"执行税务操作: {action}, 参数: {parameters}")
         
-        # 2. 会话管理 - 使用标签页管理
-        service_id = parameters.get('service_id', 'tax_service')
-        tax_url = "https://etax.chinatax.gov.cn/?dmnHafHu=4GaB4GlqEiwcKTTdRKqNSIrmPl6C4Fotuqtcf8HlZ3KBQv_qxzOqEcP8SmwFXbxbJSCPer3FLzftI0Zep6WcQqzaluxjqcxz"
+        # 2. 获取或创建浏览器上下文
+        chrome_debug_port = 54805
         
-        # 获取专用标签页
-        browser_service, session, tab_handle = await browser_manager.get_or_create_service_tab(
-            service_id, 
-            url=tax_url if parameters.get('skip_navigation', False) is not True else None
+        # 配置连接到已有的Chrome
+        browser_config = BrowserConfig(
+            cdp_url=f"http://localhost:{chrome_debug_port}"
         )
         
+        # 创建Browser实例
+        browser_use_browser = Browser(config=browser_config)
+        
+        # 创建BrowserContext
+        browser_use_context = BrowserContext(browser=browser_use_browser)
+        
+        # 初始化上下文
+        await browser_use_context._initialize_session()
+        
         # 3. 创建处理器并执行操作
-        handler = TaxHandler(session)
+        handler = TaxHandler(browser_use_context)
         result = await handler.process_query(parameters)
         
-        # 4. 资源清理
-        if parameters.get('close_session', False):
-            await session.close()
-            # 从标签页映射中删除
-            if tab_handle in browser_manager.tab_services:
-                del browser_manager.tab_services[tab_handle]
-            
         return result
     except Exception as e:
         logger.error(f"处理税务操作 {action} 时出错: {str(e)}", exc_info=True)
         return {"status": "error", "message": f"操作失败: {str(e)}"}
-
-
-@router.post("/tax_checklist/query")
-async def query_tax_checklist(request: Request):
-    """
-    查询近3个月的纳税清单
-    
-    Args:
-        request: 请求对象，可以包含city参数指定城市（默认为"深圳市"）
-        
-    Returns:
-        查询结果
-    """
-    try:
-        # 解析请求参数
-        parameters = await request.json()
-        city = parameters.get('city', '深圳市')
-        
-        # 计算近3个月的日期范围
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=90)
-        
-        query_params = {
-            'service_id': 'tax_service',
-            'city': city,
-            'start_date': start_date.strftime('%Y-%m-%d'),
-            'end_date': end_date.strftime('%Y-%m-%d')
-        }
-        
-        logger.info(f"开始查询近3个月纳税清单，城市: {city}")
-        
-        # 获取专用标签页
-        browser_service, session, tab_handle = await browser_manager.get_or_create_service_tab(
-            query_params['service_id'], 
-            url="https://etax.chinatax.gov.cn/" if parameters.get('skip_navigation', False) is not True else None
-        )
-        
-        # 创建处理器
-        handler = TaxHandler(session)
-        
-        # 1. 导航到主页
-        main_result = await handler.navigate_to_main_page({})
-        if main_result.get("status") != "success":
-            return main_result
-        
-        # 2. 选择城市
-        city_result = await handler.select_city({"city": city})
-        if city_result.get("status") != "success":
-            return city_result
-        
-        # 3. 导航到纳税清单页面
-        checklist_result = await handler.navigate_to_tax_checklist({
-            "wait_for_login": True,
-            "login_timeout": 300
-        })
-        if checklist_result.get("status") != "success":
-            return checklist_result
-        
-        # 4. 查询纳税记录
-        query_result = await handler.query_tax_record({
-            "start_date": query_params['start_date'],
-            "end_date": query_params['end_date']
-        })
-        
-        # 5. 资源清理（如果需要）
-        if parameters.get('close_session', False):
-            await session.close()
-            if tab_handle in browser_manager.tab_services:
-                del browser_manager.tab_services[tab_handle]
-        
-        return query_result
-    except Exception as e:
-        logger.error(f"查询近3个月纳税清单时出错: {str(e)}", exc_info=True)
-        return {"status": "error", "message": f"查询失败: {str(e)}"}
+    finally:
+        # 如果请求参数中明确指定了关闭会话，则在此处关闭
+        # 只有在创建了上下文但未能成功创建Handler的情况下，才需要在此处直接关闭
+        if browser_use_context and not parameters.get('keep_alive', False):
+            try:
+                # 避免使用asyncio.run()
+                await browser_use_context.close()
+            except Exception as e:
+                logger.error(f"关闭浏览器上下文失败: {str(e)}")

@@ -1,0 +1,2646 @@
+[
+  {
+    "tag": "ol",
+    "text": "",
+    "directText": "",
+    "selector": ".fixed.right-0.top-0.z-toast.flex.flex-col.gap-4.p-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "auto"
+  },
+  {
+    "tag": "button",
+    "text": "",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.w-8.rounded-md.active:scale-95.group",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".relative.*:duration-300",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "",
+    "directText": "",
+    "selector": ".flex.flex-col.justify-start.items-top",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "New chat",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.h-9.px-4.py-2.rounded-lg.min-w-[5rem].active:scale-[0.985].whitespace-nowrap.text-sm.group.transition.ease-in-out.active:!scale-100.hover:bg-transparent.flex.!justify-start.!min-w-0.w-full.hover:!bg-accent-main-000/[0.08].active:!bg-accent-brand/15",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".p-1.5.group-active:!scale-[0.98].group-active:!shadow-none.group-active:bg-accent-main-200.group-hover:-rotate-2.group-hover:scale-105.group-active:rotate-3.rounded-full.transition-all.ease-in-out.bg-accent-main-000.group-hover:shadow-md",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "New chat",
+    "directText": "",
+    "selector": ".-mx-2.flex.flex-row.items-center.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "New chat",
+    "directText": "New chat",
+    "selector": ".transition-all.duration-200.text-accent-main-100.font-medium.text-sm",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".size-4.flex.items-center.justify-center",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Projects",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-9.px-4.py-2.rounded-lg.min-w-[5rem].active:scale-[0.985].whitespace-nowrap.text-sm.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Projects",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Projects",
+    "directText": "",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Projects",
+    "directText": "Projects",
+    "selector": ".transition-all.duration-200",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".size-4.flex.items-center.justify-center.group-hover:!text-text-200.text-text-400",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Chats",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-9.px-4.py-2.rounded-lg.min-w-[5rem].active:scale-[0.985].whitespace-nowrap.text-sm.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Chats",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Chats",
+    "directText": "",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Chats",
+    "directText": "Chats",
+    "selector": ".transition-all.duration-200",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".size-4.flex.items-center.justify-center.group-hover:!text-text-200.text-text-400",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "directText": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "International English Name for Education Consulting Firm",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "International English Name for Education Consulting Firm",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "International English Name for Education Consulting Firm",
+    "directText": "International English Name for Education Consulting Firm",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Automating Wechat Video Channel Matrix Management",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Automating Wechat Video Channel Matrix Management",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Automating Wechat Video Channel Matrix Management",
+    "directText": "Automating Wechat Video Channel Matrix Management",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".ProseMirror.break-words.max-w-[60ch].ProseMirror-focused",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "text"
+  },
+  {
+    "tag": "a",
+    "text": "Setting up pip to use Python 3.12 by default",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Setting up pip to use Python 3.12 by default",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Setting up pip to use Python 3.12 by default",
+    "directText": "Setting up pip to use Python 3.12 by default",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Serializing DOMElementNode to JSON",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Serializing DOMElementNode to JSON",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Serializing DOMElementNode to JSON",
+    "directText": "Serializing DOMElementNode to JSON",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "",
+    "directText": "",
+    "selector": "#input-plus-menu-trigger",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "id": "input-plus-menu-trigger",
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "",
+    "directText": "",
+    "selector": "#input-tools-menu-trigger",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "id": "input-tools-menu-trigger",
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.bg-accent-main-000.text-oncolor-100.font-styrene.font-medium.transition-colors.hover:bg-accent-main-200.h-8.w-8.rounded-md.active:scale-95.!rounded-lg.!h-8.!w-8",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "default"
+  },
+  {
+    "tag": "button",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.h-7.border-0.5.text-text-100.ml-1.5.inline-flex.items-start.gap-[0.175em].rounded-md.border-transparent.text-sm.opacity-80.transition.hover:opacity-100.disabled:!opacity-80.sm:ml-0.sm:pb-1.sm:pl-1.5.sm:pr-1.sm:pt-1.hover:bg-bg-100.hover:border-border-400",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".flex.flex-row.items-center.justify-center.gap-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": "div > div",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".flex.flex-row.items-center.justify-center.gap-1",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".font-tiempos.inline-flex.items-center.gap-[3px].text-[14px].h-[14px].leading-none.items-baseline",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".flex.items-center.gap-[4px]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "3.7 Sonnet",
+    "selector": ".whitespace-nowrap.tracking-tight.select-none",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Integrating Browser Manager and Browser Context",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Integrating Browser Manager and Browser Context",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Integrating Browser Manager and Browser Context",
+    "directText": "Integrating Browser Manager and Browser Context",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Recovering Accidentally Undone Code in VS Code",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Recovering Accidentally Undone Code in VS Code",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Recovering Accidentally Undone Code in VS Code",
+    "directText": "Recovering Accidentally Undone Code in VS Code",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Troubleshooting DOM Element Detection",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Troubleshooting DOM Element Detection",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Troubleshooting DOM Element Detection",
+    "directText": "Troubleshooting DOM Element Detection",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Study projectLearn and master any subject",
+    "directText": "",
+    "selector": ".from-bg-100.to-bg-100/30.border-0.5.border-border-300.hover:from-bg-000/70.hover:to-bg-000/50.hover:border-border-300/30.text-text-200.hover:text-text-100.relative.flex.cursor-pointer.flex-col.gap-1.5.rounded-xl.bg-gradient-to-b.transition-all.ease-in-out.hover:shadow-sm.active:scale-[0.995].md:gap-2.overflow-hidden.h-full",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Career projectFind the next step for your career",
+    "directText": "",
+    "selector": ".from-bg-100.to-bg-100/30.border-0.5.border-border-300.hover:from-bg-000/70.hover:to-bg-000/50.hover:border-border-300/30.text-text-200.hover:text-text-100.relative.flex.cursor-pointer.flex-col.gap-1.5.rounded-xl.bg-gradient-to-b.transition-all.ease-in-out.hover:shadow-sm.active:scale-[0.995].md:gap-2.overflow-hidden.h-full",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Research projectAnalyze and organize research",
+    "directText": "",
+    "selector": ".from-bg-100.to-bg-100/30.border-0.5.border-border-300.hover:from-bg-000/70.hover:to-bg-000/50.hover:border-border-300/30.text-text-200.hover:text-text-100.relative.flex.cursor-pointer.flex-col.gap-1.5.rounded-xl.bg-gradient-to-b.transition-all.ease-in-out.hover:shadow-sm.active:scale-[0.995].md:gap-2.overflow-hidden.h-full",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Study projectLearn and master any subject",
+    "directText": "",
+    "selector": ".flex.p-4.w-full.items-center.h-full.flex-row.sm:flex-col.sm:items-start",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Career projectFind the next step for your career",
+    "directText": "",
+    "selector": ".flex.p-4.w-full.items-center.h-full.flex-row.sm:flex-col.sm:items-start",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "Research projectAnalyze and organize research",
+    "directText": "",
+    "selector": ".flex.p-4.w-full.items-center.h-full.flex-row.sm:flex-col.sm:items-start",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Fixing 'BrowserSession' object has no attribute 'evaluate' error",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Fixing 'BrowserSession' object has no attribute 'evaluate' error",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Fixing 'BrowserSession' object has no attribute 'evaluate' error",
+    "directText": "Fixing 'BrowserSession' object has no attribute 'evaluate' error",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".relative.mb-1.mr-2",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "div > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".relative.mb-1.mr-2",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "div > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "",
+    "directText": "",
+    "selector": ".relative.mb-1.mr-2",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "img",
+    "text": "",
+    "directText": "",
+    "selector": "div > img",
+    "selectorType": "direct-child",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Resolving API Routing Issue for Tax Query Process",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Resolving API Routing Issue for Tax Query Process",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Resolving API Routing Issue for Tax Query Process",
+    "directText": "Resolving API Routing Issue for Tax Query Process",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Study projectLearn and master any subject",
+    "directText": "",
+    "selector": ".flex.flex-col.items-start.w-full.h-full",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "h3",
+    "text": "Study project",
+    "directText": "Study project",
+    "selector": ".text-md.font-medium.text-text-200.text-left",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Career projectFind the next step for your career",
+    "directText": "",
+    "selector": ".flex.flex-col.items-start.w-full.h-full",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "h3",
+    "text": "Career project",
+    "directText": "Career project",
+    "selector": ".text-md.font-medium.text-text-200.text-left",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Research projectAnalyze and organize research",
+    "directText": "",
+    "selector": ".flex.flex-col.items-start.w-full.h-full",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "h3",
+    "text": "Research project",
+    "directText": "Research project",
+    "selector": ".text-md.font-medium.text-text-200.text-left",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Automating Tax Record Retrieval from Shenzhen E-Tax Bureau",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Automating Tax Record Retrieval from Shenzhen E-Tax Bureau",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Automating Tax Record Retrieval from Shenzhen E-Tax Bureau",
+    "directText": "Automating Tax Record Retrieval from Shenzhen E-Tax Bureau",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "Learn and master any subject",
+    "directText": "Learn and master any subject",
+    "selector": ".text-sm.text-text-200.text-left",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "Find the next step for your career",
+    "directText": "Find the next step for your career",
+    "selector": ".text-sm.text-text-200.text-left",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "p",
+    "text": "Analyze and organize research",
+    "directText": "Analyze and organize research",
+    "selector": ".text-sm.text-text-200.text-left",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Integrating Browser and LLM Tab Management",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Integrating Browser and LLM Tab Management",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Integrating Browser and LLM Tab Management",
+    "directText": "Integrating Browser and LLM Tab Management",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Troubleshooting Chrome Undetected Driver Connection Error",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Troubleshooting Chrome Undetected Driver Connection Error",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Troubleshooting Chrome Undetected Driver Connection Error",
+    "directText": "Troubleshooting Chrome Undetected Driver Connection Error",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Quantizing DeepSeek-14B Model for 32GB V100s GPU",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Quantizing DeepSeek-14B Model for 32GB V100s GPU",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Quantizing DeepSeek-14B Model for 32GB V100s GPU",
+    "directText": "Quantizing DeepSeek-14B Model for 32GB V100s GPU",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Convert AVI to MP4 with FFmpeg",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Convert AVI to MP4 with FFmpeg",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Convert AVI to MP4 with FFmpeg",
+    "directText": "Convert AVI to MP4 with FFmpeg",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Understanding Chinese VAT Invoices",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Understanding Chinese VAT Invoices",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Understanding Chinese VAT Invoices",
+    "directText": "Understanding Chinese VAT Invoices",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Automating TikTok Video Scraping with ChromeDriver",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Automating TikTok Video Scraping with ChromeDriver",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Automating TikTok Video Scraping with ChromeDriver",
+    "directText": "Automating TikTok Video Scraping with ChromeDriver",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Fixing TypeError in Browser Config",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Fixing TypeError in Browser Config",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Fixing TypeError in Browser Config",
+    "directText": "Fixing TypeError in Browser Config",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "button",
+    "text": "EEndianProfessional plan",
+    "directText": "",
+    "selector": "#radix-:r3:",
+    "selectorType": "id",
+    "isInteractive": true,
+    "isFormElement": true,
+    "attributes": {
+      "id": "radix-:r3:",
+      "type": "button"
+    },
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "EEndianProfessional plan",
+    "directText": "",
+    "selector": ".flex.flex-row.flex-grow.items-center.gap-3.pointer-cursor",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "EndianProfessional plan",
+    "directText": "",
+    "selector": ".transition-all.duration-200.flex.w-full.text-sm.justify-between.items-center.font-medium",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "EndianProfessional plan",
+    "directText": "Endian",
+    "selector": ".flex.flex-col.items-start",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "E",
+    "directText": "",
+    "selector": ".flex-shrink-0.text-oncolor-100.flex.h-7.w-7.items-center.justify-center.rounded-full.bg-bg-400.text-text-300",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "E",
+    "directText": "E",
+    "selector": ".flex.shrink-0.items-center.justify-center.rounded-full.font-bold.select-none.h-7.w-7.text-[12px].bg-transparent.text-text-300",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Fixing Anthropic API Key Error",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Fixing Anthropic API Key Error",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Fixing Anthropic API Key Error",
+    "directText": "Fixing Anthropic API Key Error",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Professional plan",
+    "directText": "Professional plan",
+    "selector": ".text-xs.text-text-300.font-normal",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "Untitled",
+    "selector": ".opacity-60",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Printing Environment Variables from .env File",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Printing Environment Variables from .env File",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Printing Environment Variables from .env File",
+    "directText": "Printing Environment Variables from .env File",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "Untitled",
+    "selector": ".opacity-60",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Leveraging Matrix Operations for Social Media Growth",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Leveraging Matrix Operations for Social Media Growth",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Leveraging Matrix Operations for Social Media Growth",
+    "directText": "Leveraging Matrix Operations for Social Media Growth",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Enhancing LLM Page Parsing Across Platforms",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Enhancing LLM Page Parsing Across Platforms",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Enhancing LLM Page Parsing Across Platforms",
+    "directText": "Enhancing LLM Page Parsing Across Platforms",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Generalized LLM Page Content Extraction",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Generalized LLM Page Content Extraction",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Generalized LLM Page Content Extraction",
+    "directText": "Generalized LLM Page Content Extraction",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "Untitled",
+    "selector": ".opacity-60",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Untitled",
+    "directText": "Untitled",
+    "selector": ".opacity-60",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Refactoring Page Content Extraction",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Refactoring Page Content Extraction",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Refactoring Page Content Extraction",
+    "directText": "Refactoring Page Content Extraction",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Gibblis-Style Penguin Illustration",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Gibblis-Style Penguin Illustration",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Gibblis-Style Penguin Illustration",
+    "directText": "Gibblis-Style Penguin Illustration",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Improving LLM Page Analyzer to Capture Expanded Content",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Improving LLM Page Analyzer to Capture Expanded Content",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Improving LLM Page Analyzer to Capture Expanded Content",
+    "directText": "Improving LLM Page Analyzer to Capture Expanded Content",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "Generalized Web Scraper for LLM Websites",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "Generalized Web Scraper for LLM Websites",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "Generalized Web Scraper for LLM Websites",
+    "directText": "Generalized Web Scraper for LLM Websites",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "a",
+    "text": "All chats",
+    "directText": "",
+    "selector": ".inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.rounded-md.px-3.text-xs.min-w-[4rem].active:scale-[0.985].whitespace-nowrap.w-full.hover:bg-bg-300.overflow-hidden.!min-w-0.group.active:bg-bg-400.active:scale-[0.99].px-4",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "div",
+    "text": "All chats",
+    "directText": "",
+    "selector": ".-translate-x-2.w-full.flex.flex-row.items-center.justify-start.gap-3",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "span",
+    "text": "All chats",
+    "directText": "All chats",
+    "selector": ".truncate.group-hover:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].group-focus-within:[mask-image:linear-gradient(to_right,hsl(var(--always-black))_78%,transparent_95%)].text-sm.whitespace-nowrap.w-full.[mask-size:100%_100%]",
+    "selectorType": "class",
+    "isInteractive": true,
+    "isFormElement": false,
+    "attributes": {},
+    "cursor": "pointer"
+  },
+  {
+    "tag": "html",
+    "text": "Claude.ProseMirror {\n  position: relative;\n}\n\n.ProseMirror {\n  word-wrap: break-word;\n  white-space:",
+    "directText": "",
+    "selector": ".h-screen.antialiased.[font-feature-settings:'ss01'].scroll-smooth.__variable_dcab32.__variable_820c23.__variable_b4db0f.__variable_669e4a.__variable_e4ce97",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "body",
+    "text": "New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsInternational En",
+    "directText": "",
+    "selector": ".bg-bg-100.text-text-100.font-styrene.min-h-screen.tracking-tight",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsInternational En",
+    "directText": "",
+    "selector": ".flex.min-h-screen.w-full.overflow-x-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsInternational En",
+    "directText": "",
+    "selector": ".fixed.z-sidebar.lg:sticky",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "nav",
+    "text": "New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsInternational En",
+    "directText": "",
+    "selector": ".h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)]",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Good afternoon, Endian 3.7 SonnetSet up Claude for your classes, career, and researchStudy projectLe",
+    "directText": "",
+    "selector": ".min-h-full.w-full.min-w-0.flex-1",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "main",
+    "text": "Good afternoon, Endian 3.7 SonnetSet up Claude for your classes, career, and researchStudy projectLe",
+    "directText": "",
+    "selector": ".mx-auto.mt-4.w-full.flex-1.px-4.md:pl-8.lg:mt-6.max-w-7xl.min-h-screen-w-scroll.!mt-0.flex.flex-col.items-center.gap-8.pt-12.md:pr-14.2xl:pr-20.pt-[10vh].md:pt-[20vh].max-sm:!px-1",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsInternational En",
+    "directText": "",
+    "selector": ".flex.flex-col.align-center.h-full.overflow-hidden",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "New chatProjectsChats",
+    "directText": "",
+    "selector": ".flex.flex-col.px-2.pt-1.gap-px.mb-6",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "New chat",
+    "directText": "",
+    "selector": ".mb-1",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "New chat",
+    "directText": "",
+    "selector": "div > div",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Projects",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Good afternoon, Endian",
+    "directText": "",
+    "selector": ".mx-auto.flex.w-full.flex-col.items-center.gap-7.max-md:pt-4.max-w-2xl",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Starred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsInternational English Name for Educat",
+    "directText": "",
+    "selector": ".transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Starred紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "directText": "",
+    "selector": ".flex.flex-col.mb-6",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h3",
+    "text": "Starred",
+    "directText": "Starred",
+    "selector": ".text-text-300.flex.items-center.gap-1.5.text-xs.pb-2.select-none.pl-2.sticky.top-0.z-10.bg-gradient-to-b.from-bg-200.from-50%.to-bg-200/40",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "directText": "",
+    "selector": ".-mx-1.5.flex.flex-1.flex-col.px-1.5.gap-px",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "directText": "",
+    "selector": "ul > li",
+    "selectorType": "direct-child",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Good afternoon, Endian",
+    "directText": "",
+    "selector": ".font-copernicus.text-text-200.w-full.flex-col.items-center.text-center.text-3xl.tracking-tight.max-md:flex.sm:-ml-0.5.sm:block.sm:text-4xl.sm:leading-snug.md:text-[2.5rem].transition-opacity.duration-300.ease-in",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Good afternoon, Endian",
+    "directText": "Good afternoon, Endian",
+    "selector": ".inline-block.max-w-full.align-middle.max-md:line-clamp-2.max-md:break-words.md:overflow-hidden.md:overflow-ellipsis.select-none",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "RecentsInternational English Name for Education Consulting FirmAutomating Wechat Video Channel Matri",
+    "directText": "",
+    "selector": ".flex.flex-col",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h3",
+    "text": "Recents",
+    "directText": "Recents",
+    "selector": ".text-text-300.pb-2.mt-1.text-xs.select-none.pl-2.sticky.top-0.z-10.bg-gradient-to-b.from-bg-200.from-50%.to-bg-200/40",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "ul",
+    "text": "International English Name for Education Consulting FirmAutomating Wechat Video Channel Matrix Manag",
+    "directText": "",
+    "selector": ".flex.flex-col.gap-px",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "International English Name for Education Consulting Firm",
+    "directText": "",
+    "selector": "ul > li:nth-child(1)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "International English Name for Education Consulting Firm",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".top-5.z-10.mx-auto.w-full.max-w-2xl",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "fieldset",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".flex.w-full.min-w-0.flex-col",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Automating Wechat Video Channel Matrix Management",
+    "directText": "",
+    "selector": "ul > li:nth-child(2)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Automating Wechat Video Channel Matrix Management",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".flex.flex-col.gap-3.5.m-3.5",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Setting up pip to use Python 3.12 by default",
+    "directText": "",
+    "selector": "ul > li:nth-child(3)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Setting up pip to use Python 3.12 by default",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Serializing DOMElementNode to JSON",
+    "directText": "",
+    "selector": "ul > li:nth-child(4)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Serializing DOMElementNode to JSON",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": "#radix-:rd:",
+    "selectorType": "id",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "3.7 Sonnet",
+    "directText": "",
+    "selector": ".flex.gap-2.5.w-full.items-center",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Integrating Browser Manager and Browser Context",
+    "directText": "",
+    "selector": "ul > li:nth-child(5)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Integrating Browser Manager and Browser Context",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Recovering Accidentally Undone Code in VS Code",
+    "directText": "",
+    "selector": "ul > li:nth-child(6)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Recovering Accidentally Undone Code in VS Code",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Set up Claude for your classes, career, and researchStudy projectLearn and master any subjectCareer",
+    "directText": "",
+    "selector": ".mx-auto.w-full.max-w-2xl.px-1.md:px-2",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Set up Claude for your classes, career, and researchStudy projectLearn and master any subjectCareer",
+    "directText": "",
+    "selector": ".w-full.mb-6",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "h2",
+    "text": "Set up Claude for your classes, career, and research",
+    "directText": "Set up Claude for your classes, career, and research",
+    "selector": ".text-sm.text-text-200.font-medium.leading-6.ml-1",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Troubleshooting DOM Element Detection",
+    "directText": "",
+    "selector": "ul > li:nth-child(7)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Troubleshooting DOM Element Detection",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Study projectLearn and master any subjectCareer projectFind the next step for your careerResearch pr",
+    "directText": "",
+    "selector": ".flex.flex-wrap.gap-2.w-full.mt-3.justify-center.items-stretch",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Study projectLearn and master any subject",
+    "directText": "",
+    "selector": ".w-full.sm:w-48.lg:w-52",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Career projectFind the next step for your career",
+    "directText": "",
+    "selector": ".w-full.sm:w-48.lg:w-52",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Research projectAnalyze and organize research",
+    "directText": "",
+    "selector": ".w-full.sm:w-48.lg:w-52",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Fixing 'BrowserSession' object has no attribute 'evaluate' error",
+    "directText": "",
+    "selector": "ul > li:nth-child(8)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Fixing 'BrowserSession' object has no attribute 'evaluate' error",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Resolving API Routing Issue for Tax Query Process",
+    "directText": "",
+    "selector": "ul > li:nth-child(9)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Resolving API Routing Issue for Tax Query Process",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Automating Tax Record Retrieval from Shenzhen E-Tax Bureau",
+    "directText": "",
+    "selector": "ul > li:nth-child(10)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Automating Tax Record Retrieval from Shenzhen E-Tax Bureau",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Integrating Browser and LLM Tab Management",
+    "directText": "",
+    "selector": "ul > li:nth-child(11)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Integrating Browser and LLM Tab Management",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Troubleshooting Chrome Undetected Driver Connection Error",
+    "directText": "",
+    "selector": "ul > li:nth-child(12)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Troubleshooting Chrome Undetected Driver Connection Error",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Quantizing DeepSeek-14B Model for 32GB V100s GPU",
+    "directText": "",
+    "selector": "ul > li:nth-child(13)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Quantizing DeepSeek-14B Model for 32GB V100s GPU",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Convert AVI to MP4 with FFmpeg",
+    "directText": "",
+    "selector": "ul > li:nth-child(14)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Convert AVI to MP4 with FFmpeg",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Understanding Chinese VAT Invoices",
+    "directText": "",
+    "selector": "ul > li:nth-child(15)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Understanding Chinese VAT Invoices",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Automating TikTok Video Scraping with ChromeDriver",
+    "directText": "",
+    "selector": "ul > li:nth-child(16)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Automating TikTok Video Scraping with ChromeDriver",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Fixing TypeError in Browser Config",
+    "directText": "",
+    "selector": "ul > li:nth-child(17)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Fixing TypeError in Browser Config",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "EEndianProfessional plan",
+    "directText": "",
+    "selector": ".px-2.pb-1",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Fixing Anthropic API Key Error",
+    "directText": "",
+    "selector": "ul > li:nth-child(18)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Fixing Anthropic API Key Error",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Untitled",
+    "directText": "",
+    "selector": "ul > li:nth-child(19)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Printing Environment Variables from .env File",
+    "directText": "",
+    "selector": "ul > li:nth-child(20)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Printing Environment Variables from .env File",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Untitled",
+    "directText": "",
+    "selector": "ul > li:nth-child(21)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Leveraging Matrix Operations for Social Media Growth",
+    "directText": "",
+    "selector": "ul > li:nth-child(22)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Leveraging Matrix Operations for Social Media Growth",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Enhancing LLM Page Parsing Across Platforms",
+    "directText": "",
+    "selector": "ul > li:nth-child(23)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Enhancing LLM Page Parsing Across Platforms",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Generalized LLM Page Content Extraction",
+    "directText": "",
+    "selector": "ul > li:nth-child(24)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Generalized LLM Page Content Extraction",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Untitled",
+    "directText": "",
+    "selector": "ul > li:nth-child(25)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Untitled",
+    "directText": "",
+    "selector": "ul > li:nth-child(26)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Untitled",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Refactoring Page Content Extraction",
+    "directText": "",
+    "selector": "ul > li:nth-child(27)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Refactoring Page Content Extraction",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Gibblis-Style Penguin Illustration",
+    "directText": "",
+    "selector": "ul > li:nth-child(28)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Gibblis-Style Penguin Illustration",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Improving LLM Page Analyzer to Capture Expanded Content",
+    "directText": "",
+    "selector": "ul > li:nth-child(29)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Improving LLM Page Analyzer to Capture Expanded Content",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "li",
+    "text": "Generalized Web Scraper for LLM Websites",
+    "directText": "",
+    "selector": "ul > li:nth-child(30)",
+    "selectorType": "position",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "Generalized Web Scraper for LLM Websites",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  },
+  {
+    "tag": "div",
+    "text": "All chats",
+    "directText": "",
+    "selector": ".relative.group",
+    "selectorType": "class",
+    "isInteractive": false,
+    "isFormElement": false
+  }
+]

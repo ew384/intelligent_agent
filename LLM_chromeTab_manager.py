@@ -181,7 +181,8 @@ async def startup_event():
         
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:54805")
-        service = Service("/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver")
+        uc_driver_port=54806
+        service = Service("/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver",port=uc_driver_port)
         #service = Service("/usr/local/bin/chromedriver")
         driver = webdriver.Chrome(service=service, options=chrome_options)
         
@@ -232,7 +233,8 @@ async def reinitialize_browser_session():
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:54805")
         #service = Service("/usr/local/bin/chromedriver")#"/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver")
-        service = Service("/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver")
+        uc_driver_port=54806
+        service = Service("/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver",port=uc_driver_port)
         # 尝试创建驱动
         try:
             driver = webdriver.Chrome(service=service, options=chrome_options)

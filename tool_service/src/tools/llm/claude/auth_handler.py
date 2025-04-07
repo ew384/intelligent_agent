@@ -126,8 +126,8 @@ class ClaudeAuthHandler:
             
             # First, try to ensure file input is available without clicking button
             # (Often the file input exists but is hidden)
-            file_input = await self.session.query_selector('input[type="file"]')
-            
+            file_input = await self.session.query_selector(CLAUDE_SELECTORS['file_input'])
+             
             if not file_input:
                 logger.warning("File input not immediately found, trying alternative approaches")
                 
@@ -159,9 +159,8 @@ class ClaudeAuthHandler:
                 await asyncio.sleep(1)
                 
                 # Try to find the file input again
-                #file_input = await self.session.query_selector('input[type="file"]')
                 try:
-                    file_input = self.session.find_element_by_css_selector('input[type="file"]')
+                    file_input = self.session.find_element_by_css_selector(CLAUDE_SELECTORS['file_input'])
                 except:
                     logger.error("Could not find file input element after multiple attempts")
 
@@ -280,11 +279,10 @@ class ClaudeAuthHandler:
                 while retry_count < 20 and not send_button_enabled:
                     try:
                         # Use JavaScript to check if the button is enabled
-                        send_button_enabled = await self.session.execute_script("""
-                            const sendBtn = document.querySelector('button[aria-label="Send Message"]');
+                        send_button_enabled = await self.session.execute_script(f"""
+                            const sendBtn = document.querySelector('{CLAUDE_SELECTORS["send_button"]}');
                             return sendBtn && !sendBtn.disabled;
-                        """)
-                        
+                        """                        )
                         if send_button_enabled:
                             break
                             
@@ -300,12 +298,12 @@ class ClaudeAuthHandler:
                     
                 try:
                     # Click the send button using JavaScript instead of Playwright's click
-                    await self.session.execute_script("""
-                        const sendBtn = document.querySelector('button[aria-label="Send Message"]');
-                        if (sendBtn && !sendBtn.disabled) {
+                    await self.session.execute_script(f"""
+                        const sendBtn = document.querySelector('{CLAUDE_SELECTORS["send_button"]}');
+                        if (sendBtn && !sendBtn.disabled) {{
                             sendBtn.click();
                             return true;
-                        }
+                        }}
                         return false;
                     """)
                     logger.info("已发送消息")

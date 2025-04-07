@@ -7,7 +7,7 @@ CLAUDE_SELECTORS = {
     # Chat interface
     'new_chat_button': 'a[href="/new"]',
     'prompt_textarea': '.ProseMirror',
-    'send_button': 'button[aria-label="Send Message"]',
+    'send_button': '[aria-label*="send" i]',
     'response_container': '[data-message-author-role="assistant"]',
     'thinking_indicator': '[data-testid="conversation-turn-loading"]',
     

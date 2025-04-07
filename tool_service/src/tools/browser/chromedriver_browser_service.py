@@ -323,9 +323,10 @@ class ChromeDriverBrowserService:
             chrome_options.add_experimental_option("debuggerAddress", f"127.0.0.1:{port}")
             
             # 创建Service对象
-            driver_path = "/usr/local/bin/chromedriver"#BrowserManager().download_chromedriver()
-            service = Service(driver_path)
-            #service = Service()
+            #driver_path = "/usr/local/bin/chromedriver"#BrowserManager().download_chromedriver()
+            driver_path ="/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver"
+            uc_driver_port=54806
+            service = Service(driver_path,port=uc_driver_port)
             logger.info(f"正在连接到Chrome debug端口: {port}, 使用driver: {driver_path}")
             
             # 创建WebDriver

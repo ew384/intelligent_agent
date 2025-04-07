@@ -35,7 +35,7 @@ class BrowserSession:
             from browser_use.browser.browser import Browser, BrowserConfig
             from browser_use.browser.context import BrowserContext, BrowserContextConfig
             
-            debug_port = self.browser_service.config.get('debug_port', 9222)
+            debug_port = self.browser_service.config.get('debug_port', 54805)
             
             # 配置连接到已有的 Chrome
             browser_config = BrowserConfig(
@@ -44,13 +44,16 @@ class BrowserSession:
             
             # 创建 Browser 实例
             self._browser_use_browser = Browser(config=browser_config)
-            
             # 创建 BrowserContext
             self._browser_use_context = BrowserContext(browser=self._browser_use_browser)
-            
+            targets = await self._browser_use_context._get_cdp_targets()
+            for target in targets:
+                # 这里可以看到每个标签页的信息，包括URL、标题等
+                print(f"Target ID: {target.target_id}, URL: {target.url}")
             # 初始化上下文
-            await self._browser_use_context._initialize_session()
-        
+            #await self._browser_use_context._initialize_session()
+            active_page = await self._browser_use_context.get_current_page()
+            print(f"当前活动页面URL: {active_page.url}")
         return self._browser_use_context
 
     async def save_cookies(self, service_id: str = "default") -> bool:
