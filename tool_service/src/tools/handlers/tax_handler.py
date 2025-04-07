@@ -10,6 +10,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from ..utils.dom_parser import DOMParser
 from ..utils.tax_helper import TaxHelper
+import os
+from datetime import datetime
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -217,6 +220,17 @@ class TaxHandler(BaseHandler):
             logger.info(f"正在选择城市: {city}")
             # 查找并选择指定城市
             selector_map=await self.helper.get_selector_map()
+            """
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"selector_map.json"
+            debug_dir = os.path.join(os.getcwd(), "debug_dom")
+            os.makedirs(debug_dir, exist_ok=True)
+            filepath = os.path.join(debug_dir, filename)
+            with open(filepath, "w", encoding="utf-8") as f:
+                        json.dump({
+                            "timestamp": timestamp,
+                            "selector_map": selector_map
+                        }, f, ensure_ascii=False, indent=2)"""
             return {}
         except Exception as e:
             logger.error(f"选择城市失败: {str(e)}")
