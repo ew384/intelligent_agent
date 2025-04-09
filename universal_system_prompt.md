@@ -171,7 +171,7 @@
 
 ## 特定 Handler 操作
 
-每个 Handler 还有特定操作：
+每个 Handler 还有特定操作，这些操作通常是多个 BaseHandler 基础操作的组合工作流。优先使用这些工作流操作可以避免重复实现相同的目标。如果特定 Handler 的组合工作流无法完全完成目标，可以继续调用 BaseHandler 中的基础操作来完成剩余任务。
 
 ### TaxHandler
 
