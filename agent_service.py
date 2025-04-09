@@ -83,7 +83,7 @@ class UniversalAgent:
         
         # 注册各种处理器
         self.handler_registry.register("TaxHandler", TaxHandler)
-        self.handler_registry.register("GeneralHandler", GeneralHandler)
+        self.handler_registry.register("BaseHandler", BaseHandler)
         # 注册其他处理器（示例，实际使用时需要实现）
         # self.handler_registry.register("EducationHandler", EducationHandler)
         # self.handler_registry.register("HousingFundHandler", HousingFundHandler)
@@ -248,7 +248,7 @@ class UniversalAgent:
             return {"status": "error", "message": "无效的动作数据"}
         
         # 获取指定的处理器类型
-        handler_name = action_data.get("handler", "GeneralHandler")
+        handler_name = action_data.get("handler", "BaseHandler")
         actions = action_data["action"]
         
         if not actions:
@@ -260,7 +260,7 @@ class UniversalAgent:
         except ValueError as e:
             logger.error(str(e))
             # 如果指定的处理器不存在，使用通用处理器
-            handler = self.handler_registry.get_handler("GeneralHandler", self.browser_context)
+            handler = self.handler_registry.get_handler("BaseHandler", self.browser_context)
         
         results = []
         
@@ -338,8 +338,10 @@ class UniversalAgent:
                 return f"开始对话时出错: {response['error']}"
             
             # 提取LLM的响应
-            LLM_message = response['messages'][-1]['content']
-            action_data = self.extract_action(LLM_message)
+            LLM_message = response['messages'][-1]['content']["response"]
+            LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
+            print(LLM_message)
+            action_data = self.extract_action(LLM_action)
             
             if not action_data:
                 return "无法解析助手的初始响应。"
@@ -381,8 +383,10 @@ class UniversalAgent:
                     return f"对话过程中出错: {response['error']}"
                 
                 # 提取LLM的下一个响应
-                LLM_message = response['messages'][-1]['content']
-                action_data = self.extract_action(LLM_message)
+                LLM_message = response['messages'][-1]['content']["response"]
+                LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
+                print(LLM_message)
+                action_data = self.extract_action(LLM_action)
                 
                 if not action_data:
                     return f"无法在步骤{step_count}解析助手响应。"

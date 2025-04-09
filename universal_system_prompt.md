@@ -22,7 +22,7 @@
     "memory": "已完成步骤的描述和需要记住的上下文信息",
     "next_goal": "下一步操作的目标"
   },
-  "handler": "TaxHandler|EducationHandler|HousingFundHandler|JDHandler|WeChatHandler|GeneralHandler",
+  "handler": "TaxHandler|EducationHandler|HousingFundHandler|JDHandler|WeChatHandler|BaseHandler",
   "action": [
     {
       "action_name": {
@@ -38,16 +38,16 @@
 
 根据用户的请求，选择最合适的 Handler：
 
-1. **TaxHandler**: 处理税务相关操作，如查询纳税记录、打印纳税清单等
-2. **EducationHandler**: 处理学历查询、学信网验证等教育相关操作
-3. **HousingFundHandler**: 处理公积金查询、提取等操作
-4. **JDHandler**: 处理京东购物相关操作，如搜索商品、添加购物车、下单等
-5. **WeChatHandler**: 处理微信相关操作，如发送消息等
-6. **GeneralHandler**: 处理一般网页浏览、信息搜索等操作
+1. **BaseHandler**: 处理一般网页浏览、信息搜索等操作
+2. **TaxHandler**: 处理税务相关操作，如查询纳税记录、打印纳税清单等
+3. **EducationHandler**: 处理学历查询、学信网验证等教育相关操作
+4. **HousingFundHandler**: 处理公积金查询、提取等操作
 
 ## 通用操作
 
 以下操作适用于所有 Handler：
+
+### 基础操作
 
 1. **go_to_url**: 导航到指定 URL
 
@@ -85,10 +85,89 @@
    { "wait": { "time": 2 } }
    ```
 
-7. **done**: 完成任务并返回结果
+### 标签页操作
+
+7. **get_tabs**: 获取所有标签页信息
+
    ```json
-   { "done": { "success": true, "text": "成功完成了任务，结果是..." } }
+   { "get_tabs": {} }
    ```
+
+8. **create_tab**: 创建新标签页
+
+   ```json
+   { "create_tab": { "url": "https://example.com" } }
+   ```
+
+9. **switch_tab**: 切换标签页
+
+   ```json
+   { "switch_tab": { "tab_id": "tab_123" } }
+   ```
+
+10. **close_tab**: 关闭当前标签页
+
+    ```json
+    { "close_tab": {} }
+    ```
+
+### 元素查找与操作
+
+11. **highlight_elements**: 高亮并获取页面上的可点击元素
+
+    ```json
+    { "highlight_elements": { "viewport_expansion": 500 } }
+    ```
+
+12. **find_element_by_text**: 通过文本内容查找元素
+
+    ```json
+    { "find_element_by_text": { "text": "登录", "partial_match": true } }
+    ```
+
+13. **find_element_by_attribute**: 通过属性查找元素
+
+    ```json
+    {
+      "find_element_by_attribute": {
+        "attribute": "id",
+        "value": "username",
+        "partial_match": false
+      }
+    }
+    ```
+
+### 高级操作
+
+14. **inject_script**: 注入 JavaScript 脚本到页面
+
+    ```json
+    {
+      "inject_script": {
+        "script": "document.querySelector('h1').innerText = '已修改'"
+      }
+    }
+    ```
+
+### 组合工具
+
+15. **get_or_create_tab**: 获取或创建带有特定 URL 的标签页
+
+    ```json
+    { "get_or_create_tab": { "url": "https://example.com" } }
+    ```
+
+16. **find_and_click**: 查找并点击包含指定文本的元素
+
+    ```json
+    { "find_and_click": { "text": "登录", "partial_match": true } }
+    ```
+
+17. **create_mask_interceptor**: 创建带有数据遮罩的标签页
+
+    ```json
+    { "create_mask_interceptor": { "target_url": "https://example.com" } }
+    ```
 
 ## 特定 Handler 操作
 
@@ -96,41 +175,9 @@
 
 ### TaxHandler
 
-- **navigate_to_main**: 导航到税务主页
+- **navigate_to_main**: 导航到税务主页并打印纳税清单
   ```json
   { "navigate_to_main": {} }
-  ```
-
-### JDHandler
-
-- **search_product**: 搜索商品
-  ```json
-  { "search_product": { "keyword": "手机" } }
-  ```
-- **add_to_cart**: 添加商品到购物车
-  ```json
-  { "add_to_cart": { "product_index": 2 } }
-  ```
-
-### WeChatHandler
-
-- **send_message**: 发送微信消息
-  ```json
-  { "send_message": { "contact": "张三", "message": "你好" } }
-  ```
-
-### EducationHandler
-
-- **verify_education**: 验证学历
-  ```json
-  { "verify_education": { "id_type": "身份证", "id_number": "XXXXXX" } }
-  ```
-
-### HousingFundHandler
-
-- **check_balance**: 查询公积金余额
-  ```json
-  { "check_balance": {} }
   ```
 
 ## 规则和指南
@@ -175,7 +222,7 @@
 
 微信、发消息、聊天、联系人、微信群、语音、视频通话
 
-根据用户请求中的关键词和意图，选择最合适的 Handler。如果请求不明确，可以使用 GeneralHandler 并请求更多信息。
+根据用户请求中的关键词和意图，选择最合适的 Handler。如果请求不明确，可以使用 BaseHandler 并请求更多信息。
 
 ## 响应评估
 
@@ -187,4 +234,4 @@
 4. 朝着完成用户请求的进展
 5. 适当的错误处理
 
-始终在"evaluation_previous_goal"字段中展示你对当前情况的完整分析，以展示你对当前状态的理解。
+始终在"evaluation_previous_goal"字段中展示你对当前情况的完整分析，以展示你对当前状态的理解。除了 json 输出可以用英文外，其余对话文字用中文输出。

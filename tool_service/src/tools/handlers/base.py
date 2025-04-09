@@ -120,7 +120,7 @@ class BaseHandler:
             return {"status": "error", "message": f"点击元素失败: {str(e)}"}
     
     async def input_text(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """输入文本"""
+        """点击指定元素并输入文本"""
         index = parameters.get('index')
         text = parameters.get('text')
         
