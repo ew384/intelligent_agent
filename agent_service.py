@@ -11,15 +11,14 @@ from browser_use.browser.context import BrowserContext, BrowserContextConfig
 
 # 导入各种处理器
 from tool_service.src.tools.handlers.tax_handler import TaxHandler
+from tool_service.src.tools.handlers.base import BaseHandler
 # 以下是示例导入，实际使用时需要实现这些处理器
 # from education_handler import EducationHandler
-# from housing_fund_handler import HousingFundHandler
 # from jd_handler import JDHandler
 # from wechat_handler import WeChatHandler
 
 # 设置日志
-logging.basicConfig(level=logging.INFO, 
-                   format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 class HandlerRegistry:
@@ -56,224 +55,22 @@ class HandlerRegistry:
         self.instances = {}
         logger.info("清理所有处理器实例")
 
-class GeneralHandler:
-    """通用处理器，处理基本的浏览器操作"""
-    
-    def __init__(self, browser_context):
-        self.browser_context = browser_context
-    
-    async def process_query(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """处理通用请求"""
-        action = parameters.get('action')
-        if not action:
-            return {"status": "error", "message": "未指定action参数"}
-        
-        # 基础操作映射
-        action_map = {
-            "go_to_url": self.go_to_url,
-            "click_element": self.click_element,
-            "input_text": self.input_text,
-            "extract_content": self.extract_content,
-            "scroll": self.scroll,
-            "wait": self.wait,
-        }
-        
-        handler = action_map.get(action)
-        if not handler:
-            return {"status": "error", "message": f"未知的操作: {action}"}
-        
-        try:
-            return await handler(parameters)
-        except Exception as e:
-            logger.error(f"执行操作失败: {str(e)}")
-            return {"status": "error", "message": f"执行操作失败: {str(e)}"}
-    
-    async def go_to_url(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """导航到URL"""
-        url = parameters.get('url')
-        if not url:
-            return {"status": "error", "message": "未指定URL"}
-        
-        try:
-            await self.browser_context.go_to_url(url)
-            state = await self.browser_context.get_state()
-            return {
-                "status": "success",
-                "message": f"成功导航到 {url}",
-                "url": state.url,
-                "title": state.title
-            }
-        except Exception as e:
-            return {"status": "error", "message": f"导航失败: {str(e)}"}
-    
-    async def click_element(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """点击元素"""
-        index = parameters.get('index')
-        if index is None:
-            return {"status": "error", "message": "未指定元素索引"}
-        
-        try:
-            # 获取元素信息
-            state = await self.browser_context.get_state()
-            element_info = state.selector_map.get(index)
-            element_text = element_info.get_all_text_till_next_clickable_element() if element_info else "未知元素"
-            
-            # 点击元素
-            await self.browser_context.click_element(index)
-            
-            # 等待页面加载
-            await self.browser_context._wait_for_page_and_frames_load()
-            
-            # 获取新状态
-            new_state = await self.browser_context.get_state()
-            
-            return {
-                "status": "success",
-                "message": f"成功点击元素: {element_text}",
-                "element_index": index,
-                "element_text": element_text,
-                "url": new_state.url,
-                "title": new_state.title,
-                "elements_count": len(new_state.selector_map) if new_state.selector_map else 0
-            }
-        except Exception as e:
-            return {"status": "error", "message": f"点击元素失败: {str(e)}"}
-    
-    async def input_text(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """输入文本"""
-        index = parameters.get('index')
-        text = parameters.get('text')
-        
-        if index is None:
-            return {"status": "error", "message": "未指定元素索引"}
-        if text is None:
-            return {"status": "error", "message": "未指定输入文本"}
-        
-        try:
-            # 获取元素信息
-            state = await self.browser_context.get_state()
-            element_info = state.selector_map.get(index)
-            element_type = element_info.tag_name if element_info else "未知类型"
-            
-            # 输入文本
-            await self.browser_context.input_text(index, text)
-            
-            return {
-                "status": "success",
-                "message": f"成功在{element_type}元素中输入文本",
-                "element_index": index,
-                "element_type": element_type,
-                "text": text
-            }
-        except Exception as e:
-            return {"status": "error", "message": f"输入文本失败: {str(e)}"}
-    
-    async def extract_content(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """提取页面内容"""
-        goal = parameters.get('goal')
-        if not goal:
-            return {"status": "error", "message": "未指定提取目标"}
-        
-        try:
-            state = await self.browser_context.get_state()
-            
-            # 这里简化处理，实际应用中可能需要更复杂的内容提取逻辑
-            # 例如使用Claude或其他模型来理解页面内容
-            
-            # 提取页面标题和URL
-            extracted_info = {
-                "url": state.url,
-                "title": state.title,
-                "extraction_goal": goal
-            }
-            
-            # 获取可能包含目标信息的文本
-            text_content = []
-            for element in state.selector_map.values():
-                text = element.get_all_text_till_next_clickable_element()
-                if text and len(text.strip()) > 0:
-                    text_content.append(text)
-            
-            extraction_summary = f"""从页面提取了{len(text_content)}个文本块，可能包含"{goal}"相关信息"""
-            
-            return {
-                "status": "success",
-                "message": extraction_summary,
-                "extracted_info": extracted_info,
-                "text_blocks_count": len(text_content),
-                "extraction_goal": goal
-            }
-        except Exception as e:
-            return {"status": "error", "message": f"提取内容失败: {str(e)}"}
-    
-    async def scroll(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """滚动页面"""
-        direction = parameters.get('direction', 'down')
-        amount = parameters.get('amount', 'medium')
-        
-        # 转换滚动量为像素值
-        amount_map = {
-            "small": 200,
-            "medium": 500,
-            "large": 1000,
-            "page": 1500
-        }
-        pixel_amount = amount_map.get(amount, 500)
-        
-        # 根据方向调整滚动值
-        if direction == "up":
-            pixel_amount = -pixel_amount
-        
-        try:
-            page = await self.browser_context.get_current_page()
-            await page.evaluate(f"window.scrollBy(0, {pixel_amount})")
-            
-            # 等待滚动完成
-            await asyncio.sleep(0.5)
-            
-            return {
-                "status": "success",
-                "message": f"成功向{direction}滚动页面({amount})",
-                "direction": direction,
-                "amount": amount,
-                "pixels": pixel_amount
-            }
-        except Exception as e:
-            return {"status": "error", "message": f"滚动页面失败: {str(e)}"}
-    
-    async def wait(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """等待一段时间或元素出现"""
-        time_seconds = parameters.get('time', 2)
-        
-        try:
-            await asyncio.sleep(time_seconds)
-            return {
-                "status": "success",
-                "message": f"成功等待{time_seconds}秒",
-                "wait_time": time_seconds
-            }
-        except Exception as e:
-            return {"status": "error", "message": f"等待失败: {str(e)}"}
-    
-    async def cleanup(self):
-        """清理资源"""
-        logger.info("清理通用处理器资源")
 
 class UniversalAgent:
     """
-    通用Agent，集成Claude API与各种处理器，处理各类网络任务。
-    负责处理对话流程并将Claude的响应转换为操作。
+    通用Agent，集成LLM API与各种处理器，处理各类网络任务。
+    负责处理对话流程并将LLM的响应转换为操作。
     """
     
-    def __init__(self, claude_api_url: str, api_key: str, tab_id: str = None):
+    def __init__(self, LLM_api_url: str, api_key: str, tab_id: str = None):
         """
         初始化助手
         
         参数:
-            claude_api_url: Claude API的URL
+            LLM_api_url: LLM API的URL
             api_key: API密钥
         """
-        self.claude_api_url = claude_api_url
+        self.LLM_api_url = LLM_api_url
         self.tab_id = tab_id
         self.api_key = api_key
         self.chat_history = []
@@ -327,9 +124,9 @@ class UniversalAgent:
         
         logger.info("资源清理完成")
     
-    def format_state_for_claude(self, state: Dict[str, Any]) -> str:
+    def format_state_for_LLM(self, state: Dict[str, Any]) -> str:
         """
-        格式化当前状态信息供Claude使用
+        格式化当前状态信息供LLM使用
         
         参数:
             state: 当前状态信息
@@ -361,16 +158,16 @@ class UniversalAgent:
         formatted_text += "[当前状态结束]"
         return formatted_text
     
-    def query_claude(self, message: str, is_new_chat: bool = False) -> Dict[str, Any]:
+    def query_LLM(self, message: str, is_new_chat: bool = False) -> Dict[str, Any]:
         """
-        向Claude API发送查询
+        向LLM API发送查询
         
         参数:
             message: 要发送的消息
             is_new_chat: 是否开始新对话
             
         返回:
-            Claude的响应
+            LLM的响应
         """
         try:
             payload = {
@@ -381,7 +178,7 @@ class UniversalAgent:
             }
 
             response = requests.post(
-                self.claude_api_url,
+                self.LLM_api_url,
                 headers=self.api_key,
                 json=payload
             )
@@ -398,29 +195,30 @@ class UniversalAgent:
             return response_data
         
         except Exception as e:
-            logger.error(f"查询Claude API时出错: {str(e)}")
+            logger.error(f"查询LLM API时出错: {str(e)}")
             return {"error": str(e)}
     
-    def extract_action(self, claude_response: str) -> Optional[Dict[str, Any]]:
+    def extract_action(self, LLM_response: str) -> Optional[Dict[str, Any]]:
         """
-        从Claude的响应中提取动作细节
+        从LLM的响应中提取动作细节
         
         参数:
-            claude_response: Claude的格式化响应
+            LLM_response: LLM的格式化响应
             
         返回:
             提取的动作或None（如果解析失败）
         """
         try:
             # 查找响应中的JSON
-            start_index = claude_response.find("{")
-            end_index = claude_response.rfind("}")
+            print(LLM_response)
+            start_index = LLM_response.find("{")
+            end_index = LLM_response.rfind("}")
             
             if start_index == -1 or end_index == -1:
-                logger.warning("Claude的响应中未找到JSON")
+                logger.warning("LLM的响应中未找到JSON")
                 return None
             
-            json_str = claude_response[start_index:end_index+1]
+            json_str = LLM_response[start_index:end_index+1]
             action_data = json.loads(json_str)
             
             # 验证必需字段
@@ -441,7 +239,7 @@ class UniversalAgent:
         执行指定的动作
         
         参数:
-            action_data: 来自Claude的动作详情
+            action_data: 来自LLM的动作详情
             
         返回:
             动作结果
@@ -532,17 +330,16 @@ class UniversalAgent:
             
             system_message = system_message + "\n\n用户请求: " + user_request
             
-            # 启动与Claude的对话
+            # 启动与LLM的对话
             logger.info(f"开始处理用户请求: {user_request}")
-            response = self.query_claude(system_message, is_new_chat=True)
+            response = self.query_LLM(system_message, is_new_chat=True)
             
             if "error" in response:
                 return f"开始对话时出错: {response['error']}"
             
-            # 提取Claude的响应
-            claude_message = response['messages'][-1]['content']
-            print(claude_message)
-            action_data = self.extract_action(claude_message)
+            # 提取LLM的响应
+            LLM_message = response['messages'][-1]['content']
+            action_data = self.extract_action(LLM_message)
             
             if not action_data:
                 return "无法解析助手的初始响应。"
@@ -566,10 +363,10 @@ class UniversalAgent:
                     logger.info(f"任务完成，结果: {result}")
                     break
                 
-                # 为Claude格式化结果状态
-                state_message = self.format_state_for_claude(result)
+                # 为LLM格式化结果状态
+                state_message = self.format_state_for_LLM(result)
                 
-                # 从Claude生成下一个动作
+                # 从LLM生成下一个动作
                 next_prompt = f"""以下是您上次动作的结果:
 
 {state_message}
@@ -578,14 +375,14 @@ class UniversalAgent:
 
 请记住使用有效的JSON对象，遵循要求的格式，并选择合适的handler。"""
                 
-                response = self.query_claude(next_prompt, is_new_chat=False)
+                response = self.query_LLM(next_prompt, is_new_chat=False)
                 
                 if "error" in response:
                     return f"对话过程中出错: {response['error']}"
                 
-                # 提取Claude的下一个响应
-                claude_message = response['messages'][-1]['content']
-                action_data = self.extract_action(claude_message)
+                # 提取LLM的下一个响应
+                LLM_message = response['messages'][-1]['content']
+                action_data = self.extract_action(LLM_message)
                 
                 if not action_data:
                     return f"无法在步骤{step_count}解析助手响应。"
@@ -610,16 +407,16 @@ class UniversalAgent:
 
 # 示例用法
 async def main():
-    claude_api_url = "http://localhost:8005/chat/claude"
+    LLM={"provider": "claude"}
+    LLM_api_url = f"http://localhost:8005/chat/{LLM["provider"]}"
     user_api_key={"api-key": "wangendian"}
     response = requests.post(
         "http://localhost:8005/tabs",
         headers=user_api_key,
-        json={"provider": "claude"}
+        json=LLM
     )
     tab_id = response.json()["tab_id"]
-    agent = UniversalAgent(claude_api_url, user_api_key, tab_id)
-    
+    agent = UniversalAgent(LLM_api_url, user_api_key, tab_id)
     try:
         while True:
             user_request = input("\n请输入您的请求 (输入'退出'结束): ")
