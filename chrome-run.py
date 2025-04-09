@@ -8,7 +8,28 @@ import random
 from pathlib import Path
 
 # 配置基本参数
-chrome_binary = "/usr/bin/google-chrome"
+system = platform.system()
+if system == "Windows":
+    chrome_paths = [
+        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+    ]
+elif system == "Darwin":
+    chrome_paths = [
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    ]
+else:
+    chrome_paths = [
+        #"/usr/local/bin/chrome-for-testing",
+        #"/usr/bin/chromium-browser",
+        "/usr/bin/google-chrome",
+    ]
+
+# 查找第一个存在的路径
+for path in chrome_paths:
+    if os.path.exists(path):
+        chrome_binary = path
+        break
 user_data_dir = Path('./browser_data/claude')
 debugging_port = 54805
 

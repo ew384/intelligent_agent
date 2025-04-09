@@ -90,7 +90,7 @@ class UniversalAgent:
         # self.handler_registry.register("JDHandler", JDHandler)
         # self.handler_registry.register("WeChatHandler", WeChatHandler)
     
-    async def initialize_browser(self, chrome_debug_port=54806):
+    async def initialize_browser(self, chrome_debug_port=54805):
         """初始化浏览器和上下文，连接到已有的Chrome实例"""
         logger.info("初始化浏览器，连接到已有的Chrome实例...")
         

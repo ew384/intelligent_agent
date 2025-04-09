@@ -181,9 +181,14 @@ async def startup_event():
         
         chrome_options = Options()
         chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:54805")
+        driver_path =["/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver",
+                    "/usr/local/bin/chromedriver"]
+        for path in driver_path:
+            if os.path.exists(path):
+                driver_path = path
+                break
         uc_driver_port=54806
-        service = Service("/home/endian/.local/share/undetected_chromedriver/undetected_chromedriver",port=uc_driver_port)
-        #service = Service("/usr/local/bin/chromedriver")
+        service = Service(driver_path,port=uc_driver_port)#use different port for chromedriver
         driver = webdriver.Chrome(service=service, options=chrome_options)
         
         # 创建BrowserService模拟对象
