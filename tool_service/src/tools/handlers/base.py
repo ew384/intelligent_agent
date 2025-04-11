@@ -53,6 +53,10 @@ class BaseHandler:
             "get_or_create_tab": self.get_or_create_tab_with_url,
             "find_and_click": self.find_and_click_element_by_text,
             "create_mask_interceptor": self.create_mask_interceptor,
+
+            # 用户交互操作
+            "request_user_action":self.request_user_action,
+            "evaluate_state":self.evaluate_state,
         }
         handler = action_map.get(action)
         if not handler:
@@ -88,12 +92,17 @@ class BaseHandler:
             return {"status": "error", "message": f"导航失败: {str(e)}"}
     
     async def click_element(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """点击元素"""
+        """点击元素，并自动检测是否有新标签页被创建"""
         index = parameters.get('index')
+        auto_switch_tab = parameters.get('auto_switch_tab', True)  # 新参数，默认为True
+        
         if index is None:
             return {"status": "error", "message": "未指定元素索引"}
         
         try:
+            # 获取点击前的标签页信息
+            tabs_before = await self.browser_context.get_tabs_info()
+            
             # 获取元素信息
             dom_element = await self.browser_context.get_dom_element_by_index(index)
             element_text = dom_element.get_all_text_till_next_clickable_element() if dom_element else "未知元素"
@@ -101,17 +110,47 @@ class BaseHandler:
             # 点击元素
             await self.browser_context._click_element_node(dom_element)
             
-            # 等待页面加载
+            # 等待页面加载和可能的新标签页创建
+            await asyncio.sleep(1)  # 给新标签页一点创建时间
             await self.browser_context._wait_for_page_and_frames_load()
+            
+            # 获取点击后的标签页信息
+            tabs_after = await self.browser_context.get_tabs_info()
+            
+            # 检查是否有新标签页创建
+            new_tabs = [tab for tab in tabs_after if tab.page_id not in [t.page_id for t in tabs_before]]
+            
+            # 如果有新标签页并且auto_switch_tab为True，则自动切换到新标签页
+            if new_tabs and auto_switch_tab:
+                new_tab = new_tabs[0]
+                await self.browser_context.switch_to_tab(new_tab.page_id)
+                await self.browser_context._wait_for_page_and_frames_load()
+                
+                return {
+                    "status": "success",
+                    "message": f"成功点击元素并切换到新标签页: {element_text}",
+                    "element_index": index,
+                    "element_text": element_text,
+                    "new_tab_created": True,
+                    "new_tab_id": new_tab.page_id,
+                    "url": new_tab.url,
+                    "title": new_tab.title,
+                    "elements_count": len(await self.browser_context.get_selector_map())
+                }
             
             # 获取新状态
             new_state = await self.browser_context.get_state()
             
+            # 如果有新标签页但没有自动切换，也报告这一情况
+            has_new_tabs = len(new_tabs) > 0
+            
             return {
                 "status": "success",
-                "message": f"成功点击元素: {element_text}",
+                "message": f"成功点击元素: {element_text}" + (" (已创建新标签页但未切换)" if has_new_tabs and not auto_switch_tab else ""),
                 "element_index": index,
                 "element_text": element_text,
+                "new_tab_created": has_new_tabs,
+                "new_tab_ids": [tab.page_id for tab in new_tabs] if has_new_tabs else [],
                 "url": new_state.url,
                 "title": new_state.title,
                 "elements_count": len(new_state.selector_map) if new_state.selector_map else 0
@@ -565,10 +604,19 @@ class BaseHandler:
     
     async def find_and_click_element_by_text(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
-        查找并点击包含指定文本的元素
+        查找并点击包含指定文本的元素，自动检测新标签页
+        
+        Args:
+            parameters: 参数字典
+                - text: 要查找的文本内容
+                - partial_match: 是否使用部分匹配（默认为True）
+                - auto_switch_tab: 是否自动切换到新标签页（默认为True）
+        Returns:
+            操作结果
         """
         text = parameters.get('text')
         partial_match = parameters.get('partial_match', True)
+        auto_switch_tab = parameters.get('auto_switch_tab', True)
         
         if not text:
             return {"status": "error", "message": "未指定要查找的文本"}
@@ -595,20 +643,67 @@ class BaseHandler:
             first_element = find_result["found_elements"][0]
             element_index = first_element["index"]
             
+            # 记录点击前的标签页信息
+            tabs_before = await self.browser_context.get_tabs_info()
+            
+            # 点击元素（按照原代码逻辑，先禁用自动切换）
             click_result = await self.click_element({
-                "index": element_index
+                "index": element_index,
+                "auto_switch_tab": False
             })
             
-            return {
-                "status": "success",
-                "message": f"成功查找并点击包含文本'{text}'的元素",
-                "element_index": element_index,
-                "element_text": first_element["text"],
-                "click_result": click_result
-            }
+            # 等待可能的新标签页创建完成
+            await asyncio.sleep(1.5)
+            
+            # 获取点击后的标签页信息
+            tabs_after = await self.browser_context.get_tabs_info()
+            new_tabs = [tab for tab in tabs_after if tab.page_id not in [t.page_id for t in tabs_before]]
+            
+            # 检查是否有新标签页创建
+            if new_tabs:
+                new_tab = new_tabs[0]
+                new_tab_id = new_tab.page_id
+                
+                # 如果需要自动切换
+                if auto_switch_tab:
+                    logger.info(f"切换到新标签页 {new_tab_id}")
+                    await self.browser_context.switch_to_tab(new_tab_id)
+                    await self.browser_context._wait_for_page_and_frames_load()
+                    
+                    return {
+                        "status": "success",
+                        "message": f"成功查找并点击包含文本'{text}'的元素，已切换到新标签页",
+                        "element_index": element_index,
+                        "element_text": first_element["text"],
+                        "new_tab_created": True,
+                        "new_tab_id": new_tab_id,
+                        "url": new_tab.url,
+                        "title": new_tab.title
+                    }
+                else:
+                    return {
+                        "status": "success",
+                        "message": f"成功查找并点击包含文本'{text}'的元素，已创建新标签页但未切换",
+                        "element_index": element_index,
+                        "element_text": first_element["text"],
+                        "new_tab_created": True,
+                        "new_tab_id": new_tab_id,
+                        "url": new_tab.url,
+                        "title": new_tab.title
+                    }
+            else:
+                # 没有创建新标签页
+                return {
+                    "status": "success",
+                    "message": f"成功查找并点击包含文本'{text}'的元素，未创建新标签页",
+                    "element_index": element_index,
+                    "element_text": first_element["text"],
+                    "new_tab_created": False,
+                    "click_result": click_result
+                }
         except Exception as e:
+            logger.error(f"查找并点击元素失败: {str(e)}")
             return {"status": "error", "message": f"查找并点击元素失败: {str(e)}"}
-    
 
     async def cleanup(self):
         """清理资源"""
@@ -716,3 +811,196 @@ class BaseHandler:
         
         # 对于非HTML内容或出错情况，使用原始响应继续
         await route.continue_()
+
+
+    async def search_and_navigate(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        在指定网站搜索关键词并导航到相关结果页面
+        
+        Args:
+            parameters: 参数字典
+                - base_url: 要搜索的网站URL
+                - search_keyword: 搜索关键词
+                - search_button_text: 搜索按钮的文本标识（默认为"搜索"）
+                - result_keyword: 结果页面中要查找的关键词
+                - wait_after_search: 搜索后等待时间（秒）
+        Returns:
+            操作结果
+        """
+        base_url = parameters.get('base_url')
+        search_keyword = parameters.get('search_keyword')
+        search_button_text = parameters.get('search_button_text', '搜索')
+        result_keyword = parameters.get('result_keyword')
+        wait_after_search = parameters.get('wait_after_search', 2)
+        
+        if not base_url or not search_keyword or not result_keyword:
+            return {"status": "error", "message": "缺少必要参数：base_url、search_keyword或result_keyword"}
+        
+        try:
+            # 获取或创建目标网站标签页
+            await self.get_or_create_tab_with_url({"url": base_url})
+            
+            # 高亮页面元素
+            await self.highlight_elements({"viewport_expansion": 500})
+            
+            search_box_found = await self.find_element_by_attribute({
+                "attribute": "placeholder", 
+                "value": "请输入您要办理的事项",
+                "partial_match": True
+            })
+            
+            search_box_index = None
+            if search_box_found.get("found_elements"):
+                search_box_index = search_box_found["found_elements"][0]["index"]
+            
+            # 查找搜索按钮
+            search_button = await self.find_element_by_text({
+                "text": search_button_text, 
+                "partial_match": True
+            })
+            
+            search_button_index = None
+            if search_button.get("found_elements"):
+                search_button_index = search_button["found_elements"][0]["index"]
+                        
+            if not search_box_index:
+                return {"status": "error", "message": "未找到搜索输入框"}
+
+            # 点击搜索框并输入关键词
+            await self.click_element({"index": search_box_index})
+            #await self.wait({"time": 1})
+            await self.input_text({"index": search_box_index, "text": search_keyword})
+            await self.wait({"time": 1})
+            
+            # 点击搜索按钮或按回车
+            if search_button_index:
+                await self.click_element({"index": search_button_index})
+            else:
+                await self.inject_script({
+                    "script": """
+                    const event = new KeyboardEvent('keydown', {
+                        'key': 'Enter',
+                        'code': 'Enter',
+                        'keyCode': 13,
+                        'which': 13,
+                        'bubbles': true
+                    });
+                    document.activeElement.dispatchEvent(event);
+                    """
+                })
+            
+            # 等待搜索结果
+            await self.wait({"time": wait_after_search})
+            
+            # 重新高亮元素获取搜索结果
+            await self.highlight_elements({"viewport_expansion": 500})
+            
+            # 查找并点击目标结果
+            result_links = await self.find_element_by_text({
+                "text": result_keyword, 
+                "partial_match": True
+            })
+            
+            if result_links.get("found_elements"):
+                # 点击第一个相关链接
+                first_link = result_links["found_elements"][0]
+                link_result = await self.click_element({
+                    "index": first_link["index"],
+                    "auto_switch_tab": True
+                })
+                
+                # 等待页面加载
+                await self.wait({"time": 3})
+                
+                # 在新页面中高亮元素
+                await self.highlight_elements({"viewport_expansion": 500})
+                
+                return {
+                    "status": "success", 
+                    "message": f"成功搜索并导航到'{result_keyword}'相关页面",
+                    "new_tab_created": link_result.get("new_tab_created", False),
+                    "url": link_result.get("url", "未知")
+                }
+            else:
+                return {
+                    "status": "warning",
+                    "message": f"已完成搜索，但未找到包含'{result_keyword}'的链接",
+                    "url": (await self.browser_context.get_state()).url
+                }
+        
+        except Exception as e:
+            logger.error(f"搜索并导航失败: {str(e)}")
+            return {
+                "status": "error",
+                "message": f"搜索并导航失败: {str(e)}"
+            }
+    # ==================== 用户交互操作 ====================
+
+    async def request_user_action(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        请求用户手动执行操作
+        
+        Args:
+            parameters: 参数字典
+                - type: 交互类型 (login|select|verify|input|decision)
+                - message: 给用户的提示消息
+                - description: 详细说明
+                - options: 可选的选项列表
+        Returns:
+            操作结果
+        """
+        action_type = parameters.get('type', 'generic')
+        message = parameters.get('message', '请执行操作')
+        description = parameters.get('description', '')
+        options = parameters.get('options', [])
+        
+        # 获取当前页面状态以便返回
+        current_state = await self.browser_context.get_state()
+        
+        return {
+            "status": "success",
+            "message": f"已请求用户进行{action_type}操作",
+            "user_action_type": action_type,
+            "user_action_message": message,
+            "user_action_description": description,
+            "options": options,
+            "url": current_state.url,
+            "title": current_state.title,
+            "elements_count": len(current_state.selector_map) if current_state.selector_map else 0
+        }
+
+    async def evaluate_state(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        评估当前页面状态
+        
+        Args:
+            parameters: 参数字典
+                - description: 状态描述
+        Returns:
+            当前页面状态
+        """
+        description = parameters.get('description', '评估当前状态')
+        
+        # 刷新元素高亮以获取最新的页面元素
+        await self.highlight_elements({"viewport_expansion": 500})
+        
+        # 获取当前页面状态
+        current_state = await self.browser_context.get_state()
+        
+        # 尝试提取页面上的关键文本
+        text_content = []
+        if current_state.selector_map:
+            for element in current_state.selector_map.values():
+                text = element.get_all_text_till_next_clickable_element()
+                if text and len(text.strip()) > 0:
+                    text_content.append(text)
+        
+        return {
+            "status": "success",
+            "message": f"状态评估: {description}",
+            "url": current_state.url,
+            "title": current_state.title,
+            "elements_count": len(current_state.selector_map) if current_state.selector_map else 0,
+            "text_blocks": text_content[:10] if text_content else [],  # 只返回前10个文本块避免数据过大
+            "text_blocks_count": len(text_content) if text_content else 0
+        }
