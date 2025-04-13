@@ -1,0 +1,56 @@
+{
+  "id": "tax_workflow",
+  "name": "个人所得税纳税记录查询",
+  "description": "导航到税务局网站并查询个人纳税记录",
+  "version": "1.0",
+  "actions": [
+    {
+      "id": "navigate_to_main",
+      "name": "导航到电子税务局主页",
+      "description": "导航到电子税务局主页并打开纳税清单打印页面",
+      "steps": [
+        {
+          "id": "step_1",
+          "action": "get_or_create_tab",
+          "parameters": {
+            "url": "https://etax.chinatax.gov.cn/"
+          },
+          "description": "获取或创建税务网站标签页"
+        },
+        {
+          "id": "step_2",
+          "action": "find_and_click",
+          "parameters": {
+            "text": "特色应用"
+          },
+          "description": "查找并点击'特色应用'按钮"
+        },
+        {
+          "id": "step_3",
+          "action": "create_mask_interceptor",
+          "parameters": {
+            "target_url": "https://its.shenzhen.chinatax.gov.cn:4433/gkpt/#/taxChecklist"
+          },
+          "description": "查询纳税清单"
+        },
+        {
+          "id": "step_4",
+          "action": "highlight_elements",
+          "parameters": {
+            "viewport_expansion": 500
+          },
+          "description": "高亮页面元素"
+        },
+        {
+          "id": "step_5",
+          "action": "done",
+          "parameters": {
+            "success": true,
+            "text": "成功打开纳税记录开具页面"
+          },
+          "description": "完成导航"
+        }
+      ]
+    }
+  ]
+}

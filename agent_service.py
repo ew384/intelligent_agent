@@ -3,65 +3,27 @@ import json
 import asyncio
 import logging
 import requests
+import re
+import string
 from typing import Dict, Any, List, Optional, Type
 from datetime import datetime
 from pathlib import Path
 from browser_use.browser.browser import Browser, BrowserConfig
 from browser_use.browser.context import BrowserContext, BrowserContextConfig
 
-# 导入各种处理器
-from tool_service.src.tools.handlers.tax_handler import TaxHandler
-from tool_service.src.tools.handlers.social_security_handler import SocialSecurityHandler
+# 导入工作流引擎
+from tool_service.src.tools.workflow.engine import WorkflowEngine
+
+# 导入基础处理器
 from tool_service.src.tools.handlers.base import BaseHandler
-# 以下是示例导入，实际使用时需要实现这些处理器
-# from education_handler import EducationHandler
-# from jd_handler import JDHandler
-# from wechat_handler import WeChatHandler
 
 # 设置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-class HandlerRegistry:
-    """处理器注册表，用于管理和获取不同类型的处理器"""
-    
-    def __init__(self):
-        """初始化处理器注册表"""
-        self.handlers = {}
-        self.instances = {}
-        
-    def register(self, handler_name: str, handler_class: Type):
-        """注册处理器类"""
-        self.handlers[handler_name] = handler_class
-        logger.info(f"注册处理器: {handler_name}")
-    
-    def get_handler(self, handler_name: str, browser_context):
-        """获取处理器实例"""
-        logger.info(f"当前注册的处理器: {list(self.handlers.keys())}")
-        logger.info(f"尝试获取处理器: {handler_name}")
-        if handler_name not in self.handlers:
-            raise ValueError(f"未知的处理器类型: {handler_name}")
-        
-        # 如果实例不存在，创建新实例
-        if handler_name not in self.instances:
-            handler_class = self.handlers[handler_name]
-            self.instances[handler_name] = handler_class(browser_context)
-            logger.info(f"创建处理器实例: {handler_name}")
-        
-        return self.instances[handler_name]
-    
-    def cleanup_all(self):
-        """清理所有处理器实例"""
-        for name, instance in self.instances.items():
-            if hasattr(instance, 'cleanup'):
-                asyncio.create_task(instance.cleanup())
-        self.instances = {}
-        logger.info("清理所有处理器实例")
-
-
 class UniversalAgent:
     """
-    通用Agent，集成LLM API与各种处理器，处理各类网络任务。
+    通用Agent，集成LLM API与工作流引擎，处理各类网络任务。
     负责处理对话流程并将LLM的响应转换为操作。
     """
     
@@ -81,20 +43,11 @@ class UniversalAgent:
         self.browser_context = None
         self.conversation_id = None
         
-        # 初始化处理器注册表
-        self.handler_registry = HandlerRegistry()
+        # 初始化工作流引擎
+        self.workflow_engine = WorkflowEngine()
         
-        # 注册各种处理器
-        self.handler_registry.register("TaxHandler", TaxHandler)
-        self.handler_registry.register("SocialSecurityHandler", SocialSecurityHandler)
-        self.handler_registry.register("BaseHandler", BaseHandler)
-        # 在导入之后添加
-        #logger.info(f"SocialSecurityHandler imported successfully: {SocialSecurityHandler}")
-        # 注册其他处理器（示例，实际使用时需要实现）
-        # self.handler_registry.register("EducationHandler", EducationHandler)
-        # self.handler_registry.register("HousingFundHandler", HousingFundHandler)
-        # self.handler_registry.register("JDHandler", JDHandler)
-        # self.handler_registry.register("WeChatHandler", WeChatHandler)
+        # 初始化基础处理器
+        self.base_handler = None
     
     async def initialize_browser(self, chrome_debug_port=54905):
         """初始化浏览器和上下文，连接到已有的Chrome实例"""
@@ -107,20 +60,25 @@ class UniversalAgent:
         
         # 创建Browser实例
         self.browser = Browser(config=browser_config)
-
         
         # 创建BrowserContext
         self.browser_context = BrowserContext(browser=self.browser)
-        # 创建BrowserContext
         
         # 初始化会话
         await self.browser_context._initialize_session()
+        
+        # 初始化基础处理器
+        self.base_handler = BaseHandler(self.browser_context)
+        
+        # 更新工作流引擎中的浏览器上下文
+        self.workflow_engine.set_browser_context(self.browser_context)
         
         logger.info("浏览器和上下文初始化完成，已连接到Chrome实例")
     
     async def cleanup(self):
         """清理资源"""
-        self.handler_registry.cleanup_all()
+        if self.base_handler:
+            await self.base_handler.cleanup()
         
         if self.browser_context:
             await self.browser_context.close()
@@ -268,20 +226,25 @@ class UniversalAgent:
         if not action_data or "action" not in action_data:
             return {"status": "error", "message": "无效的动作数据"}
         
-        # 获取指定的处理器类型
-        handler_name = action_data.get("handler", "BaseHandler")
+        # 尝试从LLM响应中识别工作流
+        workflow_info = action_data.get("workflow")
+        
+        # 如果LLM指定了工作流，则执行工作流
+        if workflow_info and "id" in workflow_info and "action" in workflow_info:
+            workflow_id = workflow_info["id"]
+            action_id = workflow_info["action"]
+            
+            if workflow_id in self.workflow_engine.workflows:
+                logger.info(f"执行预定义工作流: {workflow_id}.{action_id}")
+                return await self.workflow_engine.execute_workflow(workflow_id, action_id)
+            else:
+                logger.warning(f"未找到指定的工作流: {workflow_id}")
+        
+        # 没有指定工作流或工作流无效，执行常规操作
         actions = action_data["action"]
         
         if not actions:
             return {"status": "error", "message": "未指定动作"}
-        
-        # 获取处理器实例
-        try:
-            handler = self.handler_registry.get_handler(handler_name, self.browser_context)
-        except ValueError as e:
-            logger.error(str(e))
-            # 如果指定的处理器不存在，使用通用处理器
-            handler = self.handler_registry.get_handler("BaseHandler", self.browser_context)
         
         results = []
         new_tab_created = False  # 跟踪是否有新标签页被创建
@@ -291,7 +254,7 @@ class UniversalAgent:
             action_name = list(action.keys())[0]
             action_params = action[action_name]
             
-            logger.info(f"执行动作: {action_name}, 参数: {action_params}, 使用处理器: {handler_name}")
+            logger.info(f"执行动作: {action_name}, 参数: {action_params}")
             
             # 处理"done"动作
             if action_name == "done":
@@ -358,7 +321,7 @@ class UniversalAgent:
             
             # 将动作参数传递给处理器
             try:
-                action_result = await handler.process_query({
+                action_result = await self.base_handler.process_query({
                     "action": action_name,
                     **action_params  # 展开动作参数
                 })
@@ -381,10 +344,10 @@ class UniversalAgent:
             final_result["new_tab_created"] = True
         
         return final_result
-
+        
     async def process_user_request(self, user_request: str) -> str:
         """
-        从始至终处理用户请求
+        从始至终处理用户请求，自动检测是否可以使用预定义工作流
         
         参数:
             user_request: 用户的请求
@@ -397,6 +360,31 @@ class UniversalAgent:
             if not self.browser or not self.browser_context:
                 await self.initialize_browser()
             
+            # 首先检查是否有匹配的预定义工作流
+            matched_workflow = self.workflow_engine.find_workflow_by_query(user_request)
+            if matched_workflow:
+                logger.info(f"找到匹配的工作流: {matched_workflow['name']} (ID: {matched_workflow['id']})")
+                print(f"💡 检测到请求匹配预定义工作流: {matched_workflow['name']}")
+                
+                # 获取默认操作（通常是第一个操作）
+                if matched_workflow.get("actions") and len(matched_workflow["actions"]) > 0:
+                    default_action = matched_workflow["actions"][0]
+                    
+                    # 执行工作流
+                    print(f"⚙️ 执行工作流: {matched_workflow['name']}.{default_action['id']}")
+                    result = await self.workflow_engine.execute_workflow(matched_workflow["id"], default_action["id"])
+                    
+                    # 如果工作流执行成功并完成，则直接返回结果
+                    if result.get("is_done", False):
+                        success = result.get("task_success", False)
+                        message = result.get("message", "任务完成")
+                        status = "成功" if success else "未完全完成"
+                        
+                        return f"您的请求已{status}处理。{message}"
+            
+            # 如果没有匹配的工作流或工作流未完全处理请求，继续使用LLM
+            print("📝 使用LLM处理请求...")
+            
             # 包含任务信息的初始系统消息
             # 从文件加载系统提示
             system_prompt_path = Path("universal_system_prompt.md")
@@ -404,11 +392,24 @@ class UniversalAgent:
                 with open(system_prompt_path, "r", encoding="utf-8") as f:
                     system_message = f.read()
             else:
-                system_message = """你是一个AI助手，负责帮助用户完成各种在线任务。你将分析用户的请求，决定使用哪个功能处理器，并确定接下来要执行的操作。
+                system_message = """你是一个AI助手，负责帮助用户完成各种在线任务。你将分析用户的请求，决定是否使用预定义工作流，并确定接下来要执行的操作。
 
-请用JSON格式响应，包含current_state、handler和action字段。
+请用JSON格式响应，包含current_state、workflow（如果适用）和action字段。
 
 用户请求: """
+            
+            # 添加可用工作流信息
+            available_workflows = []
+            for wf_id, workflow in self.workflow_engine.workflows.items():
+                available_workflows.append({
+                    "id": wf_id,
+                    "name": workflow.get("name", ""),
+                    "description": workflow.get("description", ""),
+                    "actions": [action["id"] for action in workflow.get("actions", [])]
+                })
+            
+            if available_workflows:
+                system_message += "\n\n可用的预定义工作流:\n" + json.dumps(available_workflows, indent=2, ensure_ascii=False)
             
             system_message = system_message + "\n\n用户请求: " + user_request
             
@@ -465,7 +466,13 @@ class UniversalAgent:
 1. 搜索信息时，先点击搜索框，然后输入文本，最后点击搜索按钮
 2. 使用具体的元素索引号，而不是使用-1这样的通用索引
 3. 每个操作后添加适当的等待时间
-4. 使用有效的JSON对象，遵循要求的格式，并选择合适的handler"""
+4. 使用有效的JSON对象，遵循要求的格式，并选择合适的处理方式
+
+如果合适，你可以通过在响应中包含以下结构来使用预定义的工作流：
+"workflow": {
+  "id": "工作流ID",
+  "action": "操作ID"
+}"""
                 else:
                     next_prompt = f"""以下是您上次动作的结果:
 
@@ -478,7 +485,13 @@ class UniversalAgent:
 2. 使用highlight_elements后，可以看到每个元素都有索引编号，请使用这些具体的索引编号
 3. 如果遇到需要登录、选择或输入敏感信息的情况，使用request_user_action操作让用户手动操作
 4. 确保每个操作后都等待适当时间以确保页面响应
-5. 使用有效的JSON对象，遵循要求的格式，并选择合适的handler
+5. 使用有效的JSON对象，遵循要求的格式
+
+如果合适，你可以通过在响应中包含以下结构来使用预定义的工作流：
+"workflow": {
+  "id": "工作流ID",
+  "action": "操作ID"
+}
 
 执行搜索时，如果页面包含一个搜索框和一个搜索按钮，请先对搜索框执行click_element，然后对同一索引执行input_text，最后对搜索按钮执行click_element。"""
                 
@@ -491,13 +504,13 @@ class UniversalAgent:
                 try:
                     LLM_message = response['messages'][-1]['content']["response"]
                 except:
-                    LLM_message="No Response"
+                    LLM_message = "No Response"
                 try:
                     LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
                 except:
-                    LLM_action=None
+                    LLM_action = None
                 print(LLM_message)
-                if LLM_action==None:
+                if LLM_action == None:
                     return f"步骤{step_count}没有提供动作"
                 action_data = self.extract_action(LLM_action)
                 
@@ -522,11 +535,10 @@ class UniversalAgent:
             # 这样可以让浏览器保持打开状态以便查看
             pass
 
-# 示例用法
 async def main():
-    LLM={"provider": "claude"}
-    LLM_api_url = f"http://localhost:8005/chat/{LLM["provider"]}"
-    user_api_key={"api-key": "wangendian"}
+    LLM = {"provider": "claude"}
+    LLM_api_url = f"http://localhost:8005/chat/{LLM['provider']}"
+    user_api_key = {"api-key": "wangendian"}
     response = requests.post(
         "http://localhost:8005/tabs",
         headers=user_api_key,
@@ -534,7 +546,16 @@ async def main():
     )
     tab_id = response.json()["tab_id"]
     agent = UniversalAgent(LLM_api_url, user_api_key, tab_id)
+    
+    # 创建工作流目录（如果不存在）
+    workflows_dir = Path("workflows")
+    if not workflows_dir.exists():
+        workflows_dir.mkdir(parents=True)
+        print("创建工作流目录：workflows")
+    
     try:
+        print("\n" + "="*50)
+        print("🤖 欢迎使用通用浏览器Agent")
         while True:
             user_request = input("\n请输入您的请求 (输入'退出'结束): ")
             if user_request.lower() in ['退出', 'exit', 'quit']:
@@ -546,6 +567,5 @@ async def main():
     finally:
         await agent.cleanup()
 
-        
 if __name__ == "__main__":
     asyncio.run(main())

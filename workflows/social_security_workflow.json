@@ -1,0 +1,156 @@
+{
+  "id": "social_security_workflow",
+  "name": "社保清单查询和打印",
+  "description": "导航到广东政务服务网并查询社保清单",
+  "version": "1.0",
+  "actions": [
+    {
+      "id": "navigate_and_select_person",
+      "name": "导航并选择人员",
+      "description": "导航到社保清单查询页面并提示用户选择人员信息",
+      "steps": [
+        {
+          "id": "step_1",
+          "action": "get_or_create_tab",
+          "parameters": {
+            "url": "https://www.gdzwfw.gov.cn/portal/index?region=440300"
+          },
+          "description": "获取或创建广东政务服务网标签页"
+        },
+        {
+          "id": "step_2",
+          "action": "highlight_elements",
+          "parameters": {
+            "viewport_expansion": 500
+          },
+          "description": "高亮页面元素"
+        },
+        {
+          "id": "step_3",
+          "action": "find_element_by_attribute",
+          "parameters": {
+            "attribute": "placeholder",
+            "value": "请输入您要办理的事项",
+            "partial_match": true
+          },
+          "description": "查找搜索框"
+        },
+        {
+          "id": "step_4",
+          "action": "click_element",
+          "parameters": {
+            "index": "${step_3.found_elements[0].index}"
+          },
+          "description": "点击搜索框"
+        },
+        {
+          "id": "step_5",
+          "action": "input_by_selector",
+          "parameters": {
+            "selector": "input[placeholder='请输入您要办理的事项']",
+            "text": "社保清单打印"
+          },
+          "description": "输入搜索关键词"
+        },
+        {
+          "id": "step_6",
+          "action": "wait",
+          "parameters": {
+            "time": 1
+          },
+          "description": "等待1秒"
+        },
+        {
+          "id": "step_7",
+          "action": "find_element_by_text",
+          "parameters": {
+            "text": "搜索",
+            "partial_match": true
+          },
+          "description": "查找搜索按钮"
+        },
+        {
+          "id": "step_8",
+          "action": "click_element",
+          "parameters": {
+            "index": "${step_7.found_elements[0].index}"
+          },
+          "description": "点击搜索按钮"
+        },
+        {
+          "id": "step_9",
+          "action": "wait",
+          "parameters": {
+            "time": 2
+          },
+          "description": "等待搜索结果"
+        },
+        {
+          "id": "step_10",
+          "action": "highlight_elements",
+          "parameters": {
+            "viewport_expansion": 500
+          },
+          "description": "重新高亮元素"
+        },
+        {
+          "id": "step_11",
+          "action": "find_and_click",
+          "parameters": {
+            "text": "社保查询"
+          },
+          "description": "点击社保查询链接"
+        },
+        {
+          "id": "step_12",
+          "action": "find_and_click",
+          "parameters": {
+            "text": "个人权益记录（参保证明）查询打印(个人参保证明查询打印)"
+          },
+          "description": "点击个人权益记录查询打印链接"
+        },
+        {
+          "id": "step_13",
+          "action": "find_and_click",
+          "parameters": {
+            "text": "在线办理"
+          },
+          "description": "点击在线办理按钮"
+        },
+        {
+          "id": "step_14",
+          "action": "highlight_elements",
+          "parameters": {
+            "viewport_expansion": 500
+          },
+          "description": "高亮页面元素"
+        },
+        {
+          "id": "step_15",
+          "action": "find_and_click",
+          "parameters": {
+            "text": "选择"
+          },
+          "description": "点击选择按钮"
+        },
+        {
+          "id": "step_16",
+          "action": "find_and_click",
+          "parameters": {
+            "text": "下载"
+          },
+          "description": "点击下载按钮"
+        },
+        {
+          "id": "step_17",
+          "action": "done",
+          "parameters": {
+            "success": true,
+            "text": "社保清单查询完成并已下载"
+          },
+          "description": "完成查询"
+        }
+      ]
+    }
+  ]
+}

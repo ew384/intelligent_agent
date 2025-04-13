@@ -48,6 +48,7 @@ class BaseHandler:
             
             # 高级操作
             "inject_script": self.inject_script,
+            "input_by_selector": self.input_by_selector,
             
             # 组合工具
             "get_or_create_tab": self.get_or_create_tab_with_url,
@@ -540,7 +541,37 @@ class BaseHandler:
         except Exception as e:
             return {"status": "error", "message": f"注入脚本失败: {str(e)}"}
     
-    
+    async def input_by_selector(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """通过CSS选择器或XPath直接输入文本"""
+        selector = parameters.get('selector')
+        text = parameters.get('text')
+        
+        if not selector or text is None:
+            return {"status": "error", "message": "未指定选择器或文本"}
+        
+        try:
+            page = await self.browser_context.get_current_page()
+            
+            # 尝试找到元素
+            element = await page.query_selector(selector)
+            if not element:
+                return {"status": "error", "message": f"未找到匹配选择器 {selector} 的元素"}
+            
+            # 清空当前值
+            await element.fill("")
+            
+            # 输入新值
+            await element.type(text)
+            
+            return {
+                "status": "success",
+                "message": f"成功通过选择器 {selector} 输入文本",
+                "selector": selector,
+                "text": text
+            }
+        except Exception as e:
+            return {"status": "error", "message": f"输入文本失败: {str(e)}"}
+
     # ==================== 组合工具方法 ====================
     
     async def get_or_create_tab_with_url(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
