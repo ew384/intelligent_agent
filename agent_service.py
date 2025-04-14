@@ -5,7 +5,7 @@ import logging
 import requests
 import re
 import string
-from typing import Dict, Any, List, Optional, Type
+from typing import Dict, List, Any, Optional, Type
 from datetime import datetime
 from pathlib import Path
 from browser_use.browser.browser import Browser, BrowserConfig
@@ -373,7 +373,11 @@ class UniversalAgent:
 - ID: `{workflow['id']}`
 - 描述: {workflow['description']}
 """
-
+            if workflow.get("actions"):
+                prompt += "- 可用操作:\n"
+                for action in workflow.get("actions", []):
+                    prompt += f"  * {action['id']}: {action['name']} - {action['description']}\n"
+        
         prompt += """
 ## 任务
 仔细分析用户请求的具体意图和目标，并确定它是否匹配上述任何工作流：
@@ -390,6 +394,7 @@ class UniversalAgent:
   "matched": true/false,  // 是否匹配到工作流
   "workflow_id": "matched_workflow_id",  // 如果匹配，提供工作流ID
   "action_id": "default_action_id",  // 建议的默认操作ID
+  "confidence": 0.95,  // 匹配的置信度，0-1之间
   "reasoning": "详细解释为什么这个工作流匹配（或不匹配）用户请求"
 }
 ```
@@ -421,8 +426,8 @@ class UniversalAgent:
 
         # 提取LLM响应
         try:
-            LLM_message = response['messages'][-1]['content']["response"]
-            
+            LLM_message = response['messages'][-1]['content']["response"][-1]
+            print(LLM_message)
             # 尝试解析JSON响应
             json_start = LLM_message.find('{')
             json_end = LLM_message.rfind('}') + 1
@@ -435,7 +440,7 @@ class UniversalAgent:
                     workflow_id = match_result.get("workflow_id")
                     # 验证工作流ID存在
                     if workflow_id in self.workflow_engine.workflows:
-                        logger.info(f"找到匹配的工作流: {workflow_id}")
+                        logger.info(f"找到匹配的工作流: {workflow_id}, 置信度: {match_result.get('confidence', 0)}")
                         return match_result
                     else:
                         logger.warning(f"LLM匹配的工作流ID不存在: {workflow_id}")
@@ -465,32 +470,54 @@ class UniversalAgent:
             if not self.browser or not self.browser_context:
                 await self.initialize_browser()
             
-            # 首先检查是否有匹配的预定义工作流
-            matched_workflow = self.workflow_engine.find_workflow_by_query(user_request)
-            if matched_workflow:
-                logger.info(f"找到匹配的工作流: {matched_workflow['name']} (ID: {matched_workflow['id']})")
-                print(f"💡 检测到请求匹配预定义工作流: {matched_workflow['name']}")
+            # 使用LLM分析是否有匹配的预定义工作流
+            if self.workflow_engine.workflows:
+                print(f"🔍 分析请求是否匹配预定义工作流...")
+                match_result = self.analyze_workflow_match(user_request)
                 
-                # 获取默认操作（通常是第一个操作）
-                if matched_workflow.get("actions") and len(matched_workflow["actions"]) > 0:
-                    default_action = matched_workflow["actions"][0]
+                if match_result.get("matched", False) and "workflow_id" in match_result:
+                    workflow_id = match_result["workflow_id"]
+                    matched_workflow = self.workflow_engine.workflows.get(workflow_id)
                     
-                    # 执行工作流
-                    print(f"⚙️ 执行工作流: {matched_workflow['name']}.{default_action['id']}")
-                    result = await self.workflow_engine.execute_workflow(matched_workflow["id"], default_action["id"])
-                    
-                    # 如果工作流执行成功并完成，则直接返回结果
-                    if result.get("is_done", False):
-                        success = result.get("task_success", False)
-                        message = result.get("message", "任务完成")
-                        status = "成功" if success else "未完全完成"
+                    if matched_workflow:
+                        confidence = match_result.get("confidence", 0)
+                        reasoning = match_result.get("reasoning", "")
                         
-                        return f"您的请求已{status}处理。{message}"
+                        logger.info(f"找到匹配的工作流: {matched_workflow['name']} (ID: {workflow_id}), 置信度: {confidence}")
+                        print(f"💡 检测到请求匹配预定义工作流: {matched_workflow['name']}")
+                        print(f"🧠 匹配原因: {reasoning}")
+                        
+                        # 获取指定的操作或默认操作（通常是第一个操作）
+                        action_id = match_result.get("action_id")
+                        action_to_execute = None
+                        
+                        if action_id:
+                            # 查找指定的操作
+                            for action in matched_workflow.get("actions", []):
+                                if action.get("id") == action_id:
+                                    action_to_execute = action
+                                    break
+                        
+                        # 如果未找到指定操作或未指定操作，使用第一个操作
+                        if not action_to_execute and matched_workflow.get("actions") and len(matched_workflow["actions"]) > 0:
+                            action_to_execute = matched_workflow["actions"][0]
+                        
+                        if action_to_execute:
+                            # 执行工作流
+                            print(f"⚙️ 执行工作流: {matched_workflow['name']}.{action_to_execute['id']}")
+                            result = await self.workflow_engine.execute_workflow(workflow_id, action_to_execute['id'])
+                            
+                            # 如果工作流执行成功并完成，则直接返回结果
+                            if result.get("is_done", False):
+                                success = result.get("task_success", False)
+                                message = result.get("message", "任务完成")
+                                status = "成功" if success else "未完全完成"
+                                
+                                return f"您的请求已{status}处理。{message}"
             
             # 如果没有匹配的工作流或工作流未完全处理请求，继续使用LLM
             print("📝 使用LLM处理请求...")
             
-            # 包含任务信息的初始系统消息
             # 从文件加载系统提示
             system_prompt_path = Path("universal_system_prompt.md")
             if system_prompt_path.exists():
@@ -526,10 +553,14 @@ class UniversalAgent:
                 return f"开始对话时出错: {response['error']}"
             
             # 提取LLM的响应
-            LLM_message = response['messages'][-1]['content']["response"]
-            LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-            print(LLM_message)
-            action_data = self.extract_action(LLM_action)
+            try:
+                LLM_message = response['messages'][-1]['content']["response"][-1]
+                LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
+                print(LLM_message)
+                action_data = self.extract_action(LLM_action)
+            except Exception as e:
+                logger.error(f"解析LLM响应失败: {str(e)}")
+                return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
             
             if not action_data:
                 return "无法解析助手的初始响应。"
@@ -607,17 +638,13 @@ class UniversalAgent:
                 
                 # 提取LLM的下一个响应
                 try:
-                    LLM_message = response['messages'][-1]['content']["response"]
-                except:
-                    LLM_message = "No Response"
-                try:
+                    LLM_message = response['messages'][-1]['content']["response"][-1]
                     LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-                except:
-                    LLM_action = None
-                print(LLM_message)
-                if LLM_action == None:
-                    return f"步骤{step_count}没有提供动作"
-                action_data = self.extract_action(LLM_action)
+                    print(LLM_message)
+                    action_data = self.extract_action(LLM_action)
+                except Exception as e:
+                    logger.error(f"步骤{step_count}解析LLM响应失败: {str(e)}")
+                    return f"无法继续执行任务，AI助手的回复无法解析。请重试或使用不同的表述。"
                 
                 if not action_data:
                     return f"无法在步骤{step_count}解析助手响应。"
