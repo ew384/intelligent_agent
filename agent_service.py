@@ -344,6 +344,111 @@ class UniversalAgent:
             final_result["new_tab_created"] = True
         
         return final_result
+    
+    def create_workflow_match_prompt(self, user_request: str) -> str:
+        """
+        创建用于匹配工作流的提示
+        
+        参数:
+            user_request: 用户请求
+            
+        返回:
+            提示文本
+        """
+        # 获取所有工作流信息
+        all_workflows = self.workflow_engine.get_all_workflows_info()
+        
+        prompt = f"""# 工作流匹配任务
+
+你是一个专业的AI助手，负责分析用户的请求，并确定它是否匹配任何预定义的工作流。
+
+## 用户请求
+"{user_request}"
+
+## 可用工作流
+"""
+        for i, workflow in enumerate(all_workflows, 1):
+            prompt += f"""
+### 工作流 {i}: {workflow['name']}
+- ID: `{workflow['id']}`
+- 描述: {workflow['description']}
+"""
+
+        prompt += """
+## 任务
+仔细分析用户请求的具体意图和目标，并确定它是否匹配上述任何工作流：
+
+1. 考虑用户请求的语义内容和目标，而不仅仅是关键词匹配
+2. 分析每个工作流的功能和目的，评估它是否能满足用户的需求
+3. 考虑工作流的专业性和适用场景
+
+## 输出要求
+请以JSON格式返回你的分析结果：
+
+```json
+{
+  "matched": true/false,  // 是否匹配到工作流
+  "workflow_id": "matched_workflow_id",  // 如果匹配，提供工作流ID
+  "action_id": "default_action_id",  // 建议的默认操作ID
+  "reasoning": "详细解释为什么这个工作流匹配（或不匹配）用户请求"
+}
+```
+
+只返回JSON格式的结果，不要添加其他说明。确保JSON格式正确且包含所有必需字段。"""
+        
+        return prompt
+    
+    def analyze_workflow_match(self, user_request: str) -> Dict[str, Any]:
+        """
+        分析用户请求是否匹配现有工作流
+        
+        参数:
+            user_request: 用户请求
+            
+        返回:
+            匹配分析结果
+        """
+        # 创建匹配提示
+        match_prompt = self.create_workflow_match_prompt(user_request)
+        
+        # 调用LLM进行分析
+        response = self.query_LLM(match_prompt, is_new_chat=True)
+        
+        # 处理错误
+        if "error" in response:
+            logger.error(f"分析工作流匹配时出错: {response['error']}")
+            return {"matched": False, "reasoning": f"分析失败: {response['error']}"}
+
+        # 提取LLM响应
+        try:
+            LLM_message = response['messages'][-1]['content']["response"]
+            
+            # 尝试解析JSON响应
+            json_start = LLM_message.find('{')
+            json_end = LLM_message.rfind('}') + 1
+            
+            if json_start >= 0 and json_end > json_start:
+                match_result = json.loads(LLM_message[json_start:json_end])
+                
+                # 验证匹配结果
+                if match_result.get("matched", False):
+                    workflow_id = match_result.get("workflow_id")
+                    # 验证工作流ID存在
+                    if workflow_id in self.workflow_engine.workflows:
+                        logger.info(f"找到匹配的工作流: {workflow_id}")
+                        return match_result
+                    else:
+                        logger.warning(f"LLM匹配的工作流ID不存在: {workflow_id}")
+                        return {"matched": False, "reasoning": f"匹配的工作流ID '{workflow_id}' 不存在"}
+                else:
+                    logger.info("未找到匹配的工作流")
+                    return match_result
+            else:
+                logger.warning(f"无法从LLM响应中解析JSON: {LLM_message}")
+                return {"matched": False, "reasoning": "无法从LLM响应中解析JSON"}
+        except Exception as e:
+            logger.error(f"解析工作流匹配结果时出错: {str(e)}")
+            return {"matched": False, "reasoning": f"解析匹配结果时出错: {str(e)}"}
         
     async def process_user_request(self, user_request: str) -> str:
         """

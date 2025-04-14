@@ -63,23 +63,9 @@ class WorkflowEngine:
         # 可以添加更多验证逻辑
         return True
     
-    def find_workflow_by_query(self, query: str) -> Optional[Dict]:
-        """根据用户查询找到最匹配的工作流"""
-        query = query.lower()
-        best_match = None
-        highest_score = 0
-        
-        for workflow_id, workflow in self.workflows.items():
-            score = self._calculate_match_score(query, workflow)
-            if score > highest_score:
-                highest_score = score
-                best_match = workflow
-                
-        # 如果匹配度低于阈值，不返回任何工作流
-        if highest_score < 0.3:  # 阈值可以调整
-            return None
-            
-        return best_match
+    def get_workflow_by_id(self, workflow_id: str) -> Optional[Dict]:
+        """根据ID获取工作流"""
+        return self.workflows.get(workflow_id)
 
     def get_action_steps(self, workflow_id: str, action_id: str) -> Optional[List[Dict]]:
         """获取指定工作流中的指定操作步骤"""
@@ -154,7 +140,7 @@ class WorkflowEngine:
                         else:
                             value = value[part]
                     
-                    # 如果是纯变量引用，则直接返回值而不是字符串形式
+                    # 如果是纯变量引用，则直接返回值而不是字符串
                     if pure_reference:
                         return value
                         

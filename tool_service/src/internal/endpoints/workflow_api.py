@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Path, Query, HTTPException
+from fastapi import APIRouter, Request, Path, Query, HTTPException, Body
 import logging
 import asyncio
 from typing import Dict, List, Any, Optional
@@ -19,7 +19,6 @@ class WorkflowInfo(BaseModel):
     id: str
     name: str
     description: str
-    keywords: List[str]
     actions: List[Dict[str, str]]
 
 class ExecuteWorkflowRequest(BaseModel):
@@ -27,6 +26,16 @@ class ExecuteWorkflowRequest(BaseModel):
 
 class WorkflowListResponse(BaseModel):
     workflows: List[WorkflowInfo]
+
+class WorkflowMatchRequest(BaseModel):
+    query: str
+    
+class WorkflowMatchResponse(BaseModel):
+    matched: bool
+    workflow_id: Optional[str] = None
+    action_id: Optional[str] = None
+    confidence: Optional[float] = None
+    reasoning: str
 
 # 初始化浏览器和工作流引擎
 async def init_browser_and_engine(session_id: str, chrome_debug_port: int = 54905):
@@ -47,8 +56,8 @@ async def init_browser_and_engine(session_id: str, chrome_debug_port: int = 5490
     
     # 初始化会话
     await browser_context._initialize_session()
-    #await browser_context.create_new_tab(url='https://www.google.com')
     logger.info("浏览器和上下文初始化完成，已连接到Chrome实例")
+    
     # 创建工作流引擎
     workflow_engine = WorkflowEngine()
     workflow_engine.set_browser_context(browser_context)
@@ -79,7 +88,6 @@ async def cleanup_session(session_id: str):
 async def list_workflows(session_id: str = Query(..., description="会话ID")):
     """获取所有可用工作流列表"""
     # 初始化会话
-
     _, workflow_engine = await init_browser_and_engine(session_id)
     
     # 获取所有工作流信息
@@ -175,28 +183,37 @@ async def test_workflow(
         logger.error(f"测试工作流 {workflow_id}.{action_id} 失败: {str(e)}")
         raise HTTPException(status_code=500, detail=f"测试工作流失败: {str(e)}")
 
-@router.get("/search")
-async def search_workflow(
-    query: str = Query(..., description="搜索查询"),
+@router.post("/match", response_model=WorkflowMatchResponse)
+async def match_workflow(
+    request: WorkflowMatchRequest = Body(...),
     session_id: str = Query(..., description="会话ID")
 ):
-    """根据查询搜索匹配的工作流"""
+    """使用智能匹配算法，根据用户查询匹配最合适的工作流"""
     # 初始化会话
-    _, workflow_engine = await init_browser_and_engine(session_id)
+    browser_context, workflow_engine = await init_browser_and_engine(session_id)
     
-    # 搜索匹配的工作流
-    matched_workflow = workflow_engine.find_workflow_by_query(query)
-    if not matched_workflow:
-        return {"found": False, "message": "未找到匹配的工作流"}
-    
-    return {
-        "found": True,
-        "workflow": {
-            "id": matched_workflow["id"],
-            "name": matched_workflow.get("name", ""),
-            "description": matched_workflow.get("description", ""),
+    try:
+        from ...agents.universal_agent import UniversalAgent
+        
+        # 临时创建Universal Agent实例，用于调用工作流匹配方法
+        # 注意：这里不使用浏览器功能，只使用LLM匹配功能
+        temp_agent = UniversalAgent(
+            LLM_api_url="http://localhost:8005/chat/claude",
+            api_key={"api-key": "wangendian"}
+        )
+        temp_agent.workflow_engine = workflow_engine
+        
+        # 分析用户查询与工作流的匹配度
+        match_result = temp_agent.analyze_workflow_match(request.query)
+        
+        return match_result
+    except Exception as e:
+        logger.error(f"工作流匹配分析失败: {str(e)}")
+        return {
+            "matched": False,
+            "confidence": 0,
+            "reasoning": f"匹配分析过程中出错: {str(e)}"
         }
-    }
 
 @router.post("/cleanup")
 async def cleanup(session_id: str = Query(..., description="会话ID")):
