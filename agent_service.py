@@ -191,7 +191,7 @@ class UniversalAgent:
             # 查找响应中的JSON
             print(LLM_response)
             start_index = LLM_response.find("{")
-            end_index = LLM_response.rfind("}")
+            end_index = LLM_response.find("}")
             
             if start_index == -1 or end_index == -1:
                 logger.warning("LLM的响应中未找到JSON")
@@ -373,11 +373,6 @@ class UniversalAgent:
 - ID: `{workflow['id']}`
 - 描述: {workflow['description']}
 """
-            if workflow.get("actions"):
-                prompt += "- 可用操作:\n"
-                for action in workflow.get("actions", []):
-                    prompt += f"  * {action['id']}: {action['name']} - {action['description']}\n"
-        
         prompt += """
 ## 任务
 仔细分析用户请求的具体意图和目标，并确定它是否匹配上述任何工作流：
@@ -426,14 +421,16 @@ class UniversalAgent:
 
         # 提取LLM响应
         try:
+            print(response['messages'])#[-1]['content'])
             LLM_message = response['messages'][-1]['content']["response"][-1]
-            print(LLM_message)
+            LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
+            print(LLM_action)
             # 尝试解析JSON响应
-            json_start = LLM_message.find('{')
-            json_end = LLM_message.rfind('}') + 1
+            json_start = LLM_action.find('{')
+            json_end = LLM_action.find('}') + 1
             
             if json_start >= 0 and json_end > json_start:
-                match_result = json.loads(LLM_message[json_start:json_end])
+                match_result = json.loads(LLM_action[json_start:json_end])
                 
                 # 验证匹配结果
                 if match_result.get("matched", False):
@@ -449,7 +446,7 @@ class UniversalAgent:
                     logger.info("未找到匹配的工作流")
                     return match_result
             else:
-                logger.warning(f"无法从LLM响应中解析JSON: {LLM_message}")
+                logger.warning(f"无法从LLM响应中解析JSON: {LLM_action}")
                 return {"matched": False, "reasoning": "无法从LLM响应中解析JSON"}
         except Exception as e:
             logger.error(f"解析工作流匹配结果时出错: {str(e)}")
@@ -520,30 +517,13 @@ class UniversalAgent:
             
             # 从文件加载系统提示
             system_prompt_path = Path("universal_system_prompt.md")
-            if system_prompt_path.exists():
+            try:
                 with open(system_prompt_path, "r", encoding="utf-8") as f:
                     system_message = f.read()
-            else:
-                system_message = """你是一个AI助手，负责帮助用户完成各种在线任务。你将分析用户的请求，决定是否使用预定义工作流，并确定接下来要执行的操作。
-
-请用JSON格式响应，包含current_state、workflow（如果适用）和action字段。
-
-用户请求: """
-            
-            # 添加可用工作流信息
-            available_workflows = []
-            for wf_id, workflow in self.workflow_engine.workflows.items():
-                available_workflows.append({
-                    "id": wf_id,
-                    "name": workflow.get("name", ""),
-                    "description": workflow.get("description", ""),
-                    "actions": [action["id"] for action in workflow.get("actions", [])]
-                })
-            
-            if available_workflows:
-                system_message += "\n\n可用的预定义工作流:\n" + json.dumps(available_workflows, indent=2, ensure_ascii=False)
-            
-            system_message = system_message + "\n\n用户请求: " + user_request
+            except Exception as e:
+                logger.error(f"读取system_prompt出错: {str(e)}")
+                return f"读取system_prompt出错: {str(e)}"
+            system_message += "\n\n用户请求: " + user_request
             
             # 启动与LLM的对话
             logger.info(f"开始处理用户请求: {user_request}")
@@ -603,12 +583,7 @@ class UniversalAgent:
 2. 使用具体的元素索引号，而不是使用-1这样的通用索引
 3. 每个操作后添加适当的等待时间
 4. 使用有效的JSON对象，遵循要求的格式，并选择合适的处理方式
-
-如果合适，你可以通过在响应中包含以下结构来使用预定义的工作流：
-"workflow": {
-  "id": "工作流ID",
-  "action": "操作ID"
-}"""
+"""
                 else:
                     next_prompt = f"""以下是您上次动作的结果:
 
@@ -622,12 +597,6 @@ class UniversalAgent:
 3. 如果遇到需要登录、选择或输入敏感信息的情况，使用request_user_action操作让用户手动操作
 4. 确保每个操作后都等待适当时间以确保页面响应
 5. 使用有效的JSON对象，遵循要求的格式
-
-如果合适，你可以通过在响应中包含以下结构来使用预定义的工作流：
-"workflow": {
-  "id": "工作流ID",
-  "action": "操作ID"
-}
 
 执行搜索时，如果页面包含一个搜索框和一个搜索按钮，请先对搜索框执行click_element，然后对同一索引执行input_text，最后对搜索按钮执行click_element。"""
                 
