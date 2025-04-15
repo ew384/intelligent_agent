@@ -21,7 +21,7 @@ class WorkflowEngine:
         self.workflows = {}
         self.browser_context = browser_context
         self.base_handler = None
-        self.load_workflows()
+        #self.load_workflows()
         
     def set_browser_context(self, browser_context):
         """设置浏览器上下文和基础处理器"""
@@ -29,57 +29,7 @@ class WorkflowEngine:
         self.browser_context = browser_context
         self.base_handler = BaseHandler(browser_context)
         
-    def load_workflows(self):
-        """从指定目录加载所有工作流JSON文件"""
-        try:
-            workflows_path = Path(self.workflows_dir)
-            if not workflows_path.exists():
-                logger.warning(f"工作流目录不存在: {self.workflows_dir}，创建目录")
-                workflows_path.mkdir(parents=True, exist_ok=True)
-                
-            # 遍历目录中的所有JSON文件
-            for workflow_file in workflows_path.glob("*.json"):
-                try:
-                    with open(workflow_file, 'r', encoding='utf-8') as f:
-                        workflow = json.load(f)
-                        if self._validate_workflow(workflow):
-                            self.workflows[workflow["id"]] = workflow
-                            logger.info(f"加载工作流: {workflow['name']} (ID: {workflow['id']})")
-                except Exception as e:
-                    logger.error(f"加载工作流文件失败 {workflow_file}: {str(e)}")
-                    
-            logger.info(f"成功加载了{len(self.workflows)}个工作流")
-        except Exception as e:
-            logger.error(f"加载工作流目录失败: {str(e)}")
-    
-    def _validate_workflow(self, workflow):
-        """验证工作流JSON格式是否有效"""
-        required_fields = ["id", "name", "description", "actions"]
-        
-        if not all(field in workflow for field in required_fields):
-            logger.error(f"工作流格式无效，缺少必要字段: {workflow.get('id', 'unknown')}")
-            return False
-            
-        # 可以添加更多验证逻辑
-        return True
-    
-    def find_workflow_by_query(self, query: str) -> Optional[Dict]:
-        """根据用户查询找到最匹配的工作流"""
-        query = query.lower()
-        best_match = None
-        highest_score = 0
-        
-        for workflow_id, workflow in self.workflows.items():
-            score = self._calculate_match_score(query, workflow)
-            if score > highest_score:
-                highest_score = score
-                best_match = workflow
-                
-        # 如果匹配度低于阈值，不返回任何工作流
-        if highest_score < 0.3:  # 阈值可以调整
-            return None
-            
-        return best_match
+
 
     def get_action_steps(self, workflow_id: str, action_id: str) -> Optional[List[Dict]]:
         """获取指定工作流中的指定操作步骤"""

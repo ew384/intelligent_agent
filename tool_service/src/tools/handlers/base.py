@@ -52,6 +52,7 @@ class BaseHandler:
             
             # 组合工具
             "get_or_create_tab": self.get_or_create_tab_with_url,
+            "search_and_navigate":self.search_and_navigate,
             "find_and_click": self.find_and_click_element_by_text,
             "create_mask_interceptor": self.create_mask_interceptor,
 
@@ -736,6 +737,139 @@ class BaseHandler:
             logger.error(f"查找并点击元素失败: {str(e)}")
             return {"status": "error", "message": f"查找并点击元素失败: {str(e)}"}
 
+
+    async def search_and_navigate(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+            """
+            在指定网站搜索关键词并导航到相关结果页面
+            
+            Args:
+                parameters: 参数字典
+                    - base_url: 要搜索的网站URL
+                    - search_keyword: 搜索关键词
+                    - search_box_attribute: 搜索框的属性名称 (例如 "placeholder", "name", "id", "class")
+                    - search_box_value: 搜索框的属性值
+                    - search_button_text: 搜索按钮的文本标识（默认为"搜索"）
+                    - result_keyword: 结果页面中要查找的关键词
+                    - wait_after_search: 搜索后等待时间（秒）
+                    - partial_match: 是否使用部分匹配（默认为True）
+            Returns:
+                操作结果
+            """
+            base_url = parameters.get('base_url')
+            search_keyword = parameters.get('search_keyword')
+            search_box_attribute = parameters.get('search_box_attribute', 'placeholder')
+            search_box_value = parameters.get('search_box_value', '请输入您要办理的事项')
+            search_button_text = parameters.get('search_button_text', '搜索')
+            result_keyword = parameters.get('result_keyword')
+            wait_after_search = parameters.get('wait_after_search', 2)
+            partial_match = parameters.get('partial_match', True)
+            
+            if not base_url or not search_keyword:
+                return {"status": "error", "message": "缺少必要参数：base_url或search_keyword"}
+            
+            if not result_keyword:
+                return {"status": "error", "message": "缺少必要参数：result_keyword"}
+            
+            try:
+                # 获取或创建目标网站标签页
+                await self.get_or_create_tab_with_url({"url": base_url})
+                
+                # 高亮页面元素
+                await self.highlight_elements({"viewport_expansion": 500})
+                
+                # 使用提供的属性和值查找搜索框
+                search_box_found = await self.find_element_by_attribute({
+                    "attribute": search_box_attribute, 
+                    "value": search_box_value,
+                    "partial_match": partial_match
+                })
+                
+                search_box_index = None
+                if search_box_found.get("found_elements"):
+                    search_box_index = search_box_found["found_elements"][0]["index"]
+                
+                # 查找搜索按钮
+                search_button = await self.find_element_by_text({
+                    "text": search_button_text, 
+                    "partial_match": True
+                })
+                
+                search_button_index = None
+                if search_button.get("found_elements"):
+                    search_button_index = search_button["found_elements"][0]["index"]
+                            
+                if not search_box_index:
+                    return {"status": "error", "message": f"未找到搜索输入框 (属性 {search_box_attribute}={search_box_value})"}
+
+                # 点击搜索框并输入关键词
+                await self.click_element({"index": search_box_index})
+                await self.input_text({"index": search_box_index, "text": search_keyword})
+                await self.wait({"time": 1})
+                
+                # 点击搜索按钮或按回车
+                if search_button_index:
+                    await self.click_element({"index": search_button_index})
+                else:
+                    await self.inject_script({
+                        "script": """
+                        const event = new KeyboardEvent('keydown', {
+                            'key': 'Enter',
+                            'code': 'Enter',
+                            'keyCode': 13,
+                            'which': 13,
+                            'bubbles': true
+                        });
+                        document.activeElement.dispatchEvent(event);
+                        """
+                    })
+                
+                # 等待搜索结果
+                await self.wait({"time": wait_after_search})
+                
+                # 重新高亮元素获取搜索结果
+                await self.highlight_elements({"viewport_expansion": 500})
+                
+                # 查找并点击目标结果
+                result_links = await self.find_element_by_text({
+                    "text": result_keyword, 
+                    "partial_match": True
+                })
+                
+                if result_links.get("found_elements"):
+                    # 点击第一个相关链接
+                    first_link = result_links["found_elements"][0]
+                    link_result = await self.click_element({
+                        "index": first_link["index"],
+                        "auto_switch_tab": True
+                    })
+                    
+                    # 等待页面加载
+                    await self.wait({"time": 3})
+                    
+                    # 在新页面中高亮元素
+                    await self.highlight_elements({"viewport_expansion": 500})
+                    
+                    return {
+                        "status": "success", 
+                        "message": f"成功搜索并导航到'{result_keyword}'相关页面",
+                        "new_tab_created": link_result.get("new_tab_created", False),
+                        "url": link_result.get("url", "未知")
+                    }
+                else:
+                    return {
+                        "status": "warning",
+                        "message": f"已完成搜索，但未找到包含'{result_keyword}'的链接",
+                        "url": (await self.browser_context.get_state()).url
+                    }
+            
+            except Exception as e:
+                logger.error(f"搜索并导航失败: {str(e)}")
+                return {
+                    "status": "error",
+                    "message": f"搜索并导航失败: {str(e)}"
+                }
+
+
     async def cleanup(self):
         """清理资源"""
         try:
@@ -843,128 +977,6 @@ class BaseHandler:
         # 对于非HTML内容或出错情况，使用原始响应继续
         await route.continue_()
 
-
-    async def search_and_navigate(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        在指定网站搜索关键词并导航到相关结果页面
-        
-        Args:
-            parameters: 参数字典
-                - base_url: 要搜索的网站URL
-                - search_keyword: 搜索关键词
-                - search_button_text: 搜索按钮的文本标识（默认为"搜索"）
-                - result_keyword: 结果页面中要查找的关键词
-                - wait_after_search: 搜索后等待时间（秒）
-        Returns:
-            操作结果
-        """
-        base_url = parameters.get('base_url')
-        search_keyword = parameters.get('search_keyword')
-        search_button_text = parameters.get('search_button_text', '搜索')
-        result_keyword = parameters.get('result_keyword')
-        wait_after_search = parameters.get('wait_after_search', 2)
-        
-        if not base_url or not search_keyword or not result_keyword:
-            return {"status": "error", "message": "缺少必要参数：base_url、search_keyword或result_keyword"}
-        
-        try:
-            # 获取或创建目标网站标签页
-            await self.get_or_create_tab_with_url({"url": base_url})
-            
-            # 高亮页面元素
-            await self.highlight_elements({"viewport_expansion": 500})
-            
-            search_box_found = await self.find_element_by_attribute({
-                "attribute": "placeholder", 
-                "value": "请输入您要办理的事项",
-                "partial_match": True
-            })
-            
-            search_box_index = None
-            if search_box_found.get("found_elements"):
-                search_box_index = search_box_found["found_elements"][0]["index"]
-            
-            # 查找搜索按钮
-            search_button = await self.find_element_by_text({
-                "text": search_button_text, 
-                "partial_match": True
-            })
-            
-            search_button_index = None
-            if search_button.get("found_elements"):
-                search_button_index = search_button["found_elements"][0]["index"]
-                        
-            if not search_box_index:
-                return {"status": "error", "message": "未找到搜索输入框"}
-
-            # 点击搜索框并输入关键词
-            await self.click_element({"index": search_box_index})
-            #await self.wait({"time": 1})
-            await self.input_text({"index": search_box_index, "text": search_keyword})
-            await self.wait({"time": 1})
-            
-            # 点击搜索按钮或按回车
-            if search_button_index:
-                await self.click_element({"index": search_button_index})
-            else:
-                await self.inject_script({
-                    "script": """
-                    const event = new KeyboardEvent('keydown', {
-                        'key': 'Enter',
-                        'code': 'Enter',
-                        'keyCode': 13,
-                        'which': 13,
-                        'bubbles': true
-                    });
-                    document.activeElement.dispatchEvent(event);
-                    """
-                })
-            
-            # 等待搜索结果
-            await self.wait({"time": wait_after_search})
-            
-            # 重新高亮元素获取搜索结果
-            await self.highlight_elements({"viewport_expansion": 500})
-            
-            # 查找并点击目标结果
-            result_links = await self.find_element_by_text({
-                "text": result_keyword, 
-                "partial_match": True
-            })
-            
-            if result_links.get("found_elements"):
-                # 点击第一个相关链接
-                first_link = result_links["found_elements"][0]
-                link_result = await self.click_element({
-                    "index": first_link["index"],
-                    "auto_switch_tab": True
-                })
-                
-                # 等待页面加载
-                await self.wait({"time": 3})
-                
-                # 在新页面中高亮元素
-                await self.highlight_elements({"viewport_expansion": 500})
-                
-                return {
-                    "status": "success", 
-                    "message": f"成功搜索并导航到'{result_keyword}'相关页面",
-                    "new_tab_created": link_result.get("new_tab_created", False),
-                    "url": link_result.get("url", "未知")
-                }
-            else:
-                return {
-                    "status": "warning",
-                    "message": f"已完成搜索，但未找到包含'{result_keyword}'的链接",
-                    "url": (await self.browser_context.get_state()).url
-                }
-        
-        except Exception as e:
-            logger.error(f"搜索并导航失败: {str(e)}")
-            return {
-                "status": "error",
-                "message": f"搜索并导航失败: {str(e)}"
-            }
     # ==================== 用户交互操作 ====================
 
     async def request_user_action(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
