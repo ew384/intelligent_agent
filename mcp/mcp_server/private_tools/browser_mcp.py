@@ -27,7 +27,8 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
-
+# Initialize FastMCP
+mcp = FastMCP("Browser Automation MCP Tools")
 def create_parser():
     """Create and return the argument parser for MCP Server with Browser automation."""
     parser = argparse.ArgumentParser(description='FastMCP server for Browser automation')
@@ -80,14 +81,13 @@ async def get_browser_handler():
         # Initialize base handler
         base_handler = BaseHandler(browser_context)
         
-        logger.info(f"Successfully connected to Chrome on debug port {args.chrome_debug_port}")
+        #logger.info(f"Successfully connected to Chrome on debug port {args.chrome_debug_port}")
         return base_handler
     except Exception as e:
         logger.error(f"Failed to initialize browser handler: {str(e)}")
         raise
 
-# Initialize FastMCP
-mcp = FastMCP("Browser Automation MCP Tools")
+
 
 # Helper function to parse JSON strings from parameters
 def parse_json_param(param_str):
@@ -113,7 +113,7 @@ async def go_to_url(url: str) -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({"action": "go_to_url", "url": url})
+    return await handler.go_to_url({"url": url})
 
 @mcp.tool()
 async def click_element(index: int, auto_switch_tab: bool = True) -> Dict[str, Any]:
@@ -127,8 +127,7 @@ async def click_element(index: int, auto_switch_tab: bool = True) -> Dict[str, A
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "click_element", 
+    return await handler.click_element({
         "index": index,
         "auto_switch_tab": auto_switch_tab
     })
@@ -145,8 +144,7 @@ async def input_text(index: int, text: str) -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "input_text", 
+    return await handler.input_text({
         "index": index,
         "text": text
     })
@@ -162,8 +160,7 @@ async def extract_content(goal: str) -> Dict[str, Any]:
         提取的内容
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "extract_content", 
+    return await handler.extract_content({
         "goal": goal
     })
 
@@ -179,8 +176,7 @@ async def scroll(direction: str = "down", amount: str = "medium") -> Dict[str, A
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "scroll", 
+    return await handler.scroll({
         "direction": direction,
         "amount": amount
     })
@@ -197,10 +193,10 @@ async def wait(time: float = 2, selector: Optional[str] = None) -> Dict[str, Any
         操作结果
     """
     handler = await get_browser_handler()
-    params = {"action": "wait", "time": time}
+    params = {"time": time}
     if selector:
         params["selector"] = selector
-    return await handler.process_query(params)
+    return await handler.wait(params)
 
 @mcp.tool()
 async def get_tabs() -> Dict[str, Any]:
@@ -210,7 +206,7 @@ async def get_tabs() -> Dict[str, Any]:
         标签页列表
     """
     handler = await get_browser_handler()
-    return await handler.process_query({"action": "get_tabs"})
+    return await handler.get_tabs({})
 
 @mcp.tool()
 async def create_tab(url: str = "about:blank") -> Dict[str, Any]:
@@ -236,8 +232,7 @@ async def switch_tab(tab_id: str) -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "switch_tab", 
+    return await handler.switch_tab({
         "tab_id": tab_id
     })
 
@@ -249,7 +244,7 @@ async def close_tab() -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({"action": "close_tab"})
+    return await handler.close_tab({})
 
 @mcp.tool()
 async def highlight_elements(viewport_expansion: int = 500) -> Dict[str, Any]:
@@ -262,8 +257,7 @@ async def highlight_elements(viewport_expansion: int = 500) -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "highlight_elements", 
+    return await handler.highlight_elements({
         "viewport_expansion": viewport_expansion
     })
 
@@ -280,8 +274,7 @@ async def find_element_by_text(text: str, partial_match: bool = True, highlight_
         找到的元素列表
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "find_element_by_text", 
+    return await handler.find_element_by_text({
         "text": text,
         "partial_match": partial_match,
         "highlight_elements": highlight_elements
@@ -301,8 +294,7 @@ async def find_element_by_attribute(attribute: str, value: str, partial_match: b
         找到的元素列表
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "find_element_by_attribute", 
+    return await handler.find_element_by_attribute({
         "attribute": attribute,
         "value": value,
         "partial_match": partial_match,
@@ -320,8 +312,7 @@ async def inject_script(script: str) -> Dict[str, Any]:
         执行结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "inject_script", 
+    return await handler.inject_script({
         "script": script
     })
 
@@ -337,8 +328,7 @@ async def input_by_selector(selector: str, text: str) -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "input_by_selector", 
+    return await handler.input_by_selector({
         "selector": selector,
         "text": text
     })
@@ -354,8 +344,7 @@ async def get_or_create_tab_with_url(url: str) -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "get_or_create_tab", 
+    return await handler.get_or_create_tab_with_url({
         "url": url
     })
 
@@ -382,8 +371,7 @@ async def search_and_navigate(base_url: str, search_keyword: str, result_keyword
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "search_and_navigate", 
+    return await handler.search_and_navigate({
         "base_url": base_url,
         "search_keyword": search_keyword,
         "result_keyword": result_keyword,
@@ -407,8 +395,7 @@ async def find_and_click_element_by_text(text: str, partial_match: bool = True, 
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "find_and_click", 
+    return await handler.find_and_click_element_by_text({
         "text": text,
         "partial_match": partial_match,
         "auto_switch_tab": auto_switch_tab
@@ -425,8 +412,7 @@ async def create_mask_interceptor(target_url: str) -> Dict[str, Any]:
         操作结果
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "create_mask_interceptor", 
+    return await handler.create_mask_interceptor({
         "target_url": target_url
     })
 
@@ -448,8 +434,7 @@ async def request_user_action(type: str = "generic", message: str = "请执行�
         options = []
     
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "request_user_action",
+    return await handler.request_user_action({
         "type": type,
         "message": message,
         "description": description,
@@ -467,8 +452,7 @@ async def evaluate_state(description: str = "评估当前状态") -> Dict[str, A
         当前页面状态
     """
     handler = await get_browser_handler()
-    return await handler.process_query({
-        "action": "evaluate_state", 
+    return await handler.evaluate_state({
         "description": description
     })
 
@@ -478,15 +462,16 @@ async def cleanup():
     if base_handler:
         try:
             await base_handler.cleanup()
-            logger.info("Successfully cleaned up browser resources")
+            #logger.info("Successfully cleaned up browser resources")
         except Exception as e:
             logger.error(f"Error cleaning up browser resources: {str(e)}")
+
 
 def main():
     """入口点"""
     parser = create_parser()
     args = parser.parse_args()
-    
+    """
     # Redirect stdout and stderr to avoid interference with MCP's stdio transport
     if args.redirect_logs:
         sys.stdout = open('mcp_stdout.log', 'w')
@@ -494,22 +479,20 @@ def main():
     
     # 初始化浏览器处理器
     try:
-        # Initialize the browser handler synchronously 
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(get_browser_handler())
-        loop.run_until_complete(create_tab("https://www.google.com"))
+        asyncio.run(go_to_url("https://www.baidu.com"))
+        #asyncio.run(create_tab("https://www.baidu.com"))
         logger.info("Successfully initialized browser handler")
     except Exception as e:
         logger.error(f"Failed to initialize browser handler: {str(e)}")
         return
-    
+
     # 启动MCP服务器
     logger.info(f"Starting Browser MCP Server on port {args.mcp_port} ...")
     
     # 注册清理函数
     import atexit
-    atexit.register(lambda: loop.run_until_complete(cleanup()))
-    
+    atexit.register(lambda: asyncio.run(cleanup()))
+    """
     # 使用stdio作为传输方式
     mcp.run(transport='stdio')
 
