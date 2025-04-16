@@ -177,6 +177,42 @@ class UniversalAgent:
             logger.error(f"查询LLM API时出错: {str(e)}")
             return {"error": str(e)}
     
+    def save_action_data_to_file(self, action_data, directory="workflows"):
+        """
+        将action_data保存到本地文件
+        
+        参数:
+            action_data: 要保存的数据
+            directory: 保存文件的目录，默认为'action_data'
+        
+        返回:
+            保存的文件路径
+        """
+        try:
+            # 确保目录存在
+            Path(directory).mkdir(parents=True, exist_ok=True)
+            
+            # 生成文件名
+            file_name = f"{action_data['id']}_{action_data['version']}.json"
+            file_path = os.path.join(directory, file_name)
+            
+            # 将数据转换为JSON字符串，并格式化为美观的输出
+            json_content = json.dumps(action_data, ensure_ascii=False, indent=2)
+            
+            # 将内容写入到文件中
+            with open(file_path, 'w', encoding='utf-8') as file:
+                file.write(json_content)
+            
+            print(f"✅ 成功保存action_data到文件: {file_path}")
+            return file_path
+            
+        except KeyError as e:
+            print(f"❌ 错误: action_data缺少必要的键: {e}")
+            return None
+        except Exception as e:
+            print(f"❌ 保存文件时发生错误: {str(e)}")
+            return None
+
     def extract_action(self, LLM_response: str) -> Optional[Dict[str, Any]]:
         """
         从LLM的响应中提取动作细节
@@ -334,10 +370,11 @@ class UniversalAgent:
     def analyze_workflow_match(self, user_request: str) -> Dict[str, Any]:
         """
         分析用户请求是否匹配工作流程关键词
+        只有当所有关键词都在用户请求中时，才返回匹配结果
         
         Args:
             user_request: 用户的请求文本
-            
+                
         Returns:
             Dict 包含匹配结果，如果匹配则返回workflow_id、workflow_info、workflow_name、workflow_description和置信度，否则返回空dict
         """
@@ -353,8 +390,7 @@ class UniversalAgent:
         
         # 获取所有工作流信息
         all_workflows = self.workflow_engine.get_all_workflows_info()
-        best_match = None
-        highest_confidence = 0
+        matching_workflows = []
         
         # 遍历所有工作流程
         for workflow_info in all_workflows:
@@ -369,40 +405,114 @@ class UniversalAgent:
             if not workflow or "keywords" not in workflow:
                 continue
                 
-            # 匹配关键词
+            # 获取关键词
             keywords = workflow.get("keywords", [])
+            if not keywords:
+                continue
+            
+            # 检查所有关键词是否都在用户请求中
+            all_keywords_match = True
             matched_keywords = []
             
             for keyword in keywords:
                 if keyword.lower() in normalized_request:
                     matched_keywords.append(keyword)
+                else:
+                    all_keywords_match = False
+                    break
             
-            # 如果找到匹配的关键词
-            if matched_keywords:
-                confidence = len(matched_keywords) / len(keywords) if keywords else 0
-                
-                # 如果是更好的匹配，则更新结果
-                if confidence > highest_confidence:
-                    highest_confidence = confidence
-                    best_match = {
-                        "workflow_id": workflow_id,
-                        "workflow_info": workflow_info,
-                        "workflow_name": workflow_name,
-                        "workflow_description": workflow_description,
-                        "confidence": confidence,
-                        "matched_keywords": matched_keywords
-                    }
+            # 只有当所有关键词都匹配时才添加到匹配列表
+            if all_keywords_match and matched_keywords:
+                matching_workflows.append({
+                    "workflow_id": workflow_id,
+                    "workflow_info": workflow_info,
+                    "workflow_name": workflow_name,
+                    "workflow_description": workflow_description,
+                    "confidence": 1.0,  # 完全匹配时置信度为1.0
+                    "matched_keywords": matched_keywords
+                })
         
-        # 如果找到匹配，记录日志并返回最佳匹配
-        if best_match:
+        # 如果有匹配的工作流，选择第一个（因为所有匹配的工作流都是完全匹配的）
+        if matching_workflows:
+            best_match = matching_workflows[0]
             workflow_id = best_match["workflow_id"]
             workflow_name = best_match["workflow_name"]
-            confidence = best_match["confidence"]
             matched_keywords = best_match["matched_keywords"]
-            logger.info(f"找到匹配的工作流: {workflow_id} ({workflow_name})")#, 置信度: {confidence:.2f}, 匹配关键词: {', '.join(matched_keywords)}")
+            logger.info(f"找到完全匹配的工作流: {workflow_id} ({workflow_name}), 匹配关键词: {', '.join(matched_keywords)}")
             return best_match
         
         return result
+
+    def format_workflow_status_for_LLM(self, workflow_result: Dict[str, Any], current_state) -> str:
+        """
+        将工作流执行状态格式化为LLM可理解的文本格式
+        
+        参数:
+            workflow_result: 工作流执行结果
+            current_state: 当前页面状态
+            
+        返回:
+            格式化的文本
+        """
+        formatted_text = "[工作流执行状态开始]\n"
+        
+        # 添加工作流基本信息
+        formatted_text += f"工作流名称: {workflow_result.get('workflow_name', '未知')}\n"
+        formatted_text += f"工作流ID: {workflow_result.get('workflow_id', '未知')}\n"
+        formatted_text += f"执行的动作ID: {workflow_result.get('action_id', '未知')}\n"
+        
+        # 添加完成度信息
+        completed_percentage = workflow_result.get("completed_percentage", 0)
+        formatted_text += f"完成度: {completed_percentage}%\n"
+        
+        # 添加执行状态
+        status = "✅ 成功" if workflow_result.get("status") == "success" else "❌ 失败"
+        formatted_text += f"当前状态: {status}\n"
+        
+        if "message" in workflow_result:
+            formatted_text += f"状态消息: {workflow_result['message']}\n"
+        
+        # 添加已执行步骤
+        executed_steps = workflow_result.get("executed_steps", [])
+        if executed_steps:
+            formatted_text += "\n## 已执行的步骤:\n"
+            for i, step in enumerate(executed_steps, 1):
+                step_id = step.get("step_id", f"步骤{i}")
+                action = step.get("action", "未知操作")
+                description = step.get("description", "")
+                step_status = "✅ 成功" if step.get("status") == "success" else "❌ 失败"
+                
+                formatted_text += f"{i}. [{step_status}] {step_id}: {action} - {description}\n"
+                
+                # 添加步骤的详细信息（如果有）
+                if "details" in step:
+                    formatted_text += f"   详情: {step['details']}\n"
+        
+        # 添加剩余任务
+        remaining_tasks = workflow_result.get("remaining_tasks", [])
+        if remaining_tasks:
+            formatted_text += "\n## 剩余任务:\n"
+            for i, task in enumerate(remaining_tasks, 1):
+                step_id = task.get("step_id", f"步骤{i}")
+                action = task.get("action", "未知操作")
+                description = task.get("description", "")
+                
+                formatted_text += f"{i}. {step_id}: {action} - {description}\n"
+        
+        # 添加当前页面状态
+        if current_state:
+            formatted_text += "\n## 当前页面状态:\n"
+            if hasattr(current_state, 'url'):
+                formatted_text += f"URL: {current_state.url}\n"
+            if hasattr(current_state, 'title'):
+                formatted_text += f"标题: {current_state.title}\n"
+            if hasattr(current_state, 'selector_map'):
+                formatted_text += f"可交互元素数量: {len(current_state.selector_map) if current_state.selector_map else 0}\n"
+        
+        formatted_text += "\n[工作流执行状态结束]"
+        return formatted_text
+
+
     async def process_user_request(self, user_request: str) -> str:
         """
         从始至终处理用户请求，自动检测是否可以使用预定义工作流
@@ -413,179 +523,218 @@ class UniversalAgent:
         返回:
             给用户的最终响应
         """
-        try:
-            # 如果尚未初始化浏览器，则初始化
-            if not self.browser or not self.browser_context:
-                await self.initialize_browser()
+        # 如果尚未初始化浏览器，则初始化
+        if not self.browser or not self.browser_context:
+            await self.initialize_browser()
+        self.workflow_engine.load_workflows()
+        # 使用LLM分析是否有匹配的预定义工作流
+        if self.workflow_engine.workflows:
+            print(f"🔍 分析请求是否匹配预定义工作流...")
+            match_result = self.analyze_workflow_match(user_request)
             
-            # 使用LLM分析是否有匹配的预定义工作流
-            if self.workflow_engine.workflows:
-                print(f"🔍 分析请求是否匹配预定义工作流...")
-                match_result = self.analyze_workflow_match(user_request)
+            if "workflow_id" in match_result:
+                workflow_id = match_result["workflow_id"]
+                matched_workflow = self.workflow_engine.workflows.get(workflow_id)
                 
-                if "workflow_id" in match_result:
-                    workflow_id = match_result["workflow_id"]
-                    matched_workflow = self.workflow_engine.workflows.get(workflow_id)
+                if matched_workflow:
+                    confidence = match_result.get("confidence", 0)
+
                     
-                    if matched_workflow:
-                        confidence = match_result.get("confidence", 0)
+                    logger.info(f"找到匹配的工作流: {matched_workflow['name']} (ID: {workflow_id}), 置信度: {confidence}")
+                    print(f"💡 检测到请求匹配预定义工作流: {matched_workflow['name']}")
 
+                    
+                    # 获取指定的操作或默认操作（通常是第一个操作）
+                    action_id = match_result.get("action_id")
+                    action_to_execute = None
+                    
+                    if action_id:
+                        # 查找指定的操作
+                        for action in matched_workflow.get("action", []):
+                            if action.get("id") == action_id:
+                                action_to_execute = action
+                                break
+                    
+                    # 如果未找到指定操作或未指定操作，使用第一个操作
+                    if not action_to_execute and matched_workflow.get("action") and len(matched_workflow["action"]) > 0:
+                        action_to_execute = matched_workflow["action"][0]
+                    
+                    if action_to_execute:
+                        # 执行工作流
+                        print(f"⚙️ 执行工作流: {matched_workflow['name']}.{action_to_execute['id']}")
+                        workflow_result = await self.workflow_engine.execute_workflow(workflow_id, action_to_execute['id'])
                         
-                        logger.info(f"找到匹配的工作流: {matched_workflow['name']} (ID: {workflow_id}), 置信度: {confidence}")
-                        print(f"💡 检测到请求匹配预定义工作流: {matched_workflow['name']}")
-
-                        
-                        # 获取指定的操作或默认操作（通常是第一个操作）
-                        action_id = match_result.get("action_id")
-                        action_to_execute = None
-                        
-                        if action_id:
-                            # 查找指定的操作
-                            for action in matched_workflow.get("action", []):
-                                if action.get("id") == action_id:
-                                    action_to_execute = action
-                                    break
-                        
-                        # 如果未找到指定操作或未指定操作，使用第一个操作
-                        if not action_to_execute and matched_workflow.get("action") and len(matched_workflow["action"]) > 0:
-                            action_to_execute = matched_workflow["action"][0]
-                        
-                        if action_to_execute:
-                            # 执行工作流
-                            print(f"⚙️ 执行工作流: {matched_workflow['name']}.{action_to_execute['id']}")
-                            result = await self.workflow_engine.execute_workflow(workflow_id, action_to_execute['id'])
+                        # 如果工作流执行成功并完成，则直接返回结果
+                        if workflow_result.get("is_done", False) and workflow_result.get("task_success", False):
+                            success = workflow_result.get("task_success", False)
+                            message = workflow_result.get("message", "任务完成")
+                            status = "成功" if success else "未完全完成"
                             
-                            # 如果工作流执行成功并完成，则直接返回结果
-                            if result.get("is_done", False):
-                                success = result.get("task_success", False)
-                                message = result.get("message", "任务完成")
-                                status = "成功" if success else "未完全完成"
-                                
-                                return f"您的请求已{status}处理。{message}"
-            
-            # 如果没有匹配的工作流或工作流未完全处理请求，继续使用LLM
-            print("📝 使用LLM处理请求...")
-            
-            # 从文件加载系统提示
-            system_prompt_path = Path("universal_system_prompt.md")
-            try:
-                with open(system_prompt_path, "r", encoding="utf-8") as f:
-                    system_message = f.read()
-            except Exception as e:
-                logger.error(f"读取system_prompt出错: {str(e)}")
-                return f"读取system_prompt出错: {str(e)}"
-            system_message += "\n\n用户请求: " + user_request
-            
-            # 启动与LLM的对话
-            logger.info(f"开始处理用户请求: {user_request}")
-            response = self.query_LLM(system_message, is_new_chat=True)
-            
-            if "error" in response:
-                return f"开始对话时出错: {response['error']}"
-            
-            # 提取LLM的响应
-            try:
-                LLM_message = response['messages'][-1]['content']["response"][-1]
-                LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-                print(LLM_message)
-                action_data = self.extract_action(LLM_action)
-            except Exception as e:
-                logger.error(f"解析LLM响应失败: {str(e)}")
-                return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
-            
-            if not action_data:
-                return "无法解析助手的初始响应。"
-            
-            # 执行动作并继续对话直到完成
-            is_done = False
-            step_count = 0
-            final_result = None
-            
-            while not is_done and step_count < 100:  # 增加步骤限制以允许更多交互
-                step_count += 1
-                logger.info(f"执行步骤 {step_count}")
-                
-                # 执行动作
-                result = await self.execute_action(action_data)
-                is_done = result.get("is_done", False)
-                final_result = result
-                
-                # 如果完成，跳出循环
-                if is_done:
-                    logger.info(f"任务完成，结果: {result}")
-                    break
-                
-                # 为LLM格式化结果状态
-                state_message = self.format_state_for_LLM(result)
-                
-                # 判断是否刚刚完成了用户交互
-                user_interaction_completed = "user_action_type" in result
-                
-                # 从LLM生成下一个动作
-                if user_interaction_completed:
-                    next_prompt = f"""用户已完成交互操作，当前状态如下:
+                            return f"您的请求已{status}处理。{message}"
+                        
+                        # 关键变更点：处理未完成的工作流，让大模型继续完成
+                        print(f"🔄 工作流部分执行 ({workflow_result.get('completed_percentage', 0)}%)，切换到LLM继续...")
+                        
+                        # 获取当前浏览器状态
+                        current_state = await self.browser_context.get_state()
+                        
+                        # 格式化工作流状态信息
+                        workflow_status = self.format_workflow_status_for_LLM(workflow_result, current_state)
+                        
+                        # 从文件加载系统提示
+                        system_prompt_path = Path("universal_system_prompt.md")
+                        try:
+                            with open(system_prompt_path, "r", encoding="utf-8") as f:
+                                system_message = f.read()
+                        except Exception as e:
+                            logger.error(f"读取system_prompt出错: {str(e)}")
+                            return f"读取system_prompt出错: {str(e)}"
+                        
+                        # 只有在使用了工作流执行且有工作流结果的情况下，才添加工作流状态信息
+                        if matched_workflow and action_to_execute and workflow_result:
+                            print(f"🔄 工作流部分执行 ({workflow_result.get('completed_percentage', 0)}%)，切换到LLM继续...")
+                            
+                            # 获取当前浏览器状态
+                            current_state = await self.browser_context.get_state()
+                            
+                            # 格式化工作流状态信息
+                            workflow_status = self.format_workflow_status_for_LLM(workflow_result, current_state)
+                            
+                            # 将工作流状态添加到系统提示
+                            system_message += "\n\n# 重要：已执行的工作流状态\n"
+                            system_message += workflow_status
+                            system_message += "\n\n# 重要指导\n"
+                            system_message += "以上是一个预定义工作流的执行状态。工作流已经部分执行，但尚未完成用户的请求。\n"
+                            system_message += "请分析当前状态，了解已完成和未完成的部分，继续生成后续操作以完成用户请求。\n"
+                            system_message += "不要重新开始整个任务，而是继续从当前状态前进。\n"
+                            system_message += "请确保你的响应包含合适的JSON格式操作，遵循所需格式。\n"
 
-{state_message}
+                        # 添加用户请求
+                        system_message += f"\n\n用户请求: {user_request}"
+                        
+                        # 启动与LLM的对话，传递工作流状态
+                        response = self.query_LLM(system_message, is_new_chat=True)
+                        
+                        if "error" in response:
+                            return f"开始对话时出错: {response['error']}"
+                        
+                        # 提取LLM的响应
+                        try:
+                            LLM_message = response['messages'][-1]['content']["response"][-1]
+                            LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
+                            print(LLM_message)
+                            action_data = self.extract_action(LLM_action)
+                        except Exception as e:
+                            logger.error(f"解析LLM响应失败: {str(e)}")
+                            return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
+                        
+                        if not action_data:
+                            return "无法解析助手的初始响应。"
+                        
+                        # 执行LLM动作并继续对话直到完成
+                        is_done = False
+                        step_count = 0
+                        final_result = None
+                        
+                        while not is_done and step_count < 100:  # 增加步骤限制以允许更多交互
+                            step_count += 1
+                            logger.info(f"执行步骤 {step_count}")
+                            
+                            # 执行动作
+                            result = await self.execute_action(action_data)
+                            is_done = result.get("is_done", False)
+                            final_result = result
+                            
+                            # 如果完成，跳出循环
+                            if is_done:
+                                logger.info(f"任务完成，结果: {result}")
+                                break
+                            
+                            # 为LLM格式化结果状态
+                            state_message = self.format_state_for_LLM(result)
+                            
+                            # 判断是否刚刚完成了用户交互
+                            user_interaction_completed = "user_action_type" in result
+                            
+                            # 从LLM生成下一个动作
+                            if user_interaction_completed:
+                                next_prompt = f"""用户已完成交互操作，当前状态如下:
 
-请分析当前状态，确定下一步操作。基于用户刚刚的交互，现在应该执行什么操作来继续完成用户的请求: "{user_request}"？
+    {state_message}
 
-请注意操作的正确顺序：
-1. 搜索信息时，先点击搜索框，然后输入文本，最后点击搜索按钮
-2. 使用具体的元素索引号，而不是使用-1这样的通用索引
-3. 每个操作后添加适当的等待时间
-4. 使用有效的JSON对象，遵循要求的格式，并选择合适的处理方式
-"""
-                else:
-                    next_prompt = f"""以下是您上次动作的结果:
+    请分析当前状态，确定下一步操作。基于用户刚刚的交互，现在应该执行什么操作来继续完成用户的请求: "{user_request}"？
 
-{state_message}
+    请注意操作的正确顺序：
+    1. 搜索信息时，先点击搜索框，然后输入文本，最后点击搜索按钮
+    2. 使用具体的元素索引号，而不是使用-1这样的通用索引
+    3. 每个操作后添加适当的等待时间
+    4. 使用有效的JSON对象，遵循要求的格式，并选择合适的处理方式
+    """
+                            else:
+                                next_prompt = f"""以下是您上次动作的结果:
 
-基于此结果，下一步应该执行什么动作来完成用户的请求: "{user_request}"？
+    {state_message}
 
-请记住：
-1. 使用合理的操作顺序：对于搜索功能，应先点击搜索框，然后输入文本，最后点击搜索按钮
-2. 使用highlight_elements后，可以看到每个元素都有索引编号，请使用这些具体的索引编号
-3. 如果遇到需要登录、选择或输入敏感信息的情况，使用request_user_action操作让用户手动操作
-4. 确保每个操作后都等待适当时间以确保页面响应
-5. 使用有效的JSON对象，遵循要求的格式
+    基于此结果，下一步应该执行什么动作来完成用户的请求: "{user_request}"？
 
-执行搜索时，如果页面包含一个搜索框和一个搜索按钮，请先对搜索框执行click_element，然后对同一索引执行input_text，最后对搜索按钮执行click_element。"""
-                
-                response = self.query_LLM(next_prompt, is_new_chat=False)
-                
-                if "error" in response:
-                    return f"对话过程中出错: {response['error']}"
-                
-                # 提取LLM的下一个响应
-                try:
-                    LLM_message = response['messages'][-1]['content']["response"][-1]
-                    LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-                    print(LLM_message)
-                    action_data = self.extract_action(LLM_action)
-                except Exception as e:
-                    logger.error(f"步骤{step_count}解析LLM响应失败: {str(e)}")
-                    return f"无法继续执行任务，AI助手的回复无法解析。请重试或使用不同的表述。"
-                
-                if not action_data:
-                    return f"无法在步骤{step_count}解析助手响应。"
-            
-            # 给用户的最终响应
-            if is_done:
-                summary = final_result.get("message", "任务完成")
-                success = final_result.get("task_success", False)
-                status = "成功" if success else "未完全完成"
-                
-                return f"您的请求已{status}处理。{summary}"
-            else:
-                return "由于步骤过多，无法完成您的请求。请尝试更具体的指令或联系客服人员。"
-        
-        except Exception as e:
-            logger.error(f"处理请求时出错: {str(e)}")
-            return f"处理请求时出错: {str(e)}"
-        finally:
-            # 除非明确要求，否则不清理资源
-            # 这样可以让浏览器保持打开状态以便查看
-            pass
+    请记住：
+    1. 使用合理的操作顺序：对于搜索功能，应先点击搜索框，然后输入文本，最后点击搜索按钮
+    2. 使用highlight_elements后，可以看到每个元素都有索引编号，请使用这些具体的索引编号
+    3. 如果遇到需要登录、选择或输入敏感信息的情况，使用request_user_action操作让用户手动操作
+    4. 确保每个操作后都等待适当时间以确保页面响应
+    5. 使用有效的JSON对象，遵循要求的格式
+
+    执行搜索时，如果页面包含一个搜索框和一个搜索按钮，请先对搜索框执行click_element，然后对同一索引执行input_text，最后对搜索按钮执行click_element。"""
+                            
+                            response = self.query_LLM(next_prompt, is_new_chat=False)
+                            
+                            if "error" in response:
+                                return f"对话过程中出错: {response['error']}"
+                            
+                            # 提取LLM的下一个响应
+                            try:
+                                LLM_message = response['messages'][-1]['content']["response"][-1]
+                                LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
+                                print(LLM_message)
+                                action_data = self.extract_action(LLM_action)
+                            except Exception as e:
+                                logger.error(f"步骤{step_count}解析LLM响应失败: {str(e)}")
+                                return f"无法继续执行任务，AI助手的回复无法解析。请重试或使用不同的表述。"
+                            
+                            if not action_data:
+                                return f"无法在步骤{step_count}解析助手响应。"
+                        
+                        # 给用户的最终响应
+                        if is_done:
+                            summary = final_result.get("message", "任务完成")
+                            success = final_result.get("task_success", False)
+                            status = "成功" if success else "未完全完成"
+                            response = self.query_LLM("stop", is_new_chat=False)
+                            history_action=response['messages'][1:-1]
+                            try:
+                                with open(Path("generate_workflow_prompt.md"), "r", encoding="utf-8") as f:
+                                    generate_workflow_prompt = f.read()
+                            except Exception as e:
+                                logger.error(f"读取generate_workflow_prompt出错: {str(e)}")
+                                return f"读取generate_workflow_prompt出错: {str(e)}"
+                            generate_workflow_prompt += f"""{history_action}
+                            </探索历史>
+请生成一个简洁、有效的工作流程，去除所有失败的尝试和冗余步骤，确保每个步骤都具有明确的目的和正确的参数设置。
+工作流应具有适当的元数据（如ID、名称、关键词），并且步骤顺序应保持逻辑连贯性。"""
+                            logger.info(f"生成探索历史的工作流")
+                            response = self.query_LLM(generate_workflow_prompt, is_new_chat=True)
+                            LLM_message = response['messages'][-1]['content']["response"][-1]
+                            LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
+                            print(LLM_message)
+                            action_data = self.extract_action(LLM_action)
+                            file_path=self.save_action_data_to_file(action_data)
+                            if file_path:
+                                logger.info(f"保存工作流到文件: {file_path}")
+                            else:
+                                logger.error("保存工作流到文件失败")                        
+                            return f"您的请求已{status}处理。{summary}"
+                        else:
+                            return "由于步骤过多，无法完成您的请求。请尝试更具体的指令或联系客服人员。"
 
 async def main():
     LLM = {"provider": "claude"}

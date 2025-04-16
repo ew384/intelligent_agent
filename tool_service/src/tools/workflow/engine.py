@@ -3,7 +3,7 @@ import json
 import re
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
-
+from datetime import datetime
 logger = logging.getLogger(__name__)
 
 class WorkflowEngine:
@@ -150,7 +150,7 @@ class WorkflowEngine:
                     logger.error(f"解析参数引用失败: {match}, 错误: {str(e)}")
                     
         return parameter_value
-    
+
     async def execute_workflow(self, workflow_id: str, action_id: str) -> Dict[str, Any]:
         """
         执行指定工作流中的指定操作
@@ -160,25 +160,52 @@ class WorkflowEngine:
             action_id: 操作ID
             
         返回:
-            操作结果
+            操作结果，包含工作流执行状态和进度信息
         """
         if not self.browser_context or not self.base_handler:
             return {"status": "error", "message": "尚未设置浏览器上下文，无法执行工作流"}
             
         logger.info(f"执行工作流: {workflow_id}, 操作: {action_id}")
         
+        # 获取工作流和操作信息
+        workflow = self.get_workflow_by_id(workflow_id)
+        if not workflow:
+            return {"status": "error", "message": f"未找到工作流: {workflow_id}", "is_done": True, "task_success": False}
+            
         # 获取操作步骤
         steps = self.get_action_steps(workflow_id, action_id)
         if not steps:
-            return {"status": "error", "message": f"未找到工作流操作: {workflow_id}.{action_id}"}
+            return {"status": "error", "message": f"未找到工作流操作: {workflow_id}.{action_id}", "is_done": True, "task_success": False}
         
         # 初始化步骤结果存储
         step_results = {}
         last_result = None
         
+        # 记录已执行的步骤和剩余任务
+        executed_steps = []
+        remaining_tasks = []
+        
+        # 记录开始时间用于计算总执行时间
+        start_time = datetime.now()
+        
+        # 总步骤数
+        total_steps = len(steps)
+        steps_completed = 0
+        
+        # 构建剩余任务列表
+        for i, step in enumerate(steps):
+            step_id = step.get("id", f"step_{i+1}")
+            action_name = step.get("action", "unknown")
+            description = step.get("description", f"{action_name} 操作")
+            remaining_tasks.append({
+                "step_id": step_id,
+                "action": action_name,
+                "description": description
+            })
+        
         # 执行每个步骤
-        for step in steps:
-            step_id = step.get("id", f"step_{len(step_results) + 1}")
+        for i, step in enumerate(steps):
+            step_id = step.get("id", f"step_{i+1}")
             action_name = step.get("action")
             parameters = step.get("parameters", {})
             description = step.get("description", "")
@@ -191,11 +218,29 @@ class WorkflowEngine:
                 resolved_value = self.resolve_step_parameter(param_value, step_results)
                 resolved_parameters[param_name] = resolved_value
             
+            # 从剩余任务列表中移除当前步骤
+            if remaining_tasks:
+                current_task = remaining_tasks.pop(0)
+            
             # 检查是否是"done"操作
             if action_name == "done":
                 success = resolved_parameters.get("success", False)
                 text = resolved_parameters.get("text", "任务完成")
                 
+                # 添加到已执行步骤
+                executed_step = {
+                    "step_id": step_id,
+                    "action": action_name,
+                    "description": description,
+                    "status": "success",
+                    "details": text
+                }
+                executed_steps.append(executed_step)
+                
+                # 更新步骤完成数
+                steps_completed += 1
+                
+                # 准备结果
                 result = {
                     "status": "success" if success else "partial",
                     "message": text,
@@ -217,6 +262,19 @@ class WorkflowEngine:
                 step_results[step_id] = result
                 last_result = result
                 
+                # 更新步骤完成数
+                steps_completed += 1
+                
+                # 添加到已执行步骤
+                executed_step = {
+                    "step_id": step_id,
+                    "action": action_name,
+                    "description": description,
+                    "status": result.get("status", "unknown"),
+                    "details": result.get("message", "无详细信息")
+                }
+                executed_steps.append(executed_step)
+                
                 # 检查步骤是否成功，如果失败可以处理错误
                 if result.get("status") != "success":
                     logger.warning(f"步骤 {step_id} 执行失败: {result.get('message', '')}")
@@ -234,7 +292,15 @@ class WorkflowEngine:
                             if result.get("status") == "success":
                                 step_results[step_id] = result
                                 last_result = result
+                                # 更新已执行步骤状态
+                                executed_step["status"] = "success"
+                                executed_step["details"] = result.get("message", "重试成功")
                                 break
+                    
+                    # 如果步骤失败且没有成功重试，则停止执行后续步骤
+                    if result.get("status") != "success":
+                        logger.info(f"步骤 {step_id} 失败，中止后续步骤执行")
+                        break
             except Exception as e:
                 logger.error(f"执行步骤 {step_id} 出错: {str(e)}")
                 result = {
@@ -243,6 +309,44 @@ class WorkflowEngine:
                 }
                 step_results[step_id] = result
                 last_result = result
+                
+                # 添加错误信息到已执行步骤
+                executed_step = {
+                    "step_id": step_id,
+                    "action": action_name,
+                    "description": description,
+                    "status": "error",
+                    "details": f"执行错误: {str(e)}"
+                }
+                executed_steps.append(executed_step)
+                
+                # 出现异常，停止执行后续步骤
+                break
         
-        # 返回最后一个步骤的结果
-        return last_result or {"status": "error", "message": "未执行任何步骤"}
+        # 计算总执行时间
+        end_time = datetime.now()
+        duration_ms = int((end_time - start_time).total_seconds() * 1000)
+        
+        # 计算完成百分比
+        completed_percentage = int((steps_completed / total_steps) * 100) if total_steps > 0 else 0
+        
+        # 判断任务是否全部完成
+        all_steps_done = steps_completed == total_steps
+        
+        # 获取最终结果，或使用默认值
+        final_result = last_result or {"status": "error", "message": "未执行任何步骤"}
+        
+        # 增加工作流执行状态信息
+        final_result.update({
+            "workflow_id": workflow_id,
+            "workflow_name": workflow.get("name", ""),
+            "action_id": action_id,
+            "executed_steps": executed_steps,
+            "remaining_tasks": remaining_tasks,
+            "completed_percentage": completed_percentage,
+            "duration_ms": duration_ms,
+            "is_done": all_steps_done and final_result.get("status") == "success",
+            "task_success": all_steps_done and final_result.get("status") == "success"
+        })
+        
+        return final_result

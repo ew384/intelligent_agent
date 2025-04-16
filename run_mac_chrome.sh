@@ -88,10 +88,9 @@ launch_chrome() {
   fi
   
   echo "启动$instance_name Chrome实例，端口: $port"
-  echo "命令: \"$CHROME_PATH\" --remote-debugging-port=$port --user-data-dir=$user_data_dir --no-first-run --no-default-browser-check"
   
-  # 启动Chrome
-  "$CHROME_PATH" --remote-debugging-port=$port --user-data-dir=$user_data_dir --no-first-run --no-default-browser-check &
+  # 启动Chrome并将所有输出重定向到/dev/null
+  "$CHROME_PATH" --remote-debugging-port=$port --user-data-dir=$user_data_dir --no-first-run --no-default-browser-check > /dev/null 2>&1 &
   
   local pid=$!
   echo "$instance_name Chrome实例已启动，PID: $pid"
