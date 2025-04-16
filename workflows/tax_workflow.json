@@ -2,8 +2,12 @@
   "id": "tax_workflow",
   "name": "个人所得税纳税记录查询",
   "description": "导航到税务局网站并查询个人纳税记录",
+  "keywords": [
+    "纳税",
+    "税务"
+  ],
   "version": "1.0",
-  "actions": [
+  "action": [
     {
       "id": "navigate_to_main",
       "name": "导航到电子税务局主页",
@@ -19,6 +23,17 @@
         },
         {
           "id": "step_2",
+          "action": "request_user_action",
+          "parameters": {
+            "type": "login",
+            "message": "请用户登录",
+            "description": "当前页面需要用户登录个人账户",
+            "options": []
+          },
+          "description": "请求用户登录个人账户"
+        },
+        {
+          "id": "step_3",
           "action": "find_and_click",
           "parameters": {
             "text": "特色应用"
@@ -26,7 +41,7 @@
           "description": "查找并点击'特色应用'按钮"
         },
         {
-          "id": "step_3",
+          "id": "step_4",
           "action": "create_mask_interceptor",
           "parameters": {
             "target_url": "https://its.shenzhen.chinatax.gov.cn:4433/gkpt/#/taxChecklist"
@@ -34,7 +49,7 @@
           "description": "查询纳税清单"
         },
         {
-          "id": "step_4",
+          "id": "step_5",
           "action": "highlight_elements",
           "parameters": {
             "viewport_expansion": 500
@@ -42,7 +57,7 @@
           "description": "高亮页面元素"
         },
         {
-          "id": "step_5",
+          "id": "step_6",
           "action": "done",
           "parameters": {
             "success": true,

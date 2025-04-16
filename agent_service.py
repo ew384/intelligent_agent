@@ -191,13 +191,14 @@ class UniversalAgent:
             # 查找响应中的JSON
             print(LLM_response)
             start_index = LLM_response.find("{")
-            end_index = LLM_response.find("}")
+            end_index = LLM_response.rfind("}")
             
             if start_index == -1 or end_index == -1:
                 logger.warning("LLM的响应中未找到JSON")
                 return None
             
             json_str = LLM_response[start_index:end_index+1]
+            print(json_str)
             action_data = json.loads(json_str)
             
             # 验证必需字段
@@ -225,22 +226,7 @@ class UniversalAgent:
         """
         if not action_data or "action" not in action_data:
             return {"status": "error", "message": "无效的动作数据"}
-        
-        # 尝试从LLM响应中识别工作流
-        workflow_info = action_data.get("workflow")
-        
-        # 如果LLM指定了工作流，则执行工作流
-        if workflow_info and "id" in workflow_info and "action" in workflow_info:
-            workflow_id = workflow_info["id"]
-            action_id = workflow_info["action"]
-            
-            if workflow_id in self.workflow_engine.workflows:
-                logger.info(f"执行预定义工作流: {workflow_id}.{action_id}")
-                return await self.workflow_engine.execute_workflow(workflow_id, action_id)
-            else:
-                logger.warning(f"未找到指定的工作流: {workflow_id}")
-        
-        # 没有指定工作流或工作流无效，执行常规操作
+
         actions = action_data["action"]
         
         if not actions:
@@ -345,113 +331,78 @@ class UniversalAgent:
         
         return final_result
     
-    def create_workflow_match_prompt(self, user_request: str) -> str:
-        """
-        创建用于匹配工作流的提示
-        
-        参数:
-            user_request: 用户请求
-            
-        返回:
-            提示文本
-        """
-        # 获取所有工作流信息
-        all_workflows = self.workflow_engine.get_all_workflows_info()
-        
-        prompt = f"""# 工作流匹配任务
-
-你是一个专业的AI助手，负责分析用户的请求，并确定它是否匹配任何预定义的工作流。
-
-## 用户请求
-"{user_request}"
-
-## 可用工作流
-"""
-        for i, workflow in enumerate(all_workflows, 1):
-            prompt += f"""
-### 工作流 {i}: {workflow['name']}
-- ID: `{workflow['id']}`
-- 描述: {workflow['description']}
-"""
-        prompt += """
-## 任务
-仔细分析用户请求的具体意图和目标，并确定它是否匹配上述任何工作流：
-
-1. 考虑用户请求的语义内容和目标，而不仅仅是关键词匹配
-2. 分析每个工作流的功能和目的，评估它是否能满足用户的需求
-3. 考虑工作流的专业性和适用场景
-
-## 输出要求
-请以JSON格式返回你的分析结果：
-
-```json
-{
-  "matched": true/false,  // 是否匹配到工作流
-  "workflow_id": "matched_workflow_id",  // 如果匹配，提供工作流ID
-  "action_id": "default_action_id",  // 建议的默认操作ID
-  "confidence": 0.95,  // 匹配的置信度，0-1之间
-  "reasoning": "详细解释为什么这个工作流匹配（或不匹配）用户请求"
-}
-```
-
-只返回JSON格式的结果，不要添加其他说明。确保JSON格式正确且包含所有必需字段。"""
-        
-        return prompt
-    
     def analyze_workflow_match(self, user_request: str) -> Dict[str, Any]:
         """
-        分析用户请求是否匹配现有工作流
+        分析用户请求是否匹配工作流程关键词
         
-        参数:
-            user_request: 用户请求
+        Args:
+            user_request: 用户的请求文本
             
-        返回:
-            匹配分析结果
+        Returns:
+            Dict 包含匹配结果，如果匹配则返回workflow_id、workflow_info、workflow_name、workflow_description和置信度，否则返回空dict
         """
-        # 创建匹配提示
-        match_prompt = self.create_workflow_match_prompt(user_request)
+        result = {}
         
-        # 调用LLM进行分析
-        response = self.query_LLM(match_prompt, is_new_chat=True)
+        # 确保用户请求不为空
+        if not user_request or not isinstance(user_request, str):
+            logger.warning("用户请求为空或格式不正确")
+            return result
         
-        # 处理错误
-        if "error" in response:
-            logger.error(f"分析工作流匹配时出错: {response['error']}")
-            return {"matched": False, "reasoning": f"分析失败: {response['error']}"}
-
-        # 提取LLM响应
-        try:
-            print(response['messages'])#[-1]['content'])
-            LLM_message = response['messages'][-1]['content']["response"][-1]
-            LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-            print(LLM_action)
-            # 尝试解析JSON响应
-            json_start = LLM_action.find('{')
-            json_end = LLM_action.find('}') + 1
+        # 标准化用户请求文本（转为小写，去除多余空格等）
+        normalized_request = user_request.lower().strip()
+        
+        # 获取所有工作流信息
+        all_workflows = self.workflow_engine.get_all_workflows_info()
+        best_match = None
+        highest_confidence = 0
+        
+        # 遍历所有工作流程
+        for workflow_info in all_workflows:
+            workflow_id = workflow_info["id"]
+            workflow_name = workflow_info["name"]
+            workflow_description = workflow_info["description"]
             
-            if json_start >= 0 and json_end > json_start:
-                match_result = json.loads(LLM_action[json_start:json_end])
+            # 获取完整的工作流定义以访问keywords
+            workflow = self.workflow_engine.get_workflow_by_id(workflow_id)
+            
+            # 检查工作流是否有keywords字段
+            if not workflow or "keywords" not in workflow:
+                continue
                 
-                # 验证匹配结果
-                if match_result.get("matched", False):
-                    workflow_id = match_result.get("workflow_id")
-                    # 验证工作流ID存在
-                    if workflow_id in self.workflow_engine.workflows:
-                        logger.info(f"找到匹配的工作流: {workflow_id}, 置信度: {match_result.get('confidence', 0)}")
-                        return match_result
-                    else:
-                        logger.warning(f"LLM匹配的工作流ID不存在: {workflow_id}")
-                        return {"matched": False, "reasoning": f"匹配的工作流ID '{workflow_id}' 不存在"}
-                else:
-                    logger.info("未找到匹配的工作流")
-                    return match_result
-            else:
-                logger.warning(f"无法从LLM响应中解析JSON: {LLM_action}")
-                return {"matched": False, "reasoning": "无法从LLM响应中解析JSON"}
-        except Exception as e:
-            logger.error(f"解析工作流匹配结果时出错: {str(e)}")
-            return {"matched": False, "reasoning": f"解析匹配结果时出错: {str(e)}"}
+            # 匹配关键词
+            keywords = workflow.get("keywords", [])
+            matched_keywords = []
+            
+            for keyword in keywords:
+                if keyword.lower() in normalized_request:
+                    matched_keywords.append(keyword)
+            
+            # 如果找到匹配的关键词
+            if matched_keywords:
+                confidence = len(matched_keywords) / len(keywords) if keywords else 0
+                
+                # 如果是更好的匹配，则更新结果
+                if confidence > highest_confidence:
+                    highest_confidence = confidence
+                    best_match = {
+                        "workflow_id": workflow_id,
+                        "workflow_info": workflow_info,
+                        "workflow_name": workflow_name,
+                        "workflow_description": workflow_description,
+                        "confidence": confidence,
+                        "matched_keywords": matched_keywords
+                    }
         
+        # 如果找到匹配，记录日志并返回最佳匹配
+        if best_match:
+            workflow_id = best_match["workflow_id"]
+            workflow_name = best_match["workflow_name"]
+            confidence = best_match["confidence"]
+            matched_keywords = best_match["matched_keywords"]
+            logger.info(f"找到匹配的工作流: {workflow_id} ({workflow_name})")#, 置信度: {confidence:.2f}, 匹配关键词: {', '.join(matched_keywords)}")
+            return best_match
+        
+        return result
     async def process_user_request(self, user_request: str) -> str:
         """
         从始至终处理用户请求，自动检测是否可以使用预定义工作流
@@ -472,17 +423,17 @@ class UniversalAgent:
                 print(f"🔍 分析请求是否匹配预定义工作流...")
                 match_result = self.analyze_workflow_match(user_request)
                 
-                if match_result.get("matched", False) and "workflow_id" in match_result:
+                if "workflow_id" in match_result:
                     workflow_id = match_result["workflow_id"]
                     matched_workflow = self.workflow_engine.workflows.get(workflow_id)
                     
                     if matched_workflow:
                         confidence = match_result.get("confidence", 0)
-                        reasoning = match_result.get("reasoning", "")
+
                         
                         logger.info(f"找到匹配的工作流: {matched_workflow['name']} (ID: {workflow_id}), 置信度: {confidence}")
                         print(f"💡 检测到请求匹配预定义工作流: {matched_workflow['name']}")
-                        print(f"🧠 匹配原因: {reasoning}")
+
                         
                         # 获取指定的操作或默认操作（通常是第一个操作）
                         action_id = match_result.get("action_id")
@@ -550,7 +501,7 @@ class UniversalAgent:
             step_count = 0
             final_result = None
             
-            while not is_done and step_count < 20:  # 增加步骤限制以允许更多交互
+            while not is_done and step_count < 100:  # 增加步骤限制以允许更多交互
                 step_count += 1
                 logger.info(f"执行步骤 {step_count}")
                 

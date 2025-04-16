@@ -2,8 +2,12 @@
   "id": "social_security_workflow",
   "name": "社保清单查询和打印",
   "description": "导航到广东政务服务网并查询社保清单",
+  "keywords": [
+    "社保",
+    "社会保险"
+  ],
   "version": "1.1",
-  "actions": [
+  "action": [
     {
       "id": "navigate_and_select_person",
       "name": "导航并查询社保清单",
@@ -19,6 +23,17 @@
         },
         {
           "id": "step_2",
+          "action": "request_user_action",
+          "parameters": {
+            "type": "login",
+            "message": "请用户登录",
+            "description": "当前页面需要用户登录个人账户",
+            "options": []
+          },
+          "description": "请求用户登录个人账户"
+        },
+        {
+          "id": "step_3",
           "action": "search_and_navigate",
           "parameters": {
             "base_url": "https://www.gdzwfw.gov.cn/portal/index?region=440300",
@@ -30,7 +45,7 @@
           "description": "搜索社保清单并导航到相关页面"
         },
         {
-          "id": "step_3",
+          "id": "step_4",
           "action": "find_and_click",
           "parameters": {
             "text": "个人权益记录（参保证明）查询打印(个人参保证明查询打印)",
@@ -39,7 +54,7 @@
           "description": "点击个人权益记录查询打印链接"
         },
         {
-          "id": "step_4",
+          "id": "step_5",
           "action": "find_and_click",
           "parameters": {
             "text": "在线办理"
@@ -47,7 +62,7 @@
           "description": "点击在线办理按钮"
         },
         {
-          "id": "step_5",
+          "id": "step_6",
           "action": "highlight_elements",
           "parameters": {
             "viewport_expansion": 500
@@ -55,7 +70,7 @@
           "description": "高亮页面元素方便用户查看"
         },
         {
-          "id": "step_6",
+          "id": "step_7",
           "action": "find_and_click",
           "parameters": {
             "text": "选择"
@@ -63,7 +78,7 @@
           "description": "点击选择按钮"
         },
         {
-          "id": "step_7",
+          "id": "step_8",
           "action": "find_and_click",
           "parameters": {
             "text": "下载"
@@ -71,7 +86,7 @@
           "description": "点击下载按钮"
         },
         {
-          "id": "step_8",
+          "id": "step_9",
           "action": "done",
           "parameters": {
             "success": true,

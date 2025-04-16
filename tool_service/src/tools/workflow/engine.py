@@ -54,7 +54,7 @@ class WorkflowEngine:
     
     def _validate_workflow(self, workflow):
         """验证工作流JSON格式是否有效"""
-        required_fields = ["id", "name", "description", "actions"]
+        required_fields = ["id", "name", "description", "action"]
         
         if not all(field in workflow for field in required_fields):
             logger.error(f"工作流格式无效，缺少必要字段: {workflow.get('id', 'unknown')}")
@@ -73,7 +73,7 @@ class WorkflowEngine:
         if not workflow:
             return None
             
-        for action in workflow.get("actions", []):
+        for action in workflow.get("action", []):
             if action.get("id") == action_id:
                 return action.get("steps", [])
                 
@@ -89,13 +89,13 @@ class WorkflowEngine:
             "id": workflow["id"],
             "name": workflow.get("name", ""),
             "description": workflow.get("description", ""),
-            "actions": [
+            "action": [
                 {
                     "id": action.get("id", ""),
                     "name": action.get("name", ""),
                     "description": action.get("description", "")
                 }
-                for action in workflow.get("actions", [])
+                for action in workflow.get("action", [])
             ]
         }
     

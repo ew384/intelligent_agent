@@ -54,6 +54,7 @@ class BaseHandler:
             "get_or_create_tab": self.get_or_create_tab_with_url,
             "find_and_click": self.find_and_click_element_by_text,
             "create_mask_interceptor": self.create_mask_interceptor,
+            "search_and_navigate":self.search_and_navigate,
 
             # 用户交互操作
             "request_user_action":self.request_user_action,
@@ -987,7 +988,7 @@ class BaseHandler:
         
         # 获取当前页面状态以便返回
         current_state = await self.browser_context.get_state()
-        
+        input("请确认登录系统，登录完成Enter继续...")
         return {
             "status": "success",
             "message": f"已请求用户进行{action_type}操作",

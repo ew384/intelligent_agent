@@ -32,7 +32,8 @@ browser_session = None
 api_keys = {
     "wangendian": "user_1",
     "chenhao": "user_2",
-    "test1": "user_3",
+    "agent1": "agent_1",
+    "agent2": "agent_2",
 }
 
 # 用户标签页映射: {api_key: {provider: {"handle": window_handle, "tab_id": tab_id, "handler": handler_instance}}}
