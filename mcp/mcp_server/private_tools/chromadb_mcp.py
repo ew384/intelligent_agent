@@ -61,8 +61,10 @@ def create_parser():
                         help='Port to run the MCP server on')
 
     return parser
-def main():
-    global  chroma_db
+    
+def get_chroma_client():
+    """Get or create the global Chroma client instance."""
+    global chroma_db
     parser = create_parser()
     args = parser.parse_args()
     chroma_db = ChromaDBWrapper(
@@ -85,7 +87,7 @@ def main():
     # ollama_host='http://localhost:11434')
     return chroma_db
 
-
+            
 # Initialize FastMCP
 mcp = FastMCP("ChromaDB MCP Tools")
 
@@ -103,7 +105,7 @@ def add_documents(documents: List[str], metadatas: Optional[List[Dict[str, Any]]
     Returns:
         添加的文档ID列表
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     return chroma_db.add_documents(documents=documents, metadatas=metadatas, ids=ids)
 
 @mcp.tool()
@@ -123,7 +125,7 @@ def search_documents(query: str = None, n_results: int = 5,
     Returns:
         搜索结果
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     # 解析JSON字符串参数
     where_dict = json.loads(where) if where else None
     where_document_dict = json.loads(where_document) if where_document else None
@@ -147,7 +149,7 @@ def get_documents_by_ids(ids: List[str], include: Optional[List[str]] = None) ->
     Returns:
         获取的文档信息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     return chroma_db.get_by_ids(ids=ids, include=include)
 
 @mcp.tool()
@@ -166,7 +168,7 @@ def get_all_documents(limit: Optional[int] = None,
     Returns:
         所有文档信息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     # 解析JSON字符串参数
     where_dict = json.loads(where) if where else None
     where_document_dict = json.loads(where_document) if where_document else None
@@ -192,7 +194,7 @@ def update_documents(ids: List[str],
     Returns:
         更新结果消息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     chroma_db.update_documents(ids=ids, documents=documents, metadatas=metadatas)
     return f"成功更新 {len(ids)} 条文档"
 
@@ -210,7 +212,7 @@ def upsert_documents(documents: List[str],
     Returns:
         操作结果消息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     chroma_db.upsert_documents(documents=documents, ids=ids, metadatas=metadatas)
     return f"成功更新或插入 {len(ids)} 条文档"
 
@@ -224,7 +226,7 @@ def delete_documents_by_ids(ids: List[str]) -> str:
     Returns:
         删除结果消息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     chroma_db.delete_by_ids(ids=ids)
     return f"成功删除 {len(ids)} 条文档"
 
@@ -240,7 +242,7 @@ def delete_documents_by_filter(where: Optional[str] = None,
     Returns:
         删除结果消息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     # 解析JSON字符串参数
     where_dict = json.loads(where) if where else None
     where_document_dict = json.loads(where_document) if where_document else None
@@ -255,7 +257,7 @@ def get_document_count() -> int:
     Returns:
         文档数量
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     return chroma_db.count()
 
 @mcp.tool()
@@ -265,7 +267,7 @@ def get_collection_info() -> Dict[str, Any]:
     Returns:
         集合信息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     return chroma_db.get_collection_info()
 
 @mcp.tool()
@@ -275,7 +277,7 @@ def list_all_collections() -> List[str]:
     Returns:
         集合名称列表
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     return chroma_db.list_collections()
 
 @mcp.tool()
@@ -288,7 +290,7 @@ def modify_collection_name(new_name: str) -> str:
     Returns:
         操作结果消息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     old_name = chroma_db.collection.name
     chroma_db.modify_collection_name(new_name=new_name)
     return f"成功将集合从 '{old_name}' 重命名为 '{new_name}'"
@@ -300,16 +302,30 @@ def delete_current_collection() -> str:
     Returns:
         操作结果消息
     """
-    chroma_db = main()
+    chroma_db = get_chroma_client()
     collection_name = chroma_db.collection.name
     chroma_db.delete_collection()
-#     return f"成功删除集合: {collection_name}"
+    return f"成功删除集合: {collection_name}"
+
+def main():
+    """Entry point for the Chroma MCP server."""
+    # parser = create_parser()
+    # args = parser.parse_args()
+       # Initialize client with parsed args
+    try:
+        get_chroma_client()
+        print("Successfully initialized Chroma client")
+    except Exception as e:
+        print(f"Failed to initialize Chroma client: {str(e)}")
+        raise
+    
+    # Initialize and run the server
+    print("Starting MCP server")
+    mcp.run(transport='stdio')
 
 if __name__ == "__main__":
     # Start the FastMCP server
-    # parser = create_parser()
-    # args = parser.parse_args()
-    chroma_db = main()
+    main()
     # print(f"Starting ChromaDB MCP Server on port {args.mcp_port} ...")
-    mcp.run()
+    # mcp.run()
     # uvicorn.run(mcp, host="0.0.0.0", port=args.mcp_port)

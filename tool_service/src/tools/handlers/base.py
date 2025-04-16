@@ -317,6 +317,7 @@ class BaseHandler:
             tabs_before = await self.browser_context.get_tabs_info()
             
             # 创建新标签页
+            print("#"*100+"\n"+url)
             await self.browser_context.create_new_tab(url)
             
             # 等待页面加载
