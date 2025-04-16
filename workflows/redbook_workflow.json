@@ -1,0 +1,140 @@
+{
+    "id": "xiaohongshu_search_workflow",
+    "name": "小红书搜索和浏览",
+    "description": "在小红书网站上搜索中信银行信用卡并点击第一个结果",
+    "keywords": [
+        "小红书",
+        "搜索",
+        "中信银行",
+        "信用卡"
+    ],
+    "version": "1.0",
+    "action": [
+        {
+            "id": "xiaohongshu_search_action",
+            "name": "小红书搜索操作",
+            "description": "打开小红书网站，提醒用户登录，搜索中信银行信用卡并点击第一个结果",
+            "steps": [
+                {
+                    "id": "step_1",
+                    "action": "create_tab",
+                    "parameters": {
+                        "url": "https://www.xiaohongshu.com"
+                    },
+                    "description": "创建新标签页并打开小红书网站"
+                },
+                {
+                    "id": "step_2",
+                    "action": "highlight_elements",
+                    "parameters": {
+                        "viewport_expansion": 1000
+                    },
+                    "description": "高亮页面上的交互元素以便识别登录按钮"
+                },
+                {
+                    "id": "step_3",
+                    "action": "extract_content",
+                    "parameters": {
+                        "goal": "识别页面上的登录按钮和搜索框位置"
+                    },
+                    "description": "提取页面内容以识别登录按钮"
+                },
+                {
+                    "id": "step_4",
+                    "action": "find_and_click",
+                    "parameters": {
+                        "text": "登录",
+                        "partial_match": true
+                    },
+                    "description": "找到并点击登录按钮"
+                },
+                {
+                    "id": "step_5",
+                    "action": "request_user_action",
+                    "parameters": {
+                        "type": "login",
+                        "message": "请登录您的小红书账号",
+                        "description": "需要您手动完成小红书账号的登录，以便继续执行搜索'中信银行信用卡'的操作。"
+                    },
+                    "description": "请求用户手动登录小红书账号"
+                },
+                {
+                    "id": "step_6",
+                    "action": "highlight_elements",
+                    "parameters": {
+                        "viewport_expansion": 1000
+                    },
+                    "description": "登录后重新高亮页面元素以便找到搜索框"
+                },
+                {
+                    "id": "step_7",
+                    "action": "extract_content",
+                    "parameters": {
+                        "goal": "识别页面上的搜索框位置"
+                    },
+                    "description": "提取页面内容以识别搜索框位置"
+                },
+                {
+                    "id": "step_8",
+                    "action": "find_element_by_attribute",
+                    "parameters": {
+                        "attribute": "placeholder",
+                        "value": "搜索",
+                        "partial_match": true
+                    },
+                    "description": "通过placeholder属性查找搜索框"
+                },
+                {
+                    "id": "step_9",
+                    "action": "click_element",
+                    "parameters": {
+                        "index": 1
+                    },
+                    "description": "点击搜索框"
+                },
+                {
+                    "id": "step_10",
+                    "action": "input_text",
+                    "parameters": {
+                        "index": 1,
+                        "text": "中信银行信用卡"
+                    },
+                    "description": "在搜索框中输入'中信银行信用卡'"
+                },
+                {
+                    "id": "step_11",
+                    "action": "inject_script",
+                    "parameters": {
+                        "script": "document.querySelector('#search-input').dispatchEvent(new KeyboardEvent('keydown', {'key': 'Enter'}));"
+                    },
+                    "description": "模拟回车键触发搜索操作"
+                },
+                {
+                    "id": "step_12",
+                    "action": "wait",
+                    "parameters": {
+                        "time": 3
+                    },
+                    "description": "等待搜索结果加载"
+                },
+                {
+                    "id": "step_13",
+                    "action": "extract_content",
+                    "parameters": {
+                        "goal": "确认是否在搜索结果页面并识别搜索结果"
+                    },
+                    "description": "检查页面状态，确认是否已加载搜索结果"
+                },
+                {
+                    "id": "step_14",
+                    "action": "find_and_click",
+                    "parameters": {
+                        "text": "搜索",
+                        "partial_match": true
+                    },
+                    "description": "如果之前的搜索未成功，重新尝试点击搜索按钮"
+                }
+            ]
+        }
+    ]
+}

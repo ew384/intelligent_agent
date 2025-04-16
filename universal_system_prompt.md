@@ -257,6 +257,7 @@
 ```json
 {
   "current_state": {
+    "previous_action": "success|fail",
     "evaluation_previous_goal": "成功|失败|未知 - 对前一步操作结果的分析",
     "memory": "已完成步骤的描述和需要记住的上下文信息",
     "next_goal": "下一步操作的目标",

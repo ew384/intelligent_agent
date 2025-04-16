@@ -441,14 +441,14 @@ class UniversalAgent:
                         
                         if action_id:
                             # 查找指定的操作
-                            for action in matched_workflow.get("actions", []):
+                            for action in matched_workflow.get("action", []):
                                 if action.get("id") == action_id:
                                     action_to_execute = action
                                     break
                         
                         # 如果未找到指定操作或未指定操作，使用第一个操作
-                        if not action_to_execute and matched_workflow.get("actions") and len(matched_workflow["actions"]) > 0:
-                            action_to_execute = matched_workflow["actions"][0]
+                        if not action_to_execute and matched_workflow.get("action") and len(matched_workflow["action"]) > 0:
+                            action_to_execute = matched_workflow["action"][0]
                         
                         if action_to_execute:
                             # 执行工作流
