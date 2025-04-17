@@ -58,62 +58,28 @@
                 },
                 {
                     "id": "step_4",
-                    "action": "extract_content",
+                    "action": "input_text_and_search",
                     "parameters": {
-                        "goal": "识别页面上的搜索框位置"
-                    },
-                    "description": "提取页面内容以识别搜索框位置"
+                        "search_text": "中信银行信用卡",
+                        "search_button_text": "搜索"
+                    }
                 },
                 {
                     "id": "step_5",
-                    "action": "find_element_by_attribute",
-                    "parameters": {
-                        "attribute": "placeholder",
-                        "value": "搜索",
-                        "partial_match": true
-                    },
-                    "description": "通过placeholder属性查找搜索框"
-                },
-                {
-                    "id": "step_6",
-                    "action": "click_element",
-                    "parameters": {
-                        "index": 1
-                    },
-                    "description": "点击搜索框"
-                },
-                {
-                    "id": "step_7",
-                    "action": "input_text",
-                    "parameters": {
-                        "index": 1,
-                        "text": "中信银行信用卡"
-                    },
-                    "description": "在搜索框中输入'中信银行信用卡'"
-                },
-                {
-                    "id": "step_8",
-                    "action": "inject_script",
-                    "parameters": {
-                        "script": "document.querySelector('#search-input').dispatchEvent(new KeyboardEvent('keydown', {'key': 'Enter'}));"
-                    },
-                    "description": "模拟回车键触发搜索操作"
-                },
-                {
-                    "id": "step_9",
-                    "action": "wait",
-                    "parameters": {
-                        "time": 0.5
-                    },
-                    "description": "等待搜索结果加载"
-                },
-                {
-                    "id": "step_10",
                     "action": "extract_content",
                     "parameters": {
                         "goal": "确认是否在搜索结果页面并识别搜索结果"
                     },
                     "description": "检查页面状态，确认是否已加载搜索结果"
+                },
+                {
+                    "id": "step_6",
+                    "action": "click_element",
+                    "parameters": {
+                        "index": 3,
+                        "auto_switch_tab": "True"
+                    },
+                    "description": "点击第一个帖子"
                 }
             ]
         }

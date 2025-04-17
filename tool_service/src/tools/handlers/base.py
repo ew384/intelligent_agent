@@ -198,7 +198,7 @@ class BaseHandler:
         goal = parameters.get('goal')
         highlight_elements = parameters.get('highlight_elements', True)  # 新增参数，默认为True
         viewport_expansion = parameters.get('viewport_expansion', 500)   # 新增参数
-        max_elements = parameters.get('max_elements', 30)               # 新增参数，限制返回元素数量
+        max_elements = parameters.get('max_elements', 150)               # 新增参数，限制返回元素数量
         
         if not goal:
             return {"status": "error", "message": "未指定提取目标"}
@@ -260,7 +260,7 @@ class BaseHandler:
                 "status": "success",
                 #"message": extraction_summary,
                 #"extracted_info": extracted_info,
-                "text_blocks": text_content[:20],  # 增加返回的文本块数量
+                "text_blocks": text_content[:10],  # 增加返回的文本块数量
                 #"text_blocks_count": len(text_content),
                 "extraction_goal": goal
             }
@@ -902,15 +902,13 @@ class BaseHandler:
         Args:
             parameters: 参数字典
                 - search_text: 要搜索的文本
-                - button_text: 搜索按钮文本 (默认: "搜索")
-                - use_enter: 是否使用回车键执行搜索 (默认: False)
+                - input_index: 可选，直接指定输入框索引
         
         Returns:
             操作结果
         """
         search_text = parameters.get('search_text')
-        button_text = parameters.get('button_text', '搜索')
-        #use_enter = parameters.get('use_enter', False)
+        input_index = parameters.get('input_index')
         
         if not search_text:
             return {"status": "error", "message": "未指定搜索文本"}
@@ -919,50 +917,81 @@ class BaseHandler:
             # 1. 高亮所有元素
             await self.highlight_elements({"viewport_expansion": 500})
             
-            # 2. 查找输入框 (通常是带有placeholder的input元素)
-            input_result = await self.find_element_by_attribute({
-                "attribute": "type", 
-                "value": "text",
-                "highlight_elements": False
-            })
-            
-            # 如果找不到type=text的元素，尝试查找textarea
-            if not input_result.get("found_elements"):
+            # 2. 如果没有指定输入框索引，则自动查找输入框
+            if input_index is None:
+                # 查找输入框 (通常是带有placeholder的input元素)
                 input_result = await self.find_element_by_attribute({
-                    "attribute": "tag_name", 
-                    "value": "input",
+                    "attribute": "type", 
+                    "value": "text",
                     "highlight_elements": False
                 })
+                
+                # 如果找不到type=text的元素，尝试查找任何input元素
+                if not input_result.get("found_elements"):
+                    input_result = await self.find_element_by_attribute({
+                        "attribute": "tag_name", 
+                        "value": "input",
+                        "highlight_elements": False
+                    })
+                
+                if not input_result.get("found_elements"):
+                    return {"status": "error", "message": "未找到搜索输入框"}
+                
+                # 使用找到的第一个输入框
+                input_index = input_result["found_elements"][0]["index"]
             
-            if not input_result.get("found_elements"):
-                return {"status": "error", "message": "未找到搜索输入框"}
+            # 3. 点击输入框并输入文本（直接使用BaseHandler的方法）
+            await self.click_element({"index": input_index})
+            input_result = await self.input_text({"index": input_index, "text": search_text})
             
-            # 3. 点击第一个输入框并输入文本
-            search_input_index = input_result["found_elements"][0]["index"]
-            await self.click_element({"index": search_input_index})
-            await self.input_text({"index": search_input_index, "text": search_text})
+            # 4. 尝试多种方式触发搜索
+            script = """
+            // 1. 尝试提交表单
+            const activeElement = document.activeElement;
+            let searchTriggered = false;
             
-            # 4. 执行搜索
-
-            # 使用回车键搜索
-            await self.inject_script({
-                "script": """
-                const event = new KeyboardEvent('keydown', {
-                    'key': 'Enter',
-                    'code': 'Enter',
-                    'keyCode': 13,
-                    'which': 13,
-                    'bubbles': true
+            if (activeElement && activeElement.form) {
+                activeElement.form.submit();
+                searchTriggered = true;
+                console.log('搜索表单已提交');
+            }
+            
+            // 2. 如果没有表单，尝试查找并点击搜索按钮
+            if (!searchTriggered) {
+                const searchButton = document.querySelector('button[type="submit"], input[type="submit"], button[aria-label*="search" i], button.search-button');
+                if (searchButton) {
+                    searchButton.click();
+                    searchTriggered = true;
+                    console.log('搜索按钮已点击');
+                }
+            }
+            
+            // 3. 如果以上方法都失败，尝试发送Enter键事件
+            if (!searchTriggered && activeElement) {
+                ['keydown', 'keypress', 'keyup'].forEach(eventType => {
+                    activeElement.dispatchEvent(new KeyboardEvent(eventType, {
+                        key: 'Enter',
+                        code: 'Enter',
+                        keyCode: 13,
+                        which: 13,
+                        bubbles: true,
+                        cancelable: true
+                    }));
                 });
-                document.activeElement.dispatchEvent(event);
-                """
-            })
+                console.log('Enter键事件已分发');
+            }
+            """
+            
+            await self.inject_script({"script": script})
+            await self.wait({"time": 1})  # 等待搜索结果加载
             await self.highlight_elements({"viewport_expansion": 500})
             
             return {
                 "status": "success",
                 "message": f"成功执行搜索: {search_text}",
-                "search_text": search_text
+                "search_text": search_text,
+                "input_index": input_index,
+                "input_result": input_result
             }
         
         except Exception as e:

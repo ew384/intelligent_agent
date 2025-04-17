@@ -170,7 +170,7 @@ class UniversalAgent:
             if is_new_chat and "conversation_id" in response_data:
                 self.conversation_id = response_data["conversation_id"]
                 
-            return response_data
+            return response_data['messages'][-1]['content']
         
         except Exception as e:
             logger.error(f"查询LLM API时出错: {str(e)}")
@@ -612,17 +612,12 @@ class UniversalAgent:
             
             # 提取LLM的响应
             try:
-                try:
-                    LLM_message = response['messages'][-1]['content']["response"][-1]
-                except:
-                    LLM_message = response['messages'][-7]['content']['response'][0]
-                try:
-                    LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-                except:
-                    LLM_action = response['messages'][-1]['content']['codeBlocks'][0]['code']
+                LLM_message = response["response"][-1]
+                LLM_action = response["codeBlocks"][-1]['code']
                 print(LLM_message)
                 action_data = self.extract_action(LLM_action)
             except Exception as e:
+                print(response)
                 logger.error(f"解析LLM响应失败: {str(e)}")
                 return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
             
@@ -690,19 +685,14 @@ class UniversalAgent:
                 
                 # 提取LLM的下一个响应
                 try:
-                    try:
-                        LLM_message = response['messages'][-1]['content']["response"][-1]
-                    except:
-                        LLM_message = response['messages'][-7]['content']['response'][0]
-                    try:
-                        LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-                    except:
-                        LLM_action = response['messages'][-1]['content']['codeBlocks'][0]['code']
+                    LLM_message = response["response"][-1]
+                    LLM_action = response["codeBlocks"][-1]['code']
                     print(LLM_message)
                     action_data = self.extract_action(LLM_action)
                 except Exception as e:
-                    logger.error(f"步骤{step_count}解析LLM响应失败: {str(e)}")
-                    return f"无法继续执行任务，AI助手的回复无法解析。请重试或使用不同的表述。"
+                    print(response)
+                    logger.error(f"解析LLM响应失败: {str(e)}")
+                    return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
                 
                 if not action_data:
                     return f"无法在步骤{step_count}解析助手响应。"
@@ -727,14 +717,14 @@ class UniversalAgent:
                 logger.info(f"生成探索历史的工作流")
                 response = self.query_LLM(generate_workflow_prompt,self.user_api_key['summarization'], is_new_chat=True)
                 try:
-                    LLM_message = response['messages'][-1]['content']["response"][-1]
-                except:
-                    LLM_message = response['messages'][-7]['content']['response'][0]
-                try:
-                    LLM_action = response['messages'][-1]['content']["codeBlocks"][-1]['code']
-                except:
-                    LLM_action = response['messages'][-1]['content']['codeBlocks'][0]['code']
-                print(LLM_action)
+                    LLM_message = response["response"][-1]
+                    LLM_action = response["codeBlocks"][-1]['code']
+                    print(LLM_message)
+                    action_data = self.extract_action(LLM_action)
+                except Exception as e:
+                    print(response)
+                    logger.error(f"解析LLM响应失败: {str(e)}")
+                    return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
                 action_data = self.extract_action(LLM_action)
                 file_path=self.save_action_data_to_file(action_data)
                 if file_path:
@@ -752,7 +742,7 @@ async def main():
     LLM = {"provider": "claude"}
     LLM_api_url = f"http://localhost:8005/chat/{LLM['provider']}"
     user_api_key = {
-        "evaluation":{"api_key":"evaluation","tab_id":None},#评估可用的工作流的适配程度和组合修改
+        #"evaluation":{"api_key":"evaluation","tab_id":None},#评估可用的工作流的适配程度和组合修改
         "conversation":{"api_key":"conversation","tab_id":None},#主体agent评估探索每一步action
         "summarization":{"api_key":"summarization","tab_id":None} #历史探索生成可用工作流
     }
