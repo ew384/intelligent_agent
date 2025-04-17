@@ -224,7 +224,6 @@ class UniversalAgent:
         """
         try:
             # 查找响应中的JSON
-            print(LLM_response)
             start_index = LLM_response.find("{")
             end_index = LLM_response.rfind("}")
             
@@ -233,9 +232,8 @@ class UniversalAgent:
                 return None
             
             json_str = LLM_response[start_index:end_index+1]
-            print(json_str)
-            action_data = json.loads(json_str)
-            
+            #action_data = json.loads(json_str)
+            action_data=safe_json_loads(json_str)
             # 验证必需字段
             if "current_state" not in action_data or "action" not in action_data:
                 logger.warning(f"动作数据中缺少必需字段: {action_data}")
@@ -690,7 +688,7 @@ class UniversalAgent:
                     print(LLM_message)
                     action_data = self.extract_action(LLM_action)
                 except Exception as e:
-                    print(response)
+                    #print(response)
                     logger.error(f"解析LLM响应失败: {str(e)}")
                     return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
                 
@@ -738,6 +736,65 @@ class UniversalAgent:
             logger.error(f"处理请求时出错: {str(e)}")
             return f"处理请求时出错: {str(e)}"
                         
+def safe_json_loads(json_str):
+    """
+    安全地解析可能包含未转义双引号的JSON字符串
+    参数:
+        json_str: 输入的JSON字符串
+    返回:
+        解析后的Python对象
+    """
+    try:
+        # 先尝试直接解析
+        return json.loads(json_str)
+    except json.JSONDecodeError:
+        # 如果直接解析失败，进行修复处理
+        fixed_str = ""
+        i = 0
+        in_string = False
+        escape_next = False
+        
+        while i < len(json_str):
+            char = json_str[i]
+            
+            # 处理转义字符
+            if escape_next:
+                fixed_str += char
+                escape_next = False
+                i += 1
+                continue
+                
+            if char == '\\':
+                fixed_str += char
+                escape_next = True
+                i += 1
+                continue
+            
+            # 处理引号    
+            if char == '"':
+                if not in_string:
+                    # 开始一个新字符串
+                    in_string = True
+                    fixed_str += char
+                else:
+                    # 检查是否是字符串结束
+                    # 查看下一个字符来判断
+                    next_pos = i + 1
+                    # 跳过空白字符
+                    while next_pos < len(json_str) and json_str[next_pos].isspace():
+                        next_pos += 1
+                    if next_pos < len(json_str) and json_str[next_pos] in ',]}:':
+                        # 是字符串结束
+                        in_string = False
+                        fixed_str += char
+                    else:
+                        # 是字符串内的引号，需要转义
+                        fixed_str += '\\"'
+            else:
+                fixed_str += char
+            i += 1
+        return json.loads(fixed_str)
+    
 async def main():
     LLM = {"provider": "claude"}
     LLM_api_url = f"http://localhost:8005/chat/{LLM['provider']}"
