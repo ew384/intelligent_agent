@@ -21,7 +21,7 @@ class WorkflowEngine:
         self.workflows = {}
         self.browser_context = browser_context
         self.base_handler = None
-        self.load_workflows()
+        #self.load_workflows()
         
     def set_browser_context(self, browser_context):
         """设置浏览器上下文和基础处理器"""

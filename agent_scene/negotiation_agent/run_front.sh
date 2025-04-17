@@ -1,2 +1,0 @@
-export ANTHROPIC_API_KEY="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"
-streamlit run frontend-code.py

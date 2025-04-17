@@ -421,8 +421,101 @@ class ClaudeAuthHandler:
     async def _extract_page_content(self):
         """Extract the page content including folded code blocks and multiple versions"""
         try:
-            # First, we'll try to extract all the code versions from the page
-            # This improved approach directly interacts with the buttons and extracts code
+            # First, let's extract document content by clicking each document button
+            documents_data = await self.session.execute_script("""
+            async function extractAllDocumentContent() {
+                // Map to store all document content
+                const documentsData = new Map();
+                
+                // Find all document buttons
+                const docButtons = Array.from(document.querySelectorAll('button[class*="font-styrene"][class*="border-0"]'));
+                const docButtonsFiltered = docButtons.filter(btn => 
+                    btn.textContent.includes('Document') || 
+                    (btn.textContent.toLowerCase().includes('doc') && !btn.textContent.toLowerCase().includes('code'))
+                );
+                
+                // Process each button sequentially
+                for (const button of docButtonsFiltered) {
+                    try {
+                        const buttonText = button.textContent.trim();
+                        const docTitle = buttonText.replace(/Click to open document.*$/, '').trim();
+                        
+                        // Click the button to display document in sidebar
+                        button.click();
+                        
+                        // Wait for sidebar to update
+                        await new Promise(r => setTimeout(r, 500));
+                        
+                        // Extract document content from the sidebar
+                        const sidebarContainer = document.querySelector('.max-md\\\\:absolute.top-0.right-0.bottom-0.left-0.z-20');
+                        if (sidebarContainer) {
+                            // Extract paragraphs, lists, and other content
+                            const contentElements = sidebarContainer.querySelectorAll('p, li, pre, code, h1, h2, h3, h4, h5, h6');
+                            let docContent = [];
+                            
+                            for (const el of contentElements) {
+                                // Skip elements that are part of a navigation or control UI
+                                if (el.closest('[role="navigation"]') || el.closest('[role="button"]')) {
+                                    continue;
+                                }
+                                
+                                const text = el.textContent.trim();
+                                if (text) {
+                                    docContent.push({
+                                        type: el.tagName.toLowerCase(),
+                                        text: text
+                                    });
+                                }
+                            }
+                            
+                            // Try to get the raw document content if it's code or JSON
+                            const codeBlock = sidebarContainer.querySelector('pre code');
+                            let rawContent = null;
+                            let documentType = 'text';
+                            
+                            if (codeBlock) {
+                                rawContent = codeBlock.textContent.trim();
+                                // Try to determine if it's JSON
+                                try {
+                                    JSON.parse(rawContent);
+                                    documentType = 'json';
+                                } catch (e) {
+                                    // If there's a language class, use that
+                                    if (codeBlock.className && codeBlock.className.includes('language-')) {
+                                        documentType = codeBlock.className.match(/language-([a-zA-Z0-9]+)/)[1];
+                                    }
+                                }
+                            }
+                            
+                            // Store document with its content
+                            documentsData.set(buttonText, {
+                                title: docTitle,
+                                content: docContent,
+                                rawContent: rawContent,
+                                type: documentType,
+                                buttonLabel: buttonText
+                            });
+                            console.log(`Extracted document content for: ${buttonText}`);
+                        }
+                        
+                        // Close the sidebar by clicking outside
+                        const mainArea = document.querySelector('.flex-1.flex.flex-col.gap-3');
+                        if (mainArea) {
+                            mainArea.click();
+                            await new Promise(r => setTimeout(r, 300));
+                        }
+                    } catch (buttonError) {
+                        console.error("Error processing document button:", buttonError);
+                    }
+                }
+                
+                return Array.from(documentsData.entries());
+            }
+            
+            return await extractAllDocumentContent();
+            """)
+            
+            # Now extract code blocks by clicking each code button
             code_versions = await self.session.execute_script("""
             async function extractAllCodeVersions() {
                 // Map to store all code versions
@@ -431,8 +524,8 @@ class ClaudeAuthHandler:
                 // Find all code version buttons
                 const codeButtons = Array.from(document.querySelectorAll('button.flex.text-left.font-styrene.rounded-xl'));
                 const codeButtonsFiltered = codeButtons.filter(btn => 
-                    btn.textContent.includes('Code') && 
-                    (btn.textContent.includes('Version') || btn.textContent.includes('∙'))
+                    btn.textContent.includes('Code') || 
+                    btn.textContent.includes('∙')
                 );
                 
                 // Process each button sequentially
@@ -463,23 +556,59 @@ class ClaudeAuthHandler:
                         // Extract code from the sidebar
                         const sidebarCodeContainer = document.querySelector('.max-md\\\\:absolute.top-0.right-0.bottom-0.left-0.z-20');
                         if (sidebarCodeContainer) {
-                            const codeElement = sidebarCodeContainer.querySelector('code.language-python');
-                            if (codeElement) {
-                                const fullCodeText = codeElement.textContent.trim();
-                                if (fullCodeText) {
-                                    // Store code with its version info
-                                    codeVersions.set(buttonText, {
-                                        language: 'python',
-                                        code: fullCodeText,
-                                        buttonLabel: buttonText,
-                                        version: versionLabel
-                                    });
-                                    console.log(`Extracted code for: ${buttonText} (${versionLabel})`);
+                            // Try to find a code element with a language class
+                            const codeElements = sidebarCodeContainer.querySelectorAll('code[class*="language-"]');
+                            let fullCodeText = "";
+                            let language = "";
+                            
+                            if (codeElements.length > 0) {
+                                // Use the first code element with a language
+                                const codeElement = codeElements[0];
+                                fullCodeText = codeElement.textContent.trim();
+                                
+                                // Extract language from class
+                                const langMatch = codeElement.className.match(/language-([a-zA-Z0-9]+)/);
+                                if (langMatch) {
+                                    language = langMatch[1];
+                                }
+                            } else {
+                                // Look for any pre > code combination
+                                const preElement = sidebarCodeContainer.querySelector('pre code');
+                                if (preElement) {
+                                    fullCodeText = preElement.textContent.trim();
+                                    // Default to assuming it's a general code block
+                                    language = "text";
+                                    
+                                    // Try to determine if it's JSON
+                                    try {
+                                        JSON.parse(fullCodeText);
+                                        language = 'json';
+                                    } catch (e) {
+                                        // Not JSON, default to text
+                                    }
                                 }
                             }
+                            
+                            if (fullCodeText) {
+                                // Store code with its version info
+                                codeVersions.set(buttonText, {
+                                    language: language || 'text',
+                                    code: fullCodeText,
+                                    buttonLabel: buttonText,
+                                    version: versionLabel
+                                });
+                                console.log(`Extracted code for: ${buttonText} (${versionLabel})`);
+                            }
+                        }
+                        
+                        // Close the sidebar by clicking outside
+                        const mainArea = document.querySelector('.flex-1.flex.flex-col.gap-3');
+                        if (mainArea) {
+                            mainArea.click();
+                            await new Promise(r => setTimeout(r, 300));
                         }
                     } catch (buttonError) {
-                        console.error("Error processing button:", buttonError);
+                        console.error("Error processing code button:", buttonError);
                     }
                 }
                 
@@ -489,7 +618,7 @@ class ClaudeAuthHandler:
             return await extractAllCodeVersions();
             """)
             
-            # Now extract the conversation structure
+            # Now extract the conversation structure with our extracted data
             js_script = """
             function getFormattedContent() {
                 // Store content
@@ -500,6 +629,9 @@ class ClaudeAuthHandler:
                 
                 // Get external code versions map
                 const codeVersionsMap = new Map(arguments[0]);
+                
+                // Get external document content map
+                const documentsMap = new Map(arguments[1]);
                 
                 // More reliable way to find the conversation area
                 const mainContentArea = document.querySelector('div.flex-1.flex.flex-col.gap-3');
@@ -558,12 +690,12 @@ class ClaudeAuthHandler:
                                 try {
                                     const buttonText = button.textContent.trim();
                                     // Check if this is a code block button
-                                    if (buttonText.includes('Code') && (buttonText.includes('Version') || buttonText.includes('∙'))) {
+                                    if (buttonText.includes('Code') || buttonText.includes('∙')) {
                                         // Look for the corresponding code in our map
                                         if (codeVersionsMap.has(buttonText)) {
                                             const codeData = codeVersionsMap.get(buttonText);
                                             currentTurn.codeBlocks.push({
-                                                language: codeData.language || 'python',
+                                                language: codeData.language || 'text',
                                                 code: codeData.code,
                                                 version: codeData.version,
                                                 buttonLabel: buttonText
@@ -596,9 +728,42 @@ class ClaudeAuthHandler:
                                 }
                             }
                             
-                            // 1. Find inline code blocks (not folded ones)
+                            // 1. Process document buttons and add their content 
+                            const docButtons = element.querySelectorAll('button[class*="font-styrene"][class*="border-0"]');
+                            for (const docButton of docButtons) {
+                                try {
+                                    const buttonText = docButton.textContent.trim();
+                                    
+                                    // Look for the document in our extracted map
+                                    if (documentsMap.has(buttonText)) {
+                                        const docData = documentsMap.get(buttonText);
+                                        currentTurn.documents.push({
+                                            title: docData.title,
+                                            content: docData.content,
+                                            rawContent: docData.rawContent,
+                                            type: docData.type,
+                                            buttonLabel: buttonText
+                                        });
+                                    } else {
+                                        // If not found in map, extract what we can from the button
+                                        const docTitle = buttonText.replace(/Click to open document.*$/, '').trim();
+                                        currentTurn.documents.push({
+                                            title: docTitle,
+                                            content: [],
+                                            buttonLabel: buttonText
+                                        });
+                                    }
+                                } catch (buttonError) {
+                                    console.error("Error processing document button:", buttonError);
+                                }
+                            }
+                            
+                            // 2. Find inline code blocks (not folded ones)
                             const codeBlocks = element.querySelectorAll('pre');
                             for (const codeBlock of codeBlocks) {
+                                // Skip if it's inside a button (likely a preview)
+                                if (codeBlock.closest('button')) continue;
+                                
                                 // Get code language
                                 let language = '';
                                 const codeElement = codeBlock.querySelector('code');
@@ -630,39 +795,11 @@ class ClaudeAuthHandler:
                                     
                                     if (!isDuplicate) {
                                         currentTurn.codeBlocks.push({
-                                            language: language || 'python', // Default to python
+                                            language: language || 'text', 
                                             code: codeText,
                                             isInline: true
                                         });
                                     }
-                                }
-                            }
-                            
-                            // 2. Find document references
-                            const docButtons = element.querySelectorAll('button[class*="font-styrene"][class*="border-0"]');
-                            for (const docButton of docButtons) {
-                                // Extract document title
-                                const docTitle = docButton.textContent.replace(/Click to open document.*$/, '').trim();
-                                
-                                // Try to find document content
-                                let docContent = [];
-                                
-                                // Check if there's a sidebar on the page that might contain document content
-                                const sidebarContent = document.querySelector('div[class*="fixed"][class*="right-0"][class*="flex"][class*="w-full"]');
-                                if (sidebarContent) {
-                                    // Extract paragraphs from the sidebar
-                                    const docTextElements = sidebarContent.querySelectorAll('p');
-                                    for (const textEl of docTextElements) {
-                                        docContent.push(textEl.textContent.trim());
-                                    }
-                                }
-                                
-                                // Add the document to the current turn
-                                if (docTitle) {
-                                    currentTurn.documents.push({
-                                        title: docTitle,
-                                        content: docContent
-                                    });
                                 }
                             }
                             
@@ -799,11 +936,11 @@ class ClaudeAuthHandler:
                 return content;
             }
             
-            return getFormattedContent(arguments[0]);
+            return getFormattedContent(arguments[0], arguments[1]);
             """
             
-            # Execute the script with the extracted code versions
-            content_data = await self.session.execute_script(js_script, code_versions)
+            # Execute the script with the extracted code versions and documents
+            content_data = await self.session.execute_script(js_script, code_versions, documents_data)
             
             # Check for errors
             if isinstance(content_data, dict) and 'error' in content_data:

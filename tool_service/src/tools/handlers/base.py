@@ -52,13 +52,17 @@ class BaseHandler:
             
             # 组合工具
             "get_or_create_tab": self.get_or_create_tab_with_url,
-            "find_and_click": self.find_and_click_element_by_text,
+            "input_text_and_search":self.input_text_and_search,
+            "find_and_click_element_by_text": self.find_and_click_element_by_text,
             "create_mask_interceptor": self.create_mask_interceptor,
             "search_and_navigate":self.search_and_navigate,
 
             # 用户交互操作
             "request_user_action":self.request_user_action,
             "evaluate_state":self.evaluate_state,
+            
+            # 条件操作
+            "check_condition_and_execute": self.check_condition_and_execute,
         }
         handler = action_map.get(action)
         if not handler:
@@ -102,9 +106,9 @@ class BaseHandler:
             return {"status": "error", "message": "未指定元素索引"}
         
         try:
+            await self.highlight_elements({"viewport_expansion": 500})
             # 获取点击前的标签页信息
             tabs_before = await self.browser_context.get_tabs_info()
-            
             # 获取元素信息
             dom_element = await self.browser_context.get_dom_element_by_index(index)
             element_text = dom_element.get_all_text_till_next_clickable_element() if dom_element else "未知元素"
@@ -113,7 +117,7 @@ class BaseHandler:
             await self.browser_context._click_element_node(dom_element)
             
             # 等待页面加载和可能的新标签页创建
-            await asyncio.sleep(1)  # 给新标签页一点创建时间
+            await asyncio.sleep(0.5)  # 给新标签页一点创建时间
             await self.browser_context._wait_for_page_and_frames_load()
             
             # 获取点击后的标签页信息
@@ -171,10 +175,11 @@ class BaseHandler:
             return {"status": "error", "message": "未指定输入文本"}
         
         try:
+            await self.highlight_elements({"viewport_expansion": 500})
             # 获取元素信息
             dom_element = await self.browser_context.get_dom_element_by_index(index)
             element_type = dom_element.tag_name if dom_element else "未知类型"
-            
+
             # 输入文本
             await self.browser_context._input_text_element_node(dom_element, text)
             
@@ -189,12 +194,27 @@ class BaseHandler:
             return {"status": "error", "message": f"输入文本失败: {str(e)}"}
     
     async def extract_content(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """提取页面内容"""
+        """提取页面内容并可选择性地高亮元素"""
         goal = parameters.get('goal')
+        highlight_elements = parameters.get('highlight_elements', True)  # 新增参数，默认为True
+        viewport_expansion = parameters.get('viewport_expansion', 500)   # 新增参数
+        max_elements = parameters.get('max_elements', 30)               # 新增参数，限制返回元素数量
+        
         if not goal:
             return {"status": "error", "message": "未指定提取目标"}
         
         try:
+            page = await self.browser_context.get_current_page()
+            
+            # 如果需要高亮元素，先执行高亮
+            if highlight_elements:
+                dom_service = DomService(page)
+                all_elements_state = await time_execution_sync('get_all_elements')(dom_service.get_clickable_elements)(
+                    highlight_elements=True, 
+                    viewport_expansion=viewport_expansion
+                )
+            
+            # 获取当前页面状态
             state = await self.browser_context.get_state()
             
             # 提取页面标题和URL
@@ -204,23 +224,54 @@ class BaseHandler:
                 "extraction_goal": goal
             }
             
-            # 获取可能包含目标信息的文本
+            # 获取可能包含目标信息的文本内容
             text_content = []
             for element in state.selector_map.values():
                 text = element.get_all_text_till_next_clickable_element()
                 if text and len(text.strip()) > 0:
                     text_content.append(text)
             
-            extraction_summary = f"""从页面提取了{len(text_content)}个文本块，可能包含"{goal}"相关信息"""
+            # 如果启用了高亮，提取元素的详细信息
+            elements_info = []
+            if highlight_elements and state.selector_map:
+                for index, element in list(state.selector_map.items())[:max_elements]:
+                    # 提取关键属性
+                    key_attributes = {k: v for k, v in element.attributes.items() 
+                                    if k in ['id', 'class', 'name', 'type', 'placeholder', 'href', 'role', 'title', 'aria-label']}
+                    
+                    # 获取元素文本内容
+                    element_text = element.get_all_text_till_next_clickable_element()
+                    
+                    elements_info.append({
+                        "index": index,
+                        "tag_name": element.tag_name,
+                        "text": element_text[:20] if element_text else "",  # 限制文本长度
+                        "attributes": key_attributes,
+                        #"is_visible": element.is_visible,
+                        #"is_interactive": element.is_interactive,
+                        #"is_in_viewport": element.is_in_viewport
+                    })
             
-            return {
+            extraction_summary = f"""从页面提取了{len(text_content)}个文本块，可能包含"{goal}"相关信息"""
+            if highlight_elements:
+                extraction_summary += f"，并高亮了{len(state.selector_map)}个可交互元素"
+            
+            result = {
                 "status": "success",
-                "message": extraction_summary,
-                "extracted_info": extracted_info,
-                "text_blocks": text_content[:10],  # 只返回前10个文本块避免数据过大
-                "text_blocks_count": len(text_content),
+                #"message": extraction_summary,
+                #"extracted_info": extracted_info,
+                "text_blocks": text_content[:20],  # 增加返回的文本块数量
+                #"text_blocks_count": len(text_content),
                 "extraction_goal": goal
             }
+            
+            # 如果高亮了元素，添加元素信息
+            if highlight_elements:
+                result["elements_count"] = len(state.selector_map)
+                result["elements"] = elements_info
+                result["has_more_elements"] = len(state.selector_map) > max_elements
+                
+            return result
         except Exception as e:
             return {"status": "error", "message": f"提取内容失败: {str(e)}"}
     
@@ -264,7 +315,7 @@ class BaseHandler:
     
     async def wait(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """等待一段时间或元素出现"""
-        time_seconds = parameters.get('time', 2)
+        time_seconds = parameters.get('time', 0.5)
         selector = parameters.get('selector')
         
         try:
@@ -844,7 +895,79 @@ class BaseHandler:
         # 对于非HTML内容或出错情况，使用原始响应继续
         await route.continue_()
 
+    async def input_text_and_search(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        简单通用的搜索功能：查找搜索框、输入文本并执行搜索
+        
+        Args:
+            parameters: 参数字典
+                - search_text: 要搜索的文本
+                - button_text: 搜索按钮文本 (默认: "搜索")
+                - use_enter: 是否使用回车键执行搜索 (默认: False)
+        
+        Returns:
+            操作结果
+        """
+        search_text = parameters.get('search_text')
+        button_text = parameters.get('button_text', '搜索')
+        #use_enter = parameters.get('use_enter', False)
+        
+        if not search_text:
+            return {"status": "error", "message": "未指定搜索文本"}
+        
+        try:
+            # 1. 高亮所有元素
+            await self.highlight_elements({"viewport_expansion": 500})
+            
+            # 2. 查找输入框 (通常是带有placeholder的input元素)
+            input_result = await self.find_element_by_attribute({
+                "attribute": "type", 
+                "value": "text",
+                "highlight_elements": False
+            })
+            
+            # 如果找不到type=text的元素，尝试查找textarea
+            if not input_result.get("found_elements"):
+                input_result = await self.find_element_by_attribute({
+                    "attribute": "tag_name", 
+                    "value": "input",
+                    "highlight_elements": False
+                })
+            
+            if not input_result.get("found_elements"):
+                return {"status": "error", "message": "未找到搜索输入框"}
+            
+            # 3. 点击第一个输入框并输入文本
+            search_input_index = input_result["found_elements"][0]["index"]
+            await self.click_element({"index": search_input_index})
+            await self.input_text({"index": search_input_index, "text": search_text})
+            
+            # 4. 执行搜索
 
+            # 使用回车键搜索
+            await self.inject_script({
+                "script": """
+                const event = new KeyboardEvent('keydown', {
+                    'key': 'Enter',
+                    'code': 'Enter',
+                    'keyCode': 13,
+                    'which': 13,
+                    'bubbles': true
+                });
+                document.activeElement.dispatchEvent(event);
+                """
+            })
+            await self.highlight_elements({"viewport_expansion": 500})
+            
+            return {
+                "status": "success",
+                "message": f"成功执行搜索: {search_text}",
+                "search_text": search_text
+            }
+        
+        except Exception as e:
+            return {"status": "error", "message": f"搜索操作失败: {str(e)}"}
+            
     async def search_and_navigate(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
         """
         在指定网站搜索关键词并导航到相关结果页面
@@ -863,7 +986,7 @@ class BaseHandler:
         search_keyword = parameters.get('search_keyword')
         search_button_text = parameters.get('search_button_text', '搜索')
         result_keyword = parameters.get('result_keyword')
-        wait_after_search = parameters.get('wait_after_search', 2)
+        wait_after_search = parameters.get('wait_after_search', 0.5)
         
         if not base_url or not search_keyword or not result_keyword:
             return {"status": "error", "message": "缺少必要参数：base_url、search_keyword或result_keyword"}
@@ -890,7 +1013,7 @@ class BaseHandler:
                 "text": search_button_text, 
                 "partial_match": True
             })
-            
+            await self.highlight_elements({"viewport_expansion": 500})
             search_button_index = None
             if search_button.get("found_elements"):
                 search_button_index = search_button["found_elements"][0]["index"]
@@ -942,7 +1065,7 @@ class BaseHandler:
                 })
                 
                 # 等待页面加载
-                await self.wait({"time": 3})
+                await self.wait({"time": 0.3})
                 
                 # 在新页面中高亮元素
                 await self.highlight_elements({"viewport_expansion": 500})
@@ -1036,3 +1159,136 @@ class BaseHandler:
             "text_blocks": text_content[:10] if text_content else [],  # 只返回前10个文本块避免数据过大
             "text_blocks_count": len(text_content) if text_content else 0
         }
+
+    async def check_condition_and_execute(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        检查条件并根据条件执行或跳过特定操作
+        
+        参数:
+            parameters: 参数字典
+                - condition_check: 条件检查配置
+                    - type: 检查类型 (element_exists|element_not_exists|text_exists|text_not_exists)
+                    - parameters: 检查参数，根据检查类型而定
+                - action_if_true: 条件为真时执行的操作
+                - action_if_false: 条件为假时执行的操作（可选）
+                - default_result: 默认结果，当conditions不满足且没有action_if_false时返回（可选）
+        返回:
+            操作结果
+        """
+        condition_check = parameters.get('condition_check')
+        action_if_true = parameters.get('action_if_true')
+        action_if_false = parameters.get('action_if_false')
+        default_result = parameters.get('default_result', {"status": "success", "message": "条件不满足，已跳过操作"})
+        
+        if not condition_check or not action_if_true:
+            return {"status": "error", "message": "未指定条件检查或条件为真时的操作"}
+        
+        try:
+            # 根据不同类型的条件检查执行不同的检查逻辑
+            check_type = condition_check.get('type')
+            check_params = condition_check.get('parameters', {})
+            
+            condition_result = False
+            
+            # 检查元素是否存在
+            if check_type == 'element_exists':
+                text = check_params.get('text')
+                partial_match = check_params.get('partial_match', True)
+                
+                if text:
+                    find_result = await self.find_element_by_text({
+                        "text": text,
+                        "partial_match": partial_match,
+                        "highlight_elements": True
+                    })
+                    
+                    condition_result = find_result.get("status") == "success" and len(find_result.get("found_elements", [])) > 0
+            
+            # 检查元素是否不存在
+            elif check_type == 'element_not_exists':
+                text = check_params.get('text')
+                partial_match = check_params.get('partial_match', True)
+                
+                if text:
+                    find_result = await self.find_element_by_text({
+                        "text": text,
+                        "partial_match": partial_match,
+                        "highlight_elements": True
+                    })
+                    
+                    condition_result = find_result.get("status") == "success" and len(find_result.get("found_elements", [])) == 0
+            
+            # 检查页面是否包含特定文本
+            elif check_type == 'text_exists':
+                text = check_params.get('text')
+                
+                if text:
+                    extract_result = await self.extract_content({"goal": f"查找文本 '{text}'"})
+                    
+                    text_blocks = extract_result.get("text_blocks", [])
+                    condition_result = any(text in block for block in text_blocks)
+            
+            # 检查页面是否不包含特定文本
+            elif check_type == 'text_not_exists':
+                text = check_params.get('text')
+                
+                if text:
+                    extract_result = await self.extract_content({"goal": f"查找文本 '{text}'"})
+                    
+                    text_blocks = extract_result.get("text_blocks", [])
+                    condition_result = not any(text in block for block in text_blocks)
+            
+            # 检查用户是否已登录（可以通过检查页面上是否存在"登录"按钮或是否存在用户名等方式）
+            elif check_type == 'is_logged_in':
+                login_text = check_params.get('login_button_text', '登录')
+                user_element_text = check_params.get('user_element_text', '我的')
+                
+                # 检查登录按钮是否不存在
+                login_button_result = await self.find_element_by_text({
+                    "text": login_text,
+                    "partial_match": True,
+                    "highlight_elements": True
+                })
+                
+                login_button_not_exists = len(login_button_result.get("found_elements", [])) == 0
+                
+                # 检查用户元素是否存在
+                user_element_result = await self.find_element_by_text({
+                    "text": user_element_text,
+                    "partial_match": True,
+                    "highlight_elements": True
+                })
+                
+                user_element_exists = len(user_element_result.get("found_elements", [])) > 0
+                
+                # 如果登录按钮不存在或用户元素存在，则认为已登录
+                condition_result = login_button_not_exists or user_element_exists
+            
+            # 根据条件结果执行相应的操作
+            if condition_result:
+                logger.info(f"条件检查结果为真，执行action_if_true")
+                
+                action_name = list(action_if_true.keys())[0]
+                action_params = action_if_true[action_name]
+                
+                return await self.process_query({
+                    "action": action_name,
+                    **action_params
+                })
+            else:
+                logger.info(f"条件检查结果为假")
+                
+                if action_if_false:
+                    action_name = list(action_if_false.keys())[0]
+                    action_params = action_if_false[action_name]
+                    
+                    return await self.process_query({
+                        "action": action_name,
+                        **action_params
+                    })
+                else:
+                    return default_result
+        
+        except Exception as e:
+            logger.error(f"条件检查执行失败: {str(e)}")
+            return {"status": "error", "message": f"条件检查执行失败: {str(e)}"}

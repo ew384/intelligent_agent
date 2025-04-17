@@ -3,8 +3,7 @@
   "name": "社保清单查询和打印",
   "description": "导航到广东政务服务网并查询社保清单",
   "keywords": [
-    "社保",
-    "社会保险"
+    "社保"
   ],
   "version": "1.1",
   "action": [
@@ -23,14 +22,30 @@
         },
         {
           "id": "step_2",
-          "action": "request_user_action",
+          "action": "check_condition_and_execute",
           "parameters": {
-            "type": "login",
-            "message": "请用户登录",
-            "description": "当前页面需要用户登录个人账户",
-            "options": []
+            "condition_check": {
+              "type": "is_logged_in",
+              "parameters": {
+                "login_button_text": "登录",
+                "user_element_text": "我的"
+              }
+            },
+            "action_if_true": {
+              "wait": {
+                "time": 0.5,
+                "message": "用户已登录，跳过登录步骤"
+              }
+            },
+            "action_if_false": {
+              "request_user_action": {
+                "type": "login",
+                "message": "请登录您的小红书账号",
+                "description": "需要您手动完成小红书账号的登录，以便继续执行搜索'中信银行信用卡'的操作。"
+              }
+            }
           },
-          "description": "请求用户登录个人账户"
+          "description": "检查登录状态 - 如果已登录则继续，否则请求用户手动登录"
         },
         {
           "id": "step_3",
@@ -63,14 +78,6 @@
         },
         {
           "id": "step_6",
-          "action": "highlight_elements",
-          "parameters": {
-            "viewport_expansion": 500
-          },
-          "description": "高亮页面元素方便用户查看"
-        },
-        {
-          "id": "step_7",
           "action": "find_and_click",
           "parameters": {
             "text": "选择"
@@ -78,7 +85,7 @@
           "description": "点击选择按钮"
         },
         {
-          "id": "step_8",
+          "id": "step_7",
           "action": "find_and_click",
           "parameters": {
             "text": "下载"
@@ -86,7 +93,7 @@
           "description": "点击下载按钮"
         },
         {
-          "id": "step_9",
+          "id": "step_8",
           "action": "done",
           "parameters": {
             "success": true,

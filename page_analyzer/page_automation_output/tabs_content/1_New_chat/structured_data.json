@@ -1,0 +1,231 @@
+{
+  "title": "Claude",
+  "headings": [
+    {
+      "level": 2,
+      "text": "Set up Claude for your classes, career, and research"
+    },
+    {
+      "level": 3,
+      "text": "Starred"
+    },
+    {
+      "level": 3,
+      "text": "Recents"
+    },
+    {
+      "level": 3,
+      "text": "Study project"
+    },
+    {
+      "level": 3,
+      "text": "Career project"
+    },
+    {
+      "level": 3,
+      "text": "Research project"
+    }
+  ],
+  "paragraphs": [
+    "Learn and master any subject",
+    "Find the next step for your career",
+    "Analyze and organize research"
+  ],
+  "lists": [
+    {
+      "type": "ul",
+      "items": [
+        "紫鸟浏览器: Cross-Border E-Commerce Tools and Services"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Optimized Workflow for Automating Douyin Web Search",
+        "Automating User Login Checks in AI Workflows",
+        "Automating Online Tasks with a Versatile AI Assistant",
+        "Fixing \"cannot access local variable 'matched_workflow'\" error",
+        "Automating Social Security Queries",
+        "Highlighting and Retrieving Clickable Elements on a Web Page",
+        "Automating Tasks on Xiaohongshu",
+        "Restoring a Previous Stable Git Commit",
+        "Initializing Multiple Conversation Tabs with UniversalAgent",
+        "Suppressing EGL driver error messages in terminal",
+        "Precise Workflow Matching with All Keywords",
+        "Automatic Workflow Loading in Universal Agent",
+        "Handling Incomplete Workflow Execution in Agent Service",
+        "Automated Browser Tasks for Users",
+        "Automated Browser Tasks for Users",
+        "Optimizing Automated Workflows from Agent Exploration History",
+        "Automating Online Tasks with a Versatile AI Assistant",
+        "Social Security Record Lookup Workflow",
+        "Social Security Statement Retrieval Workflow",
+        "Streamlining Social Security Workflow JSON",
+        "Automating Online Tasks with a Versatile AI Assistant",
+        "Search for China Merchants Bank Credit Card on Xiaohongshu",
+        "Avoiding JSON Parsing Errors with Nested Quotes",
+        "Automate Xiaohongshu Search for Bank Credit Card",
+        "Automated Browser Tasks for Users",
+        "Search for China Merchants Bank Credit Card on Xiaohongshu",
+        "Open Xiaohongshu and Search for Douyin",
+        "Converting JSON to Pydantic Model Classes",
+        "Open Xiaohongshu and Search for Douyin",
+        "Automating Browser Tasks for Users"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Write",
+        "Learn",
+        "Code",
+        "Life stuff",
+        "Connect appsNEW"
+      ]
+    }
+  ],
+  "tables": [],
+  "forms": [],
+  "links": [
+    {
+      "text": "New chat",
+      "href": "/new"
+    },
+    {
+      "text": "Projects",
+      "href": "/projects"
+    },
+    {
+      "text": "Chats",
+      "href": "/recents"
+    },
+    {
+      "text": "紫鸟浏览器: Cross-Border E-Commerce Tools and Services",
+      "href": "/chat/b2ef02ee-d284-424e-9453-610a3014852a"
+    },
+    {
+      "text": "Optimized Workflow for Automating Douyin Web Search",
+      "href": "/chat/29697d35-f4f5-4e32-a766-b29d114536c7"
+    },
+    {
+      "text": "Automating User Login Checks in AI Workflows",
+      "href": "/chat/19f582d6-3ad7-463f-9cab-13bdabccccd3"
+    },
+    {
+      "text": "Automating Online Tasks with a Versatile AI Assistant",
+      "href": "/chat/284bf52d-41f0-4065-ab43-8fd8a72111c5"
+    },
+    {
+      "text": "Fixing \"cannot access local variable 'matched_workflow'\" error",
+      "href": "/chat/3a24e911-8d4b-4d5c-bca5-568ecf845577"
+    },
+    {
+      "text": "Automating Social Security Queries",
+      "href": "/chat/abe360a8-9fab-44e5-83ef-d3b644572a3c"
+    },
+    {
+      "text": "Highlighting and Retrieving Clickable Elements on a Web Page",
+      "href": "/chat/c9627cf3-ec21-487c-b53b-cc4a38191cb3"
+    },
+    {
+      "text": "Automating Tasks on Xiaohongshu",
+      "href": "/chat/9c27a805-4954-4bf5-88ac-9721f96d5f2b"
+    },
+    {
+      "text": "Restoring a Previous Stable Git Commit",
+      "href": "/chat/ff5e0023-f4f2-4898-8bfb-218ecdfb44d8"
+    },
+    {
+      "text": "Initializing Multiple Conversation Tabs with UniversalAgent",
+      "href": "/chat/0ca69af3-69b3-4c23-b8c4-5107090ccb6e"
+    },
+    {
+      "text": "Suppressing EGL driver error messages in terminal",
+      "href": "/chat/5a4fc5f9-1bef-4448-8a64-d80cd6577241"
+    },
+    {
+      "text": "Precise Workflow Matching with All Keywords",
+      "href": "/chat/4453af3e-62c4-4179-86dc-53e0b08313c5"
+    },
+    {
+      "text": "Automatic Workflow Loading in Universal Agent",
+      "href": "/chat/bcabb4a3-4262-4e54-b819-a0e40ae75d4b"
+    },
+    {
+      "text": "Handling Incomplete Workflow Execution in Agent Service",
+      "href": "/chat/b5b3c657-8997-45e5-8a18-edf0e3396c45"
+    },
+    {
+      "text": "Automated Browser Tasks for Users",
+      "href": "/chat/4adccf2d-20f6-437f-bddd-220ab0f0b4ad"
+    },
+    {
+      "text": "Automated Browser Tasks for Users",
+      "href": "/chat/68c0a0e4-a69d-43ea-a74a-60a96cf1a26e"
+    },
+    {
+      "text": "Optimizing Automated Workflows from Agent Exploration History",
+      "href": "/chat/64fc263e-5419-4fe1-b187-cd92b15c9d7c"
+    },
+    {
+      "text": "Automating Online Tasks with a Versatile AI Assistant",
+      "href": "/chat/bc3b6f4e-7a67-4879-add6-868a051365e8"
+    },
+    {
+      "text": "Social Security Record Lookup Workflow",
+      "href": "/chat/6c62a8b4-f828-4f4f-89d9-f931ef458b59"
+    },
+    {
+      "text": "Social Security Statement Retrieval Workflow",
+      "href": "/chat/23a42e93-1a3c-49c0-9a7b-8d06f98e87bd"
+    },
+    {
+      "text": "Streamlining Social Security Workflow JSON",
+      "href": "/chat/a12f8ae2-4175-44d9-a60d-6e53e3022945"
+    },
+    {
+      "text": "Automating Online Tasks with a Versatile AI Assistant",
+      "href": "/chat/850877c3-1e4e-4241-8361-b101b9b87b27"
+    },
+    {
+      "text": "Search for China Merchants Bank Credit Card on Xiaohongshu",
+      "href": "/chat/8e8feb31-e138-4d3c-b485-dc418d2edb41"
+    },
+    {
+      "text": "Avoiding JSON Parsing Errors with Nested Quotes",
+      "href": "/chat/efa4ed2d-6540-485a-a8d9-bf2b8447a853"
+    },
+    {
+      "text": "Automate Xiaohongshu Search for Bank Credit Card",
+      "href": "/chat/93140a7f-24cc-43dd-be9f-a6b45ae70906"
+    },
+    {
+      "text": "Automated Browser Tasks for Users",
+      "href": "/chat/add1312f-6778-48a4-a12b-d8abef8471f2"
+    },
+    {
+      "text": "Search for China Merchants Bank Credit Card on Xiaohongshu",
+      "href": "/chat/cae255db-fd6c-47c2-8cb7-ebd7eca0141a"
+    },
+    {
+      "text": "Open Xiaohongshu and Search for Douyin",
+      "href": "/chat/9b3b5226-3be4-42de-a52f-f0ae3dfad741"
+    },
+    {
+      "text": "Converting JSON to Pydantic Model Classes",
+      "href": "/chat/f54cb84c-bfda-44f2-94fe-60761c0161e1"
+    },
+    {
+      "text": "Open Xiaohongshu and Search for Douyin",
+      "href": "/chat/79a5f8e5-de1c-4e10-899e-11fd1b60f88c"
+    },
+    {
+      "text": "Automating Browser Tasks for Users",
+      "href": "/chat/d1987067-cafa-4a26-b186-201a8ee26ef6"
+    },
+    {
+      "text": "All chats",
+      "href": "/recents"
+    }
+  ]
+}

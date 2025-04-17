@@ -4136,7 +4136,7 @@ def main():
         # Create output directory
         output_dir = create_output_dir()
         print("\n提取单页应用内容，包括内部标签页...")
-        extract_spa_content(driver, output_dir)
+        #extract_spa_content(driver, output_dir)
         # 提取页面内容
         print("\n提取页面文本内容...")
         content_file = os.path.join(output_dir, "page_content.txt")
