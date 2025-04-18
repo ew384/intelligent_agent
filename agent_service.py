@@ -627,7 +627,7 @@ class UniversalAgent:
             step_count = 0
             final_result = None
             
-            while not is_done and step_count < 100:  # 增加步骤限制以允许更多交互
+            while not is_done and step_count < 10:  # 增加步骤限制以允许更多交互
                 step_count += 1
                 logger.info(f"执行步骤 {step_count}")
                 
@@ -700,38 +700,41 @@ class UniversalAgent:
                 summary = final_result.get("message", "任务完成")
                 success = final_result.get("task_success", False)
                 status = "成功" if success else "未完全完成"
-                response = self.query_LLM("stop", self.user_api_key['conversation'], is_new_chat=False)
-                history_action=response['messages'][1:-1]
-                try:
-                    with open(Path("generate_workflow_prompt.md"), "r", encoding="utf-8") as f:
-                        generate_workflow_prompt = f.read()
-                except Exception as e:
-                    logger.error(f"读取generate_workflow_prompt出错: {str(e)}")
-                    return f"读取generate_workflow_prompt出错: {str(e)}"
-                generate_workflow_prompt += f"""{history_action}
-                </探索历史>
+                print(f"您的请求已{status}处理。{summary}")
+                #return f"您的请求已{status}处理。{summary}"
+            else:
+                print("由于步骤过多，无法完成您的请求。请尝试更具体的指令或联系客服人员。")
+                #return "由于步骤过多，无法完成您的请求。请尝试更具体的指令或联系客服人员。"
+            response = self.query_LLM("stop", self.user_api_key['conversation'], is_new_chat=False)
+            history_action=response['messages'][1:-1]
+            try:
+                with open(Path("generate_workflow_prompt.md"), "r", encoding="utf-8") as f:
+                    generate_workflow_prompt = f.read()
+            except Exception as e:
+                logger.error(f"读取generate_workflow_prompt出错: {str(e)}")
+                return f"读取generate_workflow_prompt出错: {str(e)}"
+            generate_workflow_prompt += f"""{history_action}
+            </探索历史>
 请生成一个简洁、有效的工作流程，去除所有失败的尝试和冗余步骤，确保每个步骤都具有明确的目的和正确的参数设置。
 工作流应具有适当的元数据（如ID、名称、关键词），并且步骤顺序应保持逻辑连贯性。"""
-                logger.info(f"生成探索历史的工作流")
-                response = self.query_LLM(generate_workflow_prompt,self.user_api_key['summarization'], is_new_chat=True)
-                try:
-                    LLM_message = response["response"][-1]
-                    LLM_action = response["codeBlocks"][-1]['code']
-                    print(LLM_message)
-                    action_data = self.extract_action(LLM_action)
-                except Exception as e:
-                    print(response)
-                    logger.error(f"解析LLM响应失败: {str(e)}")
-                    return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
+            logger.info(f"生成探索历史的工作流")
+            response = self.query_LLM(generate_workflow_prompt,self.user_api_key['summarization'], is_new_chat=True)
+            try:
+                LLM_message = response["response"][-1]
+                LLM_action = response["codeBlocks"][-1]['code']
+                print(LLM_message)
                 action_data = self.extract_action(LLM_action)
-                file_path=self.save_action_data_to_file(action_data)
-                if file_path:
-                    logger.info(f"保存工作流到文件: {file_path}")
-                else:
-                    logger.error("保存工作流到文件失败")                        
-                return f"您的请求已{status}处理。{summary}"
+            except Exception as e:
+                print(response)
+                logger.error(f"解析LLM响应失败: {str(e)}")
+                return f"无法理解AI助手的回复，请重试或使用不同的表述。错误: {str(e)}"
+            action_data = self.extract_action(LLM_action)
+            file_path=self.save_action_data_to_file(action_data)
+            if file_path:
+                logger.info(f"保存工作流到文件: {file_path}")
             else:
-                return "由于步骤过多，无法完成您的请求。请尝试更具体的指令或联系客服人员。"
+                logger.error("保存工作流到文件失败")
+            return f"您的请求已成功处理。请查看生成的工作流文件: {file_path}"           
         except Exception as e:
             logger.error(f"处理请求时出错: {str(e)}")
             return f"处理请求时出错: {str(e)}"

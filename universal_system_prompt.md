@@ -162,10 +162,10 @@
     { "get_or_create_tab": { "url": "https://example.com" } }
     ```
 
-16. **find_and_click_element_by_text**: 查找并点击包含指定文本的元素
+16. **find_and_click**: 查找并点击包含指定文本的元素
 
     ```json
-    { "find_and_click_element_by_text": { "text": "搜索|登录", "partial_match": true } }
+    { "find_and_click": { "text": "搜索|登录", "partial_match": true } }
     ```
 
 17. **input_text_and_search**: 自动检测搜索输入框，输入要搜索的文本，然后点击搜索按钮或按回车搜索

@@ -53,7 +53,7 @@ class BaseHandler:
             # 组合工具
             "get_or_create_tab": self.get_or_create_tab_with_url,
             "input_text_and_search":self.input_text_and_search,
-            "find_and_click_element_by_text": self.find_and_click_element_by_text,
+            "find_and_click": self.find_and_click_element_by_text,
             "create_mask_interceptor": self.create_mask_interceptor,
             "search_and_navigate":self.search_and_navigate,
 
@@ -245,7 +245,7 @@ class BaseHandler:
                     elements_info.append({
                         "index": index,
                         "tag_name": element.tag_name,
-                        "text": element_text[:20] if element_text else "",  # 限制文本长度
+                        "text": element_text[:50] if element_text else "",  # 限制文本长度
                         "attributes": key_attributes,
                         #"is_visible": element.is_visible,
                         #"is_interactive": element.is_interactive,
@@ -260,7 +260,7 @@ class BaseHandler:
                 "status": "success",
                 #"message": extraction_summary,
                 #"extracted_info": extracted_info,
-                "text_blocks": text_content[:10],  # 增加返回的文本块数量
+                "text_blocks": text_content[:100],  # 增加返回的文本块数量
                 #"text_blocks_count": len(text_content),
                 "extraction_goal": goal
             }
