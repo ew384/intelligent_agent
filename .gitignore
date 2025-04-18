@@ -4,6 +4,6 @@ __pycache__/
 .DS_Store
 ./tests/browser_test/
 ./tests/browser_test/claude
-./page_analyzer/page_automation_output/
+./page_analyzer/page_automation_output/*
 ./page_analyzer/
 ./debug_dom/
