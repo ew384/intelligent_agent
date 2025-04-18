@@ -646,6 +646,9 @@ class ClaudeAuthHandler:
                 let currentTurn = null;
                 let turnIndex = 0;
                 
+                // Track processed code signatures to prevent duplicates
+                const processedCodeSignatures = new Set();
+                
                 for (const element of conversationElements) {
                     // Check if the element contains a user query (usually has a specific background color)
                     const isUserQuery = element.querySelector('.bg-bg-300');
@@ -694,12 +697,26 @@ class ClaudeAuthHandler:
                                         // Look for the corresponding code in our map
                                         if (codeVersionsMap.has(buttonText)) {
                                             const codeData = codeVersionsMap.get(buttonText);
-                                            currentTurn.codeBlocks.push({
-                                                language: codeData.language || 'text',
-                                                code: codeData.code,
-                                                version: codeData.version,
-                                                buttonLabel: buttonText
-                                            });
+                                            
+                                            // Create normalized version of code text to check for duplicates
+                                            const normalizedCode = codeData.code.trim()
+                                                .replace(/^(json|python|javascript|html|css)\\s*\\{/i, '{') // Remove language identifier at start
+                                                .replace(/\\s+/g, '') // Remove all whitespace
+                                                .replace(/\\\\"/g, '"') // Standardize escaped quotes
+                                                .toLowerCase(); // Convert to lowercase to avoid case differences
+                                                
+                                            // Only add if not a duplicate
+                                            if (!processedCodeSignatures.has(normalizedCode)) {
+                                                processedCodeSignatures.add(normalizedCode);
+                                                
+                                                // Add to current turn
+                                                currentTurn.codeBlocks.push({
+                                                    language: codeData.language || 'text',
+                                                    code: codeData.code,
+                                                    version: codeData.version,
+                                                    buttonLabel: buttonText
+                                                });
+                                            }
                                         } else {
                                             // If code not found, add placeholder
                                             let versionLabel = "Version 1";
@@ -728,7 +745,7 @@ class ClaudeAuthHandler:
                                 }
                             }
                             
-                            // 1. Process document buttons and add their content 
+                            // Process document buttons and add their content 
                             const docButtons = element.querySelectorAll('button[class*="font-styrene"][class*="border-0"]');
                             for (const docButton of docButtons) {
                                 try {
@@ -758,7 +775,7 @@ class ClaudeAuthHandler:
                                 }
                             }
                             
-                            // 2. Find inline code blocks (not folded ones)
+                            // Find inline code blocks (not folded ones)
                             const codeBlocks = element.querySelectorAll('pre');
                             for (const codeBlock of codeBlocks) {
                                 // Skip if it's inside a button (likely a preview)
@@ -781,8 +798,29 @@ class ClaudeAuthHandler:
                                 codeText = codeText.replace(/^(python|javascript|html|css|json)\\s*Copy\\s*/i, '');
                                 codeText = codeText.replace(/Copy$/i, '').trim();
                                 
-                                // Add the code block to the current turn if it's not empty
-                                if (codeText.trim()) {
+                                // Create normalized version of code text to check for duplicates
+                                const normalizedCode = codeText.trim()
+                                    .replace(/^(json|python|javascript|html|css)\\s*\\{/i, '{') // Remove language identifier at start
+                                    .replace(/\\s+/g, '') // Remove all whitespace
+                                    .replace(/\\\\"/g, '"') // Standardize escaped quotes
+                                    .toLowerCase(); // Convert to lowercase to avoid case differences
+                                
+                                // Add the code block to the current turn if it's not empty and not a duplicate
+                                if (codeText.trim() && !processedCodeSignatures.has(normalizedCode)) {
+                                    processedCodeSignatures.add(normalizedCode);
+                                    
+                                    // Standardize JSON formatting if it's a JSON code block
+                                    if (language === 'json') {
+                                        try {
+                                            // Try to parse and reformat to ensure consistent JSON format
+                                            const jsonObj = JSON.parse(codeText.replace(/^json/i, '').trim());
+                                            codeText = JSON.stringify(jsonObj, null, 2);
+                                        } catch (e) {
+                                            // If parsing fails, keep original text
+                                            console.log("JSON parsing failed, keeping original format");
+                                        }
+                                    }
+                                    
                                     // Check if this is a duplicate of a folded code block we already added
                                     let isDuplicate = false;
                                     for (const existingBlock of currentTurn.codeBlocks) {
@@ -803,7 +841,7 @@ class ClaudeAuthHandler:
                                 }
                             }
                             
-                            // 3. Extract code explanations and usage instructions
+                            // Extract code explanations and usage instructions
                             let codeExplanations = [];
                             
                             // Find all lists (ordered and unordered)
@@ -867,7 +905,7 @@ class ClaudeAuthHandler:
                             // Add to current turn
                             currentTurn.codeExplanations = codeExplanations;
                             
-                            // 5. Extract response text (excluding code blocks, buttons, and captured explanations)
+                            // Extract response text (excluding code blocks, buttons, and captured explanations)
                             let responseText = '';
                             
                             // Create a temporary container to hold all content, filter out code areas
@@ -933,6 +971,24 @@ class ClaudeAuthHandler:
                     }
                 }
                 
+                // Collect page header information as UI elements
+                const headerElement = document.querySelector('header');
+                if (headerElement) {
+                    content.uiElements.push({
+                        type: 'header',
+                        text: headerElement.textContent.trim()
+                    });
+                }
+                
+                // Collect page footer disclaimers
+                const disclaimerElement = document.querySelector('div[class*="Claude can make mistakes"]');
+                if (disclaimerElement) {
+                    content.uiElements.push({
+                        type: 'disclaimer',
+                        text: disclaimerElement.textContent.trim()
+                    });
+                }
+                
                 return content;
             }
             
@@ -948,7 +1004,7 @@ class ClaudeAuthHandler:
                 return None
             
             return content_data
-            
+                
         except Exception as e:
             logger.error(f"Error extracting page content: {str(e)}")
             return None

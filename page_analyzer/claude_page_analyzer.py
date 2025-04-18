@@ -2303,7 +2303,7 @@ def extract_page_content(driver, filename="page_content.txt"):
         title = driver.title
         
         # 使用JavaScript提取内容并保留格式
-        js_script = """
+        js_script = r"""
         function getFormattedContent() {
             // 存储内容
             let content = {
@@ -2361,6 +2361,8 @@ def extract_page_content(driver, filename="page_content.txt"):
                         
                         // 1. 查找代码块
                         const codeBlocks = element.querySelectorAll('pre');
+                        const processedCodeSignatures = new Set(); // 用于跟踪已处理的代码内容
+
                         for (const codeBlock of codeBlocks) {
                             // 获取代码语言
                             let language = '';
@@ -2378,15 +2380,35 @@ def extract_page_content(driver, filename="page_content.txt"):
                             // 移除"Copy"和语言标识
                             codeText = codeText.replace(/^(python|javascript|html|css|json)\\s*Copy\\s*/i, '');
                             
-                            // 将代码块添加到当前轮次
-                            if (codeText.trim()) {
+                            // 创建一个唯一标识，移除所有空白和格式差异，只保留实质内容
+                            const normalizedCode = codeText.trim()
+                                .replace(/^(json|python|javascript|html|css)\s*\{/i, '{') // 移除开头的语言标识符
+                                .replace(/\s+/g, '') // 移除所有空白字符
+                                .replace(/\\"/g, '"') // 统一处理转义引号
+                                .toLowerCase(); // 转为小写以避免大小写差异
+                            
+                            // 只有在不是重复代码的情况下才添加
+                            if (codeText.trim() && !processedCodeSignatures.has(normalizedCode)) {
+                                processedCodeSignatures.add(normalizedCode);
+                                
+                                // 规范化JSON代码格式，如果是JSON代码块
+                                if (language === 'json') {
+                                    try {
+                                        // 尝试解析再格式化，以确保一致的JSON格式
+                                        const jsonObj = JSON.parse(codeText.replace(/^json/i, '').trim());
+                                        codeText = JSON.stringify(jsonObj, null, 2);
+                                    } catch (e) {
+                                        // 如果解析失败，保留原始文本
+                                        console.log("JSON解析失败，保留原始格式");
+                                    }
+                                }
+                                
                                 currentTurn.codeBlocks.push({
                                     language: language || 'python', // 默认为python
                                     code: codeText
                                 });
                             }
-                        }
-                        
+                        }  
                         // 2. 查找文档引用
                         const docButtons = element.querySelectorAll('button[class*="font-styrene"][class*="border-0"]');
                         for (const docButton of docButtons) {

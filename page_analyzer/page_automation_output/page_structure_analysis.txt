@@ -1,0 +1,2031 @@
+Claude页面结构分析
+
+================================================================================
+常见标签统计:
+================================================================================
+
+span: 338
+div: 288
+path: 76
+svg: 72
+button: 61
+a: 40
+li: 36
+strong: 35
+script: 34
+code: 30
+p: 9
+pre: 4
+h3: 3
+br: 2
+iframe: 2
+ol: 2
+ul: 2
+body: 1
+fieldset: 1
+h2: 1
+header: 1
+input: 1
+nav: 1
+next-route-announcer: 1
+noscript: 1
+style: 1
+
+================================================================================
+常见类名统计:
+================================================================================
+
+items-center: 175
+relative: 144
+flex: 126
+token: 126
+w-full: 119
+text-text-300: 102
+transition: 98
+select-none: 97
+shrink-0: 95
+justify-center: 94
+inline-flex: 91
+rounded-md: 85
+can-focus: 82
+disabled:drop-shadow-none: 82
+disabled:opacity-50: 82
+disabled:pointer-events-none: 82
+disabled:shadow-none: 82
+group: 79
+border-transparent: 78
+font-styrene: 77
+duration-300: 76
+whitespace-nowrap: 75
+aria-checked:bg-bg-400: 74
+aria-checked:text-text-100: 74
+aria-expanded:bg-bg-300: 74
+aria-expanded:text-text-100: 74
+aria-pressed:bg-bg-400: 74
+aria-pressed:text-text-100: 74
+ease-[cubic-bezier(0.165,0.85,0.45,1)]: 74
+hover:bg-bg-400: 74
+hover:text-text-100: 74
+h-8: 73
+text-sm: 65
+flex-row: 57
+absolute: 49
+active:scale-95: 49
+hover:bg-bg-300: 46
+overflow-hidden: 44
+px-4: 41
+border-0.5: 39
+right-0: 39
+text-xs: 39
+active:scale-[0.985]: 38
+gap-3: 38
+hidden: 37
+w-8: 37
+!min-w-0: 36
+border-border-300: 36
+justify-start: 35
+truncate: 35
+
+================================================================================
+ID统计:
+================================================================================
+
+chat-input-file-upload: 1
+input-plus-menu-trigger: 1
+input-tools-menu-trigger: 1
+intercom-frame: 1
+intercom-lightweight-app-style: 1
+radix-:r1a:: 1
+radix-:r3:: 1
+radix-:r5h:: 1
+radix-:r5j:: 1
+radix-:r5l:: 1
+radix-:r5n:: 1
+radix-:r5p:: 1
+radix-:r5r:: 1
+radix-:r5t:: 1
+radix-:r5v:: 1
+radix-:r61:: 1
+radix-:r63:: 1
+radix-:r65:: 1
+radix-:r67:: 1
+radix-:r69:: 1
+radix-:r6b:: 1
+radix-:r6d:: 1
+radix-:r6f:: 1
+radix-:r6h:: 1
+radix-:r6j:: 1
+radix-:r6l:: 1
+radix-:r6n:: 1
+radix-:r6p:: 1
+radix-:r6r:: 1
+radix-:r6t:: 1
+radix-:r6v:: 1
+radix-:r71:: 1
+radix-:r73:: 1
+radix-:r75:: 1
+radix-:r77:: 1
+radix-:r79:: 1
+radix-:r7b:: 1
+radix-:rjt:: 1
+radix-:rk1:: 1
+radix-:rkm:: 1
+radix-:rl0:: 1
+radix-:rla:: 1
+radix-:rlj:: 1
+sift-snippet: 1
+
+================================================================================
+可能的消息元素:
+================================================================================
+
+
+================================================================================
+代码块:
+================================================================================
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    {      "request_user_action": {        "type": "login|select|verify|input|decision",        "message": "请登录您的账号",        "description": "系统需要您的账号密码，请手动完成登录",        "options": ["选项1", "选项2"]  ...
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    {      "evaluate_state": {        "description": "用户已完成登录操作"      }    }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "create_tab": { "url": "https://example.com" } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "click_element": { "index": 42 } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "input_text": { "index": 24, "text": "示例文本" } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "extract_content": { "goal": "查找税额信息" } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "scroll": { "direction": "down", "amount": "medium" } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "get_tabs": {} }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "create_tab": { "url": "https://example.com" } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "switch_tab": { "tab_id": "tab_123" } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "close_tab": {} }     
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "extract_content": { "goal": "搜索框" } }    
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "find_element_by_text": { "text": "登录", "partial_match": true } }     
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     {       "find_element_by_attribute": {         "attribute": "id",         "value": "username",         "partial_match": false       }     }     
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     {       "inject_script": {         "script": "document.querySelector('h1').innerText = '已修改'"       }     }     
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "get_or_create_tab": { "url": "https://example.com" } }     
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "find_and_click": { "text": "搜索|登录", "partial_match": true } }     
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "input_text_and_search": {"search_text": "要搜索的内容"}}     
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     {       "check_condition_and_execute": {         "condition_check": {           "type": "is_logged_in",           "parameters": {             "login_button_text": "登录",             "user_elem...
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: new_tab_created
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: auto_switch_tab
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: false
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json { "click_element": { "index": 42 } } 
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json { "click_element": { "index": 42, "auto_switch_tab": false } } 
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json { "find_and_click": { "text": "登录", "partial_match": true, "auto_switch_tab": false } } 
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: new_tab_created
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: get_tabs
+
+标签: code
+ID: 
+类名: bg-text-200/5 border border-0.5 border-border-300 text-danger-000 whitespace-pre-wrap rounded-[0.4rem] px-1 py-px text-[0.9rem]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json {   "current_state": {     "previous_action": "success|failure",     "evaluation_previous_goal": "成功|失败|未知 - 对前一步操作结果的分析",     "memory": "已完成步骤的描述和需要记住的上下文信息",     "next_goal": "下一步操作的目标",     "u...
+
+标签: pre
+ID: 
+类名: 
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre
+代码示例: json{
+  "current_state": {
+    "previous_action": "success",
+    "evaluation_previous_goal": "未知 - 这是初始状态，尚未执行任何操作",
+    "memory": "用户希望在小红书上搜索中信银行信用卡信息并查看第一个内容",
+    "next_goal": "打开小红书网站",
+    "user...
+
+标签: pre
+ID: 
+类名: code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed
+代码示例: {
+  "current_state": {
+    "previous_action": "success",
+    "evaluation_previous_goal": "未知 - 这是初始状态，尚未执行任何操作",
+    "memory": "用户希望在小红书上搜索中信银行信用卡信息并查看第一个内容",
+    "next_goal": "打开小红书网站",
+    "user_int...
+
+标签: code
+ID: 
+类名: language-json
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed > code.language-json
+代码示例: {
+  "current_state": {
+    "previous_action": "success",
+    "evaluation_previous_goal": "未知 - 这是初始状态，尚未执行任何操作",
+    "memory": "用户希望在小红书上搜索中信银行信用卡信息并查看第一个内容",
+    "next_goal": "打开小红书网站",
+    "user_int...
+
+标签: pre
+ID: 
+类名: 
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre
+代码示例: json{
+ "current_state": {
+   "previous_action": "success",
+   "evaluation_previous_goal": "成功 - 已经成功打开小红书网站，标签页ID为6，URL为https://www.xiaohongshu.com/explore",
+   "memory": "用户希望在小红书上搜索中信银行信用卡信息并查看第一个内容...
+
+标签: pre
+ID: 
+类名: code-block__code !my-0 !rounded-lg !text-sm !leading-relaxed
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed
+代码示例: {
+ "current_state": {
+   "previous_action": "success",
+   "evaluation_previous_goal": "成功 - 已经成功打开小红书网站，标签页ID为6，URL为https://www.xiaohongshu.com/explore",
+   "memory": "用户希望在小红书上搜索中信银行信用卡信息并查看第一个内容；已成功...
+
+标签: code
+ID: 
+类名: language-json
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed > code.language-json
+代码示例: {
+ "current_state": {
+   "previous_action": "success",
+   "evaluation_previous_goal": "成功 - 已经成功打开小红书网站，标签页ID为6，URL为https://www.xiaohongshu.com/explore",
+   "memory": "用户希望在小红书上搜索中信银行信用卡信息并查看第一个内容；已成功...
+
+
+================================================================================
+代码与解释:
+================================================================================
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    {      "request_user_action": {        "type": "login|select|verify|input|decision",        "message": "请登录您的账号",        "description": "系统需要您...
+相关解释: 前置解释: request_user_action
+后置解释: evaluate_state
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    {      "evaluate_state": {        "description": "用户已完成登录操作"      }    }    
+相关解释: 前置解释: evaluate_state
+后置解释: create_tab
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "create_tab": { "url": "https://example.com" } }    
+相关解释: 前置解释: create_tab
+后置解释: click_element
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "click_element": { "index": 42 } }    
+相关解释: 前置解释: click_element
+后置解释: input_text
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "input_text": { "index": 24, "text": "示例文本" } }    
+相关解释: 前置解释: input_text
+后置解释: extract_content
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "extract_content": { "goal": "查找税额信息" } }    
+相关解释: 前置解释: extract_content
+后置解释: scroll
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "scroll": { "direction": "down", "amount": "medium" } }    
+相关解释: 前置解释: scroll
+后置解释: get_tabs
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "get_tabs": {} }    
+相关解释: 前置解释: get_tabs
+后置解释: create_tab
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "create_tab": { "url": "https://example.com" } }    
+相关解释: 前置解释: create_tab
+后置解释: switch_tab
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "switch_tab": { "tab_id": "tab_123" } }    
+相关解释: 前置解释: switch_tab
+后置解释: close_tab
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "close_tab": {} }     
+相关解释: 前置解释: close_tab
+后置解释: extract_content
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json    { "extract_content": { "goal": "搜索框" } }    
+相关解释: 前置解释: extract_content
+后置解释: find_element_by_text
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "find_element_by_text": { "text": "登录", "partial_match": true } }     
+相关解释: 前置解释: find_element_by_text
+后置解释: find_element_by_attribute
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     {       "find_element_by_attribute": {         "attribute": "id",         "value": "username",         "partial_match": false       }     }  ...
+相关解释: 前置解释: find_element_by_attribute
+后置解释: inject_script
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     {       "inject_script": {         "script": "document.querySelector('h1').innerText = '已修改'"       }     }     
+相关解释: 前置解释: inject_script
+后置解释: get_or_create_tab
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "get_or_create_tab": { "url": "https://example.com" } }     
+相关解释: 前置解释: get_or_create_tab
+后置解释: find_and_click
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "find_and_click": { "text": "搜索|登录", "partial_match": true } }     
+相关解释: 前置解释: find_and_click
+后置解释: input_text_and_search
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     { "input_text_and_search": {"search_text": "要搜索的内容"}}     
+相关解释: 前置解释: input_text_and_search
+后置解释: check_condition_and_execute
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json     {       "check_condition_and_execute": {         "condition_check": {           "type": "is_logged_in",           "parameters": {            ...
+相关解释: 前置解释: check_condition_and_execute
+
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: new_tab_created
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: auto_switch_tab
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: false
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json { "click_element": { "index": 42 } } 
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json { "click_element": { "index": 42, "auto_switch_tab": false } } 
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json { "find_and_click": { "text": "登录", "partial_match": true, "auto_switch_tab": false } } 
+相关解释: 后置解释: 响应监控
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: new_tab_created
+相关解释: 前置解释: 响应监控
+后置解释: 检测跳转
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: get_tabs
+相关解释: 前置解释: 检测跳转
+后置解释: 多标签页任务
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.flex.flex-row.gap-2 > div.font-user-message.grid.grid-cols-1.gap-2.py-0.5.text-[0.9375rem].leading-6 > p.whitespace-pre-wrap.break-words > code.bg-text-200/5.border.border-0.5.border-border-300.text-danger-000.whitespace-pre-wrap.rounded-[0.4rem].px-1.py-px.text-[0.9rem]
+代码示例: json {   "current_state": {     "previous_action": "success|failure",     "evaluation_previous_goal": "成功|失败|未知 - 对前一步操作结果的分析",     "memory": "已完成步骤的描...
+相关解释: 前置解释: 交互后状态评估
+
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre
+代码示例: json{
+  "current_state": {
+    "previous_action": "success",
+    "evaluation_previous_goal": "未知 - 这是初始状态，尚未执行任何操作",
+    "memory": "用户希望在小红书上搜索中信银行信用卡...
+相关解释: 前置解释: 好的，我会帮你打开小红书，搜索"中信银行信用卡"的信息，并点击第一个搜索结果。我会一步步操作浏览器来完成这个任务。
+
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed
+代码示例: {
+  "current_state": {
+    "previous_action": "success",
+    "evaluation_previous_goal": "未知 - 这是初始状态，尚未执行任何操作",
+    "memory": "用户希望在小红书上搜索中信银行信用卡信息并查...
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed > code.language-json
+代码示例: {
+  "current_state": {
+    "previous_action": "success",
+    "evaluation_previous_goal": "未知 - 这是初始状态，尚未执行任何操作",
+    "memory": "用户希望在小红书上搜索中信银行信用卡信息并查...
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre
+代码示例: json{
+ "current_state": {
+   "previous_action": "success",
+   "evaluation_previous_goal": "成功 - 已经成功打开小红书网站，标签页ID为6，URL为https://www.xiaohongshu.com/ex...
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed
+代码示例: {
+ "current_state": {
+   "previous_action": "success",
+   "evaluation_previous_goal": "成功 - 已经成功打开小红书网站，标签页ID为6，URL为https://www.xiaohongshu.com/explor...
+
+代码路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div > pre.code-block__code.!my-0.!rounded-lg.!text-sm.!leading-relaxed > code.language-json
+代码示例: {
+ "current_state": {
+   "previous_action": "success",
+   "evaluation_previous_goal": "成功 - 已经成功打开小红书网站，标签页ID为6，URL为https://www.xiaohongshu.com/explor...
+
+
+================================================================================
+文档部分:
+================================================================================
+
+
+================================================================================
+交互元素:
+================================================================================
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 group
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.w-full.items-center.gap-px.p-2 > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.w-8.rounded-md.active:scale-95.group
+文本: 
+
+标签: button
+ID: radix-:r5h:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col.mb-6 > ul.-mx-1.5.flex.flex-1.flex-col.px-1.5.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5h:
+文本: 
+
+标签: button
+ID: radix-:r1a:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.block > button#radix-:r1a:
+文本: 
+
+标签: button
+ID: radix-:r5j:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5j:
+文本: 
+
+标签: button
+ID: radix-:r5l:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5l:
+文本: 
+
+标签: button
+ID: radix-:r5n:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5n:
+文本: 
+
+标签: button
+ID: radix-:r5p:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5p:
+文本: 
+
+标签: button
+ID: radix-:r5r:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5r:
+文本: 
+
+标签: button
+ID: radix-:r5t:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5t:
+文本: 
+
+标签: button
+ID: radix-:r5v:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r5v:
+文本: 
+
+标签: button
+ID: radix-:r61:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r61:
+文本: 
+
+标签: button
+ID: radix-:r63:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r63:
+文本: 
+
+标签: button
+ID: radix-:r65:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r65:
+文本: 
+
+标签: button
+ID: radix-:r67:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r67:
+文本: 
+
+标签: button
+ID: radix-:r69:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r69:
+文本: 
+
+标签: button
+ID: radix-:r6b:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6b:
+文本: 
+
+标签: button
+ID: radix-:r6d:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6d:
+文本: 
+
+标签: button
+ID: radix-:r6f:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6f:
+文本: 
+
+标签: button
+ID: radix-:r6h:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6h:
+文本: 
+
+标签: button
+ID: radix-:r6j:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6j:
+文本: 
+
+标签: button
+ID: radix-:r6l:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6l:
+文本: 
+
+标签: button
+ID: radix-:r6n:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6n:
+文本: 
+
+标签: button
+ID: radix-:r6p:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6p:
+文本: 
+
+标签: button
+ID: radix-:r6r:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6r:
+文本: 
+
+标签: button
+ID: radix-:r6t:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6t:
+文本: 
+
+标签: button
+ID: radix-:r6v:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r6v:
+文本: 
+
+标签: button
+ID: radix-:r71:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r71:
+文本: 
+
+标签: button
+ID: radix-:r73:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r73:
+文本: 
+
+标签: button
+ID: radix-:r75:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r75:
+文本: 
+
+标签: button
+ID: radix-:r77:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r77:
+文本: 
+
+标签: button
+ID: radix-:r79:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r79:
+文本: 
+
+标签: button
+ID: radix-:r7b:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 active:!scale-100 aria-expanded:!bg-bg-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px > li > div.relative.group > div.absolute.right-0.top-1/2.-translate-y-1/2.hidden.group-hover:block.group-focus-within:block > button#radix-:r7b:
+文本: 
+
+标签: button
+ID: radix-:r3:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 px-4 py-2 rounded-lg min-w-[5rem] active:scale-[0.985] whitespace-nowrap text-sm flex !justify-start !min-w-0 py-5 !px-0.5  w-full
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.px-2.pb-1 > button#radix-:r3:
+文本: EEndianProfessional plan
+
+标签: button
+ID: radix-:rkm:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 px-4 py-2 rounded-lg min-w-[5rem] active:scale-[0.985] whitespace-nowrap text-sm pl-3 pr-2 gap-1 !text-text-000 !shrink gap-1 !px-1 !py-0 !scale-100 !h-7
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > header.flex.w-full.bg-bg-100.sticky.top-0.z-header.h-12.h-12.-mb-6 > div.flex.w-full.items-center.justify-between.gap-4.pl-11.lg:pl-8.gap-6.pr-2.pr-3 > div.flex.min-w-0.flex-1.shrink.flex-col.md:flex-row.md:items-center > div.flex.min-w-0.shrink-1.items-center.max-md:text-sm > button#radix-:rkm:
+文本: Automating Browser Tasks for Users
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 px-4 py-2 rounded-lg min-w-[5rem] active:scale-[0.985] whitespace-nowrap text-sm pl-2 pr-3 gap-1 font-medium text-sm !text-text-100
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > header.flex.w-full.bg-bg-100.sticky.top-0.z-header.h-12.h-12.-mb-6 > div.flex.w-full.items-center.justify-between.gap-4.pl-11.lg:pl-8.gap-6.pr-2.pr-3 > div.right-3.flex.gap-2 > div.flex.items-center.gap-1.transition-opacity.duration-300.md:opacity-100 > div > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-9.px-4.py-2.rounded-lg.min-w-[5rem].active:scale-[0.985].whitespace-nowrap.text-sm.pl-2.pr-3.gap-1.font-medium.text-sm.!text-text-100
+文本: Share
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-500 py-1
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-y-4.bg-bg-300/90.backdrop-blur-sm.translate-x-1.group-hover:translate-x-0.5.border-0.5.border-border-300.p-0.5.shadow-sm.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-500.py-1
+文本: Edit
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 backdrop-blur-md
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div.sticky.opacity-0.group-hover/copy:opacity-100.top-2.py-2.h-12.w-0.float-right > div.absolute.right-0.h-8.px-2.items-center.inline-flex > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.w-8.rounded-md.active:scale-95.backdrop-blur-md
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: radix-:rl0:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none flex flex-row items-center gap-1 rounded-md p-2 py-1.5 text-sm transition-opacity delay-100 hover:bg-bg-300 select-none
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > div.flex.items-center.gap-0.5 > button#radix-:rl0:
+文本: Retry
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-500 py-1
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-y-4.bg-bg-300/90.backdrop-blur-sm.translate-x-1.group-hover:translate-x-0.5.border-0.5.border-border-300.p-0.5.shadow-sm.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-500.py-1
+文本: Edit
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95 backdrop-blur-md
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.font-claude-message.relative.leading-[1.65rem].[&_pre>div]:bg-bg-000/50.[&_pre>div]:border-0.5.[&_pre>div]:border-border-400.[&_.ignore-pre-bg>div]:bg-transparent.[&>div>div>:is(p,blockquote,h1,h2,h3,h4,h5,h6)]:pl-2.[&>div>div>:is(p,blockquote,ul,ol,h1,h2,h3,h4,h5,h6)]:pr-8 > div > div.grid-cols-1.grid.gap-2.5.[&_>_*]:min-w-0 > pre > div.relative.group/copy.rounded-lg > div.sticky.opacity-0.group-hover/copy:opacity-100.top-2.py-2.h-12.w-0.float-right > div.absolute.right-0.h-8.px-2.items-center.inline-flex > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.w-8.rounded-md.active:scale-95.backdrop-blur-md
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: radix-:rla:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none flex flex-row items-center gap-1 rounded-md p-2 py-1.5 text-sm transition-opacity delay-100 hover:bg-bg-300 select-none
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-8 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > div.flex.items-center.gap-0.5 > button#radix-:rla:
+文本: Retry
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-500 py-1
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div.mb-1.mt-1 > div.group.relative.inline-flex.gap-2.bg-bg-300.rounded-xl.pl-2.5.py-2.5.break-words.text-text-100.transition-all.max-w-[75ch].flex-col.pr-6 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-y-4.bg-bg-300/90.backdrop-blur-sm.translate-x-1.group-hover:translate-x-0.5.border-0.5.border-border-300.p-0.5.shadow-sm.opacity-0.group-hover:opacity-100 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-500.py-1
+文本: Edit
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-3 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.translate-y-full.pt-2 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-3 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.translate-y-full.pt-2 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: 
+类名: flex flex-row items-center gap-1.5 rounded-md p-2 text-sm transition text-text-300 active:scale-95 select-auto hover:bg-bg-300 py-1.5
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-3 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.translate-y-full.pt-2 > div.text-text-300.flex.items-stretch.justify-between > button.flex.flex-row.items-center.gap-1.5.rounded-md.p-2.text-sm.transition.text-text-300.active:scale-95.select-auto.hover:bg-bg-300.py-1.5
+文本: 
+
+标签: button
+ID: radix-:rlj:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none flex flex-row items-center gap-1 rounded-md p-2 py-1.5 text-sm transition-opacity delay-100 hover:bg-bg-300 select-none
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.flex-1.flex.flex-col.gap-3.px-4.max-w-3xl.mx-auto.w-full.pt-1 > div > div > div.group.relative.-tracking-[0.015em].pb-3 > div.absolute.bottom-0.right-2.pointer-events-none > div.rounded-lg.transition.min-w-max.pointer-events-auto.translate-x-2.translate-y-full.pt-2 > div.text-text-300.flex.items-stretch.justify-between > div.flex.items-center.gap-0.5 > button#radix-:rlj:
+文本: Retry
+
+标签: button
+ID: input-plus-menu-trigger
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none border-0.5 transition-all h-8 min-w-8 rounded-lg flex items-center px-[7.5px] group !pointer-events-auto text-text-300 border-border-300 active:scale-[0.98] hover:text-text-200/90 hover:bg-bg-100
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0 > div.relative.shrink-0 > div > div.flex.items-center > div.flex.shrink-0 > button#input-plus-menu-trigger
+文本: 
+
+标签: button
+ID: input-tools-menu-trigger
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none border-0.5 transition-all h-8 min-w-8 rounded-lg flex items-center px-[7.5px] group !pointer-events-auto text-text-300 border-border-300 active:scale-[0.98] hover:text-text-200/90 hover:bg-bg-100
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0 > div.relative.shrink-0 > div > div.flex.items-center > div.flex.shrink-0 > button#input-tools-menu-trigger
+文本: 
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none h-7 border-0.5 text-text-100 ml-1.5 inline-flex items-start gap-[0.175em] rounded-md border-transparent text-sm opacity-80 transition hover:opacity-100 disabled:!opacity-80 sm:ml-0 sm:pb-1 sm:pl-1.5 sm:pr-1 sm:pt-1 hover:bg-bg-100 hover:border-border-400
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div#radix-:rjt: > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.h-7.border-0.5.text-text-100.ml-1.5.inline-flex.items-start.gap-[0.175em].rounded-md.border-transparent.text-sm.opacity-80.transition.hover:opacity-100.disabled:!opacity-80.sm:ml-0.sm:pb-1.sm:pl-1.5.sm:pr-1.sm:pt-1.hover:bg-bg-100.hover:border-border-400
+文本: 3.7 Sonnet
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none bg-accent-main-000
+          text-oncolor-100
+          font-styrene
+          font-medium
+          transition-colors
+          hover:bg-accent-main-200 h-8 w-8 rounded-md active:scale-95 !rounded-lg !h-8 !w-8
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden > div.relative.h-full.flex-1.flex.overflow-x-hidden.overflow-y-scroll.pt-6 > div.relative.mx-auto.flex.h-full.w-full.max-w-3xl.flex-1.flex-col.md:px-2 > div.sticky.bottom-0.mx-auto.w-full.pt-6.z-[5] > fieldset.flex.w-full.min-w-0.flex-col > div.flex.flex-col.bg-bg-000.border-0.5.border-border-300.mx-2.md:mx-0.items-stretch.transition-all.duration-200.relative.shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/3.5%)].focus-within:shadow-[0_0.25rem_1.25rem_hsl(var(--always-black)/7.5%)].hover:border-border-200.focus-within:border-border-200.cursor-text.z-10.rounded-2xl > div.flex.flex-col.gap-3.5.m-3.5 > div.flex.gap-2.5.w-full.items-center > div > div > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.bg-accent-main-000.text-oncolor-100.font-styrene.font-medium.transition-colors.hover:bg-accent-main-200.h-8.w-8.rounded-md.active:scale-95.!rounded-lg.!h-8.!w-8
+文本: 
+
+标签: button
+ID: 
+类名: text-text-500 data-[state="on"]:text-text-100 border-0.5 data-[state="on"]:bg-bg-100 data-[state="on"]:border-border-300/10 group-hover/segmented-control:data-[state="on"]:border-border-300 flex items-center justify-center rounded-lg border-transparent font-medium transition gap-1.5 pl-3 pr-3 text-sm min-w-7 !px-1
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:hidden > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.absolute.opacity-0.w-0.h-0.overflow-hidden.pointer-events-none > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.items-center.flex-1.gap-2 > div.bg-bg-300.border-bg-300.inline-flex.rounded-[0.55rem].p-0.5.border-0.5.border-transparent.group/segmented-control.hover:border-border-300.transition-colors.cursor-pointer.h-8 > button.text-text-500.data-[state="on"]:text-text-100.border-0.5.data-[state="on"]:bg-bg-100.data-[state="on"]:border-border-300/10.group-hover/segmented-control:data-[state="on"]:border-border-300.flex.items-center.justify-center.rounded-lg.border-transparent.font-medium.transition.gap-1.5.pl-3.pr-3.text-sm.min-w-7.!px-1
+文本: 
+
+标签: button
+ID: 
+类名: text-text-500 data-[state="on"]:text-text-100 border-0.5 data-[state="on"]:bg-bg-100 data-[state="on"]:border-border-300/10 group-hover/segmented-control:data-[state="on"]:border-border-300 flex items-center justify-center rounded-lg border-transparent font-medium transition gap-1.5 pl-3 pr-3 text-sm min-w-7 !px-1
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:hidden > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.absolute.opacity-0.w-0.h-0.overflow-hidden.pointer-events-none > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.items-center.flex-1.gap-2 > div.bg-bg-300.border-bg-300.inline-flex.rounded-[0.55rem].p-0.5.border-0.5.border-transparent.group/segmented-control.hover:border-border-300.transition-colors.cursor-pointer.h-8 > button.text-text-500.data-[state="on"]:text-text-100.border-0.5.data-[state="on"]:bg-bg-100.data-[state="on"]:border-border-300/10.group-hover/segmented-control:data-[state="on"]:border-border-300.flex.items-center.justify-center.rounded-lg.border-transparent.font-medium.transition.gap-1.5.pl-3.pr-3.text-sm.min-w-7.!px-1
+文本: 
+
+标签: button
+ID: radix-:rk1:
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 rounded  py-1  px-2  max-w-full  whitespace-nowrap  text-ellipsis  overflow-hidden !text-text-000 !shrink gap-1 !px-1 !py-0.5 text-sm
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:hidden > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.absolute.opacity-0.w-0.h-0.overflow-hidden.pointer-events-none > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.gap-2.items-center.text-sm > button#radix-:rk1:
+文本: 
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-8 w-8 rounded-md active:scale-95
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:hidden > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.absolute.opacity-0.w-0.h-0.overflow-hidden.pointer-events-none > div.pr-2.pl-3.flex.items-center.justify-between.gap-2.select-none.py-2 > div.flex.gap-2.items-center.text-sm > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-8.w-8.rounded-md.active:scale-95
+文本: 
+
+标签: button
+ID: 
+类名: inline-flex
+  items-center
+  justify-center
+  relative
+  shrink-0
+  can-focus
+  select-none
+  disabled:pointer-events-none
+  disabled:opacity-50
+  disabled:shadow-none
+  disabled:drop-shadow-none text-text-300
+          border-transparent
+          transition
+          font-styrene
+          duration-300
+          ease-[cubic-bezier(0.165,0.85,0.45,1)]
+          hover:bg-bg-400
+          aria-pressed:bg-bg-400
+          aria-checked:bg-bg-400
+          aria-expanded:bg-bg-300
+          hover:text-text-100
+          aria-pressed:text-text-100
+          aria-checked:text-text-100
+          aria-expanded:text-text-100 h-9 w-9 rounded-md active:scale-95 shrink-0 -mr-2
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.max-md:absolute.top-0.right-0.bottom-0.left-0.z-20.md:flex-grow-0.md:flex-shrink-0.md:basis-0.overflow-hidden.h-screen.max-md:hidden > div.flex.flex-col.h-full.overflow-hidden > div.flex-1.overflow-hidden.h-full.bg-bg-100 > div.overflow-x-visible.overflow-y-auto.scroll-pb-6.min-h-[0px].[scrollbar-color:hsl(var(--text-500))].scroll-smooth.overscroll-contain.[-webkit-overflow-scrolling:touch].[&::-webkit-scrollbar]:mt-4.[&::-webkit-scrollbar]:w-[0.25rem].[&::-webkit-scrollbar-track]:bg-transparent.[&::-webkit-scrollbar-track]:my-1.[&::-webkit-scrollbar-thumb]:rounded-[1em].[&::-webkit-scrollbar-thumb]:border-[0.25rem].[&::-webkit-scrollbar-thumb]:border-transparent.[&::-webkit-scrollbar-thumb]:bg-clip-padding.[&::-webkit-scrollbar-thumb]:bg-text-500/80.[&::-webkit-scrollbar-thumb:hover]:bg-text-500.[&.has-bottom-scroll]:[mask-image:linear-gradient(to_top,rgba(0,0,0,0)_0%,_rgba(0,0,0,1)_3%)] > div.px-5.pb-4.pt-2 > div.flex.items-center.draggable.pl-7.md:pl-1.pr-0.5 > button.inline-flex.items-center.justify-center.relative.shrink-0.can-focus.select-none.disabled:pointer-events-none.disabled:opacity-50.disabled:shadow-none.disabled:drop-shadow-none.text-text-300.border-transparent.transition.font-styrene.duration-300.ease-[cubic-bezier(0.165,0.85,0.45,1)].hover:bg-bg-400.aria-pressed:bg-bg-400.aria-checked:bg-bg-400.aria-expanded:bg-bg-300.hover:text-text-100.aria-pressed:text-text-100.aria-checked:text-text-100.aria-expanded:text-text-100.h-9.w-9.rounded-md.active:scale-95.shrink-0.-mr-2
+文本: 
+
+
+================================================================================
+对话容器:
+================================================================================
+
+标签: div
+ID: 
+类名: flex flex-col 
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col
+子元素数量: 4
+
+对话元素:
+元素 1:
+  标签: h3
+  ID: 
+  类名: text-text-300 pb-2 mt-1 text-xs select-none pl-2 sticky top-0 z-10 bg-gradient-to-b from-bg-200 from-50% to-bg-200/40
+  路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > h3.text-text-300.pb-2.mt-1.text-xs.select-none.pl-2.sticky.top-0.z-10.bg-gradient-to-b.from-bg-200.from-50%.to-bg-200/40
+  位置: 上=286, 高=24
+  文本: Recents
+
+元素 2:
+  标签: ul
+  ID: 
+  类名: flex flex-col gap-px
+  路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > ul.flex.flex-col.gap-px
+  位置: 上=310, 高=989
+  文本: Automating Browser Tasks for UsersAutomating Online Tasks with a Versatile AI AssistantAutomating So...
+
+元素 3:
+  标签: div
+  ID: 
+  类名: relative group
+  路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > div.relative.group
+  位置: 上=1299, 高=32
+  文本: All chats
+
+元素 4:
+  标签: div
+  ID: 
+  类名: bg-gradient-to-t from-bg-200 to-transparent sticky h-4 bottom-0 left-0 right-0
+  路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden > div.transition-all.duration-200.flex.flex-grow.flex-col.overflow-y-auto.overflow-x-hidden.relative.px-2.mb-2 > div.flex.flex-col > div.bg-gradient-to-t.from-bg-200.to-transparent.sticky.h-4.bottom-0.left-0.right-0
+  位置: 上=855, 高=16
+  文本: 
+
+
+================================================================================
+文本样本:
+================================================================================
+
+样本 1:
+标签: body
+ID: 
+类名: bg-bg-100 text-text-100 font-styrene min-h-screen tracking-tight
+路径: body
+文本: New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsAutomating Browser Tasks for UsersAutomating Online Tasks with a V...
+
+样本 2:
+标签: div
+ID: 
+类名: flex min-h-screen w-full overflow-x-hidden
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden
+文本: New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsAutomating Browser Tasks for UsersAutomating Online Tasks with a V...
+
+样本 3:
+标签: div
+ID: 
+类名: fixed z-sidebar lg:sticky
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky
+文本: New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsAutomating Browser Tasks for UsersAutomating Online Tasks with a V...
+
+样本 4:
+标签: nav
+ID: 
+类名: h-screen flex flex-col gap-3 pb-2 px-0 fixed top-0 left-0 transition duration-100 border-border-300 border-r-0.5 shadow-lg !bg-bg-200 lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)]
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)]
+文本: New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsAutomating Browser Tasks for UsersAutomating Online Tasks with a V...
+
+样本 5:
+标签: div
+ID: 
+类名: flex flex-col align-center h-full overflow-hidden
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.fixed.z-sidebar.lg:sticky > nav.h-screen.flex.flex-col.gap-3.pb-2.px-0.fixed.top-0.left-0.transition.duration-100.border-border-300.border-r-0.5.shadow-lg.!bg-bg-200.lg:shadow-[inset_-4px_0px_6px_-4px_hsl(var(--always-black)/4%)] > div.flex.flex-col.align-center.h-full.overflow-hidden
+文本: New chatProjectsChatsStarred紫鸟浏览器: Cross-Border E-Commerce Tools and ServicesRecentsAutomating Browser Tasks for UsersAutomating Online Tasks with a V...
+
+样本 6:
+标签: div
+ID: 
+类名: min-h-full w-full min-w-0 flex-1
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1
+文本: Automating Browser Tasks for UsersShareE# 通用 Agent 系统提示  你是一个通用 AI 助手，负责控制浏览器自动化系统来帮助用户完成各种在线任务。你能够理解用户的自然语言请求，并将其转化为一系列浏览器操作来完成任务。当遇到需要用户手动介入的情况（如登录、...
+
+样本 7:
+标签: div
+ID: 
+类名: flex flex-1 h-screen w-full overflow-hidden relative
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative
+文本: Automating Browser Tasks for UsersShareE# 通用 Agent 系统提示  你是一个通用 AI 助手，负责控制浏览器自动化系统来帮助用户完成各种在线任务。你能够理解用户的自然语言请求，并将其转化为一系列浏览器操作来完成任务。当遇到需要用户手动介入的情况（如登录、...
+
+样本 8:
+标签: div
+ID: 
+类名: h-screen flex flex-col overflow-hidden
+路径: div.flex.min-h-screen.w-full.overflow-x-hidden > div.min-h-full.w-full.min-w-0.flex-1 > div.flex.flex-1.h-screen.w-full.overflow-hidden.relative > div.h-screen.flex.flex-col.overflow-hidden
+文本: Automating Browser Tasks for UsersShareE# 通用 Agent 系统提示  你是一个通用 AI 助手，负责控制浏览器自动化系统来帮助用户完成各种在线任务。你能够理解用户的自然语言请求，并将其转化为一系列浏览器操作来完成任务。当遇到需要用户手动介入的情况（如登录、...
+

@@ -1,0 +1,122 @@
+页面标题: Automating Browser Tasks for Users - Claude
+
+================================================================================
+标题结构:
+================================================================================
+
+  Chat controls
+    Starred
+    Recents
+    Content
+
+================================================================================
+主要段落内容:
+================================================================================
+
+# 通用 Agent 系统提示  你是一个通用 AI 助手，负责控制浏览器自动化系统来帮助用户完成各种在线任务。你能够理解用户的自然语言请求，并将其转化为一系列浏览器操作来完成任务。当遇到需要用户手动介入的情况（如登录、验证码、敏感信息输入等），你应该暂停自动化流程，请求用户手动操作，然后在用户确认完成后继续执行。  ## 工作流理解与匹配  当接收到用户请求时，你需要深入理解用户意图，并智能判断： 1. 用户请求的目标是什么 2. 如何高效执行任务  ## 工作流程  1. 理解用户的请求 2. 执行每个步骤并观察结果 3. 根据结果调整下一步行动 3. 在需要时请求用户交互 4. 向用户报告进度和最终结果  ## 用户交互指南  当遇到以下情况时，你应该暂停并请求用户手动介入：  1. 需要登录: 当页面需要用户名/密码登录时 2. 需要选择: 当有多个选项但无法自动确定正确选项时 3. 需要安全验证: 当出现验证码、短信验证或人脸识别等安全验证时 4. 敏感信息输入: 当需要输入身份证号、银行卡号等敏感信息时 5. 决策选择: 当需要用户做出重要决策时  ## 用户交互操作  在需要用户交互时，使用以下操作：  1. request_user_action: 请求用户手动执行操作     json    {      "request_user_action": {        "type": "login|select|verify|input|decision",        "message": "请登录您的账号",        "description": "系统需要您的账号密码，请手动完成登录",        "options": ["选项1", "选项2"]  // 可选，提供选择项      }    }      2. evaluate_state: 用户操作完成后评估当前状态     json    {      "evaluate_state": {        "description": "用户已完成登录操作"      }    }      ## 通用操作  以下操作适用于所有场景：  ### 基础操作  1. create_tab: 创建新标签页并导航到目标 url     json    { "create_tab": { "url": "https://example.com" } }      2. click_element: 点击页面上的元素     json    { "click_element": { "index": 42 } }      3. input_text: 在表单字段中输入文本     json    { "input_text": { "index": 24, "text": "示例文本" } }      4. extract_content: 提取页面内容     json    { "extract_content": { "goal": "查找税额信息" } }      5. scroll: 滚动页面     json    { "scroll": { "direction": "down", "amount": "medium" } }       ### 标签页操作  7. get_tabs: 获取所有标签页信息     json    { "get_tabs": {} }      8. create_tab: 创建新标签页     json    { "create_tab": { "url": "https://example.com" } }      9. switch_tab: 切换标签页     json    { "switch_tab": { "tab_id": "tab_123" } }      10. close_tab: 关闭当前标签页      json     { "close_tab": {} }       ### 元素查找与操作  11. extract_content: 提取页面内容     json    { "extract_content": { "goal": "搜索框" } }      12. find_element_by_text: 通过文本内容查找元素      json     { "find_element_by_text": { "text": "登录", "partial_match": true } }       13. find_element_by_attribute: 通过属性查找元素      json     {       "find_element_by_attribute": {         "attribute": "id",         "value": "username",         "partial_match": false       }     }       ### 高级操作  14. inject_script: 注入 JavaScript 脚本到页面      json     {       "inject_script": {         "script": "document.querySelector('h1').innerText = '已修改'"       }     }       ### 组合工具  15. get_or_create_tab: 获取或创建带有特定 URL 的标签页      json     { "get_or_create_tab": { "url": "https://example.com" } }       16. find_and_click: 查找并点击包含指定文本的元素      json     { "find_and_click": { "text": "搜索|登录", "partial_match": true } }       17. input_text_and_search: 自动检测搜索输入框，输入要搜索的文本，然后点击搜索按钮或按回车搜索      json     { "input_text_and_search": {"search_text": "要搜索的内容"}}       18. check_condition_and_execute: 检查页面条件并执行相应操作，例如：检查用户是否已登录，如果已登录则继续，否则请求用户手动登录：。         json     {       "check_condition_and_execute": {         "condition_check": {           "type": "is_logged_in",           "parameters": {             "login_button_text": "登录",             "user_element_text": "我的"           }         },         "action_if_true": {           "wait": {             "time": 0.5,             "message": "用户已登录，跳过登录步骤"           }         },         "action_if_false": {           "request_user_action": {             "type": "login",             "message": "请登录您的小红书账号",             "description": "需要您手动完成小红书账号的登录，以便继续执行下一步操作。"           }         }       }     }      # 标签页处理增强  ## 新标签页自动检测与切换  当点击某些元素后，可能会打开新的标签页。系统现在已经增强，可以自动检测新标签页并切换到新标签页。在执行点击操作时，请注意以下行为：  1. 默认情况下，当点击元素导致新标签页打开时，系统会自动切换到新标签页 2. 每次点击操作后，响应中会包含 new_tab_created 字段，指示是否创建了新标签页 3. 如果不希望自动切换到新标签页，可以设置 auto_switch_tab 参数为 false  ### 示例操作  自动切换到新标签页（默认行为）: json { "click_element": { "index": 42 } }   点击但不自动切换到新标签页: json { "click_element": { "index": 42, "auto_switch_tab": false } }   查找并点击但不自动切换到新标签页: json { "find_and_click": { "text": "登录", "partial_match": true, "auto_switch_tab": false } }   ## 标签页检测最佳实践  为了确保正确处理标签页：  1. 响应监控: 在每次点击操作后，检查响应中的 new_tab_created 字段 2. 检测跳转: 如果网站打开了新标签页但系统没有自动检测到，使用 get_tabs 操作并检查是否有新标签页 4. 多标签页任务: 在处理多标签页任务时，记录各标签页的ID和用途，以便在需要时切换回特定标签页  遵循这些增强的标签页处理方法，可以大大提高在需要处理多标签页场景下的自动化任务成功率。  ## 规则和指南  1. 页面理解: 在决定下一步操作前，分析当前页面状态。  2. 错误处理: 如果操作失败，尝试替代方案或提供清晰的解释。  3. 任务完成: 任务完成时使用"done"操作，并详细总结结果。  4. 记忆管理: 在"memory"字段中记录进度，包括已完成的步骤。  5. 限制操作: 只使用上述定义的操作，不要创建新操作。  6. 中文环境: 理解你正在处理中文网站，可能有特定的要求和术语。  7. 用户交互判断: 积极识别需要用户交互的场景。当遇到登录页面、选择页面或需要验证的页面时，应立即使用request_user_action操作。  8. 交互后状态评估: 在用户完成手动操作后，始终使用evaluate_state操作获取最新页面状态。  ## 响应评估  你的回应将基于以下标准评估：  1. JSON 格式的准确性 2. 朝着完成用户请求的进展 3. 适当的错误处理  始终在"evaluation_previous_goal"字段中展示你对当前情况的完整分析，以展示你对当前状态的理解。除了 json 输出可以用英文外，其余对话文字用中文输出。  ## 响应格式  你必须始终使用以下格式回复： json {   "current_state": {     "previous_action": "success|failure",     "evaluation_previous_goal": "成功|失败|未知 - 对前一步操作结果的分析",     "memory": "已完成步骤的描述和需要记住的上下文信息",     "next_goal": "下一步操作的目标",     "user_interaction_needed": true|false  // 标记是否需要用户交互   },   "action": [     {       "action_name": {         "parameter1": "value1",         "parameter2": "value2"       }     },     // 可以是多个操作，按顺序执行     {       "another_action": {         "parameter1": "value1"       }     },     // 用户交互操作示例     {       "request_user_action": {         "type": "login|select|verify|input|decision",         "message": "请用户执行的操作描述",         "description": "详细说明",         "options": ["选项1", "选项2"]  // 可选参数，提供选择项       }     },     // 用户操作完成后评估状态操作示例     {       "evaluate_state": {         "description": "用户完成操作的描述"       }     }   ] }  请在生成 JSON 数据时严格遵循以下规则：  1. 当 JSON 字符串值内部包含双引号时，必须使用转义字符 \" 进行转义 2. 确保所有嵌套在 JSON 字符串内的引号都被正确转义，特别是中文或其他语言文本中的引号 3. 每次生成 JSON 前，检查所有字符串值是否包含未转义的双引号 4. 在最终输出前，验证 JSON 是否符合标准格式并能被正确解析 5. 示例：    - 错误格式：{ "message": "搜索"关键词"结果" }    - 正确格式：{ "message": "搜索\"关键词\"结果" } 6. 即使是在中文文本中的引号也必须转义，如："中信银行信用卡" 应写为 "\"中信银行信用卡\""  为保证输出的 JSON 可被程序解析，请对每个生成的 JSON 字符串进行内部校验，确保所有引号都被正确转义。如果您生成的 JSON 无法被解析，程序将会失败。  用户请求: q帮我打开小红书查询中心中信银行信用卡的信息并点击第一个内容
+
+好的，我会帮你打开小红书，搜索"中信银行信用卡"的信息，并点击第一个搜索结果。我会一步步操作浏览器来完成这个任务。
+
+以下是您上次动作的结果:  [当前状态开始] 状态: ✅ 成功 消息: 成功创建新标签页并导航到 https://www.xiaohongshu.com tab_id: 6 tab_title: 小红书 - 你的生活指南 tab_url: https://www.xiaohongshu.com/explore [当前状态结束]  基于此结果，下一步应该执行什么动作来完成用户的请求: "q帮我打开小红书查询中心中信银行信用卡的信息并点击第一个内容"？  请记住： 1. 使用合理的操作顺序：对于搜索功能，应先点击搜索框，然后输入文本，最后点击搜索按钮 2. 如果遇到需要登录、选择或输入敏感信息的情况，使用request_user_action操作让用户手动操作 3. 确保每个操作后都等待适当时间以确保页面响应 4. 使用有效的JSON对象，遵循要求的格式  执行输入框点击输入文本并搜索的动作，请一定使用input_text_and_search
+
+stop
+
+I've ended the simulation of the browser automation system. It seems we were in the middle of a process to help search for "中信银行信用卡" (China CITIC Bank credit card) information on Xiaohongshu (Little Red Book), a popular Chinese social media and e-commerce platform.
+
+The system was designed to:
+
+Since you've asked to stop, I've halted this process. Is there something else I can help you with instead?
+
+Our most intelligent model yet Learn more
+
+
+================================================================================
+列表内容:
+================================================================================
+
+列表 1 (ul):
+  1. 紫鸟浏览器: Cross-Border E-Commerce Tools and Services
+
+列表 2 (ul):
+  1. Automating Browser Tasks for Users
+  2. Automating Online Tasks with a Versatile AI Assistant
+  3. Automating Social Security Record Lookup and Download
+  4. Automating Online Tasks with a Versatile AI Assistant
+  5. Automating Social Security Record Lookup
+  6. Automating Browser Tasks for Users
+  7. Handling JSON Strings with Unescaped Quotes
+  8. Extracting Search Results on Bank Credit Cards
+  9. Automated Browser Tasks for Users
+  10. Untitled
+  11. Triggering Search with JavaScript
+  12. Automating Searches and Tasks on Douyin
+  13. Assistance Available
+  14. Automating Searches and Navigation on Douyin
+  15. Automating Searches and Actions on Douyin
+  16. Automating Searches and Actions on Douyin
+  17. Automated Search Input and Execution Tool
+  18. Automating Searches and Actions on Douyin
+  19. Automating Searches on Douyin
+  20. Troubleshooting Douyin Search Box Input
+  21. Troubleshooting Automated Workflow for Searching on Douyin
+  22. Automating Online Tasks with a Versatile AI Assistant
+  23. Extracting Successful Steps from Agent Exploration History
+  24. Extracting Code and Document Content from Sidebar
+  25. Optimized Workflow for Automating Douyin Web Search
+  26. Automating User Login Checks in AI Workflows
+  27. Automating Online Tasks with a Versatile AI Assistant
+  28. Fixing "cannot access local variable 'matched_workflow'" error
+  29. Automating Social Security Queries
+  30. Highlighting and Retrieving Clickable Elements on a Web Page
+
+列表 3 (ol):
+  1. Open the Xiaohongshu website
+  2. Check if the user was logged in
+  3. Either proceed with searching if logged in, or request manual login from the user
+  4. Search for "中信银行信用卡" information
+  5. Click on the first search result
+
+
+================================================================================
+链接内容:
+================================================================================
+
+New chat: /new
+Projects: /projects
+Chats: /recents
+紫鸟浏览器: Cross-Border E-Commerce Tools and Services: /chat/b2ef02ee-d284-424e-9453-610a3014852a
+Automating Browser Tasks for Users: /chat/60293593-1818-45a5-8a0a-e5164d2ab25a
+Automating Online Tasks with a Versatile AI Assistant: /chat/7e628132-ba4e-4243-9cec-06ad3f692502
+Automating Social Security Record Lookup and Download: /chat/4fcaf6b3-6e46-456f-96c8-0d34b8b2c16e
+Automating Online Tasks with a Versatile AI Assistant: /chat/aaa04fc0-5d35-4dbe-b6e2-7cb6a056c273
+Automating Social Security Record Lookup: /chat/05faf0a2-8353-476b-ad6b-a87043b9b339
+Automating Browser Tasks for Users: /chat/c58b964a-81a5-4f77-9f04-19b355466328
+Handling JSON Strings with Unescaped Quotes: /chat/2471c8d0-97b0-4b74-b052-e2e99da3366f
+Extracting Search Results on Bank Credit Cards: /chat/1ca06150-e4b5-4e4b-b609-cc7e41ec37d4
+Automated Browser Tasks for Users: /chat/90c62bdc-1f78-467f-9ce0-c322bf8fcc55
+Untitled: /chat/d476042c-3d99-4322-a7da-6bd6c9eb9861
+Triggering Search with JavaScript: /chat/2a5809df-170c-43af-8d9c-f02e07f746a6
+Automating Searches and Tasks on Douyin: /chat/848a2eed-3f98-43f9-aa8f-4cc3ca691039
+Assistance Available: /chat/de2b5b96-61f9-4296-ab35-eecf0d58df2a
+Automating Searches and Navigation on Douyin: /chat/f1579db2-e908-4f08-bb0f-112c5ea649da
+Automating Searches and Actions on Douyin: /chat/7c8b6add-fb81-459d-94cb-a592f24db031
+Automating Searches and Actions on Douyin: /chat/ed0cacae-e687-456f-9c7a-36a15dc46489
+Automated Search Input and Execution Tool: /chat/168fdb0c-64e9-43f2-843a-b804d3b3b771
+Automating Searches and Actions on Douyin: /chat/f8cd3a3e-5127-4100-aca3-c6dd338747bc
+Automating Searches on Douyin: /chat/0af6b1af-d831-4c48-9ba1-ece57a659766
+Troubleshooting Douyin Search Box Input: /chat/668d93c0-cf8e-4612-9455-0ec56a47c75a
+Troubleshooting Automated Workflow for Searching on Douyin: /chat/5190de1c-11d6-4583-a2f2-32528cf12084
+Automating Online Tasks with a Versatile AI Assistant: /chat/2f03358e-d298-4962-8d58-15e5b6239822
+Extracting Successful Steps from Agent Exploration History: /chat/2e82bb52-beaf-4feb-b7cd-c84b7e54c411
+Extracting Code and Document Content from Sidebar: /chat/b9d5bf67-d447-4f55-aa72-c3b2ec23a935
+Optimized Workflow for Automating Douyin Web Search: /chat/29697d35-f4f5-4e32-a766-b29d114536c7
+Automating User Login Checks in AI Workflows: /chat/19f582d6-3ad7-463f-9cab-13bdabccccd3
+Automating Online Tasks with a Versatile AI Assistant: /chat/284bf52d-41f0-4065-ab43-8fd8a72111c5
+Fixing "cannot access local variable 'matched_workflow'" error: /chat/3a24e911-8d4b-4d5c-bca5-568ecf845577
+Automating Social Security Queries: /chat/abe360a8-9fab-44e5-83ef-d3b644572a3c
+Highlighting and Retrieving Clickable Elements on a Web Page: /chat/c9627cf3-ec21-487c-b53b-cc4a38191cb3
+All chats: /recents
+https://www.xiaohongshu.com: https://www.xiaohongshu.com
+https://www.xiaohongshu.com/explore: https://www.xiaohongshu.com/explore
+Claude can make mistakes. Please double-check responses.: https://support.anthropic.com/en/articles/8525154-claude-is-providing-incorrect-or-misleading-responses-what-s-going-on
+Learn more: https://www.anthropic.com/product
