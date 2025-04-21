@@ -126,10 +126,10 @@ class UniversalAgent:
                         "new_tab_created", "new_tab_id"]:
                 # 保留更多的文本块信息
                 if key == "text_blocks":
-                    formatted_text += f"{key}: {json.dumps(value[:20], ensure_ascii=False)}\n"
+                    formatted_text += f"{key}: {json.dumps(value, ensure_ascii=False)}\n"
                 # 对于其他大型数据，适当截断但保留更多内容
                 elif isinstance(value, dict) or isinstance(value, list):
-                    formatted_text += f"{key}: {json.dumps(value, ensure_ascii=False)[:1000]}...\n"
+                    formatted_text += f"{key}: {json.dumps(value, ensure_ascii=False)}...\n"
                 else:
                     formatted_text += f"{key}: {value}\n"
         

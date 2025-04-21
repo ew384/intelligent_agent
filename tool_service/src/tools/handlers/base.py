@@ -198,7 +198,7 @@ class BaseHandler:
         goal = parameters.get('goal')
         highlight_elements = parameters.get('highlight_elements', True)  # 新增参数，默认为True
         viewport_expansion = parameters.get('viewport_expansion', 500)   # 新增参数
-        max_elements = parameters.get('max_elements', 150)               # 新增参数，限制返回元素数量
+        max_elements = parameters.get('max_elements', 250)               # 新增参数，限制返回元素数量
         
         if not goal:
             return {"status": "error", "message": "未指定提取目标"}
@@ -245,7 +245,7 @@ class BaseHandler:
                     elements_info.append({
                         "index": index,
                         "tag_name": element.tag_name,
-                        "text": element_text[:50] if element_text else "",  # 限制文本长度
+                        "text": element_text[:100] if element_text else "",  # 限制文本长度
                         "attributes": key_attributes,
                         #"is_visible": element.is_visible,
                         #"is_interactive": element.is_interactive,

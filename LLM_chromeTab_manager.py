@@ -53,8 +53,14 @@ def save_tabs_state():
         # Load existing state
         state = {}
         if os.path.exists(TABS_STATE_FILE):
-            with open(TABS_STATE_FILE, 'r') as f:
-                state = json.load(f)
+            try:
+                with open(TABS_STATE_FILE, 'r') as f:
+                    content = f.read().strip()
+                    if content:  # Only try to load if file is not empty
+                        state = json.loads(content)
+            except json.JSONDecodeError:
+                logger.warning(f"Invalid JSON in {TABS_STATE_FILE}, starting with empty state")
+                state = {}
         
         if "tabs" not in state:
             state["tabs"] = {}
@@ -83,6 +89,7 @@ def save_tabs_state():
     except Exception as e:
         logger.error(f"Failed to save tab state: {str(e)}")
 
+
 def load_tabs_state():
     """Load tab state from file"""
     try:
@@ -90,8 +97,16 @@ def load_tabs_state():
             logger.info("No tab state file found")
             return
         
-        with open(TABS_STATE_FILE, 'r') as f:
-            state = json.load(f)
+        try:
+            with open(TABS_STATE_FILE, 'r') as f:
+                content = f.read().strip()
+                if not content:  # File is empty
+                    logger.warning(f"{TABS_STATE_FILE} is empty, no state to load")
+                    return
+                state = json.loads(content)
+        except json.JSONDecodeError:
+            logger.warning(f"Invalid JSON in {TABS_STATE_FILE}, skipping load")
+            return
         
         # Clear current state
         for api_key in user_tabs:
@@ -124,7 +139,6 @@ def load_tabs_state():
         logger.info("Tab state loaded")
     except Exception as e:
         logger.error(f"Failed to load tab state: {str(e)}")
-
 
 async def validate_existing_tabs():
     """验证和清理已加载的标签页状态"""
@@ -170,6 +184,7 @@ async def validate_existing_tabs():
         
     except Exception as e:
         logger.error(f"验证标签页状态时出错: {str(e)}")
+
 
 @app.on_event("startup")
 async def startup_event():
@@ -278,11 +293,59 @@ async def reinitialize_browser_session():
     except Exception as e:
         logger.error(f"重新初始化浏览器会话失败: {str(e)}")
         return False
+
 async def get_api_key(api_key: str = Header(...)):
     """验证API密钥并返回用户信息"""
     if api_key not in api_keys:
         raise HTTPException(status_code=401, detail="无效的API密钥")
     return api_key
+
+# Add this new endpoint to allow manual cleanup
+@app.post("/admin/cleanup")
+async def manual_cleanup(api_key: str = Depends(get_api_key)):
+    """Manually trigger a cleanup of the tabs state file"""
+    global last_cleanup_time
+    
+    try:
+        # Perform cleanup
+        await cleanup_tabs_state()
+        last_cleanup_time = time.time()
+        
+        # Also validate existing tabs
+        await validate_existing_tabs()
+        
+        return {
+            "status": "success",
+            "message": "Tab state cleanup completed successfully"
+        }
+    except Exception as e:
+        logger.error(f"Manual cleanup failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Manual cleanup failed: {str(e)}")
+
+# For an even more aggressive cleanup, you can add an option to completely reset the state
+@app.post("/admin/reset_state")
+async def reset_state(api_key: str = Depends(get_api_key)):
+    """Reset the tabs state file completely"""
+    global last_cleanup_time
+    
+    try:
+        # Create a new empty state
+        with open(TABS_STATE_FILE, 'w') as f:
+            json.dump({"tabs": {}}, f)
+            
+        # Clear in-memory state
+        for key in user_tabs:
+            user_tabs[key] = {}
+            
+        last_cleanup_time = time.time()
+        
+        return {
+            "status": "success",
+            "message": "Tab state has been completely reset"
+        }
+    except Exception as e:
+        logger.error(f"State reset failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"State reset failed: {str(e)}")
 
 @app.post("/tabs")
 async def create_tab(request: TabRequest, api_key: str = Depends(get_api_key)):
